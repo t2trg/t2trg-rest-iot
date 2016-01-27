@@ -57,9 +57,11 @@ normative:
     seriesinfo: Ph.D. Dissertation, University of California, Irvine
   RFC5246:
   RFC6347:
+  I-D.ietf-core-resource-directory:
   RFC7049:
   W3C.REC-exi-20110310:
 informative:
+  RFC7228:
   RFC7252:
   RFC7159:
   I-D.jennings-core-senml:
@@ -80,27 +82,25 @@ Transfer (REST) architectural style.
 
 # Introduction
 
-The Representational State Transfer (REST) architectural style {{REST}}
-is a set of guidelines and best practices for building distributed
-hypermedia systems.
+The Representational State Transfer (REST) architectural style {{REST}} is a set of guidelines and best practices for building distributed hypermedia systems.
 
-When REST principles are applied to a design of a system, the result is
+When REST principles are applied to the design of a system, the result is
 often called RESTful and in particular an API following these principles is 
 called a RESTful API.
 
-Different protocols can be used with RESTful systems, but at the time of
-writing the most common protocols are HTTP {{RFC7231}} and CoAP {{RFC7252}}.
+Different protocols can be used with RESTful systems, but at the time of writing the most common protocols are HTTP {{RFC7231}} and CoAP {{RFC7252}}.
 
-RESTful design facilitates many desirable features for a system, such as good
-scaling properties. RESTful APIs are also often simple and lightweight and hence
-easy to use also with various IoT applications. The goal of this document is
-to give basic guidance for designing RESTful systems and APIs for IoT applications
-and give pointers for more information. 
+RESTful design facilitates many desirable features for a system, such as good scaling properties. RESTful APIs are also often simple and lightweight and hence easy to use also with various IoT applications. The goal of this document is to give basic guidance for designing RESTful systems and APIs for IoT applications and give pointers for more information. 
+
+Design of a good RESTful IoT system has naturally many commonalities with other Web systems. Compared to other systems, the key characteristics of many IoT systems include:
+
+* data formats, interaction patterns, and other mechanisms that minimize, or preferably avoid, the need for human interaction
+
+* preference for compact data formats to facilitate efficient transfer over (often) constrained networks and processing in constrained nodes
 
 # Terminology {#sec-terms}
 
-This section explains some of the common terminology that is used in the
-context of RESTful design for IoT systems.
+This section explains some of the common terminology that is used in the context of RESTful design for IoT systems. For terminology of constrained nodes and networks, see {{RFC7228}}.
 
 Application State: The set of pending requests, history of requests, bookmarks (URIs stored for later retrieval), and application-specific state that the client keeps between requests.
 
@@ -144,7 +144,7 @@ Resource: An item of interest identified by a URI. Anything that can be named ca
 
 Reverse Proxy: An intermediary that appears as a server towards the client but satisfies the requests by forwarding them to the actual server (possibly via one or more other intermediaries). A reverse proxy is often used to encapsulate legacy services, to improve server performance through caching, and to enable load balancing across multiple machines.
 
-Safe Method: A method that does not result in any state change on the origin server when applied to a resource. For example, the GET method only returns a representation of the resource state but does not change the resource.
+Safe Method: A method that does not result in any state change on the origin server when applied to a resource. For example, the GET method only returns a representation of the resource state but does not change the resource. Thus, it is always safe for a client to retrieve a representation without affecting server-side state.
 
 Server: A node that listens for requests, applies the requested actions to resources, and sends responses back to the clients.
 
@@ -154,7 +154,7 @@ Uniform Resource Identifier (URI): A global identifier for resources. See {{sec-
 
 ## Architecture
 
-The components of a REST system are assigned one of two roles: client or server.
+The components of a RESTful system are assigned one of two roles: client or server.
 User agents are always in the client role and have the initiative to issue requests.
 Intermediaries (such as forward proxies and reverse proxies) implement both roles, but only forward requests to other intermediaries or origin servers.
 They can also translate requests to different protocols, for instance, CoAP-HTTP cross-proxies.
@@ -196,7 +196,7 @@ This property is enforced by the layered system constraint of REST, which says t
 {: artwork-align="center" #basic-arch-b title="Communication with Reverse Proxy"}
 
 Nodes in IoT systems often implement both roles.
-Unlike intermediaries, however, they can take the initiative as a client (e.g., to register with a directory, such as CoAP Resource Directory) and act as origin server at the same time (e.g., to serve sensor values).
+Unlike intermediaries, however, they can take the initiative as a client (e.g., to register with a directory, such as CoRE Resource Directory {{I-D.ietf-core-resource-directory}}, or to interact with another thing) and act as origin server at the same time (e.g., to serve sensor values or provide an actuator interface).
 
 ~~~~~~~~~~~~~~~~~~~
  ________                                         _________
@@ -214,7 +214,7 @@ Unlike intermediaries, however, they can take the initiative as a client (e.g., 
 
 ## System design
 
-When designing a REST system, the state of the distributed application must be assigned to the different components.
+When designing a RESTful system, the state of the distributed application must be assigned to the different components.
 Here, it is important to distinguish between "session state" and "resource state".
 
 Session state encompasses the control flow and the interactions between the components (see {{sec-terms}}).
@@ -229,23 +229,13 @@ This can be static data such as device descriptions, persistent data such as sys
 
 ## Resource modeling
 
-Important part of RESTful API design is to model the system as a set of
-resources whose state can be retrieved and/or modified and where resources
-can be potentially also created and/or deleted. 
+Important part of RESTful API design is to model the system as a set of resources whose state can be retrieved and/or modified and where resources can be potentially also created and/or deleted.
 
-Resource representations have a media type that tells how the
-representation should be interpreted. Typical media types for IoT systems
-include "text/plain" for simple UTF-8 text, "application/octet-stream"
-for arbitrary binary data, "application/json" for JSON {{RFC7159}},
-"application/senml+json" {{I-D.jennings-core-senml}} for Sensor Markup
-Language (SenML) formatted data, "application/cbor" for CBOR {{RFC7049}}, "application/exi" for EXI {{W3C.REC-exi-20110310}}. Full list of registered internet media
-types is available at the IANA registry {{IANA-media-types}} and media
-types registered for use with CoAP are listed at CoAP Content-Formats
-IANA registry {{IANA-CoAP-media}}.
+Resource representations have a media type that tells how the representation should be interpreted. Typical media types for IoT systems include "text/plain" for simple UTF-8 text, "application/octet-stream" for arbitrary binary data, "application/json" for JSON {{RFC7159}}, "application/senml+json" {{I-D.jennings-core-senml}} for Sensor Markup Language (SenML) formatted data, "application/cbor" for CBOR {{RFC7049}}, "application/exi" for EXI {{W3C.REC-exi-20110310}}. Full list of registered internet media types is available at the IANA registry {{IANA-media-types}} and media types registered for use with CoAP are listed at CoAP Content-Formats IANA registry {{IANA-CoAP-media}}.
 
 ## Uniform Resource Identifiers (URIs) {#sec-uris}
 
-Uniform Resource Identifiers (URIs) are used to interact with a resource, to reference a resource from another resource, to advertise or bookmark a resource, or to index a resource by search engines.
+Uniform Resource Identifiers (URIs) are used to indicate a resource for interaction, to reference a resource from another resource, to advertise or bookmark a resource, or to index a resource by search engines.
 
       foo://example.com:8042/over/there?name=ferret#nose
       \_/   \______________/\_________/ \_________/ \__/
@@ -261,10 +251,9 @@ The query parameters can be used to parametrize the resource. For example, a GET
 
 ## HTTP/CoAP Methods {#sec-methods}
 
-Section 4.3 of {{RFC7231}} defines the set of methods in HTTP;
+Section 4.3 of {{RFC7231}} defines the set of methods in HTTP; 
 Section 5.8 of {{RFC7252}} defines the set of methods in CoAP.
-The following lists the most relevant methods and gives a
-short explanation of their semantics.
+The following lists the most relevant methods and gives a short explanation of their semantics.
 
 ### GET
 
@@ -272,7 +261,7 @@ The GET method requests a current representation for the target resource. Only t
 
 A payload within a GET request message has no defined semantics.
 
-A response to a successful GET request is cacheable; a cache may use it to satisfy future, equivalent GET requests. The GET method is safe and idempotent.
+The GET method is safe and idempotent.
 
 ### POST
 
