@@ -102,29 +102,29 @@ Design of a good RESTful IoT system has naturally many commonalities with other 
 
 This section explains some of the common terminology that is used in the context of RESTful design for IoT systems. For terminology of constrained nodes and networks, see {{RFC7228}}.
 
-Application State: The set of pending requests, history of requests, bookmarks (URIs stored for later retrieval), and application-specific state that the client keeps between requests.
+Application State: The state kept by a client between requests. This typically includes the "current" resource, the set of active requests, the history of requests, bookmarks (URIs stored for later retrieval) and application-specific state.
 
 Cache: A local store of response messages and the subsystem that controls storage, retrieval, and deletion of messages in it.
 
 Client: A node that sends requests to servers and receives responses.
 
-Content Negotiation: The practice of determining the "best" representation for a client when examining the current state of a resource.
+Content Negotiation: The practice of determining the "best" representation for a client when examining the current state of a resource. The most common forms of content negotiation are Proactive Content Negotiation and Reactive Content Negotiation.
 
 Form: A hypermedia control that enables a client to change the state of a resource.
 
-Forward Proxy: An intermediary that is selected by a client, usually via local configuration rules, and that can be tasked to make requests on behalf of the client. This may be useful, for example, when the client lacks the capability to make the request itself, or to service the response from a cache in order to reduce response time and network bandwidth or energy consumption.
+Forward Proxy: An intermediary that is selected by a client, usually via local configuration rules, and that can be tasked to make requests on behalf of the client. This may be useful, for example, when the client lacks the capability to make the request itself or to service the response from a cache in order to reduce response time, network bandwidth and energy consumption.
 
 Gateway: See "Reverse Proxy".
 
-Hypermedia Control: A component embedded in a representation that describes a request. By performing the request, the client can change resource state and/or move the application state forward.
+Hypermedia Control: A component embedded in a representation that describes a future request, such as a link or a form. By performing the request, the client can change resource state and/or application state.
 
-Idempotent Method: A method where multiple identical requests with that method lead to the same visible resource state as a single such request. For example, the PUT method replaces the state of a resource with a new state; replacing the state multiple times with the same new state still results in the same result.
+Idempotent Method: A method where multiple identical requests with that method lead to the same visible resource state as a single such request. For example, the PUT method replaces the state of a resource with a new state; replacing the state multiple times with the same new state still results in the same state for the resource.
 
 Link: A hypermedia control that enables a client to navigate between resources and thereby change the application state.
 
-Media Type: A sequence of characters such as "text/html" or "application/json" that is used to label representations so that it is known how the representation should be interpreted, and how it is encoded.
+Media Type: A string such as "text/html" or "application/json" that is used to label representations so that it is known how the representation should be interpreted and how it is encoded.
 
-Method: A procedure associated with a resource. Common methods include GET, PUT, POST, and DELETE (see {{sec-methods}} for details).
+Method: An operation associated with a resource. Common methods include GET, PUT, POST, and DELETE (see {{sec-methods}} for details).
 
 Origin Server: A server that is the definitive source for representations of its resources and the ultimate recipient of any request that intends to modify its resources. In contrast, intermediaries (such as proxies caching a representation) can assume the role of a server, but are not the source for representations as these are acquired from the origin server.
 
@@ -132,21 +132,21 @@ Proactive Content Negotiation: A content negotiation mechanism where the server 
 
 Reactive Content Negotiation: A content negotiation mechanism where the client selects a representation from a list of available representations. The list may, for example, be included by a server in an initial response. If the user agent is not satisfied by the initial response representation, it can request one or more of the alternative representations, selected based on metadata included in the list.
 
-Representation Format: A set of rules for encoding information in a sequence of bytes. In the Web, the most prevalent representation format is HTML. Other common formats include plain text (in UTF-8 or any other encoding), JSON or XML. With IoT systems, often compact formats such as JSON, CBOR, and EXI are used.
+Representation Format: A set of rules for encoding information in a sequence of bytes. In the Web, the most prevalent representation format is HTML. Other common formats include plain text (in UTF-8 or another encoding) and formats based on JSON or XML. With IoT systems, often compact formats based on JSON, CBOR, and EXI are used.
 
 Representation: A sequence of bytes, plus representation metadata, that captures the current or intended state of a resource and that can be transferred between clients and servers (possibly via one or more intermediaries).
 
 Representational State Transfer (REST): An architectural style for Internet-scale distributed hypermedia systems.
 
-Resource State: A mapping of a resource to a set of values that may change over time.
-
 Resource: An item of interest identified by a URI. Anything that can be named can be a resource. A resource often encapsulates a piece of state in a system. Typical resources in an IoT system can be, e.g., a sensor, the current value of a sensor, the location of a device, or the current state of an actuator.
+
+Resource State: A mapping of a resource to a set of values that may change over time.
 
 Reverse Proxy: An intermediary that appears as a server towards the client but satisfies the requests by forwarding them to the actual server (possibly via one or more other intermediaries). A reverse proxy is often used to encapsulate legacy services, to improve server performance through caching, and to enable load balancing across multiple machines.
 
 Safe Method: A method that does not result in any state change on the origin server when applied to a resource. For example, the GET method only returns a representation of the resource state but does not change the resource. Thus, it is always safe for a client to retrieve a representation without affecting server-side state.
 
-Server: A node that listens for requests, applies the requested actions to resources, and sends responses back to the clients.
+Server: A node that listens for requests, performs the requested operation and sends responses back to the clients.
 
 Uniform Resource Identifier (URI): A global identifier for resources. See {{sec-uris}} for more details.
 
