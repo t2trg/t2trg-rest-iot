@@ -88,7 +88,7 @@ When REST principles are applied to the design of a system, the result is
 often called RESTful and in particular an API following these principles is 
 called a RESTful API.
 
-Different protocols can be used with RESTful systems, but at the time of writing the most common protocols are HTTP {{RFC7231}} and CoAP {{RFC7252}}.
+Different protocols can be used with RESTful systems, but at the time of writing the most common protocols are HTTP {{RFC7230}} and CoAP {{RFC7252}}.
 
 RESTful design facilitates many desirable features for a system, such as good scaling properties. RESTful APIs are also often simple and lightweight and hence easy to use also with various IoT applications. The goal of this document is to give basic guidance for designing RESTful systems and APIs for IoT applications and give pointers for more information. 
 
