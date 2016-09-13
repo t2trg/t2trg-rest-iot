@@ -64,7 +64,7 @@ informative:
   RFC7228:
   RFC7252:
   RFC7159:
-  I-D.jennings-core-senml:
+  I-D.ietf-core-senml:
   IANA-media-types:
     title: Media Types
     target: http://www.iana.org/assignments/media-types/media-types.xhtml
@@ -254,7 +254,7 @@ This can be static data such as device descriptions, persistent data such as sys
 
 Important part of RESTful API design is to model the system as a set of resources whose state can be retrieved and/or modified and where resources can be potentially also created and/or deleted.
 
-Resource representations have a media type that tells how the representation should be interpreted. Typical media types for IoT systems include "text/plain" for simple UTF-8 text, "application/octet-stream" for arbitrary binary data, "application/json" for JSON {{RFC7159}}, "application/senml+json" {{I-D.jennings-core-senml}} for Sensor Markup Language (SenML) formatted data, "application/cbor" for CBOR {{RFC7049}}, "application/exi" for EXI {{W3C.REC-exi-20110310}}. Full list of registered internet media types is available at the IANA registry {{IANA-media-types}} and media types registered for use with CoAP are listed at CoAP Content-Formats IANA registry {{IANA-CoAP-media}}.
+Resource representations have a media type that tells how the representation should be interpreted. Typical media types for IoT systems include "text/plain" for simple UTF-8 text, "application/octet-stream" for arbitrary binary data, "application/json" for JSON {{RFC7159}}, "application/senml+json" {{I-D.ietf-core-senml}} for Sensor Markup Language (SenML) formatted data, "application/cbor" for CBOR {{RFC7049}}, "application/exi" for EXI {{W3C.REC-exi-20110310}}. Full list of registered internet media types is available at the IANA registry {{IANA-media-types}} and media types registered for use with CoAP are listed at CoAP Content-Formats IANA registry {{IANA-CoAP-media}}.
 
 ## Uniform Resource Identifiers (URIs) {#sec-uris}
 
