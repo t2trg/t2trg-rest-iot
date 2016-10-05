@@ -147,7 +147,7 @@ Reactive Content Negotiation:
 : A content negotiation mechanism where the client selects a representation from a list of available representations. The list may, for example, be included by a server in an initial response. If the user agent is not satisfied by the initial response representation, it can request one or more of the alternative representations, selected based on metadata (e.g., available media types) included in the response.
 
 Representation Format:
-: A set of rules for encoding information in a sequence of bytes. In the Web, the most prevalent representation format is HTML. Other common formats include plain text (in UTF-8 or another encoding) and formats based on JSON {{RFC7159}} or XML. With IoT systems, often compact formats based on JSON, CBOR {{RFC7049}}, and EXI {{W3C.REC-exi-20110310}} are used.
+: A set of rules for serializing resource state. On the Web, the most prevalent representation format is HTML. Other common formats include plain text and formats based on JSON {{RFC7159}}, XML, or RDF. Within IoT systems, often compact formats based on JSON, CBOR {{RFC7049}}, and EXI {{W3C.REC-exi-20110310}} are used.
 
 Representation:
 : A sequence of bytes, plus representation metadata, that captures the current or intended state of a resource and that can be transferred between clients and servers (possibly via one or more intermediaries).
