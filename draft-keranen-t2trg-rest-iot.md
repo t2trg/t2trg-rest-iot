@@ -122,7 +122,7 @@ Gateway:
 : See "Reverse Proxy".
 
 Hypermedia Control:
-: A component embedded in a representation that describes a future request, such as a link or a form. By performing the request, the client can change resource state and/or application state.
+: A component embedded in a representation that identifies a resource for future hypermedia interactions, such as a link or a form. If the client engages in an interaction with the identified resource, the result may be a change resource state and/or application state.
 
 Idempotent Method:
 : A method where multiple identical requests with that method lead to the same visible resource state as a single such request. For example, the PUT method replaces the state of a resource with a new state; replacing the state multiple times with the same new state still results in the same state for the resource. However, the response from the server can be different when the same idenpotent method is used multiple times. For example when DELETE is used twice on an existing resource, the first request would remove the association and return success acknowledgement whereas the second request would likely result in error response due to non-existing resource.
