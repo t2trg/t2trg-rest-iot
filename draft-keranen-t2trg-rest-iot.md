@@ -331,7 +331,7 @@ This document does not define new functionality and therefore does not introduce
 
 # Acknowledgement
 
-The authors would like to thank Mert Ocak, Heidi-Maria Back, Tero Kauppinen, Michael Koster, Robby Simpson, Ravi Subramaniam, and Dave Thaler for the reviews and feedback.
+The authors would like to thank Mert Ocak, Heidi-Maria Back, Tero Kauppinen, Michael Koster, Robby Simpson, Ravi Subramaniam, Dave Thaler, and Erik Wilde for the reviews and feedback.
 
 --- back
 
