@@ -100,14 +100,14 @@ Design of a good RESTful IoT system has naturally many commonalities with other 
 
 This section explains some of the common terminology that is used in the context of RESTful design for IoT systems. For terminology of constrained nodes and networks, see {{RFC7228}}.
 
-Application State:
-: The state kept by a client between requests. This typically includes the "current" resource, the set of active requests, the history of requests, bookmarks (URIs stored for later retrieval) and application-specific state.
-
 Cache:
 : A local store of response messages and the subsystem that controls storage, retrieval, and deletion of messages in it.
 
 Client:
 : A node that sends requests to servers and receives responses.
+
+Client State:
+: The state kept by a client between requests. This typically includes the "current" resource, the set of active requests, the history of requests, bookmarks (URIs stored for later retrieval) and application-specific state.
 
 Content Negotiation:
 : The practice of determining the "best" representation for a client when examining the current state of a resource. The most common forms of content negotiation are Proactive Content Negotiation and Reactive Content Negotiation.
@@ -122,14 +122,14 @@ Gateway:
 : See "Reverse Proxy".
 
 Hypermedia Control:
-: A component embedded in a representation that identifies a resource for future hypermedia interactions, such as a link or a form. If the client engages in an interaction with the identified resource, the result may be a change resource state and/or application state.
+: A component embedded in a representation that identifies a resource for future hypermedia interactions, such as a link or a form. If the client engages in an interaction with the identified resource, the result may be a change to resource state and/or client state.
 
 Idempotent Method:
 : A method where multiple identical requests with that method lead to the same visible resource state as a single such request. For example, the PUT method replaces the state of a resource with a new state; replacing the state multiple times with the same new state still results in the same state for the resource. However, the response from the server can be different when the same idenpotent method is used multiple times. For example when DELETE is used twice on an existing resource, the first request would remove the association and return success acknowledgement whereas the second request would likely result in error response due to non-existing resource.
 <!-- Too much text for terminology section? Should be separate section after 1st sentence? -->
 
 Link:
-: A hypermedia control that enables a client to navigate between resources and thereby change the application state.
+: A hypermedia control that enables a client to navigate between resources and thereby change the client state.
 
 Media Type:
 : A string such as "text/html" or "application/json" that is used to label representations so that it is known how the representation should be interpreted and how it is encoded.
@@ -336,8 +336,6 @@ The authors would like to thank Mert Ocak, Heidi-Maria Back, Tero Kauppinen, Mic
 --- back
 
 # Future Work
-
-* More details on the definition of application state. Is server involved and to what extent.
 
 * Discuss design patterns, such as "Observing state (asynchronous updates) of a resource", "Executing a Function", "Events as State", "Conversion", "Collections", "robust communication in network with high packet loss", "unreliable (best effort) communication", "3-way commit", etc.
 
