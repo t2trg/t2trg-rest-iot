@@ -36,15 +36,6 @@ author:
   country: Switzerland
   email: kovatsch@inf.ethz.ch
 
-- ins: K. Hartke
-  name: Klaus Hartke
-  org: Universitaet Bremen TZI
-  street: Postfach 330440
-  city: Bremen
-  code: D-28359
-  country: Germany
-  email: hartke@tzi.org
-  
 normative:
   RFC3986:
   RFC7230:
