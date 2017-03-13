@@ -238,10 +238,10 @@ Unlike intermediaries, however, they can take the initiative as a client (e.g., 
 ## System design
 
 When designing a RESTful system, the state of the distributed application must be assigned to the different components.
-Here, it is important to distinguish between "session state" and "resource state".
+Here, it is important to distinguish between "client state" and "resource state".
 
-Session state encompasses the control flow and the interactions between the components (see {{sec-terms}}).
-Following the statelessness constraint, the session state must be kept only on clients.
+Client state encompasses the control flow and the interactions between the components (see {{sec-terms}}).
+Following the statelessness constraint, the client state must be kept only on clients.
 On the one hand, this makes requests a bit more verbose since every request must contain all the information necessary to process it.
 On the other hand, this makes servers efficient, since they do not have to keep any state about their clients.
 Requests can easily be distributed over multiple worker threads or server instances.
