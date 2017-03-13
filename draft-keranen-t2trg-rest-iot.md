@@ -51,10 +51,16 @@ normative:
   I-D.ietf-core-resource-directory:
   RFC7049:
   W3C.REC-exi-20110310:
+  RFC5590:
+  RFC5246:
+  RFC5280:
+  RFC6347:
+  I-D.ietf-core-object-security:
 informative:
   RFC7228:
   RFC7252:
   RFC7159:
+  RFC7925:
   I-D.ietf-core-senml:
   IANA-media-types:
     title: Media Types
@@ -74,17 +80,16 @@ Transfer (REST) architectural style.
 # Introduction
 
 The Representational State Transfer (REST) architectural style {{REST}} is a set of guidelines and best practices for building distributed hypermedia systems.
-
+At its core is a set of constraints, which when fulfilled enable desirable properties for distributed software systems such as scalability and modifiability.
 When REST principles are applied to the design of a system, the result is often called RESTful and in particular an API following these principles is called a RESTful API.
 
 Different protocols can be used with RESTful systems, but at the time of writing the most common protocols are HTTP {{RFC7230}} and CoAP {{RFC7252}}.
-
-RESTful design facilitates many desirable features for a system, such as good scaling properties. RESTful APIs are also often simple and lightweight and hence easy to use also with various IoT applications. The goal of this document is to give basic guidance for designing RESTful systems and APIs for IoT applications and give pointers for more information. 
-
-Design of a good RESTful IoT system has naturally many commonalities with other Web systems. Compared to other systems, the key characteristics of many IoT systems include:
+Since RESTful APIs are often simple and lightweight, they are a good fit for various IoT applications.
+The goal of this document is to give basic guidance for designing RESTful systems and APIs for IoT applications and give pointers for more information. 
+Design of a good RESTful IoT system has naturally many commonalities with other Web systems.
+Compared to other systems, the key characteristics of many IoT systems include:
 
 * data formats, interaction patterns, and other mechanisms that minimize, or preferably avoid, the need for human interaction
-
 * preference for compact and simple data formats to facilitate efficient transfer over (often) constrained networks and lightweight processing in constrained nodes
 
 # Terminology {#sec-terms}
@@ -104,19 +109,19 @@ Content Negotiation:
 : The practice of determining the "best" representation for a client when examining the current state of a resource. The most common forms of content negotiation are Proactive Content Negotiation and Reactive Content Negotiation.
 
 Form:
-: A hypermedia control that enables a client to change the state of a resource.
+: A hypermedia control that enables a client to change the state of a resource or to construct a query locally.
 
 Forward Proxy:
 : An intermediary that is selected by a client, usually via local configuration rules, and that can be tasked to make requests on behalf of the client. This may be useful, for example, when the client lacks the capability to make the request itself or to service the response from a cache in order to reduce response time, network bandwidth and energy consumption.
 
 Gateway:
-: See "Reverse Proxy".
+: A reverse proxy that provides an interface to a non-RESTful system such as legacy systems or alternative technologies such as Bluetooth ATT/GATT. See also "Reverse Proxy".
 
 Hypermedia Control:
 : A component embedded in a representation that identifies a resource for future hypermedia interactions, such as a link or a form. If the client engages in an interaction with the identified resource, the result may be a change to resource state and/or client state.
 
 Idempotent Method:
-: A method where multiple identical requests with that method lead to the same visible resource state as a single such request. For example, the PUT method replaces the state of a resource with a new state; replacing the state multiple times with the same new state still results in the same state for the resource. However, the response from the server can be different when the same idenpotent method is used multiple times. For example when DELETE is used twice on an existing resource, the first request would remove the association and return success acknowledgement whereas the second request would likely result in error response due to non-existing resource.
+: A method where multiple identical requests with that method lead to the same visible resource state as a single such request. For example, the PUT method replaces the state of a resource with a new state; replacing the state multiple times with the same new state still results in the same state for the resource. However, the response from the server can be different when the same idempotent method is used multiple times. For example when DELETE is used twice on an existing resource, the first request would remove the association and return success acknowledgement whereas the second request would likely result in error response due to non-existing resource.
 <!-- Too much text for terminology section? Should be separate section after 1st sentence? -->
 
 Link:
@@ -137,11 +142,11 @@ Proactive Content Negotiation:
 Reactive Content Negotiation:
 : A content negotiation mechanism where the client selects a representation from a list of available representations. The list may, for example, be included by a server in an initial response. If the user agent is not satisfied by the initial response representation, it can request one or more of the alternative representations, selected based on metadata (e.g., available media types) included in the response.
 
-Representation Format:
-: A set of rules for serializing resource state. On the Web, the most prevalent representation format is HTML. Other common formats include plain text and formats based on JSON {{RFC7159}}, XML, or RDF. Within IoT systems, often compact formats based on JSON, CBOR {{RFC7049}}, and EXI {{W3C.REC-exi-20110310}} are used.
-
 Representation:
 : A serialization that represents the current or intended state of a resource and that can be transferred between clients and servers. REST requires representations to be self-describing, meaning that there must be metadata that allows peers to understand which representation format is used. Depending on the protocol needs and capabilities, there can be additional metadata that is transmitted along with the representation.
+
+Representation Format:
+: A set of rules for serializing resource state. On the Web, the most prevalent representation format is HTML. Other common formats include plain text and formats based on JSON {{RFC7159}}, XML, or RDF. Within IoT systems, often compact formats based on JSON, CBOR {{RFC7049}}, and EXI {{W3C.REC-exi-20110310}} are used.
 
 Representational State Transfer (REST):
 : An architectural style for Internet-scale distributed hypermedia systems.
@@ -168,12 +173,10 @@ Uniform Resource Identifier (URI):
 
 ## Architecture
 
-The components of a RESTful system are assigned one of two roles: client or server.
-User agents are always in the client role and have the initiative to issue requests.
-Intermediaries (such as forward proxies and reverse proxies) implement both roles, but only forward requests to other intermediaries or origin servers.
-They can also translate requests to different protocols, for instance, as CoAP-HTTP cross-proxies.
-
+The components of a RESTful system are assigned one or both of two roles: client or server.
 Note that the terms "client" and "server" refer only to the roles that the nodes assume for a particular message exchange. The same node might act as a client in some communications and a server in others.
+Classic user agents (e.g., Web browsers) are always in the client role and have the initiative to issue requests.
+Origin servers always have the server role and govern over the resources they host.
 
 ~~~~~~~~~~~~~~~~~~~
  ________                       _________
@@ -184,7 +187,10 @@ Note that the terms "client" and "server" refer only to the roles that the nodes
 (Browser)                      (Web Server)
 ~~~~~~~~~~~~~~~~~~~
 {: artwork-align="center" #basic-arch-x title="Client-Server Communication"}
- 
+
+Intermediaries (such as forward proxies, reverse proxies, and gateways) implement both roles, but only forward requests to other intermediaries or origin servers.
+They can also translate requests to different protocols, for instance, as CoAP-HTTP cross-proxies.
+
 ~~~~~~~~~~~~~~~~~~~
  ________       __________                        _________
 |        |     |          |                      |         |
@@ -197,7 +203,8 @@ Note that the terms "client" and "server" refer only to the roles that the nodes
 
 Reverse proxies are usually imposed by the origin server.
 In addition to the features of a forward proxy, they can also provide an interface for non-RESTful services such as legacy systems or alternative technologies such as Bluetooth ATT/GATT.
-This property is enforced by the layered system constraint of REST, which says that a client cannot see beyond the server it is connected to.
+In this case, reverse proxies are usually called gateways.
+This property is enabled by the Layered System constraint of REST, which says that a client cannot see beyond the server it is connected to (i.e., it is left unaware of the protocol/paradigm change).
 
 ~~~~~~~~~~~~~~~~~~~
  ________                        __________       _________
@@ -205,7 +212,7 @@ This property is enforced by the layered system constraint of REST, which says t
 | User  (C)--------------------(S) Inter- (x)---(x) Origin |
 | Agent  |                      |  mediary |     |  Server |
 |________|                      |__________|     |_________|
-(Browser)                     (Reverse Proxy)   (Legacy System)
+(Browser)                        (Gateway)     (Legacy System)
 ~~~~~~~~~~~~~~~~~~~
 {: artwork-align="center" #basic-arch-b title="Communication with Reverse Proxy"}
 
@@ -232,22 +239,19 @@ When designing a RESTful system, the state of the distributed application must b
 Here, it is important to distinguish between "client state" and "resource state".
 
 Client state encompasses the control flow and the interactions between the components (see {{sec-terms}}).
-Following the statelessness constraint, the client state must be kept only on clients.
+Following the Stateless constraint, the client state must be kept only on clients.
+That is, there is no establishment of shared information about future interactions between client and server (usually called a session).
 On the one hand, this makes requests a bit more verbose since every request must contain all the information necessary to process it.
-On the other hand, this makes servers efficient, since they do not have to keep any state about their clients.
+On the other hand, this makes servers efficient and scalable, since they do not have to keep any state about their clients.
 Requests can easily be distributed over multiple worker threads or server instances.
-For the IoT systems, it lowers the memory requirements for server implementations, which is particularly important for constrained servers and servers serving large amount of clients.
+For the IoT systems, it lowers the memory requirements for server implementations, which is particularly important for constrained servers (e.g., sensor nodes) and servers serving large amount of clients (e.g., Resource Directory).
 
-Resource state includes the more persistent data of an application (i.e., independent of the application control flow).
+Resource state includes the more persistent data of an application (i.e., independent of the client control flow and lifetime).
 This can be static data such as device descriptions, persistent data such as system configuration, but also dynamic data such as the current value of a sensor on a thing.
 
-## Resource modeling
-
-Important part of RESTful API design is to model the system as a set of resources whose state can be retrieved and/or modified and where resources can be potentially also created and/or deleted.
-
-Resource representations have a media type that tells how the representation should be interpreted. Typical media types for IoT systems include "text/plain" for simple UTF-8 text, "application/octet-stream" for arbitrary binary data, "application/json" for JSON {{RFC7159}}, "application/senml+json" {{I-D.ietf-core-senml}} for Sensor Markup Language (SenML) formatted data, "application/cbor" for CBOR {{RFC7049}}, "application/exi" for EXI {{W3C.REC-exi-20110310}}. Full list of registered internet media types is available at the IANA registry {{IANA-media-types}} and media types registered for use with CoAP are listed at CoAP Content-Formats IANA registry {{IANA-CoAP-media}}.
-
 ## Uniform Resource Identifiers (URIs) {#sec-uris}
+
+An important part of RESTful API design is to model the system as a set of resources whose state can be retrieved and/or modified and where resources can be potentially also created and/or deleted.
 
 Uniform Resource Identifiers (URIs) are used to indicate a resource for interaction, to reference a resource from another resource, to advertise or bookmark a resource, or to index a resource by search engines.
 
@@ -263,15 +267,26 @@ For RESTful IoT applications, typical schemes include "https", "coaps", "http", 
 The query parameters can be used to parametrize the resource. For example, a GET request may use query parameters to request the server to send only certain kind data of the resource (i.e., filtering the response). Query parameters in PUT and POST requests do not have such established semantics and are not commonly used.
 Whether the order of the query parameters matters in URIs is unspecified and they can be re-ordered e.g., by proxies. Therefore applications should not rely on their order; see Section 3.3 of {{?RFC6943}} for more details.
 
+## Representations
+
+Clients can retrieve the resource state from an origin server or manipulate resource state on the origin server by transferring resource representations.
+Resource representations have a media type that tells how the representation should be interpreted by identifying the representation format used.
+Typical media types for IoT systems include "text/plain" for simple UTF-8 text, "application/octet-stream" for arbitrary binary data, "application/json" for the JSON format {{RFC7159}}, "application/senml+json" {{I-D.ietf-core-senml}} for Sensor Markup Language (SenML) formatted data, "application/cbor" for CBOR {{RFC7049}}, and "application/exi" for EXI {{W3C.REC-exi-20110310}}.
+A full list of registered Internet Media Types is available at the IANA registry {{IANA-media-types}} and numerical media types registered for use with CoAP are listed at CoAP Content-Formats IANA registry {{IANA-CoAP-media}}.
+
 ## HTTP/CoAP Methods {#sec-methods}
 
 Section 4.3 of {{RFC7231}} defines the set of methods in HTTP; 
 Section 5.8 of {{RFC7252}} defines the set of methods in CoAP.
+As part of the Uniform Interface constraint, each method can have certain properties that give guarantees to clients:
+Safe methods do not cause any state change on the origin server when applied to a resource.
+Idempotent methods can be applied multiple times to the same resource while causing the same visible resource state as a single such request.
 The following lists the most relevant methods and gives a short explanation of their semantics.
 
 ### GET
 
-The GET method requests a current representation for the target resource. Only the origin server needs to know how each of its resource identifiers corresponds to an implementation and how each implementation manages to select and send a current representation of the target resource in a response to GET.
+The GET method requests a current representation for the target resource.
+Only the origin server needs to know how each of its resource identifiers corresponds to an implementation and how each implementation manages to select and send a current representation of the target resource in a response to GET.
 
 A payload within a GET request message has no defined semantics.
 
@@ -287,9 +302,12 @@ The POST method is not safe nor idempotent.
 
 ### PUT
 
-The PUT method requests that the state of the target resource be created or replaced with the state defined by the representation enclosed in the request message payload.  A successful PUT of a given representation would suggest that a subsequent GET on that same target resource will result in an equivalent representation being sent.
+The PUT method requests that the state of the target resource be created or replaced with the state defined by the representation enclosed in the request message payload.
+A successful PUT of a given representation would suggest that a subsequent GET on that same target resource will result in an equivalent representation being sent.
 
-The fundamental difference between the POST and PUT methods is highlighted by the different intent for the enclosed representation. The target resource in a POST request is intended to handle the enclosed representation according to the resource's own semantics, whereas the enclosed representation in a PUT request is defined as replacing the state of the target resource.  Hence, the intent of PUT is idempotent and visible to intermediaries, even though the exact effect is only known by the origin server.
+The fundamental difference between the POST and PUT methods is highlighted by the different intent for the enclosed representation.
+The target resource in a POST request is intended to handle the enclosed representation according to the resource's own semantics, whereas the enclosed representation in a PUT request is defined as replacing the state of the target resource.
+Hence, the intent of PUT is idempotent and visible to intermediaries, even though the exact effect is only known by the origin server.
 
 The PUT method is not safe, but is idempotent.
 
@@ -301,24 +319,122 @@ If the target resource has one or more current representations, they might or mi
 
 The DELETE method is not safe, but is idempotent.
 
-## HTTP/CoAP Status/Response Codes 
+## HTTP/CoAP Status/Response Codes
 
 Section 6 of {{RFC7231}} defines a set of Status Codes in HTTP that are used by application to indicate whether a request was understood and satisfied, and how to interpret the answer. 
 Similarly, Section 5.9 of {{RFC7252}} defines the set of Response Codes in CoAP.
 
-The status codes consist of three digits (e.g., "404" with HTTP or "4.04" with CoAP) where the first digit expresses the class of the code. Implementations do not need to understand all status codes, but the class of the code must be understood. Codes starting with 1 are informational; the request was received and being processed. Codes starting with 2 indicate successful request. Codes starting with 3 indicate redirection; further action is needed to complete the request. Codes stating with 4 and 5 indicate errors. The codes starting with 4 mean client error (e.g., bad syntax in request) whereas codes starting with 5 mean server error; there was no apparent problem with the request but server was not able to fulfill the request.
+The status codes consist of three digits (e.g., "404" with HTTP or "4.04" with CoAP) where the first digit expresses the class of the code.
+Implementations do not need to understand all status codes, but the class of the code must be understood.
+Codes starting with 1 are informational; the request was received and being processed.
+Codes starting with 2 indicate a successful request.
+Codes starting with 3 indicate redirection; further action is needed to complete the request.
+Codes stating with 4 and 5 indicate errors.
+The codes starting with 4 mean client error (e.g., bad syntax in the request) whereas codes starting with 5 mean server error; there was no apparent problem with the request, but server was not able to fulfill the request.
 
-Responses may be stored in a cache to satisfy future, equivalent requests. HTTP and CoAP use two different patterns to decide what responses are cacheable. In HTTP, the cacheability of a response depends on the request method (e.g., responses returned in reply to a GET request are cacheable). In CoAP, the cacheability of a response depends on the response code (e.g., responses with code 2.04 are cacheable). This difference also leads to slightly different semantics for the codes starting with 2; for example, CoAP does not have a 2.00 response code whereas 200 ("OK") is commonly used with HTTP.
+Responses may be stored in a cache to satisfy future, equivalent requests.
+HTTP and CoAP use two different patterns to decide what responses are cacheable.
+In HTTP, the cacheability of a response depends on the request method (e.g., responses returned in reply to a GET request are cacheable).
+In CoAP, the cacheability of a response depends on the response code (e.g., responses with code 2.04 are cacheable).
+This difference also leads to slightly different semantics for the codes starting with 2; for example, CoAP does not have a 2.00 response code whereas 200 ("OK") is commonly used with HTTP.
 
+# REST Constraints
+
+The REST architectural style defines a set of constraints for the system design.
+When all constraints are applied correctly, REST enables architectural properties of key interest {{REST}}:
+
+* Performance
+* Scalability
+* Reliability
+* Simplicity
+* Modifiability
+* Visibility
+* Portability 
+
+The following sub-sections briefly summarize the REST constraints and explain how they enable the listed properties.
+
+## Client-Server
+
+As explained in the Architecture section, RESTful system components have clear roles in every interaction.
+Clients have the initiative to issue requests, intermediaries can only forward requests, and servers respond requests, while origin servers are the ultimate recipient of requests that intent to modify resource state.
+
+This improves simplicity and visibility, as it is clear which component started an interaction.
+Furthermore, it improves modifiability through a clear separation of concerns.
+
+## Stateless
+
+The Stateless constraint requires messages to be self-contained.
+They must contain all the information to process it, independent from previous messages.
+This allows to strictly separate the client state from the resource state.
+
+This improves scalability and reliability, since servers or worker threads can be replicated.
+It also improves visibility because message traces contain all the information to understand the logged interactions.
+
+Furthermore, the Stateless constraint enables caching.
+
+## Cache
+
+This constraint requires responses to have implicit or explicit cache-control metadata.
+This enables clients and intermediary to store responses and re-use them to locally answer future requests.
+The cache-control metadata is necessary to decide whether the information in the cached response is still fresh or stale and needs to be discarded.
+
+Cache improves performance, as less data needs to be transferred and response times can be reduced significantly.
+Less transfers also improves scalability, as origin servers can be protected from too many requests.
+Local caches furthermore improve reliability, since requests can be answered even if the origin server is temporarily not available.
+
+## Uniform Interface
+
+RESTful APIs all use the same interface independent of the application.
+It is defined by:
+
+* URIs to identify resources
+* representation formats to retrieve and manipulate resource state
+* self-descriptive messages with a standard set of methods (e.g., GET, POST, PUT, DELETE with their guaranteed properties)
+* hypermedia controls within representations
+
+The concept of hypermedia controls is also known as HATEOAS: hypermedia as the engine of application state.
+The origin server embeds controls for the interface into its representations and thereby informs the client about possible requests.
+The mostly used control for RESTful systems is Web Linking {{RFC5590}}.
+Hypermedia forms are more powerful controls that describe how to construct more complex requests, including representations to modify resource state.
+
+While this is the most complex constraints (in particular the hypermedia controls), it improves many different key properties.
+It improves simplicity, as uniform interfaces are easier to understand.
+The self-descriptive messages improve visibility.
+The limitation to a known set of representation formats fosters portability.
+Most of all, however, this constraint is the key to modifiability, as hypermedia-driven, uniform interfaces allow clients and servers to evolve independently, and hence enable a system to evolve.
+
+## Layered System
+
+This constraint enforces that a client cannot see beyond the server with which it is interacting.
+
+A layered system is easier to modify, as topology changes become transparent.
+Furthermore, this helps scalability, as intermediaries such as load balancers can be introduced without changing the client side.
+The clean separation of concerns helps with simplicity.
+
+## Code-on-Demand
+
+This principle enables origin servers to ship code to clients.
+
+Code-on-Demand improves modifiability, since new features can be deployed during runtime (e.g., support for a new representation format).
+It also improves performance, as the server can provide code for local pre-processing before transferring the data.
 
 # Security Considerations {#sec-sec}
 
-This document does not define new functionality and therefore does not introduce new security concerns. However, security consideration from related specifications apply to RESTful IoT design. These include:
+This document does not define new functionality and therefore does not introduce new security concerns.
+We assume that system designers apply classic Web security on top of the basic RESTful guidance given in this document.
+Thus, security protocols and considerations from related specifications apply to RESTful IoT design.
+These include:
 
+* Transport Layer Security (TLS): {{RFC5246}} and {{RFC6347}}
+* Internet X.509 Public Key Infrastructure: {{RFC5280}}
 * HTTP security: Section 9 of {{RFC7230}}, Section 9 of {{RFC7231}}, etc.
 * CoAP security: Section 11 of {{RFC7252}}
 * URI security: Section 7 of {{RFC3986}}
 
+IoT-specific security is mainly work in progress at the time of writing.
+First specifications include:
+
+* (D)TLS Profiles for the Internet of Things: {{RFC7925}}
 
 # Acknowledgement
 
@@ -327,6 +443,8 @@ The authors would like to thank Mert Ocak, Heidi-Maria Back, Tero Kauppinen, Mic
 --- back
 
 # Future Work
+
+* Interface semantics: shared knowledge among system components (URI schemes, media types, relation types, well-known locations; see core-apps)
 
 * Discuss design patterns, such as "Observing state (asynchronous updates) of a resource", "Executing a Function", "Events as State", "Conversion", "Collections", "robust communication in network with high packet loss", "unreliable (best effort) communication", "3-way commit", etc.
 
