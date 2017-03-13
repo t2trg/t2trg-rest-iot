@@ -51,6 +51,7 @@ normative:
   I-D.ietf-core-resource-directory:
   RFC7049:
   W3C.REC-exi-20110310:
+  RFC5590:
   RFC5246:
   RFC5280:
   RFC6347:
@@ -337,6 +338,86 @@ In HTTP, the cacheability of a response depends on the request method (e.g., res
 In CoAP, the cacheability of a response depends on the response code (e.g., responses with code 2.04 are cacheable).
 This difference also leads to slightly different semantics for the codes starting with 2; for example, CoAP does not have a 2.00 response code whereas 200 ("OK") is commonly used with HTTP.
 
+# REST Constraints
+
+The REST architectural style defines a set of constraints for the system design.
+When all constraints are applied correctly, REST enables architectural properties of key interest {{REST}}:
+
+* Performance
+* Scalability
+* Reliability
+* Simplicity
+* Modifiability
+* Visibility
+* Protability 
+
+The following sub-sections briefly summarize the REST constraints and explain how they enable the listed properties.
+
+## Client-Server
+
+As explained in the Architecture section, RESTful system components have clear roles in every interaction.
+Clients have the initiative to issue requests, intermediaries can only forward requests, and servers respond requests, while origin servers are the ultimate recipient of requests that intent to modify resource state.
+
+This improves simplicity and visibility, as it is clear which component started an interaction.
+Furthermore, it improves modifiability through a clear separation of concerns.
+
+## Stateless
+
+The Stateless constraint requires messages to be self-contained.
+They must contain all the information to process it, independent from previous messages.
+This allows to strictly separate the client state from the resource state.
+
+This improves scalability and reliability, since servers or worker threads can be replicated.
+It also improves visibility because message traces contain all the information to understand the logged interactions.
+
+Furthermore, the Stateless constraint enables caching.
+
+## Cache
+
+This constraint requires responses to have implicit or explicit cache-control metadata.
+This enables clients and intermediary to store responses and re-use them to locally answer future requests.
+The cache-control metadata is necessary to decide whether the information in the cached response is still fresh or stale and needs to be discarded.
+
+Cache improves performance, as less data needs to be transferred and response times can be reduced significantly.
+Less transfers also improves scalability, as origin servers can be protected from too many requests.
+Local caches furthermore improve reliability, since requests can be answered even if the origin server is temporarily not available.
+
+## Uniform Interface
+
+RESTful APIs all use the same interface independent of the application.
+It is defined by:
+
+* URIs to identify resources
+* representation formats to retrieve and manipulate resource state
+* self-descriptive messages with a standard set of methods (e.g., GET, POST, PUT, DELETE with their guaranteed properties)
+* hypermedia controls within representations
+
+The concept of hypermedia controls is also known as HATEOAS: hypermedia as the engine of application state.
+The origin server embeds controls for the interface into its representations and thereby informs the client about possible requests.
+The mostly used control for RESTful systems is Web Linking {{RFC5590}}.
+Hypermedia forms are more powerful controls that describe how to construct more complex requests, including representations to modify resource state.
+
+While this is the most complex constraints (in particular the hypermedia controls), it improves many different key properties.
+It improves simplicity, as uniform interfaces are easier to understand.
+The self-descriptive messages improve visibility.
+The limitation to a known set of representation formats fosters portability.
+Most of all, however, this constraint is the key to modifiability, as hypermedia-driven, uniform interfaces allow clients and servers to evolve independently, and hence enable a system to evolve.
+
+## Layered System
+
+This constraint enforces that a client cannot see beyond the server with which it is interacting.
+
+A layered system is easier to modify, as topology changes become transparent.
+Furthermore, this helps scalability, as intermediaries such as load balancers can be introduced without changing the client side.
+The clean separation of concerns helps with simplicity.
+
+## Code-on-Demand
+
+This principle enables origin servers to ship code to clients.
+
+Code-on-Demand improves modifiability, since new features can be deployed during runtime (e.g., support for a new represenation format).
+It also improves performance, as the server can provide code for local pre-processing before transfering the data.
+
 # Security Considerations {#sec-sec}
 
 This document does not define new functionality and therefore does not introduce new security concerns.
@@ -362,6 +443,8 @@ The authors would like to thank Mert Ocak, Heidi-Maria Back, Tero Kauppinen, Mic
 --- back
 
 # Future Work
+
+* Interface semantics: shared knowledge among system compontents (URI schemes, media types, relation types, well-known locations; see core-apps)
 
 * Discuss design patterns, such as "Observing state (asynchronous updates) of a resource", "Executing a Function", "Events as State", "Conversion", "Collections", "robust communication in network with high packet loss", "unreliable (best effort) communication", "3-way commit", etc.
 
