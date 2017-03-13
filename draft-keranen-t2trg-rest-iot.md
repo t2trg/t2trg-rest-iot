@@ -74,17 +74,16 @@ Transfer (REST) architectural style.
 # Introduction
 
 The Representational State Transfer (REST) architectural style {{REST}} is a set of guidelines and best practices for building distributed hypermedia systems.
-
+At its core is a set of constraints, which when fulfilled enable desirable properties for distributed software systems such as scalability and modifiability.
 When REST principles are applied to the design of a system, the result is often called RESTful and in particular an API following these principles is called a RESTful API.
 
 Different protocols can be used with RESTful systems, but at the time of writing the most common protocols are HTTP {{RFC7230}} and CoAP {{RFC7252}}.
-
-RESTful design facilitates many desirable features for a system, such as good scaling properties. RESTful APIs are also often simple and lightweight and hence easy to use also with various IoT applications. The goal of this document is to give basic guidance for designing RESTful systems and APIs for IoT applications and give pointers for more information. 
-
-Design of a good RESTful IoT system has naturally many commonalities with other Web systems. Compared to other systems, the key characteristics of many IoT systems include:
+Since RESTful APIs are often simple and lightweight, they are a good fit for various IoT applications.
+The goal of this document is to give basic guidance for designing RESTful systems and APIs for IoT applications and give pointers for more information. 
+Design of a good RESTful IoT system has naturally many commonalities with other Web systems.
+Compared to other systems, the key characteristics of many IoT systems include:
 
 * data formats, interaction patterns, and other mechanisms that minimize, or preferably avoid, the need for human interaction
-
 * preference for compact and simple data formats to facilitate efficient transfer over (often) constrained networks and lightweight processing in constrained nodes
 
 # Terminology {#sec-terms}
