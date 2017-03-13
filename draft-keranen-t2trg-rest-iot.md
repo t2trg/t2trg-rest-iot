@@ -114,7 +114,7 @@ Forward Proxy:
 : An intermediary that is selected by a client, usually via local configuration rules, and that can be tasked to make requests on behalf of the client. This may be useful, for example, when the client lacks the capability to make the request itself or to service the response from a cache in order to reduce response time, network bandwidth and energy consumption.
 
 Gateway:
-: See "Reverse Proxy".
+: A reverse proxy that provides an interface to a non-RESTful system such as legacy systems or alternative technologies such as Bluetooth ATT/GATT. See also "Reverse Proxy".
 
 Hypermedia Control:
 : A component embedded in a representation that identifies a resource for future hypermedia interactions, such as a link or a form. If the client engages in an interaction with the identified resource, the result may be a change to resource state and/or client state.
@@ -157,7 +157,7 @@ Resource State:
 : A model of a resource's possible states that is represented in a supported representation type, typically a media type. Resources can change state because of REST interactions with them, or they can change state for reasons outside of the REST model.
 
 Reverse Proxy:
-: An intermediary that appears as a server towards the client but satisfies the requests by forwarding them to the actual server (possibly via one or more other intermediaries). A reverse proxy is often used to encapsulate legacy services, to improve server performance through caching, and to enable load balancing across multiple machines. If the reverse proxy
+: An intermediary that appears as a server towards the client but satisfies the requests by forwarding them to the actual server (possibly via one or more other intermediaries). A reverse proxy is often used to encapsulate legacy services, to improve server performance through caching, and to enable load balancing across multiple machines.
 
 Safe Method:
 : A method that does not result in any state change on the origin server when applied to a resource. For example, the GET method only returns a representation of the resource state but does not change the resource. Thus, it is always safe for a client to retrieve a representation without affecting server-side state.
@@ -203,7 +203,7 @@ They can also translate requests to different protocols, for instance, as CoAP-H
 Reverse proxies are usually imposed by the origin server.
 In addition to the features of a forward proxy, they can also provide an interface for non-RESTful services such as legacy systems or alternative technologies such as Bluetooth ATT/GATT.
 In this case, reverse proxies are usually called gateways.
-This property is enabled by the layered system constraint of REST, which says that a client cannot see beyond the server it is connected to (i.e., it is left unaware of the protocol/paradigm change).
+This property is enabled by the Layered System constraint of REST, which says that a client cannot see beyond the server it is connected to (i.e., it is left unaware of the protocol/paradigm change).
 
 ~~~~~~~~~~~~~~~~~~~
  ________                        __________       _________
@@ -238,7 +238,7 @@ When designing a RESTful system, the state of the distributed application must b
 Here, it is important to distinguish between "client state" and "resource state".
 
 Client state encompasses the control flow and the interactions between the components (see {{sec-terms}}).
-Following the statelessness constraint, the client state must be kept only on clients.
+Following the Stateless constraint, the client state must be kept only on clients.
 That is, there is no establishment of shared information about future interactions between client and server (usually called a session).
 On the one hand, this makes requests a bit more verbose since every request must contain all the information necessary to process it.
 On the other hand, this makes servers efficient and scalable, since they do not have to keep any state about their clients.
