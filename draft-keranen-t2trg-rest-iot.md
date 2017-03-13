@@ -107,7 +107,7 @@ Client:
 : A node that sends requests to servers and receives responses.
 
 Client State:
-: The state kept by a client between requests. This typically includes the "current" resource, the set of active requests, the history of requests, bookmarks (URIs stored for later retrieval) and application-specific state. This is called "Application State" in {{REST}} but has some ambiguity in modern (IoT) applications where resource state is very dynamic and reflects part of the state in which the overall application is.
+: The state kept by a client between requests. This typically includes the "current" resource, the set of active requests, the history of requests, bookmarks (URIs stored for later retrieval) and application-specific state. (Note that this is called "Application State" in {{REST}}, which has some ambiguity in modern (IoT) systems where the overall state of the distributed application (i.e., application state) is reflected in the union of all Client States and Resource States of all clients and servers involved.)
 
 Content Negotiation:
 : The practice of determining the "best" representation for a client when examining the current state of a resource. The most common forms of content negotiation are Proactive Content Negotiation and Reactive Content Negotiation.
