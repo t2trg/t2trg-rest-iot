@@ -121,7 +121,7 @@ Hypermedia Control:
 : A component embedded in a representation that identifies a resource for future hypermedia interactions, such as a link or a form. If the client engages in an interaction with the identified resource, the result may be a change to resource state and/or client state.
 
 Idempotent Method:
-: A method where multiple identical requests with that method lead to the same visible resource state as a single such request. For example, the PUT method replaces the state of a resource with a new state; replacing the state multiple times with the same new state still results in the same state for the resource. However, the response from the server can be different when the same idenpotent method is used multiple times. For example when DELETE is used twice on an existing resource, the first request would remove the association and return success acknowledgement whereas the second request would likely result in error response due to non-existing resource.
+: A method where multiple identical requests with that method lead to the same visible resource state as a single such request. For example, the PUT method replaces the state of a resource with a new state; replacing the state multiple times with the same new state still results in the same state for the resource. However, the response from the server can be different when the same idempotent method is used multiple times. For example when DELETE is used twice on an existing resource, the first request would remove the association and return success acknowledgement whereas the second request would likely result in error response due to non-existing resource.
 <!-- Too much text for terminology section? Should be separate section after 1st sentence? -->
 
 Link:
@@ -269,7 +269,7 @@ Whether the order of the query parameters matters in URIs is unspecified and the
 
 ## Representations
 
-Clients can rertieve the resource state from an origin server or manipulate resource state on the origin server by transferring resource representations.
+Clients can retrieve the resource state from an origin server or manipulate resource state on the origin server by transferring resource representations.
 Resource representations have a media type that tells how the representation should be interpreted by identifying the representation format used.
 Typical media types for IoT systems include "text/plain" for simple UTF-8 text, "application/octet-stream" for arbitrary binary data, "application/json" for the JSON format {{RFC7159}}, "application/senml+json" {{I-D.ietf-core-senml}} for Sensor Markup Language (SenML) formatted data, "application/cbor" for CBOR {{RFC7049}}, and "application/exi" for EXI {{W3C.REC-exi-20110310}}.
 A full list of registered Internet Media Types is available at the IANA registry {{IANA-media-types}} and numerical media types registered for use with CoAP are listed at CoAP Content-Formats IANA registry {{IANA-CoAP-media}}.
@@ -349,7 +349,7 @@ When all constraints are applied correctly, REST enables architectural propertie
 * Simplicity
 * Modifiability
 * Visibility
-* Protability 
+* Portability 
 
 The following sub-sections briefly summarize the REST constraints and explain how they enable the listed properties.
 
@@ -415,8 +415,8 @@ The clean separation of concerns helps with simplicity.
 
 This principle enables origin servers to ship code to clients.
 
-Code-on-Demand improves modifiability, since new features can be deployed during runtime (e.g., support for a new represenation format).
-It also improves performance, as the server can provide code for local pre-processing before transfering the data.
+Code-on-Demand improves modifiability, since new features can be deployed during runtime (e.g., support for a new representation format).
+It also improves performance, as the server can provide code for local pre-processing before transferring the data.
 
 # Security Considerations {#sec-sec}
 
@@ -444,7 +444,7 @@ The authors would like to thank Mert Ocak, Heidi-Maria Back, Tero Kauppinen, Mic
 
 # Future Work
 
-* Interface semantics: shared knowledge among system compontents (URI schemes, media types, relation types, well-known locations; see core-apps)
+* Interface semantics: shared knowledge among system components (URI schemes, media types, relation types, well-known locations; see core-apps)
 
 * Discuss design patterns, such as "Observing state (asynchronous updates) of a resource", "Executing a Function", "Events as State", "Conversion", "Collections", "robust communication in network with high packet loss", "unreliable (best effort) communication", "3-way commit", etc.
 
