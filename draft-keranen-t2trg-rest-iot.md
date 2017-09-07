@@ -427,10 +427,9 @@ It also improves performance, as the server can provide code for local pre-proce
 # Hypermedia-driven Applications
 
 ## Motivation
-
-Evolvability,
-Decoupling (server and client from different vendors),
-Extensibility at runtime.
+Evolvability
+Decoupling (server and client from different vendors)
+Extensibility at runtime
 
 * The server implements a newer version of the application. Older clients ignore the new links and forms, while newer clients are able to take advantage of the new features by following the new links and submitting the new forms.
 * The server offers links and forms depending on the current state. The server can tell the client which operations are currently valid and thus help the client navigate the application state machine. The client does not have to have knowledge which operations are allowed in the current state or make a request just to find out that the operation is not valid.
@@ -454,8 +453,8 @@ Explain how it works during runtime: server knows application and offers possibl
 
 # Design Patterns
 
-## Server Push
-Observing State (asynchronous updates) of a resource
+## Collections
+
 
 ## Executing a Function
 
@@ -463,13 +462,36 @@ Observing State (asynchronous updates) of a resource
 
 ## Conversion
 
+GET is cachable, good for static information such as look-up tables
+POST if the payload is large or binary, also good for time-dependent information
+
 ### Text-to-Speech
 
 ### Speech-to-Text
 
-## Collections
-
 ## Events as State
+
+In event-centric paradigms such as pub/sub, events are usually represented by an incoming message that might be even be identical for each occurance.
+Since the messages are queued, the receiver is aware of each occurance of the event and can react accordingly.
+In such systems, ringing a door bell, for instance, would result in a message being sent that represents the event that it was rung.
+
+In resouce-oriented paradigms such as REST, messages usually carry the current state of the remote resource, independent from the changes (i.e., events) that have lead to that state.
+In a naive yet natural yet, a door bell could be modelled as a resource that can have the states unpressed and pressed.
+There are, however, a few issues with this approach.
+Polling is not an option, as it is highly unlikely to observe the pressed state with a realistic polling interval.
+When using CoAP Observe with Confirmable notifications, the server will usually send two notifications for the event that the door bell was pressed:
+notification for changing from unpressed to pressed and another one for changing back to unpressed.
+If the time between the state changes is very short, the server might drop the first notification, as Observe only guarantees only eventual consistency (see Section 1.3 of {{RFC7641}}).
+
+The solution is to pick a state model that fits better to the application.
+In the case of the door bell -- and many other event-driven resources -- it could be a counter that counts how often the bell was pressed.
+The corresponding action is taken each time the client observes a change in the received representation.
+
+In the case of a network outage, this could lead to a ringing sound 10 minutes after the bell was rung.
+Also including a timestamp of the last counter increment in the state can help to suppress ringing a sound when the event has become obsolete.
+
+## Server Push
+Observing State (asynchronous updates) of a resource
 
 # Security Considerations {#sec-sec}
 
