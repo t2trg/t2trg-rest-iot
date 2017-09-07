@@ -467,9 +467,12 @@ A hypermedia-driven application typically uses the following identifiers:
 * variable names that identify the semantics of variables in templated links, and
 * form field names that identify the semantics of form fields in forms.
 
-## At Runtime
+## Interaction
 
-Explain how it works during runtime: server knows application and offers possible choices to client, client chooses by following links or submitting forms.
+A client begins interacting with an application through a GET request on an entry point URI.
+The entry point URI is the only URI a client is expected to know before interacting with an application.
+From there, the client is expected to make all requests by following links and submitting forms that are provided in previous responses.
+The entry point IRI can be obtained, for example, by manual configuration or some discovery process (DNS-SD, RD).
 
 # Design Patterns
 
