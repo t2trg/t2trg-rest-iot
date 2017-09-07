@@ -453,8 +453,11 @@ Explain how it works during runtime: server knows application and offers possibl
 
 # Design Patterns
 
-## Collections
+Some classes of interaction with an IoT REST system are straighforward to design; a classic example of reading a temperature from a thermometer device is almost always implemented as a GET request to a resource that represents the current value of the thermometer. However, certain types of interaction, for example data conversions or event handling, do not have as straighforward and well established ways to represent the logic with resources and REST methods.
 
+The following sections describe how such interactions can be modeled in a RESTful system and what are the benefits of different approaches.
+
+## Collections
 
 ## Executing a Function
 
