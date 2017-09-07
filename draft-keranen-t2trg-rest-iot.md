@@ -127,6 +127,9 @@ Idempotent Method:
 Link:
 : A hypermedia control that enables a client to navigate between resources and thereby change the client state.
 
+Link Relation Type:
+: An identifier that describes how the link target resource relates to the current resource  (see {{RFC5988}}).
+
 Media Type:
 : A string such as "text/html" or "application/json" that is used to label representations so that it is known how the representation should be interpreted and how it is encoded.
 
@@ -156,6 +159,9 @@ Resource:
 
 Resource State:
 : A model of a resource's possible states that is represented in a supported representation type, typically a media type. Resources can change state because of REST interactions with them, or they can change state for reasons outside of the REST model.
+
+Resource Type:
+: An identifier that annotates the application-semantics of a resource (see Section 3.1 of {{RFC6690}}).
 
 Reverse Proxy:
 : An intermediary that appears as a server towards the client but satisfies the requests by forwarding them to the actual server (possibly via one or more other intermediaries). A reverse proxy is often used to encapsulate legacy services, to improve server performance through caching, and to enable load balancing across multiple machines.
@@ -418,6 +424,50 @@ This principle enables origin servers to ship code to clients.
 Code-on-Demand improves modifiability, since new features can be deployed during runtime (e.g., support for a new representation format).
 It also improves performance, as the server can provide code for local pre-processing before transferring the data.
 
+# Hypermedia-driven Applications
+
+## Motivation
+Extensibility at runtime
+
+* The server implements a newer version of the application. Older clients ignore the new links and forms, while newer clients are able to take advantage of the new features by following the new links and submitting the new forms.
+* The server offers links and forms depending on the current state. The server can tell the client which operations are currently valid and thus help the client navigate the application state machine. The client does not have to have knowledge which operations are allowed in the current state or make a request just to find out that the operation is not valid.
+* The server offers links and forms depending on the client's access control rights. If the client is unauthorized to perform a certain operation, then the server can simply omit the links and forms for that operation.
+
+## A Priori
+
+Knowledge that needs to be shared a priori among all participants of a REST system.
+
+* URI schemes that identify communication protocols,
+* Internet Media Types that identify representation formats,
+* link relation types or resource types that identify link semantics,
+* form relation types that identify form semantics,
+* variable names that identify the semantics of variables in templated links,
+* form field names that identify the semantics of form fields in forms, and
+* optionally, well-known locations.
+
+## At Runtime
+
+Explain how it works during runtime: server knows application and offers possible choices to client, client chooses by following links or submitting forms.
+
+# Design Patterns
+
+## Server Push
+Observing State (asynchronous updates) of a resource
+
+## Executing a Function
+
+## Long-running Functions
+
+## Conversion
+
+### Text-to-Speech
+
+### Speech-to-Text
+
+## Collections
+
+## Events as State
+
 # Security Considerations {#sec-sec}
 
 This document does not define new functionality and therefore does not introduce new security concerns.
@@ -446,7 +496,7 @@ The authors would like to thank Mert Ocak, Heidi-Maria Back, Tero Kauppinen, Mic
 
 * Interface semantics: shared knowledge among system components (URI schemes, media types, relation types, well-known locations; see core-apps)
 
-* Discuss design patterns, such as "Observing state (asynchronous updates) of a resource", "Executing a Function", "Events as State", "Conversion", "Collections", "robust communication in network with high packet loss", "unreliable (best effort) communication", "3-way commit", etc.
+* Unreliable (best effort) communication, robust communication in network with high packet loss, 3-way commit
 
 * Discuss directories, such as CoAP Resource Directory
 
