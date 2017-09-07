@@ -71,7 +71,11 @@ informative:
   IANA-CoAP-media:
     title: CoAP Content-Formats
     target: http://www.iana.org/assignments/core-parameters/core-parameters.xhtml#content-formats
-
+  Collection+JSON:
+    title: Collection+JSON - Document Format
+    author:
+    - ins: Mike Amundsen
+    target: http://amundsen.com/media-types/collection/format/
 --- abstract
 
 This document gives guidance for designing Internet of Things (IoT)
@@ -463,11 +467,18 @@ Explain how it works during runtime: server knows application and offers possibl
 
 # Design Patterns
 
-Some classes of interaction with an IoT REST system are straighforward to design; a classic example of reading a temperature from a thermometer device is almost always implemented as a GET request to a resource that represents the current value of the thermometer. However, certain types of interaction, for example data conversions or event handling, do not have as straighforward and well established ways to represent the logic with resources and REST methods.
+Certain kinds of design problems are often recurring in variety of problem domains, and often re-usable design patterns can be applied to them. Also some classes of interaction with an IoT REST system are straighforward to design; a classic example of reading a temperature from a thermometer device is almost always implemented as a GET request to a resource that represents the current value of the thermometer. However, certain types of interaction, for example data conversions or event handling, do not have as straighforward and well established ways to represent the logic with resources and REST methods.
 
-The following sections describe how such interactions can be modeled in a RESTful system and what are the benefits of different approaches.
+The following sections describe how different kind of interactions and other common design problems can be modeled in a RESTful system and what are the benefits of different approaches.
 
 ## Collections
+
+A common pattern in RESTful systems across different domains is the collection. 
+A collection can used to combine multiple resources together by providing resources that consist of set of (often partial) representations of resources, called items, and links to resources.
+The collection resource also defines hypermedia controls for searching the items in the collection and adding new items.
+
+Examples of use of the collection pattern in RESTful IoT systems are the CoRE Resource Directory {{?I-D.ietf-core-resource-directory}}, CoAP pub/sub broker {{?I-D.ietf-ietf-core-coap-pubsub}}, and resource discovery via .well-known/core. 
+Collection+JSON {{Collection+JSON}} is example of a generic collection Media Type.
 
 ## Executing a Function
 
