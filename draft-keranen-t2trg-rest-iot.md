@@ -55,6 +55,9 @@ normative:
   RFC5246:
   RFC5280:
   RFC6347:
+  RFC5988:
+  RFC6690:
+  RFC7641:
   I-D.ietf-core-object-security:
 informative:
   RFC7228:
@@ -427,9 +430,10 @@ It also improves performance, as the server can provide code for local pre-proce
 # Hypermedia-driven Applications
 
 ## Motivation
-Evolvability
-Decoupling (server and client from different vendors)
-Extensibility at runtime
+
+Evolvability,
+Decoupling (server and client from different vendors),
+Extensibility at runtime.
 
 * The server implements a newer version of the application. Older clients ignore the new links and forms, while newer clients are able to take advantage of the new features by following the new links and submitting the new forms.
 * The server offers links and forms depending on the current state. The server can tell the client which operations are currently valid and thus help the client navigate the application state machine. The client does not have to have knowledge which operations are allowed in the current state or make a request just to find out that the operation is not valid.
