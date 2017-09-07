@@ -71,7 +71,7 @@ informative:
   IANA-CoAP-media:
     title: CoAP Content-Formats
     target: http://www.iana.org/assignments/core-parameters/core-parameters.xhtml#content-formats
-  Collection+JSON:
+  CollectionJSON:
     title: Collection+JSON - Document Format
     author:
     - ins: Mike Amundsen
@@ -478,7 +478,7 @@ A collection can used to combine multiple resources together by providing resour
 The collection resource also defines hypermedia controls for searching the items in the collection and adding new items.
 
 Examples of use of the collection pattern in RESTful IoT systems are the CoRE Resource Directory {{I-D.ietf-core-resource-directory}}, CoAP pub/sub broker {{?I-D.ietf-core-coap-pubsub}}, and resource discovery via .well-known/core. 
-Collection+JSON {{Collection+JSON}} is example of a generic collection Media Type.
+Collection+JSON {{CollectionJSON}} is example of a generic collection Media Type.
 
 ## Executing a Function
 
