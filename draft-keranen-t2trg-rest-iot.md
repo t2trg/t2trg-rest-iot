@@ -427,6 +427,8 @@ It also improves performance, as the server can provide code for local pre-proce
 # Hypermedia-driven Applications
 
 ## Motivation
+Evolvability
+Decoupling (server and client from different vendors)
 Extensibility at runtime
 
 * The server implements a newer version of the application. Older clients ignore the new links and forms, while newer clients are able to take advantage of the new features by following the new links and submitting the new forms.
