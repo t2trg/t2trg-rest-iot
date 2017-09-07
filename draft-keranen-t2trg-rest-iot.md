@@ -426,6 +426,12 @@ It also improves performance, as the server can provide code for local pre-proce
 
 # Hypermedia-driven Applications
 
+Hypermedia-driven applications take advantage of hypermedia controls, i.e., links and forms, embedded in the resource representations. 
+A hypermedia client is a client that is capable of processing these hypermedia controls.
+Hypermedia links can be used to give additional information about a resource representation (e.g., the source URI of the representation) or pointing to other resources. 
+The forms can be used to describe the structure of the data that can be sent (e.g., with a POST or PUT method) to a server, or how a data retrieval (e.g., GET) request for a resource should be formed. 
+In a hypermedia-driven application the client interacts with the server using only the hypermedia controls, instead of selecting methods and/or constructing URIs based on out-of-band information, such as API documentation.
+
 ## Motivation
 
 Evolvability,
