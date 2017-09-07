@@ -60,6 +60,7 @@ normative:
   RFC7641:
   I-D.ietf-core-object-security:
 informative:
+  RFC6763:
   RFC7228:
   RFC7252:
   RFC7159:
@@ -472,7 +473,7 @@ A hypermedia-driven application typically uses the following identifiers:
 A client begins interacting with an application through a GET request on an entry point URI.
 The entry point URI is the only URI a client is expected to know before interacting with an application.
 From there, the client is expected to make all requests by following links and submitting forms that are provided in previous responses.
-The entry point IRI can be obtained, for example, by manual configuration or some discovery process (DNS-SD, RD).
+The entry point IRI can be obtained, for example, by manual configuration or some discovery process (DNS-SD {{RFC6763}}, Resource Directory {{I-D.ietf-core-resource-directory}}).
 
 # Design Patterns
 
