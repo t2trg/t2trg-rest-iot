@@ -244,12 +244,12 @@ Unlike intermediaries, however, they can take the initiative as a client (e.g., 
 
 ## System design
 
-When designing a RESTful system, the primary effort goes into modeling the state of the distributed application and assign it to the different components (i.e., clients and servers).
-How clients can navigate through the resources and modify state to achieve their goal is defined through hypermedia controls, that is, links and forms.
-They span a kind of state machine where the nodes are resources and the transitions are links or forms.
-Clients run this state machine (i.e., the application) by retrieving representations, processing their data, and following their included hypermedia controls.
+When designing a RESTful system, the primary effort goes into modeling the state of the distributed application and assigning it to the different components (i.e., clients and servers).
+How clients can navigate through the resources and modify state to achieve their goals is defined through hypermedia controls, that is, links and forms.
+Hypermedia controls span a kind of a state machine where the nodes are resources and the transitions are links or forms.
+Clients run this state machine (i.e., the application) by retrieving representations, processing the data, and following the included hypermedia controls.
 In REST, remote state is changed by submitting forms.
-This is usually done by modifying the state on the client side and transfering the new state to the server in the form of new representations -- rather then calling a service and modify the state on the server side.
+This is usually done by retrieving the current state, modifying the state on the client side, and transfering the new state to the server in the form of new representations -- rather then calling a service and modifying the state on the server side.
 
 Client state encompasses the current state of the described state machine and the possible next transitions derived from the hypermedia controls within the currently processed representation (see {{sec-terms}}).
 Furthermore, clients can have part of the state of the distributed application in local variables.
@@ -481,7 +481,7 @@ The following sections describe how such interactions can be modeled in a RESTfu
 To modify resource state, clients usually GET a representation from the server, process it locally, and transfer the resulting state back to the server with a PUT.
 Sometimes, however, the state can only be modified on the server side, for instance, because representations would be too large to transfer or part of the required information shall not be accessible to clients.
 
-In this case, resource state is modified by calling a functions.
+In this case, resource state is modified by calling a function.
 This is usually modeled with a POST request, as it leaves the behavior semantics completely to the server.
 
 ### Instantly Returning Functions
