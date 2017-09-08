@@ -294,6 +294,7 @@ Clients can retrieve the resource state from an origin server or manipulate reso
 Resource representations have a media type that tells how the representation should be interpreted by identifying the representation format used.
 
 Typical media types for IoT systems include:
+
 * "text/plain" for simple UTF-8 text
 * "application/octet-stream" for arbitrary binary data
 * "application/json" for the JSON format {{RFC7159}}
