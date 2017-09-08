@@ -405,16 +405,21 @@ Local caches furthermore improve reliability, since requests can be answered eve
 
 ## Uniform Interface
 
-RESTful APIs all use the same interface independent of the application.
-It is defined by:
+RESTful APIs all use the same, uniform interface independent of the application.
+The interactions are based on a client retrieving state (i.e., representations of resources), acting based on the representations (e.g., updating local variables based on the representation), and modifying resource state by sending a modified or new representation back to the server.
+This interaction model simplifies and unifies the interface between clients and servers, as only a small set of methods is required to retrieve, update, and delete state.
+In an RPC-style approach, all required ways to modify resource state need to be modeled with explicit methods (i.e., procedures).
+Moreover, this fosters interoperability, as the understanding of state is usually shared among different clients and servers, while it is likely that different parties come up with different ways how to modify state, including the naming of the procedures.
+
+A REST interface is fully defined by:
 
 * URIs to identify resources
-* representation formats to retrieve and manipulate resource state
+* representation formats to represent (and retrieve and manipulate) resource state
 * self-descriptive messages with a standard set of methods (e.g., GET, POST, PUT, DELETE with their guaranteed properties)
 * hypermedia controls within representations
 
-The concept of hypermedia controls is also known as HATEOAS: hypermedia as the engine of application state.
-The origin server embeds controls for the interface into its representations and thereby informs the client about possible requests.
+The concept of hypermedia controls is also known as HATEOAS: Hypermedia As The Engine Of Application State.
+The origin server embeds controls for the interface into its representations and thereby informs the client about possible next requests.
 The mostly used control for RESTful systems is Web Linking {{RFC5590}}.
 Hypermedia forms are more powerful controls that describe how to construct more complex requests, including representations to modify resource state.
 
