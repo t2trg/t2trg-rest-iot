@@ -60,6 +60,7 @@ normative:
   RFC7641:
   I-D.ietf-core-object-security:
 informative:
+  RFC6763:
   RFC7228:
   RFC7252:
   RFC7159:
@@ -444,29 +445,44 @@ In a hypermedia-driven application the client interacts with the server using on
 
 ## Motivation
 
-Evolvability,
-Decoupling (server and client from different vendors),
-Extensibility at runtime.
+The advantage of this approach is increased evolvability and extensibility.
+This is important in scenarios where servers exhibit a range of feature variations, where it's expensive to keep evolving client knowledge and server knowledge in sync all the time, or where there are many different client and server implementations.
+Hypermedia controls serve as indicators in capability negotiation.
+In particular, they describe available resources and possible operations on these resources using links and forms, respectively.
+
+There are multiple reasons why a server might introduce new links or forms:
 
 * The server implements a newer version of the application. Older clients ignore the new links and forms, while newer clients are able to take advantage of the new features by following the new links and submitting the new forms.
 * The server offers links and forms depending on the current state. The server can tell the client which operations are currently valid and thus help the client navigate the application state machine. The client does not have to have knowledge which operations are allowed in the current state or make a request just to find out that the operation is not valid.
 * The server offers links and forms depending on the client's access control rights. If the client is unauthorized to perform a certain operation, then the server can simply omit the links and forms for that operation.
 
-## A Priori
+## Knowledge
 
-Knowledge that needs to be shared a priori among all participants of a REST system.
+A client needs to have knowledge of a couple of things for successful interaction with a server.
+This includes what resources are available, what representations of resource states are available, what each representation describes, how to retrieve a representation, what state changing operations on a resource are possible, how to perform these operations, and so on.                                        
+
+Some part of this knowledge, such as how to retrieve the representation of a resource state, is typically hard-coded in the client software.
+For other parts, a choice can often be made between hard-coding the knowledge or acquiring it on-demand.
+The key to success in either case is the use in-band information for identifying the knowledge that is required.
+This enables the client to verify that is has all required knowledge and to acquire missing knowledge on-demand.
+                      
+A hypermedia-driven application typically uses the following identifiers:
 
 * URI schemes that identify communication protocols,
 * Internet Media Types that identify representation formats,
 * link relation types or resource types that identify link semantics,
 * form relation types that identify form semantics,
-* variable names that identify the semantics of variables in templated links,
-* form field names that identify the semantics of form fields in forms, and
-* optionally, well-known locations.
+* variable names that identify the semantics of variables in templated links, and
+* form field names that identify the semantics of form fields in forms.
 
-## At Runtime
+The knowledge about these identifiers as well as matching implementations have to be shared a priori in a RESTful system.
 
-Explain how it works during runtime: server knows application and offers possible choices to client, client chooses by following links or submitting forms.
+## Interaction
+
+A client begins interacting with an application through a GET request on an entry point URI.
+The entry point URI is the only URI a client is expected to know before interacting with an application.
+From there, the client is expected to make all requests by following links and submitting forms that are provided in previous responses.
+The entry point IRI can be obtained, for example, by manual configuration or some discovery process (e.g., DNS-SD {{RFC6763}} or Resource Directory {{I-D.ietf-core-resource-directory}}).
 
 # Design Patterns
 
