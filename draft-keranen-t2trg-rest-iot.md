@@ -60,6 +60,7 @@ normative:
   RFC7641:
   I-D.ietf-core-object-security:
 informative:
+  RFC6763:
   RFC7228:
   RFC7252:
   RFC7159:
@@ -110,7 +111,7 @@ Client:
 : A node that sends requests to servers and receives responses.
 
 Client State:
-: The state kept by a client between requests. This typically includes the "current" resource, the set of active requests, the history of requests, bookmarks (URIs stored for later retrieval) and application-specific state. (Note that this is called "Application State" in {{REST}}, which has some ambiguity in modern (IoT) systems where the overall state of the distributed application (i.e., application state) is reflected in the union of all Client States and Resource States of all clients and servers involved.)
+: The state kept by a client between requests. This typically includes the currently processed representation, the set of active requests, the history of requests, bookmarks (URIs stored for later retrieval), and application-specific state (e.g., local variables). (Note that this is called "Application State" in {{REST}}, which has some ambiguity in modern (IoT) systems where the overall state of the distributed application (i.e., application state) is reflected in the union of all Client States and Resource States of all clients and servers involved.)
 
 Content Negotiation:
 : The practice of determining the "best" representation for a client when examining the current state of a resource. The most common forms of content negotiation are Proactive Content Negotiation and Reactive Content Negotiation.
@@ -248,19 +249,26 @@ Unlike intermediaries, however, they can take the initiative as a client (e.g., 
 
 ## System design
 
-When designing a RESTful system, the state of the distributed application must be assigned to the different components.
-Here, it is important to distinguish between "client state" and "resource state".
+When designing a RESTful system, the primary effort goes into modeling the state of the distributed application and assigning it to the different components (i.e., clients and servers).
+How clients can navigate through the resources and modify state to achieve their goals is defined through hypermedia controls, that is, links and forms.
+Hypermedia controls span a kind of a state machine where the nodes are resources and the transitions are links or forms.
+Clients run this state machine (i.e., the application) by retrieving representations, processing the data, and following the included hypermedia controls.
+In REST, remote state is changed by submitting forms.
+This is usually done by retrieving the current state, modifying the state on the client side, and transfering the new state to the server in the form of new representations -- rather then calling a service and modifying the state on the server side.
 
-Client state encompasses the control flow and the interactions between the components (see {{sec-terms}}).
+Client state encompasses the current state of the described state machine and the possible next transitions derived from the hypermedia controls within the currently processed representation (see {{sec-terms}}).
+Furthermore, clients can have part of the state of the distributed application in local variables.
+
+Resource state includes the more persistent data of an application (i.e., independent of individual clients).
+This can be static data such as device descriptions, persistent data such as system configurations, but also dynamic data such as the current value of a sensor on a thing.
+
+It is important to distinguish between "client state" and "resource state" and keep it separate.
 Following the Stateless constraint, the client state must be kept only on clients.
-That is, there is no establishment of shared information about future interactions between client and server (usually called a session).
+That is, there is no establishment of shared information about past and future interactions between client and server (usually called a session).
 On the one hand, this makes requests a bit more verbose since every request must contain all the information necessary to process it.
 On the other hand, this makes servers efficient and scalable, since they do not have to keep any state about their clients.
 Requests can easily be distributed over multiple worker threads or server instances.
 For the IoT systems, it lowers the memory requirements for server implementations, which is particularly important for constrained servers (e.g., sensor nodes) and servers serving large amount of clients (e.g., Resource Directory).
-
-Resource state includes the more persistent data of an application (i.e., independent of the client control flow and lifetime).
-This can be static data such as device descriptions, persistent data such as system configuration, but also dynamic data such as the current value of a sensor on a thing.
 
 ## Uniform Resource Identifiers (URIs) {#sec-uris}
 
@@ -298,7 +306,7 @@ The following lists the most relevant methods and gives a short explanation of t
 
 ### GET
 
-The GET method requests a current representation for the target resource.
+The GET method requests a current representation for the target resource, while the origin server must ensure that there are no side-effects on the resource state.
 Only the origin server needs to know how each of its resource identifiers corresponds to an implementation and how each implementation manages to select and send a current representation of the target resource in a response to GET.
 
 A payload within a GET request message has no defined semantics.
@@ -441,29 +449,44 @@ In a hypermedia-driven application the client interacts with the server using on
 
 ## Motivation
 
-Evolvability,
-Decoupling (server and client from different vendors),
-Extensibility at runtime.
+The advantage of this approach is increased evolvability and extensibility.
+This is important in scenarios where servers exhibit a range of feature variations, where it's expensive to keep evolving client knowledge and server knowledge in sync all the time, or where there are many different client and server implementations.
+Hypermedia controls serve as indicators in capability negotiation.
+In particular, they describe available resources and possible operations on these resources using links and forms, respectively.
+
+There are multiple reasons why a server might introduce new links or forms:
 
 * The server implements a newer version of the application. Older clients ignore the new links and forms, while newer clients are able to take advantage of the new features by following the new links and submitting the new forms.
 * The server offers links and forms depending on the current state. The server can tell the client which operations are currently valid and thus help the client navigate the application state machine. The client does not have to have knowledge which operations are allowed in the current state or make a request just to find out that the operation is not valid.
 * The server offers links and forms depending on the client's access control rights. If the client is unauthorized to perform a certain operation, then the server can simply omit the links and forms for that operation.
 
-## A Priori
+## Knowledge
 
-Knowledge that needs to be shared a priori among all participants of a REST system.
+A client needs to have knowledge of a couple of things for successful interaction with a server.
+This includes what resources are available, what representations of resource states are available, what each representation describes, how to retrieve a representation, what state changing operations on a resource are possible, how to perform these operations, and so on.                                        
+
+Some part of this knowledge, such as how to retrieve the representation of a resource state, is typically hard-coded in the client software.
+For other parts, a choice can often be made between hard-coding the knowledge or acquiring it on-demand.
+The key to success in either case is the use in-band information for identifying the knowledge that is required.
+This enables the client to verify that is has all required knowledge and to acquire missing knowledge on-demand.
+                      
+A hypermedia-driven application typically uses the following identifiers:
 
 * URI schemes that identify communication protocols,
 * Internet Media Types that identify representation formats,
 * link relation types or resource types that identify link semantics,
 * form relation types that identify form semantics,
-* variable names that identify the semantics of variables in templated links,
-* form field names that identify the semantics of form fields in forms, and
-* optionally, well-known locations.
+* variable names that identify the semantics of variables in templated links, and
+* form field names that identify the semantics of form fields in forms.
 
-## At Runtime
+The knowledge about these identifiers as well as matching implementations have to be shared a priori in a RESTful system.
 
-Explain how it works during runtime: server knows application and offers possible choices to client, client chooses by following links or submitting forms.
+## Interaction
+
+A client begins interacting with an application through a GET request on an entry point URI.
+The entry point URI is the only URI a client is expected to know before interacting with an application.
+From there, the client is expected to make all requests by following links and submitting forms that are provided in previous responses.
+The entry point IRI can be obtained, for example, by manual configuration or some discovery process (e.g., DNS-SD {{RFC6763}} or Resource Directory {{I-D.ietf-core-resource-directory}}).
 
 # Design Patterns
 
@@ -483,20 +506,28 @@ The collection resource also defines hypermedia controls for managing and search
 Examples of the collection pattern in RESTful IoT systems are the CoRE Resource Directory {{I-D.ietf-core-resource-directory}}, CoAP pub/sub broker {{?I-D.ietf-core-coap-pubsub}}, and resource discovery via .well-known/core. 
 Collection+JSON {{CollectionJSON}} is an example of a generic collection Media Type.
 
-## Executing a Function
+## Calling a Function
 
-## Long-running Functions
+To modify resource state, clients usually GET a representation from the server, process it locally, and transfer the resulting state back to the server with a PUT.
+Sometimes, however, the state can only be modified on the server side, for instance, because representations would be too large to transfer or part of the required information shall not be accessible to clients.
 
-## Conversion
+In this case, resource state is modified by calling a function.
+This is usually modeled with a POST request, as it leaves the behavior semantics completely to the server.
+
+### Instantly Returning Functions
+
+### Long-running Functions
+
+### Conversion
 
 GET is cachable, good for static information such as look-up tables
 POST if the payload is large or binary, also good for time-dependent information
 
-### Text-to-Speech
+### Text-to-Speech Example
 
-### Speech-to-Text
+### Speech-to-Text Example
 
-## Events as State
+### Events as State
 
 In event-centric paradigms such as pub/sub, events are usually represented by an incoming message that might be even be identical for each occurance.
 Since the messages are queued, the receiver is aware of each occurance of the event and can react accordingly.
