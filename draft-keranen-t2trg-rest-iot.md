@@ -106,7 +106,7 @@ Client:
 : A node that sends requests to servers and receives responses.
 
 Client State:
-: The state kept by a client between requests. This typically includes the "current" resource, the set of active requests, the history of requests, bookmarks (URIs stored for later retrieval) and application-specific state. (Note that this is called "Application State" in {{REST}}, which has some ambiguity in modern (IoT) systems where the overall state of the distributed application (i.e., application state) is reflected in the union of all Client States and Resource States of all clients and servers involved.)
+: The state kept by a client between requests. This typically includes the currently processed representation, the set of active requests, the history of requests, bookmarks (URIs stored for later retrieval), and application-specific state (e.g., local variables). (Note that this is called "Application State" in {{REST}}, which has some ambiguity in modern (IoT) systems where the overall state of the distributed application (i.e., application state) is reflected in the union of all Client States and Resource States of all clients and servers involved.)
 
 Content Negotiation:
 : The practice of determining the "best" representation for a client when examining the current state of a resource. The most common forms of content negotiation are Proactive Content Negotiation and Reactive Content Negotiation.
@@ -244,19 +244,26 @@ Unlike intermediaries, however, they can take the initiative as a client (e.g., 
 
 ## System design
 
-When designing a RESTful system, the state of the distributed application must be assigned to the different components.
-Here, it is important to distinguish between "client state" and "resource state".
+When designing a RESTful system, the primary effort goes into modeling the state of the distributed application and assigning it to the different components (i.e., clients and servers).
+How clients can navigate through the resources and modify state to achieve their goals is defined through hypermedia controls, that is, links and forms.
+Hypermedia controls span a kind of a state machine where the nodes are resources and the transitions are links or forms.
+Clients run this state machine (i.e., the application) by retrieving representations, processing the data, and following the included hypermedia controls.
+In REST, remote state is changed by submitting forms.
+This is usually done by retrieving the current state, modifying the state on the client side, and transfering the new state to the server in the form of new representations -- rather then calling a service and modifying the state on the server side.
 
-Client state encompasses the control flow and the interactions between the components (see {{sec-terms}}).
+Client state encompasses the current state of the described state machine and the possible next transitions derived from the hypermedia controls within the currently processed representation (see {{sec-terms}}).
+Furthermore, clients can have part of the state of the distributed application in local variables.
+
+Resource state includes the more persistent data of an application (i.e., independent of individual clients).
+This can be static data such as device descriptions, persistent data such as system configurations, but also dynamic data such as the current value of a sensor on a thing.
+
+It is important to distinguish between "client state" and "resource state" and keep it separate.
 Following the Stateless constraint, the client state must be kept only on clients.
-That is, there is no establishment of shared information about future interactions between client and server (usually called a session).
+That is, there is no establishment of shared information about past and future interactions between client and server (usually called a session).
 On the one hand, this makes requests a bit more verbose since every request must contain all the information necessary to process it.
 On the other hand, this makes servers efficient and scalable, since they do not have to keep any state about their clients.
 Requests can easily be distributed over multiple worker threads or server instances.
 For the IoT systems, it lowers the memory requirements for server implementations, which is particularly important for constrained servers (e.g., sensor nodes) and servers serving large amount of clients (e.g., Resource Directory).
-
-Resource state includes the more persistent data of an application (i.e., independent of the client control flow and lifetime).
-This can be static data such as device descriptions, persistent data such as system configuration, but also dynamic data such as the current value of a sensor on a thing.
 
 ## Uniform Resource Identifiers (URIs) {#sec-uris}
 
@@ -294,7 +301,7 @@ The following lists the most relevant methods and gives a short explanation of t
 
 ### GET
 
-The GET method requests a current representation for the target resource.
+The GET method requests a current representation for the target resource, while the origin server must ensure that there are no side-effects on the resource state.
 Only the origin server needs to know how each of its resource identifiers corresponds to an implementation and how each implementation manages to select and send a current representation of the target resource in a response to GET.
 
 A payload within a GET request message has no defined semantics.
@@ -469,20 +476,28 @@ The following sections describe how such interactions can be modeled in a RESTfu
 
 ## Collections
 
-## Executing a Function
+## Calling a Function
 
-## Long-running Functions
+To modify resource state, clients usually GET a representation from the server, process it locally, and transfer the resulting state back to the server with a PUT.
+Sometimes, however, the state can only be modified on the server side, for instance, because representations would be too large to transfer or part of the required information shall not be accessible to clients.
 
-## Conversion
+In this case, resource state is modified by calling a function.
+This is usually modeled with a POST request, as it leaves the behavior semantics completely to the server.
+
+### Instantly Returning Functions
+
+### Long-running Functions
+
+### Conversion
 
 GET is cachable, good for static information such as look-up tables
 POST if the payload is large or binary, also good for time-dependent information
 
-### Text-to-Speech
+### Text-to-Speech Example
 
-### Speech-to-Text
+### Speech-to-Text Example
 
-## Events as State
+### Events as State
 
 In event-centric paradigms such as pub/sub, events are usually represented by an incoming message that might be even be identical for each occurance.
 Since the messages are queued, the receiver is aware of each occurance of the event and can react accordingly.
