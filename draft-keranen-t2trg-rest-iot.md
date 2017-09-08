@@ -557,12 +557,10 @@ Canceling a task would be modeled with a form that uses DELETE to remove the tas
 
 ### Conversion
 
-GET is cachable, good for static information such as look-up tables
-POST if the payload is large or binary, also good for time-dependent information
+GET is cachable, good for static information such as look-up tables.
+POST if the payload is large or binary, also good for time-dependent information.
+TBD: examples.
 
-### Text-to-Speech Example
-
-### Speech-to-Text Example
 
 ### Events as State
 
