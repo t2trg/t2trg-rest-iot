@@ -401,7 +401,10 @@ Local caches furthermore improve reliability, since requests can be answered eve
 ## Uniform Interface
 
 RESTful APIs all use the same interface independent of the application.
-It is defined by:
+The interface is based on a client retrieving state, i.e., representations of resources, acting based on the representations (e.g., using hypermedia controls or modifying the representation), and possibly changing the state in the server by sending the server back a modified representation.
+This interaction model simplifies and unifies the interface between various clients, servers, and applications compared to using a set of function calls to to modify the state on server (e.g., "increase value by X" and "decrease value by 1" functions).
+
+The uniform interface is defined by:
 
 * URIs to identify resources
 * representation formats to retrieve and manipulate resource state
