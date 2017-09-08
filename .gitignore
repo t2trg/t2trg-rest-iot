@@ -10,3 +10,5 @@ venv/
 issues.json
 lib
 draft-keranen-t2trg-rest-iot.xml
+
+.targets.mk
