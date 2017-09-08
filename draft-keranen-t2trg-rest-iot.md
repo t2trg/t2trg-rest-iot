@@ -403,7 +403,7 @@ Cache improves performance, as less data needs to be transferred and response ti
 Less transfers also improves scalability, as origin servers can be protected from too many requests.
 Local caches furthermore improve reliability, since requests can be answered even if the origin server is temporarily not available.
 
-## Uniform Interface
+## Uniform Interface {#sec-uniform-interface}
 
 RESTful APIs all use the same interface independent of the application.
 It is defined by:
@@ -508,15 +508,27 @@ Collection+JSON {{CollectionJSON}} is an example of a generic collection Media T
 
 ## Calling a Function
 
-To modify resource state, clients usually GET a representation from the server, process it locally, and transfer the resulting state back to the server with a PUT.
+To modify resource state, clients usually GET a representation from the server, process it locally, and transfer the resulting state back to the server with a PUT (see {{sec-uniform-interface}}).
 Sometimes, however, the state can only be modified on the server side, for instance, because representations would be too large to transfer or part of the required information shall not be accessible to clients.
-
 In this case, resource state is modified by calling a function.
-This is usually modeled with a POST request, as it leaves the behavior semantics completely to the server.
+This is usually modeled with a POST request, as this method leaves the behavior semantics completely to the server.
 
 ### Instantly Returning Functions
 
+When the function can return within the expected response time of the system, the result is directly returned in the response.
+The result can either be actual content or just a confirmation that the call was successful.
+In either case, the response does not contain a representation of the resource, but a so-called action result.
+Action results can still hypermedia controls to provide to the possible transitions in the application state machine.
+
 ### Long-running Functions
+
+When the execution of a function takes longer than the expected response time of the system or even longer than the response timeout, it is a good pattern to create a new resource to track the function call or "task".
+The server would respond instantly with a "Created" status (HTTP code 201 or CoAP 2.01) and indicate the location of the tracking resource in the corresponding header field (or CoAP option) or as link in the action result.
+The created resource can be used to monitor the progress, potentially modify queued tasks or cancel tasks, and retrieve the result.
+
+Monitoring and result data would be modeled as resource state and part of the representation.
+Modifying tasks can be modeled with forms that either update sub-resources via PUT, PATCH the resource state, or do a partial write using POST.
+Canceling a task would be modeled with a form DELETEing the task resource.
 
 ### Conversion
 
