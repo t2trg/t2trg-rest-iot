@@ -423,12 +423,11 @@ Local caches furthermore improve reliability, since requests can be answered eve
 
 ## Uniform Interface {#sec-uniform-interface}
 
-RESTful APIs all use the same, uniform interface independent of the application.
-The interactions are based on a client retrieving state (i.e., representations of resources), acting based on the representations (e.g., updating local variables based on the representation), and modifying resource state by sending a modified or new representation back to the server.
-This interaction model simplifies and unifies the interface between clients and servers, as only a small set of methods is required to retrieve, update, and delete state.
-In an RPC-style approach, all required ways to modify resource state need to be modeled with explicit methods (i.e., procedures).
-Moreover, this fosters interoperability, as the understanding of state is usually shared among different clients and servers, while it is likely that different parties come up with different ways how to modify state, including the naming of the procedures.
-
+All RESTful APIs use the same, uniform interface independent of the application.
+This simple interaction model is enabled by exchanging representations and modifying state locally, which simplifies the interface between clients and servers to a small set of methods to retrieve, update, and delete state -- which applies to all applications.
+In a service-oriented RPC approach, all required ways to modify state need to be modeled explicitly in the interface resulting in a large set of methods -- which differs from application to application.
+Moreover, it is also likely that different parties come up with different ways how to modify state, including the naming of the procedures, while the state within an application is a bit easier to agree on.
+ 
 A REST interface is fully defined by:
 
 * URIs to identify resources
