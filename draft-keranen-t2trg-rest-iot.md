@@ -512,23 +512,24 @@ To modify resource state, clients usually GET a representation from the server, 
 Sometimes, however, the state can only be modified on the server side, for instance, because representations would be too large to transfer or part of the required information shall not be accessible to clients.
 In this case, resource state is modified by calling a function.
 This is usually modeled with a POST request, as this method leaves the behavior semantics completely to the server.
+Function calls can be divided into two different classes based on how long time they are expected to execute: instantly returning and long-running functions.
 
 ### Instantly Returning Functions
 
-When the function can return within the expected response time of the system, the result is directly returned in the response.
+When the function can return within the expected response time of the system, the result can be directly returned in the response.
 The result can either be actual content or just a confirmation that the call was successful.
 In either case, the response does not contain a representation of the resource, but a so-called action result.
-Action results can still hypermedia controls to provide to the possible transitions in the application state machine.
+Action results can still have hypermedia controls to provide the possible transitions in the application state machine.
 
 ### Long-running Functions
 
-When the execution of a function takes longer than the expected response time of the system or even longer than the response timeout, it is a good pattern to create a new resource to track the function call or "task".
-The server would respond instantly with a "Created" status (HTTP code 201 or CoAP 2.01) and indicate the location of the tracking resource in the corresponding header field (or CoAP option) or as link in the action result.
-The created resource can be used to monitor the progress, potentially modify queued tasks or cancel tasks, and retrieve the result.
+When the execution of a function takes longer than the expected response time of the system, or even longer than the response timeout, it is a good pattern to create a new resource to track the function call or "task".
+The server would respond instantly with a "Created" status (HTTP code 201 or CoAP 2.01) and indicate the location of the tracking resource in the corresponding header field (or CoAP option) or as a link in the action result.
+The created resource can be used to monitor the progress, to potentially modify queued tasks or cancel tasks, and to eventually retrieve the result.
 
 Monitoring and result data would be modeled as resource state and part of the representation.
-Modifying tasks can be modeled with forms that either update sub-resources via PUT, PATCH the resource state, or do a partial write using POST.
-Canceling a task would be modeled with a form DELETEing the task resource.
+Modifying tasks can be modeled with forms that either update sub-resources via PUT, apply PATCH to the resource state, or do a partial write using POST.
+Canceling a task would be modeled with a form that applies a DELETE to the task resource.
 
 ### Conversion
 
