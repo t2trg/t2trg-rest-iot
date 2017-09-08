@@ -292,7 +292,15 @@ Whether the order of the query parameters matters in URIs is unspecified and the
 
 Clients can retrieve the resource state from an origin server or manipulate resource state on the origin server by transferring resource representations.
 Resource representations have a media type that tells how the representation should be interpreted by identifying the representation format used.
-Typical media types for IoT systems include "text/plain" for simple UTF-8 text, "application/octet-stream" for arbitrary binary data, "application/json" for the JSON format {{RFC7159}}, "application/senml+json" {{I-D.ietf-core-senml}} for Sensor Markup Language (SenML) formatted data, "application/cbor" for CBOR {{RFC7049}}, and "application/exi" for EXI {{W3C.REC-exi-20110310}}.
+
+Typical media types for IoT systems include:
+* "text/plain" for simple UTF-8 text
+* "application/octet-stream" for arbitrary binary data
+* "application/json" for the JSON format {{RFC7159}}
+* "application/senml+json" {{I-D.ietf-core-senml}} for Sensor Markup Language (SenML) formatted data
+* "application/cbor" for CBOR {{RFC7049}}
+* "application/exi" for EXI {{W3C.REC-exi-20110310}}
+
 A full list of registered Internet Media Types is available at the IANA registry {{IANA-media-types}} and numerical media types registered for use with CoAP are listed at CoAP Content-Formats IANA registry {{IANA-CoAP-media}}.
 
 ## HTTP/CoAP Methods {#sec-methods}
