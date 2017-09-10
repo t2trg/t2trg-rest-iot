@@ -118,6 +118,7 @@ Cache:
 
 Client:
 : A node that sends requests to servers and receives responses.
+In RESTful IoT systems it's common for nodes to have more than one role (e.g., both server and client; see {{sec-architecture}}).
 
 Client State:
 : The state kept by a client between requests. This typically includes the currently processed representation, the set of active requests, the history of requests, bookmarks (URIs stored for later retrieval), and application-specific state (e.g., local variables). 
@@ -153,7 +154,7 @@ Link:
 : A hypermedia control that enables a client to navigate between resources and thereby change the client state.
 
 Link Relation Type:
-: An identifier that describes how the link target resource relates to the current resource  (see {{RFC5988}}).
+: An identifier that describes how the link target resource relates to the current resource (see {{RFC5988}}).
 
 Media Type:
 : A string such as "text/html" or "application/json" that is used to label representations so that it is known how the representation should be interpreted and how it is encoded.
@@ -180,14 +181,16 @@ REST requires representations to be self-describing, meaning that there must be 
 Depending on the protocol needs and capabilities, there can be additional metadata that is transmitted along with the representation.
 
 Representation Format:
-: A set of rules for serializing resource state. On the Web, the most prevalent representation format is HTML. 
+: A set of rules for serializing resource state. 
+On the Web, the most prevalent representation format is HTML. 
 Other common formats include plain text and formats based on JSON {{RFC7159}}, XML, or RDF. Within IoT systems, often compact formats based on JSON, CBOR {{RFC7049}}, and EXI {{W3C.REC-exi-20110310}} are used.
 
 Representational State Transfer (REST):
 : An architectural style for Internet-scale distributed hypermedia systems.
 
 Resource:
-: An item of interest identified by a URI. Anything that can be named can be a resource. 
+: An item of interest identified by a URI. 
+Anything that can be named can be a resource. 
 A resource often encapsulates a piece of state in a system. 
 Typical resources in an IoT system can be, e.g., a sensor, the current value of a sensor, the location of a device, or the current state of an actuator.
 
@@ -211,11 +214,12 @@ Server:
 : A node that listens for requests, performs the requested operation and sends responses back to the clients.
 
 Uniform Resource Identifier (URI):
-: A global identifier for resources. See {{sec-uris}} for more details.
+: A global identifier for resources. 
+See {{sec-uris}} for more details.
 
 # Basics
 
-## Architecture
+## Architecture {{#sec-architecture}}
 
 The components of a RESTful system are assigned one or both of two roles: client or server.
 Note that the terms "client" and "server" refer only to the roles that the nodes assume for a particular message exchange. The same node might act as a client in some communications and a server in others.
