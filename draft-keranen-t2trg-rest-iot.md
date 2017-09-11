@@ -290,12 +290,27 @@ Uniform Resource Identifiers (URIs) are used to indicate a resource for interact
        |           |            |            |        |
     scheme     authority       path        query   fragment
 
-A URI is a sequence of characters that matches the syntax defined in {{RFC3986}}. It consists of a hierarchical sequence of five components: scheme, authority, path, query, and fragment (from most significant to least significant). A scheme creates a namespace for resources and defines how the following components identify a resource within that namespace. The authority identifies an entity that governs part of the namespace, such as the server "www.example.org" in the "http" scheme. A host name (e.g., a fully qualified domain name) or an IP address, potentially followed by a transport layer port number, are usually used in the authority component for the "http" and "coap" schemes. The path and query contain data to identify a resource within the scope of the URI's scheme and naming authority. The fragment allows to refer to some portion of the resource, such as a section in an HTML document. However, fragments are processed only at client side and not sent on the wire. {{?RFC7320}} provides more details on URI design and ownership with best current practices for establishing URI structures, conventions, and formats.
+A URI is a sequence of characters that matches the syntax defined in {{RFC3986}}. 
+It consists of a hierarchical sequence of five components: scheme, authority, path, query, and fragment (from most significant to least significant). 
+A scheme creates a namespace for resources and defines how the following components identify a resource within that namespace. 
+The authority identifies an entity that governs part of the namespace, such as the server "www.example.org" in the "http" scheme. 
+A host name (e.g., a fully qualified domain name) or an IP address, potentially followed by a transport layer port number, are usually used in the authority component for the "http" and "coap" schemes. 
+The path and query contain data to identify a resource within the scope of the URI's scheme and naming authority. 
+The fragment allows to refer to some portion of the resource, such as a section in an HTML document. 
+However, fragments are processed only at client side and not sent on the wire. 
+{{?RFC7320}} provides more details on URI design and ownership with best current practices for establishing URI structures, conventions, and formats.
 
-For RESTful IoT applications, typical schemes include "https", "coaps", "http", and "coap". These refer to HTTP and CoAP, with and without Transport Layer Security (TLS) {{RFC5246}}. (CoAP uses Datagram TLS (DTLS) {{RFC6347}}, the variant of TLS for UDP.) These four schemes also provide means for locating the resource; using the HTTP protocol for "http" and "https", and with the CoAP protocol for "coap" and "coaps". If the scheme is different for two URIs (e.g., "coap" vs. "coaps"), it is important to note that even if the rest of the URI is identical, these are two different resources, in two distinct namespaces.
+For RESTful IoT applications, typical schemes include "https", "coaps", "http", and "coap". 
+These refer to HTTP and CoAP, with and without Transport Layer Security (TLS) {{RFC5246}}. 
+(CoAP uses Datagram TLS (DTLS) {{RFC6347}}, the variant of TLS for UDP.) 
+These four schemes also provide means for locating the resource; using the HTTP protocol for "http" and "https", and with the CoAP protocol for "coap" and "coaps". 
+If the scheme is different for two URIs (e.g., "coap" vs. "coaps"), it is important to note that even if the rest of the URI is identical, these are two different resources, in two distinct namespaces.
 
-The query parameters can be used to parametrize the resource. For example, a GET request may use query parameters to request the server to send only certain kind data of the resource (i.e., filtering the response). Query parameters in PUT and POST requests do not have such established semantics and are not commonly used.
-Whether the order of the query parameters matters in URIs is unspecified and they can be re-ordered e.g., by proxies. Therefore applications should not rely on their order; see Section 3.3 of {{?RFC6943}} for more details.
+The query parameters can be used to parametrize the resource. 
+For example, a GET request may use query parameters to request the server to send only certain kind data of the resource (i.e., filtering the response). 
+Query parameters in PUT and POST requests do not have such established semantics and are not commonly used.
+Whether the order of the query parameters matters in URIs is unspecified and they can be re-ordered e.g., by proxies. 
+Therefore applications should not rely on their order; see Section 3.3 of {{?RFC6943}} for more details.
 
 ## Representations
 
@@ -478,9 +493,13 @@ In particular, they describe available resources and possible operations on thes
 
 There are multiple reasons why a server might introduce new links or forms:
 
-* The server implements a newer version of the application. Older clients ignore the new links and forms, while newer clients are able to take advantage of the new features by following the new links and submitting the new forms.
-* The server offers links and forms depending on the current state. The server can tell the client which operations are currently valid and thus help the client navigate the application state machine. The client does not have to have knowledge which operations are allowed in the current state or make a request just to find out that the operation is not valid.
-* The server offers links and forms depending on the client's access control rights. If the client is unauthorized to perform a certain operation, then the server can simply omit the links and forms for that operation.
+* The server implements a newer version of the application. 
+Older clients ignore the new links and forms, while newer clients are able to take advantage of the new features by following the new links and submitting the new forms.
+* The server offers links and forms depending on the current state. 
+The server can tell the client which operations are currently valid and thus help the client navigate the application state machine. 
+The client does not have to have knowledge which operations are allowed in the current state or make a request just to find out that the operation is not valid.
+* The server offers links and forms depending on the client's access control rights. 
+If the client is unauthorized to perform a certain operation, then the server can simply omit the links and forms for that operation.
 
 ## Knowledge
 
