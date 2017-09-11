@@ -145,10 +145,6 @@ If the client engages in an interaction with the identified resource, the result
 
 Idempotent Method:
 : A method where multiple identical requests with that method lead to the same visible resource state as a single such request. 
-For example, the PUT method replaces the state of a resource with a new state; replacing the state multiple times with the same new state still results in the same state for the resource. 
-However, the response from the server can be different when the same idempotent method is used multiple times. 
-For example when DELETE is used twice on an existing resource, the first request would remove the association and return success acknowledgement whereas the second request would likely result in error response due to non-existing resource.
-<!-- Too much text for terminology section? Should be separate section after 1st sentence? -->
 
 Link:
 : A hypermedia control that enables a client to navigate between resources and thereby change the client state.
@@ -207,8 +203,6 @@ A reverse proxy is often used to encapsulate legacy services, to improve server 
 
 Safe Method:
 : A method that does not result in any state change on the origin server when applied to a resource. 
-For example, the GET method only returns a representation of the resource state but does not change the resource. 
-Thus, it is always safe for a client to retrieve a representation without affecting server-side state.
 
 Server:
 : A node that listens for requests, performs the requested operation and sends responses back to the clients.
@@ -342,9 +336,17 @@ A full list of registered Internet Media Types is available at the IANA registry
 
 Section 4.3 of {{RFC7231}} defines the set of methods in HTTP; 
 Section 5.8 of {{RFC7252}} defines the set of methods in CoAP.
-As part of the Uniform Interface constraint, each method can have certain properties that give guarantees to clients:
-Safe methods do not cause any state change on the origin server when applied to a resource.
+As part of the Uniform Interface constraint, each method can have certain properties that give guarantees to clients.
+
+Safe methods do not cause any state change on the origin server when applied to a resource. 
+For example, the GET method only returns a representation of the resource state but does not change the resource. 
+Thus, it is always safe for a client to retrieve a representation without affecting server-side state.
+
 Idempotent methods can be applied multiple times to the same resource while causing the same visible resource state as a single such request.
+For example, the PUT method replaces the state of a resource with a new state; replacing the state multiple times with the same new state still results in the same state for the resource. 
+However, the response from the server can be different when the same idempotent method is used multiple times. 
+For example when DELETE is used twice on an existing resource, the first request would remove the association and return success acknowledgement whereas the second request would likely result in error response due to non-existing resource.
+
 The following lists the most relevant methods and gives a short explanation of their semantics.
 
 ### GET
