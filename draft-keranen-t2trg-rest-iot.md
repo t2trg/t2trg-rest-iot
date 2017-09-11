@@ -140,7 +140,7 @@ Gateway:
 See also "Reverse Proxy".
 
 Hypermedia Control:
-: A component embedded in a representation that identifies a resource for future hypermedia interactions, such as a link or a form. 
+: A component, such as a link or a form, embedded in a representation that identifies a resource for future hypermedia interactions. 
 If the client engages in an interaction with the identified resource, the result may be a change to resource state and/or client state.
 
 Idempotent Method:
