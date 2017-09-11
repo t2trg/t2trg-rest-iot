@@ -350,7 +350,8 @@ The GET method is safe and idempotent.
 
 The POST method requests that the target resource process the representation enclosed in the request according to the resource's own specific semantics.
 
-If one or more resources has been created on the origin server as a result of successfully processing a POST request, the origin server sends a 201 (Created) response containing a Location header field that provides an identifier for the resource created and a representation that describes the status of the request while referring to the new resource(s).
+If one or more resources has been created on the origin server as a result of successfully processing a POST request, the origin server sends a 201 (Created) response containing a Location header field (with HTTP) or Location-Path and/or Location-Query Options (with CoAP) that provide an identifier for the resource created.
+The server also includes a representation that describes the status of the request while referring to the new resource(s).
 
 The POST method is not safe nor idempotent.
 
