@@ -219,7 +219,7 @@ See {{sec-uris}} for more details.
 
 # Basics
 
-## Architecture {{#sec-architecture}}
+## Architecture {#sec-architecture}
 
 The components of a RESTful system are assigned one or both of two roles: client or server.
 Note that the terms "client" and "server" refer only to the roles that the nodes assume for a particular message exchange. The same node might act as a client in some communications and a server in others.
