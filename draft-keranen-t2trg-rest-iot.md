@@ -296,7 +296,7 @@ A scheme creates a namespace for resources and defines how the following compone
 The authority identifies an entity that governs part of the namespace, such as the server "www.example.org" in the "http" scheme. 
 A host name (e.g., a fully qualified domain name) or an IP address, potentially followed by a transport layer port number, are usually used in the authority component for the "http" and "coap" schemes. 
 The path and query contain data to identify a resource within the scope of the URI's scheme and naming authority. 
-The fragment allows to refer to some portion of the resource, such as a section in an HTML document. 
+The fragment allows to refer to some portion of the resource, such as a Record in a SenML Pack. 
 However, fragments are processed only at client side and not sent on the wire. 
 {{?RFC7320}} provides more details on URI design and ownership with best current practices for establishing URI structures, conventions, and formats.
 
