@@ -164,7 +164,7 @@ In contrast, intermediaries (such as proxies caching a representation) can assum
 
 Proactive Content Negotiation:
 : A content negotiation mechanism where the server selects a representation based on the expressed preference of the client. 
-For example, in an IoT application, a client could send a request with preferred media type "application/senml+json".
+For example, an IoT application could send a request to a sensor with preferred media type "application/senml+json".
 
 Reactive Content Negotiation:
 : A content negotiation mechanism where the client selects a representation from a list of available representations. 
