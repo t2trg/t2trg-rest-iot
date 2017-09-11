@@ -539,7 +539,7 @@ Also some interactions with a RESTful IoT system are straighforward to design;
 a classic example of reading a temperature from a thermometer device is almost always implemented as a GET request to a resource that represents the current value of the thermometer.
 However, certain interactions, for example data conversions or event handling, do not have as straighforward and well established ways to represent the logic with resources and REST methods.
 
-The following sections describe how common design problems such as different interactions can be modeled with RESTful and what are the benefits of different approaches.
+The following sections describe how common design problems such as different interactions can be modeled with RESTful design and what are the benefits of different approaches.
 
 ## Collections
 
@@ -547,7 +547,7 @@ A common pattern in RESTful systems across different domains is the collection.
 A collection can be used to combine multiple resources together by providing resources that consist of set of (often partial) representations of resources, called items, and links to resources.
 The collection resource also defines hypermedia controls for managing and searching the items in the collection.
 
-Examples of the collection pattern in RESTful IoT systems are the CoRE Resource Directory {{I-D.ietf-core-resource-directory}}, CoAP pub/sub broker {{?I-D.ietf-core-coap-pubsub}}, and resource discovery via .well-known/core. 
+Examples of the collection pattern in RESTful IoT systems are the CoRE Resource Directory {{I-D.ietf-core-resource-directory}}, CoAP pub/sub broker {{?I-D.ietf-core-coap-pubsub}}, and resource discovery via ".well-known/core". 
 Collection+JSON {{CollectionJSON}} is an example of a generic collection Media Type.
 
 ## Calling a Procedure
@@ -572,7 +572,7 @@ The server would respond instantly with a "Created" status (HTTP code 201 or CoA
 The created resource can be used to monitor the progress, to potentially modify queued tasks or cancel tasks, and to eventually retrieve the result.
 
 Monitoring information would be modeled as state of the task resource, and hence be retrievable as representation.
-The result -- when available -- can be embedded in the representation or given as link to another sub-resource.
+The result -- when available -- can be embedded in the representation or given as a link to another sub-resource.
 Modifying tasks can be modeled with forms that either update sub-resources via PUT or do a partial write using PATCH or POST.
 Canceling a task would be modeled with a form that uses DELETE to remove the task resource.
 
@@ -585,27 +585,28 @@ TBD: examples.
 
 ### Events as State
 
-In event-centric paradigms such as pub/sub, events are usually represented by an incoming message that might be even be identical for each occurance.
+In event-centric paradigms such as pub/sub, events are usually represented by an incoming message that might even be identical for each occurance.
 Since the messages are queued, the receiver is aware of each occurance of the event and can react accordingly.
-In such systems, ringing a door bell, for instance, would result in a message being sent that represents the event that it was rung.
+For instance, in an event-centric system, ringing a door bell would result in a message being sent that represents the event that it was rung.
 
 In resouce-oriented paradigms such as REST, messages usually carry the current state of the remote resource, independent from the changes (i.e., events) that have lead to that state.
-In a naive yet natural yet, a door bell could be modelled as a resource that can have the states unpressed and pressed.
+In a naive yet natural design, a door bell could be modeled as a resource that can have the states unpressed and pressed.
 There are, however, a few issues with this approach.
-Polling is not an option, as it is highly unlikely to observe the pressed state with a realistic polling interval.
+Polling is not an option, as it is highly unlikely to be able to observe the pressed state with any realistic polling interval.
 When using CoAP Observe with Confirmable notifications, the server will usually send two notifications for the event that the door bell was pressed:
 notification for changing from unpressed to pressed and another one for changing back to unpressed.
 If the time between the state changes is very short, the server might drop the first notification, as Observe only guarantees only eventual consistency (see Section 1.3 of {{RFC7641}}).
 
 The solution is to pick a state model that fits better to the application.
-In the case of the door bell -- and many other event-driven resources -- it could be a counter that counts how often the bell was pressed.
+In the case of the door bell -- and many other event-driven resources -- the solution could be a counter that counts how often the bell was pressed.
 The corresponding action is taken each time the client observes a change in the received representation.
 
 In the case of a network outage, this could lead to a ringing sound 10 minutes after the bell was rung.
 Also including a timestamp of the last counter increment in the state can help to suppress ringing a sound when the event has become obsolete.
 
 ## Server Push
-Observing State (asynchronous updates) of a resource
+
+TBD: observing State (asynchronous updates) of a resource
 
 # Security Considerations {#sec-sec}
 
@@ -624,6 +625,8 @@ IoT-specific security is mainly work in progress at the time of writing.
 First specifications include:
 
 * (D)TLS Profiles for the Internet of Things: {{RFC7925}}
+
+Further IoT security considerations are available in {{?I-D.irtf-t2trg-iot-seccons}}.
 
 # Acknowledgement
 
