@@ -263,7 +263,7 @@ How clients can navigate through the resources and modify state to achieve their
 Hypermedia controls span a kind of a state machine where the nodes are resources and the transitions are links or forms.
 Clients run this state machine (i.e., the application) by retrieving representations, processing the data, and following the included hypermedia controls.
 In REST, remote state is changed by submitting forms.
-This is usually done by retrieving the current state, modifying the state on the client side, and transfering the new state to the server in the form of new representations -- rather then calling a service and modifying the state on the server side.
+This is usually done by retrieving the current state, modifying the state on the client side, and transfering the new state to the server in the form of new representations -- rather than calling a service and modifying the state on the server side.
 
 Client state encompasses the current state of the described state machine and the possible next transitions derived from the hypermedia controls within the currently processed representation (see {{sec-terms}}).
 Furthermore, clients can have part of the state of the distributed application in local variables.
@@ -271,13 +271,13 @@ Furthermore, clients can have part of the state of the distributed application i
 Resource state includes the more persistent data of an application (i.e., independent of individual clients).
 This can be static data such as device descriptions, persistent data such as system configurations, but also dynamic data such as the current value of a sensor on a thing.
 
-It is important to distinguish between "client state" and "resource state" and keep it separate.
+It is important to distinguish between "client state" and "resource state" and keep them separate.
 Following the Stateless constraint, the client state must be kept only on clients.
 That is, there is no establishment of shared information about past and future interactions between client and server (usually called a session).
 On the one hand, this makes requests a bit more verbose since every request must contain all the information necessary to process it.
 On the other hand, this makes servers efficient and scalable, since they do not have to keep any state about their clients.
 Requests can easily be distributed over multiple worker threads or server instances.
-For the IoT systems, it lowers the memory requirements for server implementations, which is particularly important for constrained servers (e.g., sensor nodes) and servers serving large amount of clients (e.g., Resource Directory).
+For IoT systems, this constraint lowers the memory requirements for server implementations, which is particularly important for constrained servers (e.g., sensor nodes) and servers serving large amount of clients (e.g., Resource Directory).
 
 ## Uniform Resource Identifiers (URIs) {#sec-uris}
 
