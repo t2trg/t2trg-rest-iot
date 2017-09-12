@@ -530,7 +530,7 @@ A client begins interacting with an application through a GET request on an entr
 The entry point URI is the only URI a client is expected to know before interacting with an application.
 From there, the client is expected to make all requests by following links and submitting forms that are provided in previous responses.
 The entry point URI can be obtained, for example, by manual configuration or some discovery process (e.g., DNS-SD {{RFC6763}} or Resource Directory {{I-D.ietf-core-resource-directory}}).
-For Constrained RESTful environments "/.well-known/core" relative URI is defined as a default entry point for requesting the links hosted by a server {{RFC6690}}.
+For Constrained RESTful environments "/.well-known/core" relative URI is defined as a default entry point for requesting the links hosted by servers with known or discovered addresses {{RFC6690}}.
 
 # Design Patterns
 
