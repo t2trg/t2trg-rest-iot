@@ -539,7 +539,7 @@ Also some interactions with a RESTful IoT system are straighforward to design;
 a classic example of reading a temperature from a thermometer device is almost always implemented as a GET request to a resource that represents the current value of the thermometer.
 However, certain interactions, for example data conversions or event handling, do not have as straighforward and well established ways to represent the logic with resources and REST methods.
 
-The following sections describe how common design problems such as different interactions can be modeled with RESTful design and what are the benefits of different approaches.
+The following sections describe how common design problems such as different interactions can be modeled with REST and what are the benefits of different approaches.
 
 ## Collections
 
