@@ -119,34 +119,39 @@ Cache:
 
 Client:
 : A node that sends requests to servers and receives responses.
+In RESTful IoT systems it's common for nodes to have more than one role (e.g., both server and client; see {{sec-architecture}}).
 
 Client State:
-: The state kept by a client between requests. This typically includes the currently processed representation, the set of active requests, the history of requests, bookmarks (URIs stored for later retrieval), and application-specific state (e.g., local variables). (Note that this is called "Application State" in {{REST}}, which has some ambiguity in modern (IoT) systems where the overall state of the distributed application (i.e., application state) is reflected in the union of all Client States and Resource States of all clients and servers involved.)
+: The state kept by a client between requests. This typically includes the currently processed representation, the set of active requests, the history of requests, bookmarks (URIs stored for later retrieval), and application-specific state (e.g., local variables). 
+(Note that this is called "Application State" in {{REST}}, which has some ambiguity in modern (IoT) systems where the overall state of the distributed application (i.e., application state) is reflected in the union of all Client States and Resource States of all clients and servers involved.)
 
 Content Negotiation:
-: The practice of determining the "best" representation for a client when examining the current state of a resource. The most common forms of content negotiation are Proactive Content Negotiation and Reactive Content Negotiation.
+: The practice of determining the "best" representation for a client when examining the current state of a resource. 
+The most common forms of content negotiation are Proactive Content Negotiation and Reactive Content Negotiation.
 
 Form:
 : A hypermedia control that enables a client to change the state of a resource or to construct a query locally.
 
 Forward Proxy:
-: An intermediary that is selected by a client, usually via local configuration rules, and that can be tasked to make requests on behalf of the client. This may be useful, for example, when the client lacks the capability to make the request itself or to service the response from a cache in order to reduce response time, network bandwidth and energy consumption.
+: An intermediary that is selected by a client, usually via local configuration rules, and that can be tasked to make requests on behalf of the client. 
+This may be useful, for example, when the client lacks the capability to make the request itself or to service the response from a cache in order to reduce response time, network bandwidth, and energy consumption.
 
 Gateway:
-: A reverse proxy that provides an interface to a non-RESTful system such as legacy systems or alternative technologies such as Bluetooth ATT/GATT. See also "Reverse Proxy".
+: A reverse proxy that provides an interface to a non-RESTful system such as legacy systems or alternative technologies such as Bluetooth ATT/GATT. 
+See also "Reverse Proxy".
 
 Hypermedia Control:
-: A component embedded in a representation that identifies a resource for future hypermedia interactions, such as a link or a form. If the client engages in an interaction with the identified resource, the result may be a change to resource state and/or client state.
+: A component, such as a link or a form, embedded in a representation that identifies a resource for future hypermedia interactions. 
+If the client engages in an interaction with the identified resource, the result may be a change to resource state and/or client state.
 
 Idempotent Method:
-: A method where multiple identical requests with that method lead to the same visible resource state as a single such request. For example, the PUT method replaces the state of a resource with a new state; replacing the state multiple times with the same new state still results in the same state for the resource. However, the response from the server can be different when the same idempotent method is used multiple times. For example when DELETE is used twice on an existing resource, the first request would remove the association and return success acknowledgement whereas the second request would likely result in error response due to non-existing resource.
-<!-- Too much text for terminology section? Should be separate section after 1st sentence? -->
+: A method where multiple identical requests with that method lead to the same visible resource state as a single such request. 
 
 Link:
 : A hypermedia control that enables a client to navigate between resources and thereby change the client state.
 
 Link Relation Type:
-: An identifier that describes how the link target resource relates to the current resource  (see {{RFC5988}}).
+: An identifier that describes how the link target resource relates to the current resource (see {{RFC5988}}).
 
 Media Type:
 : A string such as "text/html" or "application/json" that is used to label representations so that it is known how the representation should be interpreted and how it is encoded.
@@ -155,47 +160,61 @@ Method:
 : An operation associated with a resource. Common methods include GET, PUT, POST, and DELETE (see {{sec-methods}} for details).
 
 Origin Server:
-: A server that is the definitive source for representations of its resources and the ultimate recipient of any request that intends to modify its resources. In contrast, intermediaries (such as proxies caching a representation) can assume the role of a server, but are not the source for representations as these are acquired from the origin server.
+: A server that is the definitive source for representations of its resources and the ultimate recipient of any request that intends to modify its resources.
+In contrast, intermediaries (such as proxies caching a representation) can assume the role of a server, but are not the source for representations as these are acquired from the origin server.
 
 Proactive Content Negotiation:
-: A content negotiation mechanism where the server selects a representation based on the expressed preference of the client. For example, in an IoT application, a client could send a request with preferred media type "application/senml+json".
+: A content negotiation mechanism where the server selects a representation based on the expressed preference of the client. 
+For example, an IoT application could send a request to a sensor with preferred media type "application/senml+json".
 
 Reactive Content Negotiation:
-: A content negotiation mechanism where the client selects a representation from a list of available representations. The list may, for example, be included by a server in an initial response. If the user agent is not satisfied by the initial response representation, it can request one or more of the alternative representations, selected based on metadata (e.g., available media types) included in the response.
+: A content negotiation mechanism where the client selects a representation from a list of available representations. 
+The list may, for example, be included by a server in an initial response. 
+If the user agent is not satisfied by the initial response representation, it can request one or more of the alternative representations, selected based on metadata (e.g., available media types) included in the response.
 
 Representation:
-: A serialization that represents the current or intended state of a resource and that can be transferred between clients and servers. REST requires representations to be self-describing, meaning that there must be metadata that allows peers to understand which representation format is used. Depending on the protocol needs and capabilities, there can be additional metadata that is transmitted along with the representation.
+: A serialization that represents the current or intended state of a resource and that can be transferred between clients and servers. 
+REST requires representations to be self-describing, meaning that there must be metadata that allows peers to understand which representation format is used.
+Depending on the protocol needs and capabilities, there can be additional metadata that is transmitted along with the representation.
 
 Representation Format:
-: A set of rules for serializing resource state. On the Web, the most prevalent representation format is HTML. Other common formats include plain text and formats based on JSON {{RFC7159}}, XML, or RDF. Within IoT systems, often compact formats based on JSON, CBOR {{RFC7049}}, and EXI {{W3C.REC-exi-20110310}} are used.
+: A set of rules for serializing resource state. 
+On the Web, the most prevalent representation format is HTML. 
+Other common formats include plain text and formats based on JSON {{RFC7159}}, XML, or RDF. Within IoT systems, often compact formats based on JSON, CBOR {{RFC7049}}, and EXI {{W3C.REC-exi-20110310}} are used.
 
 Representational State Transfer (REST):
 : An architectural style for Internet-scale distributed hypermedia systems.
 
 Resource:
-: An item of interest identified by a URI. Anything that can be named can be a resource. A resource often encapsulates a piece of state in a system. Typical resources in an IoT system can be, e.g., a sensor, the current value of a sensor, the location of a device, or the current state of an actuator.
+: An item of interest identified by a URI. 
+Anything that can be named can be a resource. 
+A resource often encapsulates a piece of state in a system. 
+Typical resources in an IoT system can be, e.g., a sensor, the current value of a sensor, the location of a device, or the current state of an actuator.
 
 Resource State:
-: A model of a resource's possible states that is represented in a supported representation type, typically a media type. Resources can change state because of REST interactions with them, or they can change state for reasons outside of the REST model.
+: A model of a resource's possible states that is represented in a supported representation type, typically a media type. 
+Resources can change state because of REST interactions with them, or they can change state for reasons outside of the REST model.
 
 Resource Type:
 : An identifier that annotates the application-semantics of a resource (see Section 3.1 of {{RFC6690}}).
 
 Reverse Proxy:
-: An intermediary that appears as a server towards the client but satisfies the requests by forwarding them to the actual server (possibly via one or more other intermediaries). A reverse proxy is often used to encapsulate legacy services, to improve server performance through caching, and to enable load balancing across multiple machines.
+: An intermediary that appears as a server towards the client but satisfies the requests by forwarding them to the actual server (possibly via one or more other intermediaries). 
+A reverse proxy is often used to encapsulate legacy services, to improve server performance through caching, and to enable load balancing across multiple machines.
 
 Safe Method:
-: A method that does not result in any state change on the origin server when applied to a resource. For example, the GET method only returns a representation of the resource state but does not change the resource. Thus, it is always safe for a client to retrieve a representation without affecting server-side state.
+: A method that does not result in any state change on the origin server when applied to a resource. 
 
 Server:
 : A node that listens for requests, performs the requested operation and sends responses back to the clients.
 
 Uniform Resource Identifier (URI):
-: A global identifier for resources. See {{sec-uris}} for more details.
+: A global identifier for resources. 
+See {{sec-uris}} for more details.
 
 # Basics
 
-## Architecture
+## Architecture {#sec-architecture}
 
 The components of a RESTful system are assigned one or both of two roles: client or server.
 Note that the terms "client" and "server" refer only to the roles that the nodes assume for a particular message exchange. The same node might act as a client in some communications and a server in others.
@@ -333,9 +352,17 @@ A full list of registered Internet Media Types is available at the IANA registry
 
 Section 4.3 of {{RFC7231}} defines the set of methods in HTTP; 
 Section 5.8 of {{RFC7252}} defines the set of methods in CoAP.
-As part of the Uniform Interface constraint, each method can have certain properties that give guarantees to clients:
-Safe methods do not cause any state change on the origin server when applied to a resource.
+As part of the Uniform Interface constraint, each method can have certain properties that give guarantees to clients.
+
+Safe methods do not cause any state change on the origin server when applied to a resource. 
+For example, the GET method only returns a representation of the resource state but does not change the resource. 
+Thus, it is always safe for a client to retrieve a representation without affecting server-side state.
+
 Idempotent methods can be applied multiple times to the same resource while causing the same visible resource state as a single such request.
+For example, the PUT method replaces the state of a resource with a new state; replacing the state multiple times with the same new state still results in the same state for the resource. 
+However, the response from the server can be different when the same idempotent method is used multiple times. 
+For example when DELETE is used twice on an existing resource, the first request would remove the association and return success acknowledgement whereas the second request would likely result in error response due to non-existing resource.
+
 The following lists the most relevant methods and gives a short explanation of their semantics.
 
 ### GET
