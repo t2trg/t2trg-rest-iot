@@ -84,7 +84,8 @@ informative:
   CollectionJSON:
     title: Collection+JSON - Document Format
     author:
-    - ins: Mike Amundsen
+    - ins: M. Amundsen
+    date: Feb 2013
     target: http://amundsen.com/media-types/collection/format/
 --- abstract
 
