@@ -316,7 +316,7 @@ A scheme creates a namespace for resources and defines how the following compone
 The authority identifies an entity that governs part of the namespace, such as the server "www.example.org" in the "http" scheme. 
 A host name (e.g., a fully qualified domain name) or an IP address, potentially followed by a transport layer port number, are usually used in the authority component for the "http" and "coap" schemes. 
 The path and query contain data to identify a resource within the scope of the URI's scheme and naming authority. 
-The fragment allows to refer to some portion of the resource, such as a section in an HTML document. 
+The fragment allows to refer to some portion of the resource, such as a Record in a SenML Pack. 
 However, fragments are processed only at client side and not sent on the wire. 
 {{?RFC7320}} provides more details on URI design and ownership with best current practices for establishing URI structures, conventions, and formats.
 
@@ -378,7 +378,8 @@ The GET method is safe and idempotent.
 
 The POST method requests that the target resource process the representation enclosed in the request according to the resource's own specific semantics.
 
-If one or more resources has been created on the origin server as a result of successfully processing a POST request, the origin server sends a 201 (Created) response containing a Location header field that provides an identifier for the resource created and a representation that describes the status of the request while referring to the new resource(s).
+If one or more resources has been created on the origin server as a result of successfully processing a POST request, the origin server sends a 201 (Created) response containing a Location header field (with HTTP) or Location-Path and/or Location-Query Options (with CoAP) that provide an identifier for the resource created.
+The server also includes a representation that describes the status of the request while referring to the new resource(s).
 
 The POST method is not safe nor idempotent.
 
@@ -468,7 +469,8 @@ Local caches furthermore improve reliability, since requests can be answered eve
 
 All RESTful APIs use the same, uniform interface independent of the application.
 This simple interaction model is enabled by exchanging representations and modifying state locally, which simplifies the interface between clients and servers to a small set of methods to retrieve, update, and delete state -- which applies to all applications.
-In a service-oriented RPC approach, all required ways to modify state need to be modeled explicitly in the interface resulting in a large set of methods -- which differs from application to application.
+
+In contrast, in a service-oriented RPC approach, all required ways to modify state need to be modeled explicitly in the interface resulting in a large set of methods -- which differs from application to application.
 Moreover, it is also likely that different parties come up with different ways how to modify state, including the naming of the procedures, while the state within an application is a bit easier to agree on.
  
 A REST interface is fully defined by:
@@ -555,7 +557,8 @@ The knowledge about these identifiers as well as matching implementations have t
 A client begins interacting with an application through a GET request on an entry point URI.
 The entry point URI is the only URI a client is expected to know before interacting with an application.
 From there, the client is expected to make all requests by following links and submitting forms that are provided in previous responses.
-The entry point IRI can be obtained, for example, by manual configuration or some discovery process (e.g., DNS-SD {{RFC6763}} or Resource Directory {{I-D.ietf-core-resource-directory}}).
+The entry point URI can be obtained, for example, by manual configuration or some discovery process (e.g., DNS-SD {{RFC6763}} or Resource Directory {{I-D.ietf-core-resource-directory}}).
+For Constrained RESTful environments "/.well-known/core" relative URI is defined as a default entry point for requesting the links hosted by servers with known or discovered addresses {{RFC6690}}.
 
 # Design Patterns
 
@@ -564,7 +567,7 @@ Also some interactions with a RESTful IoT system are straighforward to design;
 a classic example of reading a temperature from a thermometer device is almost always implemented as a GET request to a resource that represents the current value of the thermometer.
 However, certain interactions, for example data conversions or event handling, do not have as straighforward and well established ways to represent the logic with resources and REST methods.
 
-The following sections describe how common design problems such as different interactions can be modeled with RESTful and what are the benefits of different approaches.
+The following sections describe how common design problems such as different interactions can be modeled with REST and what are the benefits of different approaches.
 
 ## Collections
 
@@ -572,7 +575,7 @@ A common pattern in RESTful systems across different domains is the collection.
 A collection can be used to combine multiple resources together by providing resources that consist of set of (often partial) representations of resources, called items, and links to resources.
 The collection resource also defines hypermedia controls for managing and searching the items in the collection.
 
-Examples of the collection pattern in RESTful IoT systems are the CoRE Resource Directory {{I-D.ietf-core-resource-directory}}, CoAP pub/sub broker {{?I-D.ietf-core-coap-pubsub}}, and resource discovery via .well-known/core. 
+Examples of the collection pattern in RESTful IoT systems are the CoRE Resource Directory {{I-D.ietf-core-resource-directory}}, CoAP pub/sub broker {{?I-D.ietf-core-coap-pubsub}}, and resource discovery via ".well-known/core". 
 Collection+JSON {{CollectionJSON}} is an example of a generic collection Media Type.
 
 ## Calling a Procedure
@@ -597,7 +600,7 @@ The server would respond instantly with a "Created" status (HTTP code 201 or CoA
 The created resource can be used to monitor the progress, to potentially modify queued tasks or cancel tasks, and to eventually retrieve the result.
 
 Monitoring information would be modeled as state of the task resource, and hence be retrievable as representation.
-The result -- when available -- can be embedded in the representation or given as link to another sub-resource.
+The result -- when available -- can be embedded in the representation or given as a link to another sub-resource.
 Modifying tasks can be modeled with forms that either update sub-resources via PUT or do a partial write using PATCH or POST.
 Canceling a task would be modeled with a form that uses DELETE to remove the task resource.
 
@@ -610,27 +613,28 @@ TBD: examples.
 
 ### Events as State
 
-In event-centric paradigms such as pub/sub, events are usually represented by an incoming message that might be even be identical for each occurance.
+In event-centric paradigms such as pub/sub, events are usually represented by an incoming message that might even be identical for each occurance.
 Since the messages are queued, the receiver is aware of each occurance of the event and can react accordingly.
-In such systems, ringing a door bell, for instance, would result in a message being sent that represents the event that it was rung.
+For instance, in an event-centric system, ringing a door bell would result in a message being sent that represents the event that it was rung.
 
 In resouce-oriented paradigms such as REST, messages usually carry the current state of the remote resource, independent from the changes (i.e., events) that have lead to that state.
-In a naive yet natural yet, a door bell could be modelled as a resource that can have the states unpressed and pressed.
+In a naive yet natural design, a door bell could be modeled as a resource that can have the states unpressed and pressed.
 There are, however, a few issues with this approach.
-Polling is not an option, as it is highly unlikely to observe the pressed state with a realistic polling interval.
+Polling is not an option, as it is highly unlikely to be able to observe the pressed state with any realistic polling interval.
 When using CoAP Observe with Confirmable notifications, the server will usually send two notifications for the event that the door bell was pressed:
 notification for changing from unpressed to pressed and another one for changing back to unpressed.
 If the time between the state changes is very short, the server might drop the first notification, as Observe only guarantees only eventual consistency (see Section 1.3 of {{RFC7641}}).
 
 The solution is to pick a state model that fits better to the application.
-In the case of the door bell -- and many other event-driven resources -- it could be a counter that counts how often the bell was pressed.
+In the case of the door bell -- and many other event-driven resources -- the solution could be a counter that counts how often the bell was pressed.
 The corresponding action is taken each time the client observes a change in the received representation.
 
 In the case of a network outage, this could lead to a ringing sound 10 minutes after the bell was rung.
 Also including a timestamp of the last counter increment in the state can help to suppress ringing a sound when the event has become obsolete.
 
 ## Server Push
-Observing State (asynchronous updates) of a resource
+
+TBD: observing State (asynchronous updates) of a resource
 
 # Security Considerations {#sec-sec}
 
@@ -649,6 +653,8 @@ IoT-specific security is mainly work in progress at the time of writing.
 First specifications include:
 
 * (D)TLS Profiles for the Internet of Things: {{RFC7925}}
+
+Further IoT security considerations are available in {{?I-D.irtf-t2trg-iot-seccons}}.
 
 # Acknowledgement
 
