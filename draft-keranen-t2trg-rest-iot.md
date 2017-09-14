@@ -286,7 +286,7 @@ How clients can navigate through the resources and modify state to achieve their
 Hypermedia controls span a kind of a state machine where the nodes are resources and the transitions are links or forms.
 Clients run this state machine (i.e., the application) by retrieving representations, processing the data, and following the included hypermedia controls.
 In REST, remote state is changed by submitting forms.
-This is usually done by retrieving the current state, modifying the state on the client side, and transfering the new state to the server in the form of new representations -- rather than calling a service and modifying the state on the server side.
+This is usually done by retrieving the current state, modifying the state on the client side, and transferring the new state to the server in the form of new representations -- rather than calling a service and modifying the state on the server side.
 
 Client state encompasses the current state of the described state machine and the possible next transitions derived from the hypermedia controls within the currently processed representation (see {{sec-terms}}).
 Furthermore, clients can have part of the state of the distributed application in local variables.
@@ -566,9 +566,9 @@ For Constrained RESTful environments "/.well-known/core" relative URI is defined
 # Design Patterns
 
 Certain kinds of design problems are often recurring in variety of domains, and often re-usable design patterns can be applied to them.
-Also some interactions with a RESTful IoT system are straighforward to design;
+Also some interactions with a RESTful IoT system are straightforward to design;
 a classic example of reading a temperature from a thermometer device is almost always implemented as a GET request to a resource that represents the current value of the thermometer.
-However, certain interactions, for example data conversions or event handling, do not have as straighforward and well established ways to represent the logic with resources and REST methods.
+However, certain interactions, for example data conversions or event handling, do not have as straightforward and well established ways to represent the logic with resources and REST methods.
 
 The following sections describe how common design problems such as different interactions can be modeled with REST and what are the benefits of different approaches.
 
@@ -614,21 +614,21 @@ The knowledge of converting from one representation to another is located only a
 There are different approaches that all depend on the particular conversion problem.
 
 As mentioned in the previous sections, POST request are a good way to model functionality that does not necessarily affect resource state.
-When the input data for the conversion is small and the conversion result is determenistic, however, it can be better to use a GET request with the input data in the URI query part.
+When the input data for the conversion is small and the conversion result is deterministic, however, it can be better to use a GET request with the input data in the URI query part.
 The query is parameterizing the conversion resource, so that it acts like a look-up table.
-The benefit is that results can be cached also for HTTP (where responses to POST are not cachable).
-In CoAP, cachability depends on the response code, so that also a response to a POST request can be made cacheable through a 2.05 Content code.
+The benefit is that results can be cached also for HTTP (where responses to POST are not cacheable).
+In CoAP, cacheability depends on the response code, so that also a response to a POST request can be made cacheable through a 2.05 Content code.
 
 When the input data is large or has a binary encoding, it is better to use POST requests with a proper Media Type for the input representation.
 A POST request is also more suitable, when the result is time-dependent and the latest result is expected (e.g., exchange rates).
 
 ### Events as State
 
-In event-centric paradigms such as pub/sub, events are usually represented by an incoming message that might even be identical for each occurance.
-Since the messages are queued, the receiver is aware of each occurance of the event and can react accordingly.
+In event-centric paradigms such as pub/sub, events are usually represented by an incoming message that might even be identical for each occurrence.
+Since the messages are queued, the receiver is aware of each occurrence of the event and can react accordingly.
 For instance, in an event-centric system, ringing a door bell would result in a message being sent that represents the event that it was rung.
 
-In resouce-oriented paradigms such as REST, messages usually carry the current state of the remote resource, independent from the changes (i.e., events) that have lead to that state.
+In resource-oriented paradigms such as REST, messages usually carry the current state of the remote resource, independent from the changes (i.e., events) that have lead to that state.
 In a naive yet natural design, a door bell could be modeled as a resource that can have the states unpressed and pressed.
 There are, however, a few issues with this approach.
 Polling is not an option, as it is highly unlikely to be able to observe the pressed state with any realistic polling interval.
@@ -652,8 +652,8 @@ A proficient mechanism for change-of-state notifications is currently only avail
 It offers enventual consistency, which guarantees "that if the resource does not undergo a new change in state, eventually all registered observers will have a current representation of the latest resource state".
 It intrinsically deals with the challenges of lossy networks, where notifications might be lost, and constrained networks, where there might not be enough bandwidth to propagate all changes.
 
-For stand-alone event notifications, that is, where every single notification contains an identifable event that must not be lost, observing resources is not a good fit.
-A better strategy is to model each event as a new resource, whose existance is notified through change-of-state notifications of an index resource (cf. Collection pattern).
+For stand-alone event notifications, that is, where every single notification contains an identifiable event that must not be lost, observing resources is not a good fit.
+A better strategy is to model each event as a new resource, whose existence is notified through change-of-state notifications of an index resource (cf. Collection pattern).
 Large numbers of events will cause the notification to grow large, as it needs to contain a large number of Web links.
 Blockwise transfers {{RFC7959}} can help here.
 When the links are ordered by freshness of the events, the first block can already contain all links to new events.
