@@ -67,7 +67,10 @@ normative:
   RFC5988:
   RFC6690:
   RFC7641:
+  RFC7959:
+  RFC6202:
   I-D.ietf-core-object-security:
+  W3C.HTML5:
 informative:
   RFC6763:
   RFC7228:
@@ -606,10 +609,18 @@ Canceling a task would be modeled with a form that uses DELETE to remove the tas
 
 ### Conversion
 
-GET is cachable, good for static information such as look-up tables.
-POST if the payload is large or binary, also good for time-dependent information.
-TBD: examples.
+A conversion service is a good example where REST resources need to behave more like a procedure call.
+The knowledge of converting from one representation to another is located only at the server to relieve clients from high processing or storing lots of data.
+There are different approaches that all depend on the particular conversion problem.
 
+As mentioned in the previous sections, POST request are a good way to model functionality that does not necessarily affect resource state.
+When the input data for the conversion is small and the conversion result is determenistic, however, it can be better to use a GET request with the input data in the URI query part.
+The query is parameterizing the conversion resource, so that it acts like a look-up table.
+The benefit is that results can be cached also for HTTP (where responses to POST are not cachable).
+In CoAP, cachability depends on the response code, so that also a response to a POST request can be made cacheable through a 2.05 Content code.
+
+When the input data is large or has a binary encoding, it is better to use POST requests with a proper Media Type for the input representation.
+A POST request is also more suitable, when the result is time-dependent and the latest result is expected (e.g., exchange rates).
 
 ### Events as State
 
@@ -634,7 +645,35 @@ Also including a timestamp of the last counter increment in the state can help t
 
 ## Server Push
 
-TBD: observing State (asynchronous updates) of a resource
+Overall, a universal mechanism for server push, that is, change-of-state notifications and stand-alone event notifications, is still an open issue that is being discussed in the Thing-to-Thing Research Group.
+It is connected to the state-event duality problem and custody transfer, that is, the transfer of the responsibility that a message (e.g., event) is delivered successfully.
+
+A proficient mechanism for change-of-state notifications is currently only available for CoAP: Observing resources {{RFC7641}}.
+It offers enventual consistency, which guarantees "that if the resource does not undergo a new change in state, eventually all registered observers will have a current representation of the latest resource state".
+It intrinsically deals with the challenges of lossy networks, where notifications might be lost, and constrained networks, where there might not be enough bandwidth to propagate all changes.
+
+For stand-alone event notifications, that is, where every single notification contains an identifable event that must not be lost, observing resources is not a good fit.
+A better strategy is to model each event as a new resource, whose existance is notified through change-of-state notifications of an index resource (cf. Collection pattern).
+Large numbers of events will cause the notification to grow large, as it needs to contain a large number of Web links.
+Blockwise transfers {{RFC7959}} can help here.
+When the links are ordered by freshness of the events, the first block can already contain all links to new events.
+Then, observers do not need to retrieve the remaining blocks from the server, but only the representations of the new event resources.
+
+An alternative pattern is to exploit the dual roles of IoT devices, in particular when using CoAP: they are usually client and server at the same time.
+A client observer would subscribe to events by registering a callback URI at the origin server, e.g., using a POST request and receiving the location of a temporary subscription resource as handle.
+The origin server would then publish events by sending POST requests containing the event to the observer.
+The cancellation can be modeled through deleting the subscription resource.
+This pattern makes the origin server responsible for delivering the event notifications.
+This goes beyond retransmissions of messages;
+the origin server is usually supposed to queue all undelivered events and to retry until successful delivery or explicit cancellation.
+In HTTP, this pattern is known as REST Hooks.
+
+In HTTP, there exist a number of workarounds to enable server push, e.g., long polling and streaming {{RFC6202}} or server-sent events {{W3C.HTML5}}.
+Long polling as an extension that both server and client need to be aware of.
+In IoT systems, long polling can introduce a considerable overhead, as the request has to be repeated for each notification.
+Streaming and server-sent events (in fact an evolved version of streaming) are more efficient, as only one request is sent.
+However, there is only one response header and subsequent notifications can only have content.
+There are no means for individual status and metadata, and hence no means for proficient error handling (e.g., when the resource is deleted).
 
 # Security Considerations {#sec-sec}
 
