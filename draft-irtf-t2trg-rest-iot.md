@@ -1,7 +1,7 @@
 ---
 stand_alone: true
 ipr: trust200902
-docname: draft-keranen-t2trg-rest-iot-latest
+docname: draft-irtf-t2trg-rest-iot-00
 cat: info
 pi:
   toc: 'yes'
