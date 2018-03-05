@@ -563,6 +563,17 @@ From there, the client is expected to make all requests by following links and s
 The entry point URI can be obtained, for example, by manual configuration or some discovery process (e.g., DNS-SD {{RFC6763}} or Resource Directory {{I-D.ietf-core-resource-directory}}).
 For Constrained RESTful environments "/.well-known/core" relative URI is defined as a default entry point for requesting the links hosted by servers with known or discovered addresses {{RFC6690}}.
 
+## Hypermedia-driven Design Guidance
+
+Assuming self-describing representation formats (i.e., human-readable with carefully chosen terms or processible by a formatting tool) and a client supporting the URI scheme used, a good rule of thumb for a good hypermedia-driven design is the following:
+A developer should only need an entry point URI to drive the application. 
+All further information how to navigate through the application (links) and how to construct more complex requests (forms) are published by the server(s). 
+There must be no need for additional, out-of-band information (e.g., API specification).
+
+For machines, a well-chosen set of information needs to be shared a priori to agree on machine-understandable semantics. 
+Agreeing on the exact semantics of terms for relation types and data elements will of course also help the developer.
+
+
 # Design Patterns
 
 Certain kinds of design problems are often recurring in variety of domains, and often re-usable design patterns can be applied to them.
