@@ -3,7 +3,7 @@
 This is the working area for the Individual internet-draft, "RESTful Design for Internet of Things Systems".
 
 * [Editor's copy](https://t2trg.github.io/t2trg-rest-iot/)
-* [Individual Draft] (https://tools.ietf.org/html/draft-keranen-t2trg-rest-iot)
+* [RG Draft](https://tools.ietf.org/html/draft-irtf-t2trg-rest-iot)
 
 
 ## Building the Draft
