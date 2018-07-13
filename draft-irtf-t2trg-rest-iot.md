@@ -58,6 +58,7 @@ normative:
   RFC5246:
   RFC6347:
   I-D.ietf-core-resource-directory:
+  I-D.ietf-core-dev-urn:
   RFC7049:
   W3C.REC-exi-20110310:
   RFC5590:
@@ -328,6 +329,7 @@ These refer to HTTP and CoAP, with and without Transport Layer Security (TLS) {{
 (CoAP uses Datagram TLS (DTLS) {{RFC6347}}, the variant of TLS for UDP.) 
 These four schemes also provide means for locating the resource; using the HTTP protocol for "http" and "https", and with the CoAP protocol for "coap" and "coaps". 
 If the scheme is different for two URIs (e.g., "coap" vs. "coaps"), it is important to note that even if the rest of the URI is identical, these are two different resources, in two distinct namespaces.
+Some schemes do not provide means for locating resources but have other use as identifiers: e.g., the "urn" scheme can be used to identify "names" and in particular the "urn:dev" {{I-D.ietf-core-dev-urn}} details multiple ways for generating and representing endpoint identifiers of IoT devices.
 
 The query parameters can be used to parametrize the resource. 
 For example, a GET request may use query parameters to request the server to send only certain kind data of the resource (i.e., filtering the response). 
