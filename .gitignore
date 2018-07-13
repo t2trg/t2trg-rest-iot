@@ -9,6 +9,8 @@
 venv/
 issues.json
 lib
-draft-keranen-t2trg-rest-iot.xml
+draft-irtf-t2trg-rest-iot.xml
 
 .targets.mk
+
+draft-irtf-t2trg-rest-iot-??.md
