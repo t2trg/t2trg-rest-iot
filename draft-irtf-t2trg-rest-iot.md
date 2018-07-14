@@ -458,8 +458,9 @@ This allows to strictly separate the client state from the resource state.
 
 This improves scalability and reliability, since servers or worker threads can be replicated.
 It also improves visibility because message traces contain all the information to understand the logged interactions.
-
 Furthermore, the Stateless constraint enables caching.
+
+The scaling properties of REST become particularly important in massive IoT scenarios where thousands or millions of IoT devices may attempt to interact with a system at the same time.
 
 ## Cache
 
