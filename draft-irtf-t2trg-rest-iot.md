@@ -113,7 +113,7 @@ Compared to other systems, the key characteristics of many IoT systems include:
 
 * data formats, interaction patterns, and other mechanisms that minimize, or preferably avoid, the need for human interaction
 * preference for compact and simple data formats to facilitate efficient transfer over (often) constrained networks and lightweight processing in constrained nodes
-* need for a system to be able to evolve without updating the endpoints
+* the usually large number of endpoints can not be updated simultaneously, yet the system needs to be able to evolve in the field without long downtimes 
 
 # Terminology {#sec-terms}
 
