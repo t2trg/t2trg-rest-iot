@@ -29,12 +29,12 @@ author:
 
 - ins: M. Kovatsch
   name: Matthias Kovatsch
-  org: ETH Zurich
-  street: 'Universitaetstrasse 6'
-  city: Zurich
-  code: 'CH-8092'
-  country: Switzerland
-  email: kovatsch@inf.ethz.ch
+  org: Siemens AG
+  street: 'Otto-Hahn-Ring 6'
+  city: Munich
+  code: D-81739
+  country: Germany
+  email: matthias.kovatsch@siemens.com
 
 - ins: K. Hartke
   name: Klaus Hartke
