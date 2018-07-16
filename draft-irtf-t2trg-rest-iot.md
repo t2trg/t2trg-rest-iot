@@ -134,6 +134,13 @@ Content Negotiation:
 : The practice of determining the "best" representation for a client when examining the current state of a resource. 
 The most common forms of content negotiation are Proactive Content Negotiation and Reactive Content Negotiation.
 
+Dereference:
+: To use an access mechanism (e.g., HTTP or CoAP) to perform an action on a URI's resource.
+
+Dereferencable URI:
+: A URI that can be dereferenced, i.e., an action can be performed on the identified resource. 
+Not all HTTP or CoAP URIs are dereferencable, e.g., when the target resource does not exist.
+
 Form:
 : A hypermedia control that enables a client to change the state of a resource or to construct a query locally.
 
