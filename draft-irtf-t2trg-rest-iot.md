@@ -233,6 +233,9 @@ The components of a RESTful system are assigned one or both of two roles: client
 Note that the terms "client" and "server" refer only to the roles that the nodes assume for a particular message exchange. The same node might act as a client in some communications and a server in others.
 Classic user agents (e.g., Web browsers) are always in the client role and have the initiative to issue requests.
 Origin servers always have the server role and govern over the resources they host.
+Simple IoT devices, such as sensors and actuators, are commonly acting as servers and exposing their physical world interaction capabilities (e.g., temperature measurement or door lock control capability) as resources.
+Typical IoT system client can be a cloud service that retrieves data from the sensors and commands the actuators based on the sensor information.
+Alternatively an IoT data storage system could work as a server where IoT sensor devices send data, in client role.
 
 ~~~~~~~~~~~~~~~~~~~
  ________                       _________
@@ -468,8 +471,9 @@ This allows to strictly separate the client state from the resource state.
 
 This improves scalability and reliability, since servers or worker threads can be replicated.
 It also improves visibility because message traces contain all the information to understand the logged interactions.
-
 Furthermore, the Stateless constraint enables caching.
+
+The scaling properties of REST become particularly important in massive IoT scenarios where thousands or millions of IoT devices may attempt to interact with a system at the same time.
 
 ## Cache
 
