@@ -106,12 +106,14 @@ When REST principles are applied to the design of a system, the result is often 
 
 Different protocols can be used with RESTful systems, but at the time of writing the most common protocols are HTTP {{RFC7230}} and CoAP {{RFC7252}}.
 Since RESTful APIs are often simple and lightweight, they are a good fit for various IoT applications.
-The goal of this document is to give basic guidance for designing RESTful systems and APIs for IoT applications and give pointers for more information. 
+The goal of this document is to give basic guidance for designing RESTful systems and APIs for IoT applications and give pointers for more information.
+
 Design of a good RESTful IoT system has naturally many commonalities with other Web systems.
 Compared to other systems, the key characteristics of many IoT systems include:
 
 * data formats, interaction patterns, and other mechanisms that minimize, or preferably avoid, the need for human interaction
 * preference for compact and simple data formats to facilitate efficient transfer over (often) constrained networks and lightweight processing in constrained nodes
+* the usually large number of endpoints can not be updated simultaneously, yet the system needs to be able to evolve in the field without long downtimes 
 
 # Terminology {#sec-terms}
 
