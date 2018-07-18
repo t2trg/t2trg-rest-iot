@@ -38,12 +38,12 @@ author:
 
 - ins: K. Hartke
   name: Klaus Hartke
-  org: Universitaet Bremen TZI
-  street: Postfach 330440
-  city: Bremen
-  code: D-28359
-  country: Germany
-  email: hartke@tzi.org
+  org: Ericsson
+  street: Torshamnsgatan 23
+  city: Stockholm
+  code: SE-16483
+  country: Sweden
+  email: klaus.hartke@ericsson.com
   
 normative:
   RFC3986:
