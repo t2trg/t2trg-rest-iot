@@ -557,7 +557,7 @@ Code-on-Demand improves modifiability, since new features can be deployed during
 It also improves performance, as the server can provide code for local pre-processing before transferring the data.
 
 As of today, code-on-demand has not been explored much in IoT systems.
-Aspects to consider are that either onr or both nodes are constrained and might not have the resources to host or dynamically fetch and execute such code.
+Aspects to consider are that either one or both nodes are constrained and might not have the resources to host or dynamically fetch and execute such code.
 Moreover, the origin server often has no understanding of the actual application a mashup client realizes.
 Still, code-on-demand can be useful for small polyfills, e.g., to decode payloads, and potentilly other features in the future.
 
