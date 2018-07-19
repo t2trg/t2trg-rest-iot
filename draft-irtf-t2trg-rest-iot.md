@@ -79,6 +79,14 @@ informative:
   RFC7159:
   RFC7925:
   I-D.ietf-core-senml:
+  I-D.handrews-json-schema-validation:
+  W3C-TD:
+    title: Web of Things (WoT) Thing Description
+    author:
+    - ins: S. Kaebisch
+    - ins: T. Kamiya
+    date: 5 April 2018
+    target: https://www.w3.org/TR/wot-thing-description/
   IANA-media-types:
     title: Media Types
     target: http://www.iana.org/assignments/media-types/media-types.xhtml
@@ -461,8 +469,12 @@ The following sub-sections briefly summarize the REST constraints and explain ho
 As explained in the Architecture section, RESTful system components have clear roles in every interaction.
 Clients have the initiative to issue requests, intermediaries can only forward requests, and servers respond requests, while origin servers are the ultimate recipient of requests that intent to modify resource state.
 
-This improves simplicity and visibility, as it is clear which component started an interaction.
+This improves simplicity and visibility (also for digital forensics), as it is clear which component started an interaction.
 Furthermore, it improves modifiability through a clear separation of concerns.
+
+In IoT systems, endpoints often assume both roles of client and (origin) server simultaneously.
+When an IoT device has initiative (because there is a user, e.g., pressing a button, or installed rules/policies), it acts as a client.
+When a device offers a service, it is in server role.
 
 ## Stateless
 
@@ -474,7 +486,9 @@ This improves scalability and reliability, since servers or worker threads can b
 It also improves visibility because message traces contain all the information to understand the logged interactions.
 Furthermore, the Stateless constraint enables caching.
 
-The scaling properties of REST become particularly important in massive IoT scenarios where thousands or millions of IoT devices may attempt to interact with a system at the same time.
+For IoT, the scaling properties of REST become particularly important.
+Note that being self-contained does not necessarily mean that all information has to be inlined.
+Constrained IoT devices may choose to externalize metadata and hypermedia controls using Web linking, so that only the dynamic content needs to be sent and the static content such as schemas or controls can be cached.
 
 ## Cache
 
@@ -485,6 +499,11 @@ The cache-control metadata is necessary to decide whether the information in the
 Cache improves performance, as less data needs to be transferred and response times can be reduced significantly.
 Less transfers also improves scalability, as origin servers can be protected from too many requests.
 Local caches furthermore improve reliability, since requests can be answered even if the origin server is temporarily not available.
+
+Caching usually only makes sense when the data is used by multiple participants.
+In the IoT, however, it might make sense to cache also individual data to protect constrained devices.
+Security often hinders the ability to cache responses.
+For IoT systems, object security may be preferable over transport layer security, as it enables intermediaries to cache respones while preserving security.
 
 ## Uniform Interface {#sec-uniform-interface}
 
@@ -497,7 +516,7 @@ Moreover, it is also likely that different parties come up with different ways h
 A REST interface is fully defined by:
 
 * URIs to identify resources
-* representation formats to represent (and retrieve and manipulate) resource state
+* representation formats to represent and manipulate resource state
 * self-descriptive messages with a standard set of methods (e.g., GET, POST, PUT, DELETE with their guaranteed properties)
 * hypermedia controls within representations
 
@@ -512,6 +531,14 @@ The self-descriptive messages improve visibility.
 The limitation to a known set of representation formats fosters portability.
 Most of all, however, this constraint is the key to modifiability, as hypermedia-driven, uniform interfaces allow clients and servers to evolve independently, and hence enable a system to evolve.
 
+For a large number of IoT applications, the hypermedia controls are mainly used for the discovery of resources, as they often serve sensor data.
+Such resources are "dead ends", as they usually do not link any further and only have one form of interaction: fetching the sensor value.
+For IoT, the critical parts of the Uniform Interface constraint are the descriptions of messages and representation formats used.
+Simply using, for instance, "application/json" does not help machine clients to understand the semantics of the representation.
+Yet defining very precise media types limits the re-usability and interoperability.
+Representation formats such as SenML {{I-D.ietf-core-senml}} try to find a godd trade-off between precision and re-usability.
+Another approach is to combine a generic format such as JSON with syntactic as well as semantic annotations (see {{I-D.handrews-json-schema-validation}} and {{W3C-TD}}, resp.).
+
 ## Layered System
 
 This constraint enforces that a client cannot see beyond the server with which it is interacting.
@@ -520,12 +547,18 @@ A layered system is easier to modify, as topology changes become transparent.
 Furthermore, this helps scalability, as intermediaries such as load balancers can be introduced without changing the client side.
 The clean separation of concerns helps with simplicity.
 
+IoT systems greatly benefit from this constraint, as it allows to effectively shield constrained devices behind intermediaries and is also the basis for gateways, which are used to integrate other (IoT) ecosystems.
+
 ## Code-on-Demand
 
 This principle enables origin servers to ship code to clients.
 
 Code-on-Demand improves modifiability, since new features can be deployed during runtime (e.g., support for a new representation format).
 It also improves performance, as the server can provide code for local pre-processing before transferring the data.
+
+In IoT systems, code-on-demand has limited use in its traditional form.
+Often, the origin server is a constrained device that has no understanding of the application a specific (often more powerful) client realizes by mashing up services.
+When the origin server is a powerful machine to which a constrained client sends data, the latter might not even have the resources to dynamically fetch and execute such code.
 
 # Hypermedia-driven Applications
 
