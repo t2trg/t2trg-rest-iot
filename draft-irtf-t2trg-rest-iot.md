@@ -536,7 +536,7 @@ Such resources are "dead ends", as they usually do not link any further and only
 For IoT, the critical parts of the Uniform Interface constraint are the descriptions of messages and representation formats used.
 Simply using, for instance, "application/json" does not help machine clients to understand the semantics of the representation.
 Yet defining very precise media types limits the re-usability and interoperability.
-Representation formats such as SenML {{I-D.ietf-core-senml}} try to find a godd trade-off between precision and re-usability.
+Representation formats such as SenML {{I-D.ietf-core-senml}} try to find a good trade-off between precision and re-usability.
 Another approach is to combine a generic format such as JSON with syntactic as well as semantic annotations (see {{I-D.handrews-json-schema-validation}} and {{W3C-TD}}, resp.).
 
 ## Layered System
