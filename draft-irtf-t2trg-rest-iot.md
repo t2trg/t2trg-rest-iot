@@ -556,8 +556,10 @@ This principle enables origin servers to ship code to clients.
 Code-on-Demand improves modifiability, since new features can be deployed during runtime (e.g., support for a new representation format).
 It also improves performance, as the server can provide code for local pre-processing before transferring the data.
 
-As of today, code-on-demand has limited use in IoT systems, as either or both nodes are constrained and might not even have the resources to dynamically fetch and execute such code.
-Often, the origin server is a constrained device that might not even have understanding of the application a mashup client realizes, so that shipping code is somewhat futile.
+As of today, code-on-demand has not been explored much in IoT systems.
+Aspects to consider are that either onr or both nodes are constrained and might not have the resources to host or dynamically fetch and execute such code.
+Moreover, the origin server often has no understanding of the actual application a mashup client realizes.
+Still, code-on-demand can be useful for small polyfills, e.g., to decode payloads, and potentilly other features in the future.
 
 # Hypermedia-driven Applications
 
