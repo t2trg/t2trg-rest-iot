@@ -73,6 +73,8 @@ normative:
   I-D.ietf-core-object-security:
   W3C.REC-html5-20141028:
 informative:
+  RFC5789:
+  RFC8132:
   RFC6763:
   RFC7228:
   RFC7252:
@@ -424,7 +426,7 @@ The DELETE method is not safe, but is idempotent.
 
 ### FETCH
 
-The CoAP-specific FETCH method requests a representation of a resource parameterized by a representation enclosed in the request.
+The CoAP-specific FETCH method {{RFC8132}} requests a representation of a resource parameterized by a representation enclosed in the request.
 
 The fundamental difference between the GET and FETCH methods is that the request parameters are included as the payload of a FETCH request, while in a GET request they're typically part of the query string of the request URI.
 
@@ -432,7 +434,7 @@ The FETCH method is safe and idempotent.
 
 ### PATCH
 
-The PATCH method requests that a set of changes described in the request entity be applied to the target resource.
+The PATCH method {{RFC5789}} {{RFC8132}} requests that a set of changes described in the request entity be applied to the target resource.
 
 The PATCH method is not safe nor idempotent.
 
