@@ -78,7 +78,7 @@ informative:
   RFC7252:
   RFC7159:
   RFC7925:
-  I-D.ietf-core-senml:
+  RFC8428:
   I-D.hartke-core-apps:
   IANA-media-types:
     title: Media Types
@@ -363,7 +363,7 @@ Typical media types for IoT systems include:
 * "text/plain" for simple UTF-8 text
 * "application/octet-stream" for arbitrary binary data
 * "application/json" for the JSON format {{RFC7159}}
-* "application/senml+json" {{I-D.ietf-core-senml}} for Sensor Markup Language (SenML) formatted data
+* "application/senml+json" {{RFC8428}} for Sensor Markup Language (SenML) formatted data
 * "application/cbor" for CBOR {{RFC7049}}
 * "application/exi" for EXI {{W3C.REC-exi-20110310}}
 
