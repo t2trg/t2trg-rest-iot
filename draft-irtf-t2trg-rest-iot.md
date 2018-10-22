@@ -362,9 +362,9 @@ Typical media types for IoT systems include:
 * "text/plain" for simple UTF-8 text
 * "application/octet-stream" for arbitrary binary data
 * "application/json" for the JSON format {{RFC7159}}
-* "application/senml+json" {{RFC8428}} for Sensor Markup Language (SenML) formatted data
 * "application/cbor" for CBOR {{RFC7049}}
 * "application/exi" for EXI {{W3C.REC-exi-20110310}}
+* "application/senml+json" and "application/senml+cbor" {{RFC8428}} for Sensor Markup Language (SenML) formatted data
 
 A full list of registered Internet Media Types is available at the IANA registry {{IANA-media-types}} and numerical media types registered for use with CoAP are listed at CoAP Content-Formats IANA registry {{IANA-CoAP-media}}.
 
