@@ -79,6 +79,7 @@ informative:
   RFC7159:
   RFC7925:
   RFC8428:
+  I-D.hartke-core-apps:
   IANA-media-types:
     title: Media Types
     target: http://www.iana.org/assignments/media-types/media-types.xhtml
@@ -590,6 +591,7 @@ There must be no need for additional, out-of-band information (e.g., API specifi
 
 For machines, a well-chosen set of information needs to be shared a priori to agree on machine-understandable semantics. 
 Agreeing on the exact semantics of terms for relation types and data elements will of course also help the developer.
+{{I-D.hartke-core-apps}} proposes a convention for specifying the set of information in a structured way.
 
 
 # Design Patterns
