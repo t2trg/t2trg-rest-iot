@@ -505,7 +505,7 @@ Local caches furthermore improve reliability, since requests can be answered eve
 Caching usually only makes sense when the data is used by multiple participants.
 In the IoT, however, it might make sense to cache also individual data to protect constrained devices.
 Security often hinders the ability to cache responses.
-For IoT systems, object security may be preferable over transport layer security, as it enables intermediaries to cache respones while preserving security.
+For IoT systems, object security may be preferable over transport layer security, as it enables intermediaries to cache responses while preserving security.
 
 ## Uniform Interface {#sec-uniform-interface}
 
@@ -538,7 +538,7 @@ Such resources are "dead ends", as they usually do not link any further and only
 For IoT, the critical parts of the Uniform Interface constraint are the descriptions of messages and representation formats used.
 Simply using, for instance, "application/json" does not help machine clients to understand the semantics of the representation.
 Yet defining very precise media types limits the re-usability and interoperability.
-Representation formats such as SenML {{I-D.ietf-core-senml}} try to find a good trade-off between precision and re-usability.
+Representation formats such as SenML {{RFC8428}} try to find a good trade-off between precision and re-usability.
 Another approach is to combine a generic format such as JSON with syntactic as well as semantic annotations (see {{I-D.handrews-json-schema-validation}} and {{W3C-TD}}, resp.).
 
 ## Layered System
@@ -561,7 +561,7 @@ It also improves performance, as the server can provide code for local pre-proce
 As of today, code-on-demand has not been explored much in IoT systems.
 Aspects to consider are that either one or both nodes are constrained and might not have the resources to host or dynamically fetch and execute such code.
 Moreover, the origin server often has no understanding of the actual application a mashup client realizes.
-Still, code-on-demand can be useful for small polyfills, e.g., to decode payloads, and potentilly other features in the future.
+Still, code-on-demand can be useful for small polyfills, e.g., to decode payloads, and potentially other features in the future.
 
 # Hypermedia-driven Applications
 
