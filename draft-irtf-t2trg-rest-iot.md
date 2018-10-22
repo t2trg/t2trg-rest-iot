@@ -422,6 +422,22 @@ If the target resource has one or more current representations, they might or mi
 
 The DELETE method is not safe, but is idempotent.
 
+### FETCH
+
+The CoAP-specific FETCH method requests a representation of a resource parameterized by a representation enclosed in the request.
+
+The fundamental difference between the GET and FETCH methods is that the request parameters are included as the payload of a FETCH request, while in a GET request they're typically part of the query string of the request URI.
+
+The FETCH method is safe and idempotent.
+
+### PATCH
+
+The PATCH method requests that a set of changes described in the request entity be applied to the target resource.
+
+The PATCH method is not safe nor idempotent.
+
+The CoAP-specific iPATCH method is a variant of the PATCH method that is not safe, but is idempotent.
+
 ## HTTP/CoAP Status/Response Codes
 
 Section 6 of {{RFC7231}} defines a set of Status Codes in HTTP that are used by application to indicate whether a request was understood and satisfied, and how to interpret the answer. 
