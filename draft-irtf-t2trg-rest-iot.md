@@ -1,7 +1,7 @@
 ---
 stand_alone: true
 ipr: trust200902
-docname: draft-irtf-t2trg-rest-iot-00
+docname: draft-irtf-t2trg-rest-iot-latest
 cat: info
 pi:
   toc: 'yes'
@@ -78,8 +78,9 @@ informative:
   RFC7252:
   RFC7159:
   RFC7925:
-  I-D.ietf-core-senml:
+  RFC8428:
   I-D.handrews-json-schema-validation:
+  I-D.hartke-core-apps:
   W3C-TD:
     title: Web of Things (WoT) Thing Description
     author:
@@ -101,9 +102,10 @@ informative:
     target: http://amundsen.com/media-types/collection/format/
 --- abstract
 
-This document gives guidance for designing Internet of Things (IoT)
-systems that follow the principles of the Representational State
-Transfer (REST) architectural style.
+This document gives guidance for designing Internet of Things (IoT) systems
+that follow the principles of the Representational State Transfer (REST)
+architectural style. This document is a product of the IRTF Thing-to-Thing
+Research Group (T2TRG).
 
 --- middle
 
@@ -123,7 +125,7 @@ Compared to other systems, the key characteristics of many IoT systems include:
 * need to accommodate for constrained devices, so with IoT, REST is not only used for scaling out (large number of clients on a web server), but also for scaling down (efficient server on constrained node)
 * data formats, interaction patterns, and other mechanisms that minimize, or preferably avoid, the need for human interaction
 * preference for compact and simple data formats to facilitate efficient transfer over (often) constrained networks and lightweight processing in constrained nodes
-* the usually large number of endpoints can not be updated simultaneously, yet the system needs to be able to evolve in the field without long downtimes 
+* the usually large number of endpoints can not be updated simultaneously, yet the system needs to be able to evolve in the field without long downtimes
 
 # Terminology {#sec-terms}
 
@@ -370,9 +372,9 @@ Typical media types for IoT systems include:
 * "text/plain" for simple UTF-8 text
 * "application/octet-stream" for arbitrary binary data
 * "application/json" for the JSON format {{RFC7159}}
-* "application/senml+json" {{I-D.ietf-core-senml}} for Sensor Markup Language (SenML) formatted data
 * "application/cbor" for CBOR {{RFC7049}}
 * "application/exi" for EXI {{W3C.REC-exi-20110310}}
+* "application/senml+json" and "application/senml+cbor" for Sensor Measurement Lists (SenML) data {{RFC8428}}
 
 A full list of registered Internet Media Types is available at the IANA registry {{IANA-media-types}} and numerical media types registered for use with CoAP are listed at CoAP Content-Formats IANA registry {{IANA-CoAP-media}}.
 
@@ -624,6 +626,7 @@ There must be no need for additional, out-of-band information (e.g., API specifi
 
 For machines, a well-chosen set of information needs to be shared a priori to agree on machine-understandable semantics. 
 Agreeing on the exact semantics of terms for relation types and data elements will of course also help the developer.
+{{I-D.hartke-core-apps}} proposes a convention for specifying the set of information in a structured way.
 
 
 # Design Patterns
