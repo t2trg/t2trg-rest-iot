@@ -521,7 +521,7 @@ Less transfers also improves scalability, as origin servers can be protected fro
 Local caches furthermore improve reliability, since requests can be answered even if the origin server is temporarily not available.
 
 Caching usually only makes sense when the data is used by multiple participants.
-In the IoT, however, it might make sense to cache also individual data to protect constrained devices.
+In the IoT, however, it might make sense to cache also individual data to protect constrained devices from frequent requests of data that does not change often.
 Security often hinders the ability to cache responses.
 For IoT systems, object security may be preferable over transport layer security, as it enables intermediaries to cache responses while preserving security.
 
