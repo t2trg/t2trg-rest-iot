@@ -238,7 +238,7 @@ Transfer protocols:
 : In particular in IoT domain, protocols above transport layer that are used to transfer data objects and provide semantics for operations on the data.
 
 Transfer layer:
-: Re-usable part of the application protocol used to transfer the application specific data items using a standard set of methods that fulfill application-specific operations.
+: Re-usable part of the application layer used to transfer the application specific data items using a standard set of methods that can fulfill application-specific operations.
 
 Uniform Resource Identifier (URI):
 : A global identifier for resources. 
