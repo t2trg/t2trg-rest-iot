@@ -531,7 +531,7 @@ Local caches furthermore improve reliability, since requests can be answered eve
 Caching usually only makes sense when the data is used by multiple participants.
 In IoT systems, however, it might make sense to cache also individual data to protect constrained devices and networks from frequent requests of data that does not change often.
 Security often hinders the ability to cache responses.
-For IoT systems, object security may be preferable over transport layer security, as it enables intermediaries to cache responses while preserving security.
+For IoT systems, object security {{I-D.ietf-core-object-security}} may be preferable over transport layer security, as it enables intermediaries to cache responses while preserving security.
 
 ## Uniform Interface {#sec-uniform-interface}
 
