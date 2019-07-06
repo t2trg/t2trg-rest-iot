@@ -143,7 +143,8 @@ Client:
 In RESTful IoT systems it's common for nodes to have more than one role (e.g., both server and client; see {{sec-architecture}}).
 
 Client State:
-: The state kept by a client between requests. This typically includes the currently processed representation, the set of active requests, the history of requests, bookmarks (URIs stored for later retrieval), and application-specific state (e.g., local variables). 
+: The state kept by a client between requests.
+This typically includes the currently processed representation, the set of active requests, the history of requests, bookmarks (URIs stored for later retrieval), and application-specific state (e.g., local variables).
 (Note that this is called "Application State" in {{REST}}, which has some ambiguity in modern (IoT) systems where the overall state of the distributed application (i.e., application state) is reflected in the union of all Client States and Resource States of all clients and servers involved.)
 
 Content Negotiation:
@@ -735,13 +736,13 @@ Overall, a universal mechanism for server push, that is, change-of-state notific
 It is connected to the state-event duality problem and custody transfer, that is, the transfer of the responsibility that a message (e.g., event) is delivered successfully.
 
 A proficient mechanism for change-of-state notifications is currently only available for CoAP: Observing resources {{RFC7641}}.
-It offers enventual consistency, which guarantees "that if the resource does not undergo a new change in state, eventually all registered observers will have a current representation of the latest resource state".
+It offers eventual consistency, which guarantees "that if the resource does not undergo a new change in state, eventually all registered observers will have a current representation of the latest resource state".
 It intrinsically deals with the challenges of lossy networks, where notifications might be lost, and constrained networks, where there might not be enough bandwidth to propagate all changes.
 
 For stand-alone event notifications, that is, where every single notification contains an identifiable event that must not be lost, observing resources is not a good fit.
 A better strategy is to model each event as a new resource, whose existence is notified through change-of-state notifications of an index resource (cf. Collection pattern).
 Large numbers of events will cause the notification to grow large, as it needs to contain a large number of Web links.
-Blockwise transfers {{RFC7959}} can help here.
+Block-wise transfers {{RFC7959}} can help here.
 When the links are ordered by freshness of the events, the first block can already contain all links to new events.
 Then, observers do not need to retrieve the remaining blocks from the server, but only the representations of the new event resources.
 
