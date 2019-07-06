@@ -166,7 +166,7 @@ Forward Proxy:
 This may be useful, for example, when the client lacks the capability to make the request itself or to service the response from a cache in order to reduce response time, network bandwidth, and energy consumption.
 
 Gateway:
-: A reverse proxy that provides an interface to a non-RESTful system such as legacy systems or alternative technologies such as Bluetooth ATT/GATT. 
+: A reverse proxy that provides an interface to a non-RESTful system such as legacy systems or alternative technologies such as Bluetooth Attribute Profile (ATT) or Generic Attribute Profile (GATT).
 See also "Reverse Proxy".
 
 Hypermedia Control:
@@ -348,7 +348,7 @@ A scheme creates a namespace for resources and defines how the following compone
 The authority identifies an entity that governs part of the namespace, such as the server "www.example.org" in the "http" scheme. 
 A host name (e.g., a fully qualified domain name) or an IP address, potentially followed by a transport layer port number, are usually used in the authority component for the "http" and "coap" schemes. 
 The path and query contain data to identify a resource within the scope of the URI's scheme and naming authority. 
-The fragment allows to refer to some portion of the resource, such as a Record in a SenML Pack. 
+The fragment allows to refer to some portion of the resource, such as a Record in a SenML Pack (Section 9 of {{RFC8428}}).
 However, fragments are processed only at client side and not sent on the wire. 
 {{?RFC7320}} provides more details on URI design and ownership with best current practices for establishing URI structures, conventions, and formats.
 
