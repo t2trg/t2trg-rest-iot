@@ -81,6 +81,7 @@ informative:
   RFC7159:
   RFC7925:
   RFC8428:
+  I-D.bormann-core-media-content-type-format:
   I-D.handrews-json-schema-validation:
   I-D.hartke-core-apps:
   W3C-TD:
@@ -370,9 +371,9 @@ Therefore applications should not rely on their order; see Section 3.3 of {{?RFC
 ## Representations
 
 Clients can retrieve the resource state from an origin server or manipulate resource state on the origin server by transferring resource representations.
-Resource representations have a media type that tells how the representation should be interpreted by identifying the representation format used.
+Resource representations have a media-type that tells how the representation should be interpreted by identifying the representation format used.
 
-Typical media types for IoT systems include:
+Typical media-types for IoT systems include:
 
 * "text/plain" for simple UTF-8 text
 * "application/octet-stream" for arbitrary binary data
@@ -381,7 +382,10 @@ Typical media types for IoT systems include:
 * "application/exi" for EXI {{W3C.REC-exi-20110310}}
 * "application/senml+json" and "application/senml+cbor" for Sensor Measurement Lists (SenML) data {{RFC8428}}
 
-A full list of registered Internet Media Types is available at the IANA registry {{IANA-media-types}} and numerical media types registered for use with CoAP are listed at CoAP Content-Formats IANA registry {{IANA-CoAP-media}}.
+A full list of registered Internet Media Types is available at the IANA registry {{IANA-media-types}} and numerical identifiers for media-types, parameters, and content-codings registered for use with CoAP are listed at CoAP Content-Formats IANA registry {{IANA-CoAP-media}}.
+
+The terms "media-type", "content-type" (media-type with parameters), and "content-format" (short identifier of content-type and content-coding, abbreviated for historical reasons "ct") are often used when referring to representation formats used with CoAP.
+The differences between these terms are discussed in more detail in {{I-D.bormann-core-media-content-type-format}}.
 
 ## HTTP/CoAP Methods {#sec-methods}
 
