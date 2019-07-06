@@ -380,6 +380,7 @@ Typical media-types for IoT systems include:
 * "application/json" for the JSON format {{RFC7159}}
 * "application/cbor" for CBOR {{RFC7049}}
 * "application/exi" for EXI {{W3C.REC-exi-20110310}}
+* "application/link-format" for CoRE Link Format {{RFC6690}}
 * "application/senml+json" and "application/senml+cbor" for Sensor Measurement Lists (SenML) data {{RFC8428}}
 
 A full list of registered Internet Media Types is available at the IANA registry {{IANA-media-types}} and numerical identifiers for media-types, parameters, and content-codings registered for use with CoAP are listed at CoAP Content-Formats IANA registry {{IANA-CoAP-media}}.
