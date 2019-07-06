@@ -122,10 +122,12 @@ Since RESTful APIs are often simple and lightweight, they are a good fit for var
 The goal of this document is to give basic guidance for designing RESTful systems and APIs for IoT applications and give pointers for more information.
 
 Design of a good RESTful IoT system has naturally many commonalities with other Web systems.
-Compared to other systems, the key characteristics of many IoT systems include:
+Compared to other systems, the key characteristics of many RESTful IoT systems include:
 
 * need to accommodate for constrained devices, so with IoT, REST is not only used for scaling out (large number of clients on a web server), but also for scaling down (efficient server on constrained node)
 * data formats, interaction patterns, and other mechanisms that minimize, or preferably avoid, the need for human interaction
+* server endpoints are often highly constrained (e.g., simple sensor devices)
+* endpoints are commonly both clients and servers
 * preference for compact and simple data formats to facilitate efficient transfer over (often) constrained networks and lightweight processing in constrained nodes
 * the usually large number of endpoints can not be updated simultaneously, yet the system needs to be able to evolve in the field without long downtimes
 
