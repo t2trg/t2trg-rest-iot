@@ -785,7 +785,7 @@ First specifications include:
 
 * (D)TLS Profiles for the Internet of Things: {{RFC7925}}
 
-Further IoT security considerations are available in {{?I-D.irtf-t2trg-iot-seccons}}.
+Further IoT security considerations are available in {{?RFC8576}}.
 
 # Acknowledgement
 
