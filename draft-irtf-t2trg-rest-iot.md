@@ -732,8 +732,7 @@ If the time between the state changes is very short, the server might drop the f
 The solution is to pick a state model that fits better to the application.
 In the case of the door bell -- and many other event-driven resources -- the solution could be a counter that counts how often the bell was pressed.
 The corresponding action is taken each time the client observes a change in the received representation.
-
-In the case of a network outage, this could lead to a ringing sound 10 minutes after the bell was rung.
+In the case of a network outage, this could lead to a ringing sound long after the bell was rung.
 Also including a timestamp of the last counter increment in the state can help to suppress ringing a sound when the event has become obsolete.
 
 ## Server Push
