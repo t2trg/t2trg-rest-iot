@@ -741,7 +741,7 @@ Overall, a universal mechanism for server push, that is, change-of-state notific
 It is connected to the state-event duality problem and custody transfer, that is, the transfer of the responsibility that a message (e.g., event) is delivered successfully.
 
 A proficient mechanism for change-of-state notifications is currently only available for CoAP: Observing resources {{RFC7641}}.
-It offers eventual consistency, which guarantees "that if the resource does not undergo a new change in state, eventually all registered observers will have a current representation of the latest resource state".
+The CoAP Observe mechanism offers eventual consistency, which guarantees "that if the resource does not undergo a new change in state, eventually all registered observers will have a current representation of the latest resource state".
 It intrinsically deals with the challenges of lossy networks, where notifications might be lost, and constrained networks, where there might not be enough bandwidth to propagate all changes.
 
 For stand-alone event notifications, that is, where every single notification contains an identifiable event that must not be lost, observing resources is not a good fit.
