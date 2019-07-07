@@ -762,9 +762,10 @@ In HTTP, this pattern is known as REST Hooks.
 
 In HTTP, there exist a number of workarounds to enable server push, e.g., long polling and streaming {{RFC6202}} or server-sent events {{W3C.REC-html5-20141028}}.
 In IoT systems, long polling can introduce a considerable overhead, as the request has to be repeated for each notification.
-Streaming and server-sent events (in fact an evolved version of streaming) are more efficient, as only one request is sent.
+Streaming and server-sent events (the latter is actually an evolution of the former) are more efficient, as only one request is sent.
 However, there is only one response header and subsequent notifications can only have content.
-There are no means for individual status and metadata, and hence no means for proficient error handling (e.g., when the resource is deleted).
+Individual status and metadata needs to be included in the content message.
+This reduces HTTP again to a pure transport, as its status signaling and metadata capabilities cannot be used.
 
 # Security Considerations {#sec-sec}
 
