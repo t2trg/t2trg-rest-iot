@@ -622,8 +622,8 @@ This includes what resources are available, what representations of resource sta
 
 Some part of this knowledge, such as how to retrieve the representation of a resource state, is typically hard-coded in the client software.
 For other parts, a choice can often be made between hard-coding the knowledge or acquiring it on-demand.
-The key to success in either case is the use in-band information for identifying the knowledge that is required.
-This enables the client to verify that is has all required knowledge and to acquire missing knowledge on-demand.
+The key to success in either case is the use of in-band information for identifying the knowledge that is required.
+This enables the client to verify that it has all the required knowledge or to acquire missing knowledge on-demand.
                       
 A hypermedia-driven application typically uses the following identifiers:
 
