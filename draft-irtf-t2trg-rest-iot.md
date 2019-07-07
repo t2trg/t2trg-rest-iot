@@ -761,7 +761,6 @@ the origin server is usually supposed to queue all undelivered events and to ret
 In HTTP, this pattern is known as REST Hooks.
 
 In HTTP, there exist a number of workarounds to enable server push, e.g., long polling and streaming {{RFC6202}} or server-sent events {{W3C.REC-html5-20141028}}.
-Long polling as an extension that both server and client need to be aware of.
 In IoT systems, long polling can introduce a considerable overhead, as the request has to be repeated for each notification.
 Streaming and server-sent events (in fact an evolved version of streaming) are more efficient, as only one request is sent.
 However, there is only one response header and subsequent notifications can only have content.
