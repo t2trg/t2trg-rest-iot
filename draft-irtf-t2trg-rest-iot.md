@@ -266,7 +266,7 @@ Alternatively an IoT data storage system could work as a server where IoT sensor
 {: artwork-align="center" #basic-arch-x title="Client-Server Communication"}
 
 Intermediaries (such as forward proxies, reverse proxies, and gateways) implement both roles, but only forward requests to other intermediaries or origin servers.
-They can also translate requests to different protocols, for instance, as CoAP-HTTP cross-proxies.
+They can also translate requests to different protocols, for instance, as CoAP-HTTP cross-proxies {{?RFC8075}}.
 
 ~~~~~~~~~~~~~~~~~~~
  ________       __________                        _________
