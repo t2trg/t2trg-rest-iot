@@ -786,6 +786,7 @@ First finalized specifications include:
 * (D)TLS Profiles for the Internet of Things: {{RFC7925}}
 * CBOR Object Signing and Encryption (COSE) {{?RFC8152}}
 * CBOR Web Token {{?RFC8392}}
+* Proof-of-Possession Key Semantics for CBOR Web Tokens (CWTs) {{?I-D.ietf-ace-cwt-proof-of-possession}}
 * Object Security for Constrained RESTful Environments (OSCORE) {{I-D.ietf-core-object-security}}
 * Authentication and Authorization for Constrained Environments (ACE) using the OAuth 2.0 Framework {{?I-D.ietf-ace-oauth-authz}}
 * ACE profiles for DTLS {{?I-D.ietf-ace-dtls-authorize}} and OSCORE {{?I-D.ietf-ace-oscore-profile}}
