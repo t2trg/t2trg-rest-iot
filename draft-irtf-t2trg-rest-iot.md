@@ -550,7 +550,7 @@ A REST interface is fully defined by:
 
 The concept of hypermedia controls is also known as HATEOAS: Hypermedia As The Engine Of Application State.
 The origin server embeds controls for the interface into its representations and thereby informs the client about possible next requests.
-The mostly used control for RESTful systems is Web Linking {{RFC5590}}.
+The most used control for RESTful systems today is Web Linking {{RFC5590}}.
 Hypermedia forms are more powerful controls that describe how to construct more complex requests, including representations to modify resource state.
 
 While this is the most complex constraints (in particular the hypermedia controls), it improves many different key properties.
