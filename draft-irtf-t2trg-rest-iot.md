@@ -780,10 +780,15 @@ These include:
 * CoAP security: Section 11 of {{RFC7252}}
 * URI security: Section 7 of {{RFC3986}}
 
-IoT-specific security is mainly work in progress at the time of writing.
-First specifications include:
+IoT-specific security is active area of standardization at the time of writing.
+First finalized specifications include:
 
 * (D)TLS Profiles for the Internet of Things: {{RFC7925}}
+* CBOR Object Signing and Encryption (COSE) {{?RFC8152}}
+* CBOR Web Token {{?RFC8392}}
+* Object Security for Constrained RESTful Environments (OSCORE) {{I-D.ietf-core-object-security}}
+* Authentication and Authorization for Constrained Environments (ACE) using the OAuth 2.0 Framework {{?I-D.ietf-ace-oauth-authz}}
+* ACE profiles for DTLS {{?I-D.ietf-ace-dtls-authorize}} and OSCORE {{?I-D.ietf-ace-oscore-profile}}
 
 Further IoT security considerations are available in {{?RFC8576}}.
 
