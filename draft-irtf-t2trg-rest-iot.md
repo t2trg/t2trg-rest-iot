@@ -795,8 +795,6 @@ The authors would like to thank Mike Amundsen, Heidi-Maria Back, Carsten Bormann
 
 # Future Work
 
-* Interface semantics: shared knowledge among system components (URI schemes, media types, relation types, well-known locations; see core-apps)
-
 * Unreliable (best effort) communication, robust communication in network with high packet loss, 3-way commit
 
 * Discuss directories, such as CoAP Resource Directory
