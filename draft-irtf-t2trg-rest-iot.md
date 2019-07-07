@@ -752,8 +752,8 @@ When the links are ordered by freshness of the events, the first block can alrea
 Then, observers do not need to retrieve the remaining blocks from the server, but only the representations of the new event resources.
 
 An alternative pattern is to exploit the dual roles of IoT devices, in particular when using CoAP: they are usually client and server at the same time.
-A client observer would subscribe to events by registering a callback URI at the origin server, e.g., using a POST request and receiving the location of a temporary subscription resource as handle.
-The origin server would then publish events by sending POST requests containing the event to the observer.
+An endpoint interested in observing the events would subscribe to them by registering a callback URI at the origin server, e.g., using a POST request with the URI or a hypermedia document in the payload, and receiving the location of a temporary "subscription resource" as handle in the response.
+The origin server would then publish events by sending requests containing the event data to the observer's callback URI; here POST can be used to add events to a collection located at the callback URI or PUT can be used when the event data is a new state that shall replace the outdated state at the callback URI.
 The cancellation can be modeled through deleting the subscription resource.
 This pattern makes the origin server responsible for delivering the event notifications.
 This goes beyond retransmissions of messages;
