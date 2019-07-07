@@ -733,9 +733,9 @@ The solution is to pick a state model that fits better to the application.
 In the case of the door bell -- and many other event-driven resources -- the solution could be a counter that counts how often the bell was pressed.
 The corresponding action is taken each time the client observes a change in the received representation.
 In the case of a network outage, this could lead to a ringing sound long after the bell was rung.
-Also including a timestamp of the last counter increment in the state can help to suppress ringing a sound when the event has become obsolete.
+Also including a timestamp of the last counter increment in the state can help to suppress ringing a sound when the event has become obsolete. Another solution would be to change the client/server roles of the door bell button and the ringer, as described in {{sec-server-push}}.
 
-## Server Push
+## Server Push {#sec-server-push}
 
 Overall, a universal mechanism for server push, that is, change-of-state notifications and stand-alone event notifications, is still an open issue that is being discussed in the Thing-to-Thing Research Group.
 It is connected to the state-event duality problem and custody transfer, that is, the transfer of the responsibility that a message (e.g., event) is delivered successfully.
