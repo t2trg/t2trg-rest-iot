@@ -724,7 +724,7 @@ For instance, in an event-centric system, ringing a door bell would result in a 
 In resource-oriented paradigms such as REST, messages usually carry the current state of the remote resource, independent from the changes (i.e., events) that have lead to that state.
 In a naive yet natural design, a door bell could be modeled as a resource that can have the states unpressed and pressed.
 There are, however, a few issues with this approach.
-Polling is not an option, as it is highly unlikely to be able to observe the pressed state with any realistic polling interval.
+Polling (i.e., periodically retrieving) the door bell resource state is not a good option, as the client is highly unlikely to be able to observe all the changes in the pressed state with any realistic polling interval.
 When using CoAP Observe with Confirmable notifications, the server will usually send two notifications for the event that the door bell was pressed:
 notification for changing from unpressed to pressed and another one for changing back to unpressed.
 If the time between the state changes is very short, the server might drop the first notification, as Observe only guarantees only eventual consistency (see Section 1.3 of {{RFC7641}}).
