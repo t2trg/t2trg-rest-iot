@@ -88,7 +88,9 @@ informative:
     author:
     - ins: S. Kaebisch
     - ins: T. Kamiya
-    date: 5 April 2018
+    - ins: M. McCool
+    - ins: V. Charpenay
+    date: 16 May 2019
     target: https://www.w3.org/TR/wot-thing-description/
   IANA-media-types:
     title: Media Types
