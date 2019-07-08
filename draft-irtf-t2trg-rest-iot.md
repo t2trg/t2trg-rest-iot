@@ -372,7 +372,7 @@ Therefore applications should not rely on their order; see Section 3.3 of {{?RFC
 ## Representations
 
 Clients can retrieve the resource state from an origin server or manipulate resource state on the origin server by transferring resource representations.
-Resource representations have a media-type that tells how the representation should be interpreted by identifying the representation format used.
+Resource representations have a content-type (media-type + optionally parameters) that tells how the representation should be interpreted by identifying the representation format used.
 
 Typical media-types for IoT systems include:
 
