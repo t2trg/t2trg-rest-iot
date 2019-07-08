@@ -61,7 +61,6 @@ normative:
   I-D.ietf-core-dev-urn:
   RFC7049:
   W3C.REC-exi-20110310:
-  RFC5590:
   RFC5246:
   RFC5280:
   RFC6347:
@@ -81,6 +80,7 @@ informative:
   RFC7159:
   RFC7925:
   RFC8428:
+  I-D.bormann-core-media-content-type-format:
   I-D.handrews-json-schema-validation:
   I-D.hartke-core-apps:
   W3C-TD:
@@ -88,7 +88,9 @@ informative:
     author:
     - ins: S. Kaebisch
     - ins: T. Kamiya
-    date: 5 April 2018
+    - ins: M. McCool
+    - ins: V. Charpenay
+    date: 16 May 2019
     target: https://www.w3.org/TR/wot-thing-description/
   IANA-media-types:
     title: Media Types
@@ -122,10 +124,12 @@ Since RESTful APIs are often simple and lightweight, they are a good fit for var
 The goal of this document is to give basic guidance for designing RESTful systems and APIs for IoT applications and give pointers for more information.
 
 Design of a good RESTful IoT system has naturally many commonalities with other Web systems.
-Compared to other systems, the key characteristics of many IoT systems include:
+Compared to other systems, the key characteristics of many RESTful IoT systems include:
 
 * need to accommodate for constrained devices, so with IoT, REST is not only used for scaling out (large number of clients on a web server), but also for scaling down (efficient server on constrained node)
 * data formats, interaction patterns, and other mechanisms that minimize, or preferably avoid, the need for human interaction
+* for some classes {{RFC7228}} of server endpoints, significant constraints, e.g., in energy consumption, and thus implementation complexity, may apply
+* endpoints are commonly both clients and servers
 * preference for compact and simple data formats to facilitate efficient transfer over (often) constrained networks and lightweight processing in constrained nodes
 * the usually large number of endpoints can not be updated simultaneously, yet the system needs to be able to evolve in the field without long downtimes
 
@@ -141,7 +145,8 @@ Client:
 In RESTful IoT systems it's common for nodes to have more than one role (e.g., both server and client; see {{sec-architecture}}).
 
 Client State:
-: The state kept by a client between requests. This typically includes the currently processed representation, the set of active requests, the history of requests, bookmarks (URIs stored for later retrieval), and application-specific state (e.g., local variables). 
+: The state kept by a client between requests.
+This typically includes the currently processed representation, the set of active requests, the history of requests, bookmarks (URIs stored for later retrieval), and application-specific state (e.g., local variables).
 (Note that this is called "Application State" in {{REST}}, which has some ambiguity in modern (IoT) systems where the overall state of the distributed application (i.e., application state) is reflected in the union of all Client States and Resource States of all clients and servers involved.)
 
 Content Negotiation:
@@ -163,7 +168,7 @@ Forward Proxy:
 This may be useful, for example, when the client lacks the capability to make the request itself or to service the response from a cache in order to reduce response time, network bandwidth, and energy consumption.
 
 Gateway:
-: A reverse proxy that provides an interface to a non-RESTful system such as legacy systems or alternative technologies such as Bluetooth ATT/GATT. 
+: A reverse proxy that provides an interface to a non-RESTful system such as legacy systems or alternative technologies such as Bluetooth Attribute Profile (ATT) or Generic Attribute Profile (GATT).
 See also "Reverse Proxy".
 
 Hypermedia Control:
@@ -267,7 +272,7 @@ Alternatively an IoT data storage system could work as a server where IoT sensor
 {: artwork-align="center" #basic-arch-x title="Client-Server Communication"}
 
 Intermediaries (such as forward proxies, reverse proxies, and gateways) implement both roles, but only forward requests to other intermediaries or origin servers.
-They can also translate requests to different protocols, for instance, as CoAP-HTTP cross-proxies.
+They can also translate requests to different protocols, for instance, as CoAP-HTTP cross-proxies {{?RFC8075}}.
 
 ~~~~~~~~~~~~~~~~~~~
  ________       __________                        _________
@@ -351,7 +356,7 @@ A scheme creates a namespace for resources and defines how the following compone
 The authority identifies an entity that governs part of the namespace, such as the server "www.example.org" in the "http" scheme. 
 A host name (e.g., a fully qualified domain name) or an IP address, potentially followed by a transport layer port number, are usually used in the authority component for the "http" and "coap" schemes. 
 The path and query contain data to identify a resource within the scope of the URI's scheme and naming authority. 
-The fragment allows to refer to some portion of the resource, such as a Record in a SenML Pack. 
+The fragment allows to refer to some portion of the resource, such as a Record in a SenML Pack (Section 9 of {{RFC8428}}).
 However, fragments are processed only at client side and not sent on the wire. 
 {{?RFC7320}} provides more details on URI design and ownership with best current practices for establishing URI structures, conventions, and formats.
 
@@ -373,18 +378,22 @@ Therefore applications should not rely on their order; see Section 3.3 of {{?RFC
 ## Representations
 
 Clients can retrieve the resource state from an origin server or manipulate resource state on the origin server by transferring resource representations.
-Resource representations have a media type that tells how the representation should be interpreted by identifying the representation format used.
+Resource representations have a content-type (media-type, optionally with parameters) that tells how the representation should be interpreted by identifying the representation format used.
 
-Typical media types for IoT systems include:
+Typical media-types for IoT systems include:
 
 * "text/plain" for simple UTF-8 text
 * "application/octet-stream" for arbitrary binary data
 * "application/json" for the JSON format {{RFC7159}}
 * "application/cbor" for CBOR {{RFC7049}}
 * "application/exi" for EXI {{W3C.REC-exi-20110310}}
+* "application/link-format" for CoRE Link Format {{RFC6690}}
 * "application/senml+json" and "application/senml+cbor" for Sensor Measurement Lists (SenML) data {{RFC8428}}
 
-A full list of registered Internet Media Types is available at the IANA registry {{IANA-media-types}} and numerical media types registered for use with CoAP are listed at CoAP Content-Formats IANA registry {{IANA-CoAP-media}}.
+A full list of registered Internet Media Types is available at the IANA registry {{IANA-media-types}} and numerical identifiers for media-types, parameters, and content-codings registered for use with CoAP are listed at CoAP Content-Formats IANA registry {{IANA-CoAP-media}}.
+
+The terms "media-type", "content-type", and "content-format" (short identifier of content-type and content-coding, abbreviated for historical reasons "ct") are often used when referring to representation formats used with CoAP.
+The differences between these terms are discussed in more detail in {{I-D.bormann-core-media-content-type-format}}.
 
 ## HTTP/CoAP Methods {#sec-methods}
 
@@ -527,9 +536,9 @@ Less transfers also improves scalability, as origin servers can be protected fro
 Local caches furthermore improve reliability, since requests can be answered even if the origin server is temporarily not available.
 
 Caching usually only makes sense when the data is used by multiple participants.
-In the IoT, however, it might make sense to cache also individual data to protect constrained devices from frequent requests of data that does not change often.
+In IoT systems, however, it might make sense to cache also individual data to protect constrained devices and networks from frequent requests of data that does not change often.
 Security often hinders the ability to cache responses.
-For IoT systems, object security may be preferable over transport layer security, as it enables intermediaries to cache responses while preserving security.
+For IoT systems, object security {{I-D.ietf-core-object-security}} may be preferable over transport layer security, as it enables intermediaries to cache responses while preserving security.
 
 ## Uniform Interface {#sec-uniform-interface}
 
@@ -548,7 +557,7 @@ A REST interface is fully defined by:
 
 The concept of hypermedia controls is also known as HATEOAS: Hypermedia As The Engine Of Application State.
 The origin server embeds controls for the interface into its representations and thereby informs the client about possible next requests.
-The mostly used control for RESTful systems is Web Linking {{RFC5590}}.
+The most used control for RESTful systems today is Web Linking {{RFC5988}}.
 Hypermedia forms are more powerful controls that describe how to construct more complex requests, including representations to modify resource state.
 
 While this is the most complex constraints (in particular the hypermedia controls), it improves many different key properties.
@@ -619,8 +628,8 @@ This includes what resources are available, what representations of resource sta
 
 Some part of this knowledge, such as how to retrieve the representation of a resource state, is typically hard-coded in the client software.
 For other parts, a choice can often be made between hard-coding the knowledge or acquiring it on-demand.
-The key to success in either case is the use in-band information for identifying the knowledge that is required.
-This enables the client to verify that is has all required knowledge and to acquire missing knowledge on-demand.
+The key to success in either case is the use of in-band information for identifying the knowledge that is required.
+This enables the client to verify that it has all the required knowledge or to acquire missing knowledge on-demand.
                       
 A hypermedia-driven application typically uses the following identifiers:
 
@@ -721,7 +730,7 @@ For instance, in an event-centric system, ringing a door bell would result in a 
 In resource-oriented paradigms such as REST, messages usually carry the current state of the remote resource, independent from the changes (i.e., events) that have lead to that state.
 In a naive yet natural design, a door bell could be modeled as a resource that can have the states unpressed and pressed.
 There are, however, a few issues with this approach.
-Polling is not an option, as it is highly unlikely to be able to observe the pressed state with any realistic polling interval.
+Polling (i.e., periodically retrieving) the door bell resource state is not a good option, as the client is highly unlikely to be able to observe all the changes in the pressed state with any realistic polling interval.
 When using CoAP Observe with Confirmable notifications, the server will usually send two notifications for the event that the door bell was pressed:
 notification for changing from unpressed to pressed and another one for changing back to unpressed.
 If the time between the state changes is very short, the server might drop the first notification, as Observe only guarantees only eventual consistency (see Section 1.3 of {{RFC7641}}).
@@ -729,29 +738,28 @@ If the time between the state changes is very short, the server might drop the f
 The solution is to pick a state model that fits better to the application.
 In the case of the door bell -- and many other event-driven resources -- the solution could be a counter that counts how often the bell was pressed.
 The corresponding action is taken each time the client observes a change in the received representation.
+In the case of a network outage, this could lead to a ringing sound long after the bell was rung.
+Also including a timestamp of the last counter increment in the state can help to suppress ringing a sound when the event has become obsolete. Another solution would be to change the client/server roles of the door bell button and the ringer, as described in {{sec-server-push}}.
 
-In the case of a network outage, this could lead to a ringing sound 10 minutes after the bell was rung.
-Also including a timestamp of the last counter increment in the state can help to suppress ringing a sound when the event has become obsolete.
-
-## Server Push
+## Server Push {#sec-server-push}
 
 Overall, a universal mechanism for server push, that is, change-of-state notifications and stand-alone event notifications, is still an open issue that is being discussed in the Thing-to-Thing Research Group.
 It is connected to the state-event duality problem and custody transfer, that is, the transfer of the responsibility that a message (e.g., event) is delivered successfully.
 
 A proficient mechanism for change-of-state notifications is currently only available for CoAP: Observing resources {{RFC7641}}.
-It offers enventual consistency, which guarantees "that if the resource does not undergo a new change in state, eventually all registered observers will have a current representation of the latest resource state".
+The CoAP Observe mechanism offers eventual consistency, which guarantees "that if the resource does not undergo a new change in state, eventually all registered observers will have a current representation of the latest resource state".
 It intrinsically deals with the challenges of lossy networks, where notifications might be lost, and constrained networks, where there might not be enough bandwidth to propagate all changes.
 
 For stand-alone event notifications, that is, where every single notification contains an identifiable event that must not be lost, observing resources is not a good fit.
 A better strategy is to model each event as a new resource, whose existence is notified through change-of-state notifications of an index resource (cf. Collection pattern).
 Large numbers of events will cause the notification to grow large, as it needs to contain a large number of Web links.
-Blockwise transfers {{RFC7959}} can help here.
+Block-wise transfers {{RFC7959}} can help here.
 When the links are ordered by freshness of the events, the first block can already contain all links to new events.
 Then, observers do not need to retrieve the remaining blocks from the server, but only the representations of the new event resources.
 
 An alternative pattern is to exploit the dual roles of IoT devices, in particular when using CoAP: they are usually client and server at the same time.
-A client observer would subscribe to events by registering a callback URI at the origin server, e.g., using a POST request and receiving the location of a temporary subscription resource as handle.
-The origin server would then publish events by sending POST requests containing the event to the observer.
+An endpoint interested in observing the events would subscribe to them by registering a callback URI at the origin server, e.g., using a POST request with the URI or a hypermedia document in the payload, and receiving the location of a temporary "subscription resource" as handle in the response.
+The origin server would then publish events by sending requests containing the event data to the observer's callback URI; here POST can be used to add events to a collection located at the callback URI or PUT can be used when the event data is a new state that shall replace the outdated state at the callback URI.
 The cancellation can be modeled through deleting the subscription resource.
 This pattern makes the origin server responsible for delivering the event notifications.
 This goes beyond retransmissions of messages;
@@ -759,11 +767,11 @@ the origin server is usually supposed to queue all undelivered events and to ret
 In HTTP, this pattern is known as REST Hooks.
 
 In HTTP, there exist a number of workarounds to enable server push, e.g., long polling and streaming {{RFC6202}} or server-sent events {{W3C.REC-html5-20141028}}.
-Long polling as an extension that both server and client need to be aware of.
 In IoT systems, long polling can introduce a considerable overhead, as the request has to be repeated for each notification.
-Streaming and server-sent events (in fact an evolved version of streaming) are more efficient, as only one request is sent.
+Streaming and server-sent events (the latter is actually an evolution of the former) are more efficient, as only one request is sent.
 However, there is only one response header and subsequent notifications can only have content.
-There are no means for individual status and metadata, and hence no means for proficient error handling (e.g., when the resource is deleted).
+Individual status and metadata needs to be included in the content message.
+This reduces HTTP again to a pure transport, as its status signaling and metadata capabilities cannot be used.
 
 # Security Considerations {#sec-sec}
 
@@ -778,22 +786,26 @@ These include:
 * CoAP security: Section 11 of {{RFC7252}}
 * URI security: Section 7 of {{RFC3986}}
 
-IoT-specific security is mainly work in progress at the time of writing.
-First specifications include:
+IoT-specific security is active area of standardization at the time of writing.
+First finalized specifications include:
 
 * (D)TLS Profiles for the Internet of Things: {{RFC7925}}
+* CBOR Object Signing and Encryption (COSE) {{?RFC8152}}
+* CBOR Web Token {{?RFC8392}}
+* Proof-of-Possession Key Semantics for CBOR Web Tokens (CWTs) {{?I-D.ietf-ace-cwt-proof-of-possession}}
+* Object Security for Constrained RESTful Environments (OSCORE) {{I-D.ietf-core-object-security}}
+* Authentication and Authorization for Constrained Environments (ACE) using the OAuth 2.0 Framework {{?I-D.ietf-ace-oauth-authz}}
+* ACE profiles for DTLS {{?I-D.ietf-ace-dtls-authorize}} and OSCORE {{?I-D.ietf-ace-oscore-profile}}
 
-Further IoT security considerations are available in {{?I-D.irtf-t2trg-iot-seccons}}.
+Further IoT security considerations are available in {{?RFC8576}}.
 
 # Acknowledgement
 
-The authors would like to thank Mert Ocak, Heidi-Maria Back, Tero Kauppinen, Michael Koster, Robby Simpson, Ravi Subramaniam, Dave Thaler, Erik Wilde, and Niklas Widell for the reviews and feedback.
+The authors would like to thank Mike Amundsen, Heidi-Maria Back, Carsten Bormann, Tero Kauppinen, Michael Koster, Mert Ocak, Robby Simpson, Ravi Subramaniam, Dave Thaler, Niklas Widell, and Erik Wilde for the reviews and feedback.
 
 --- back
 
 # Future Work
-
-* Interface semantics: shared knowledge among system components (URI schemes, media types, relation types, well-known locations; see core-apps)
 
 * Unreliable (best effort) communication, robust communication in network with high packet loss, 3-way commit
 
