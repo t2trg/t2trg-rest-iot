@@ -372,7 +372,7 @@ Therefore applications should not rely on their order; see Section 3.3 of {{?RFC
 ## Representations
 
 Clients can retrieve the resource state from an origin server or manipulate resource state on the origin server by transferring resource representations.
-Resource representations have a content-type (media-type + optionally parameters) that tells how the representation should be interpreted by identifying the representation format used.
+Resource representations have a content-type (media-type, optionally with parameters) that tells how the representation should be interpreted by identifying the representation format used.
 
 Typical media-types for IoT systems include:
 
@@ -386,7 +386,7 @@ Typical media-types for IoT systems include:
 
 A full list of registered Internet Media Types is available at the IANA registry {{IANA-media-types}} and numerical identifiers for media-types, parameters, and content-codings registered for use with CoAP are listed at CoAP Content-Formats IANA registry {{IANA-CoAP-media}}.
 
-The terms "media-type", "content-type" (media-type with parameters), and "content-format" (short identifier of content-type and content-coding, abbreviated for historical reasons "ct") are often used when referring to representation formats used with CoAP.
+The terms "media-type", "content-type", and "content-format" (short identifier of content-type and content-coding, abbreviated for historical reasons "ct") are often used when referring to representation formats used with CoAP.
 The differences between these terms are discussed in more detail in {{I-D.bormann-core-media-content-type-format}}.
 
 ## HTTP/CoAP Methods {#sec-methods}
