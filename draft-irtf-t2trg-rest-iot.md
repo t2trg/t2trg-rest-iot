@@ -375,6 +375,9 @@ Query parameters in PUT and POST requests do not have such established semantics
 Whether the order of the query parameters matters in URIs is unspecified and they can be re-ordered e.g., by proxies. 
 Therefore applications should not rely on their order; see Section 3.3 of {{?RFC6943}} for more details.
 
+Due to the relatively complex processing rules and text representation format, URI handling can be difficult to implement correctly in constrained devices.
+Constrained Resource Identifiers {{!I-D.ietf-core-href}} provide a CBOR-based format of URIs that is better suited also for resource constrained IoT devices.
+
 ## Representations
 
 Clients can retrieve the resource state from an origin server or manipulate resource state on the origin server by transferring resource representations.
