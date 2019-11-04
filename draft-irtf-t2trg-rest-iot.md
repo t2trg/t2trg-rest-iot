@@ -603,6 +603,7 @@ A hypermedia client is a client that is capable of processing these hypermedia c
 Hypermedia links can be used to give additional information about a resource representation (e.g., the source URI of the representation) or pointing to other resources. 
 The forms can be used to describe the structure of the data that can be sent (e.g., with a POST or PUT method) to a server, or how a data retrieval (e.g., GET) request for a resource should be formed. 
 In a hypermedia-driven application the client interacts with the server using only the hypermedia controls, instead of selecting methods and/or constructing URIs based on out-of-band information, such as API documentation.
+The Constrained RESTful Application Language (CoRAL) {{!I-D.ietf-core-coral}} provides a hypermedia-format that is suitable for constrained IoT environments.
 
 ## Motivation
 
