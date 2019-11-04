@@ -69,7 +69,7 @@ normative:
   RFC7641:
   RFC7959:
   RFC6202:
-  I-D.ietf-core-object-security:
+  RFC8613:
   W3C.REC-html5-20141028:
 informative:
   RFC5789:
@@ -538,7 +538,7 @@ Local caches furthermore improve reliability, since requests can be answered eve
 Caching usually only makes sense when the data is used by multiple participants.
 In IoT systems, however, it might make sense to cache also individual data to protect constrained devices and networks from frequent requests of data that does not change often.
 Security often hinders the ability to cache responses.
-For IoT systems, object security {{I-D.ietf-core-object-security}} may be preferable over transport layer security, as it enables intermediaries to cache responses while preserving security.
+For IoT systems, object security {{RFC8613}} may be preferable over transport layer security, as it enables intermediaries to cache responses while preserving security.
 
 ## Uniform Interface {#sec-uniform-interface}
 
@@ -793,7 +793,7 @@ First finalized specifications include:
 * CBOR Object Signing and Encryption (COSE) {{?RFC8152}}
 * CBOR Web Token {{?RFC8392}}
 * Proof-of-Possession Key Semantics for CBOR Web Tokens (CWTs) {{?I-D.ietf-ace-cwt-proof-of-possession}}
-* Object Security for Constrained RESTful Environments (OSCORE) {{I-D.ietf-core-object-security}}
+* Object Security for Constrained RESTful Environments (OSCORE) {{RFC8613}}
 * Authentication and Authorization for Constrained Environments (ACE) using the OAuth 2.0 Framework {{?I-D.ietf-ace-oauth-authz}}
 * ACE profiles for DTLS {{?I-D.ietf-ace-dtls-authorize}} and OSCORE {{?I-D.ietf-ace-oscore-profile}}
 
