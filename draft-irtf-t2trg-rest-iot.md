@@ -69,6 +69,7 @@ normative:
   RFC7641:
   RFC7959:
   RFC6202:
+  RFC8446:
   RFC8613:
   W3C.REC-html5-20141028:
 informative:
@@ -77,9 +78,9 @@ informative:
   RFC6763:
   RFC7228:
   RFC7252:
-  RFC7159:
   RFC7925:
   RFC8428:
+  RFC8259:
   I-D.bormann-core-media-content-type-format:
   I-D.handrews-json-schema-validation:
   I-D.hartke-core-apps:
@@ -90,7 +91,8 @@ informative:
     - ins: T. Kamiya
     - ins: M. McCool
     - ins: V. Charpenay
-    date: 16 May 2019
+    - ins: M. Kovatsch
+    date: 9 April 2020
     target: https://www.w3.org/TR/wot-thing-description/
   IANA-media-types:
     title: Media Types
@@ -211,7 +213,7 @@ Depending on the protocol needs and capabilities, there can be additional metada
 Representation Format:
 : A set of rules for serializing resource state. 
 On the Web, the most prevalent representation format is HTML. 
-Other common formats include plain text and formats based on JSON {{RFC7159}}, XML, or RDF. Within IoT systems, often compact formats based on JSON, CBOR {{RFC7049}}, and EXI {{W3C.REC-exi-20110310}} are used.
+Other common formats include plain text and formats based on JSON {{RFC8259}}, XML, or RDF. Within IoT systems, often compact formats based on JSON, CBOR {{RFC7049}}, and EXI {{W3C.REC-exi-20110310}} are used.
 
 Representational State Transfer (REST):
 : An architectural style for Internet-scale distributed hypermedia systems.
@@ -361,7 +363,7 @@ However, fragments are processed only at client side and not sent on the wire.
 {{?RFC7320}} provides more details on URI design and ownership with best current practices for establishing URI structures, conventions, and formats.
 
 For RESTful IoT applications, typical schemes include "https", "coaps", "http", and "coap". 
-These refer to HTTP and CoAP, with and without Transport Layer Security (TLS) {{RFC5246}}. 
+These refer to HTTP and CoAP, with and without Transport Layer Security (TLS, {{RFC5246}} for TLS 1.2 and {{RFC8446}} for TLS 1.3).
 (CoAP uses Datagram TLS (DTLS) {{RFC6347}}, the variant of TLS for UDP.) 
 These four schemes also provide means for locating the resource; using the HTTP protocol for "http" and "https", and with the CoAP protocol for "coap" and "coaps". 
 If the scheme is different for two URIs (e.g., "coap" vs. "coaps"), it is important to note that even if the rest of the URI is identical, these are two different resources, in two distinct namespaces.
@@ -387,7 +389,7 @@ Typical media-types for IoT systems include:
 
 * "text/plain" for simple UTF-8 text
 * "application/octet-stream" for arbitrary binary data
-* "application/json" for the JSON format {{RFC7159}}
+* "application/json" for the JSON format {{RFC8259}}
 * "application/cbor" for CBOR {{RFC7049}}
 * "application/exi" for EXI {{W3C.REC-exi-20110310}}
 * "application/link-format" for CoRE Link Format {{RFC6690}}
@@ -786,7 +788,7 @@ We assume that system designers apply classic Web security on top of the basic R
 Thus, security protocols and considerations from related specifications apply to RESTful IoT design.
 These include:
 
-* Transport Layer Security (TLS): {{RFC5246}} and {{RFC6347}}
+* Transport Layer Security (TLS): {{RFC8446}}, {{RFC5246}}, and {{RFC6347}}
 * Internet X.509 Public Key Infrastructure: {{RFC5280}}
 * HTTP security: Section 9 of {{RFC7230}}, Section 9 of {{RFC7231}}, etc.
 * CoAP security: Section 11 of {{RFC7252}}
@@ -798,7 +800,7 @@ First finalized specifications include:
 * (D)TLS Profiles for the Internet of Things: {{RFC7925}}
 * CBOR Object Signing and Encryption (COSE) {{?RFC8152}}
 * CBOR Web Token {{?RFC8392}}
-* Proof-of-Possession Key Semantics for CBOR Web Tokens (CWTs) {{?I-D.ietf-ace-cwt-proof-of-possession}}
+* Proof-of-Possession Key Semantics for CBOR Web Tokens (CWTs) {{?RFC8747}}
 * Object Security for Constrained RESTful Environments (OSCORE) {{RFC8613}}
 * Authentication and Authorization for Constrained Environments (ACE) using the OAuth 2.0 Framework {{?I-D.ietf-ace-oauth-authz}}
 * ACE profiles for DTLS {{?I-D.ietf-ace-dtls-authorize}} and OSCORE {{?I-D.ietf-ace-oscore-profile}}
