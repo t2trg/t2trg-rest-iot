@@ -137,6 +137,18 @@ Compared to other systems, the key characteristics of many RESTful IoT systems i
 # Terminology {#sec-terms}
 
 This section explains some of the common terminology that is used in the context of RESTful design for IoT systems. For terminology of constrained nodes and networks, see {{RFC7228}}.
+Terminology on modeling of Things and their Affordances (Properties,
+Actions, and Events) was taken from {{?I-D.ietf-asdf-sdf}}.
+
+Action:
+: An affordance that can potentially be used to perform a named operation on an Object.
+
+Affordance:
+: An element of an interface offered for interaction, defining its
+  possible uses or making clear how it can or should be used.  The
+  term is used here for the digital interfaces of a Thing only; it
+  might also have physical affordances such as buttons, dials, and
+  displays.
 
 Cache:
 : A local store of response messages and the subsystem that controls storage, retrieval, and deletion of messages in it.
@@ -160,6 +172,10 @@ Dereference:
 Dereferencable URI:
 : A URI that can be dereferenced, i.e., an action can be performed on the identified resource. 
 Not all HTTP or CoAP URIs are dereferencable, e.g., when the target resource does not exist.
+
+
+Event:
+: An affordance that can potentially be used to obtain information about what happened to an Object.
 
 Form:
 : A hypermedia control that enables a client to change the state of a resource or to construct a query locally.
@@ -198,6 +214,12 @@ In contrast, intermediaries (such as proxies caching a representation) can assum
 Proactive Content Negotiation:
 : A content negotiation mechanism where the server selects a representation based on the expressed preference of the client. 
 For example, an IoT application could send a request to a sensor with preferred media type "application/senml+json".
+
+
+Property:
+: An affordance that can potentially be used to read, write, and/or
+  observe state on an Object.
+
 
 Reactive Content Negotiation:
 : A content negotiation mechanism where the client selects a representation from a list of available representations. 
@@ -239,6 +261,17 @@ Safe Method:
 
 Server:
 : A node that listens for requests, performs the requested operation and sends responses back to the clients.
+
+
+Thing:
+: A physical device that is also made available in the Internet of
+  Things.  The term is used here for Things that are notable for their
+  interaction with the physical world beyond interaction with humans;
+  a temperature sensor or a light might be a Thing, but a router that
+  employs both temperature sensors and indicator lights might exhibit
+  less Thingness, as the effects of its functioning are mostly on the
+  digital side.
+
 
 Transfer protocols:
 : In particular in IoT domain, protocols above transport layer that are used to transfer data objects and provide semantics for operations on the data.
