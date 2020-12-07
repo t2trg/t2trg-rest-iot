@@ -55,16 +55,15 @@ normative:
     - ins: R. Fielding
     date: 2000
     seriesinfo: Ph.D. Dissertation, University of California, Irvine
-  RFC5246:
   RFC6347:
   I-D.ietf-core-resource-directory:
   I-D.ietf-core-dev-urn:
-  RFC7049:
+  RFC8949:
   W3C.REC-exi-20110310:
   RFC5246:
   RFC5280:
   RFC6347:
-  RFC5988:
+  RFC8288:
   RFC6690:
   RFC7641:
   RFC7959:
@@ -184,7 +183,7 @@ Link:
 : A hypermedia control that enables a client to navigate between resources and thereby change the client state.
 
 Link Relation Type:
-: An identifier that describes how the link target resource relates to the current resource (see {{RFC5988}}).
+: An identifier that describes how the link target resource relates to the current resource (see {{RFC8288}}).
 
 Media Type:
 : A string such as "text/html" or "application/json" that is used to label representations so that it is known how the representation should be interpreted and how it is encoded.
@@ -213,7 +212,7 @@ Depending on the protocol needs and capabilities, there can be additional metada
 Representation Format:
 : A set of rules for serializing resource state. 
 On the Web, the most prevalent representation format is HTML. 
-Other common formats include plain text and formats based on JSON {{RFC8259}}, XML, or RDF. Within IoT systems, often compact formats based on JSON, CBOR {{RFC7049}}, and EXI {{W3C.REC-exi-20110310}} are used.
+Other common formats include plain text and formats based on JSON {{RFC8259}}, XML, or RDF. Within IoT systems, often compact formats based on JSON, CBOR {{RFC8949}}, and EXI {{W3C.REC-exi-20110310}} are used.
 
 Representational State Transfer (REST):
 : An architectural style for Internet-scale distributed hypermedia systems.
@@ -360,7 +359,7 @@ A host name (e.g., a fully qualified domain name) or an IP address, potentially 
 The path and query contain data to identify a resource within the scope of the URI's scheme and naming authority. 
 The fragment allows to refer to some portion of the resource, such as a Record in a SenML Pack (Section 9 of {{RFC8428}}).
 However, fragments are processed only at client side and not sent on the wire. 
-{{?RFC7320}} provides more details on URI design and ownership with best current practices for establishing URI structures, conventions, and formats.
+{{?RFC8820}} provides more details on URI design and ownership with best current practices for establishing URI structures, conventions, and formats.
 
 For RESTful IoT applications, typical schemes include "https", "coaps", "http", and "coap". 
 These refer to HTTP and CoAP, with and without Transport Layer Security (TLS, {{RFC5246}} for TLS 1.2 and {{RFC8446}} for TLS 1.3).
@@ -390,7 +389,7 @@ Typical media-types for IoT systems include:
 * "text/plain" for simple UTF-8 text
 * "application/octet-stream" for arbitrary binary data
 * "application/json" for the JSON format {{RFC8259}}
-* "application/cbor" for CBOR {{RFC7049}}
+* "application/cbor" for CBOR {{RFC8949}}
 * "application/exi" for EXI {{W3C.REC-exi-20110310}}
 * "application/link-format" for CoRE Link Format {{RFC6690}}
 * "application/senml+json" and "application/senml+cbor" for Sensor Measurement Lists (SenML) data {{RFC8428}}
@@ -562,7 +561,7 @@ A REST interface is fully defined by:
 
 The concept of hypermedia controls is also known as HATEOAS: Hypermedia As The Engine Of Application State.
 The origin server embeds controls for the interface into its representations and thereby informs the client about possible next requests.
-The most used control for RESTful systems today is Web Linking {{RFC5988}}.
+The most used control for RESTful systems today is Web Linking {{RFC8288}}.
 Hypermedia forms are more powerful controls that describe how to construct more complex requests, including representations to modify resource state.
 
 While this is the most complex constraints (in particular the hypermedia controls), it improves many different key properties.
