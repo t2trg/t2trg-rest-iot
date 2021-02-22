@@ -55,16 +55,15 @@ normative:
     - ins: R. Fielding
     date: 2000
     seriesinfo: Ph.D. Dissertation, University of California, Irvine
-  RFC5246:
   RFC6347:
   I-D.ietf-core-resource-directory:
   I-D.ietf-core-dev-urn:
-  RFC7049:
+  RFC8949:
   W3C.REC-exi-20110310:
   RFC5246:
   RFC5280:
   RFC6347:
-  RFC5988:
+  RFC8288:
   RFC6690:
   RFC7641:
   RFC7959:
@@ -138,6 +137,18 @@ Compared to other systems, the key characteristics of many RESTful IoT systems i
 # Terminology {#sec-terms}
 
 This section explains some of the common terminology that is used in the context of RESTful design for IoT systems. For terminology of constrained nodes and networks, see {{RFC7228}}.
+Terminology on modeling of Things and their Affordances (Properties,
+Actions, and Events) was taken from {{?I-D.ietf-asdf-sdf}}.
+
+Action:
+: An affordance that can potentially be used to perform a named operation on an Object.
+
+Affordance:
+: An element of an interface offered for interaction, defining its
+  possible uses or making clear how it can or should be used.  The
+  term is used here for the digital interfaces of a Thing only; it
+  might also have physical affordances such as buttons, dials, and
+  displays.
 
 Cache:
 : A local store of response messages and the subsystem that controls storage, retrieval, and deletion of messages in it.
@@ -162,6 +173,10 @@ Dereferencable URI:
 : A URI that can be dereferenced, i.e., an action can be performed on the identified resource. 
 Not all HTTP or CoAP URIs are dereferencable, e.g., when the target resource does not exist.
 
+
+Event:
+: An affordance that can potentially be used to obtain information about what happened to an Object.
+
 Form:
 : A hypermedia control that enables a client to change the state of a resource or to construct a query locally.
 
@@ -184,7 +199,7 @@ Link:
 : A hypermedia control that enables a client to navigate between resources and thereby change the client state.
 
 Link Relation Type:
-: An identifier that describes how the link target resource relates to the current resource (see {{RFC5988}}).
+: An identifier that describes how the link target resource relates to the current resource (see {{RFC8288}}).
 
 Media Type:
 : A string such as "text/html" or "application/json" that is used to label representations so that it is known how the representation should be interpreted and how it is encoded.
@@ -200,6 +215,12 @@ Proactive Content Negotiation:
 : A content negotiation mechanism where the server selects a representation based on the expressed preference of the client. 
 For example, an IoT application could send a request to a sensor with preferred media type "application/senml+json".
 
+
+Property:
+: An affordance that can potentially be used to read, write, and/or
+  observe state on an Object.
+
+
 Reactive Content Negotiation:
 : A content negotiation mechanism where the client selects a representation from a list of available representations. 
 The list may, for example, be included by a server in an initial response. 
@@ -213,7 +234,7 @@ Depending on the protocol needs and capabilities, there can be additional metada
 Representation Format:
 : A set of rules for serializing resource state. 
 On the Web, the most prevalent representation format is HTML. 
-Other common formats include plain text and formats based on JSON {{RFC8259}}, XML, or RDF. Within IoT systems, often compact formats based on JSON, CBOR {{RFC7049}}, and EXI {{W3C.REC-exi-20110310}} are used.
+Other common formats include plain text and formats based on JSON {{RFC8259}}, XML, or RDF. Within IoT systems, often compact formats based on JSON, CBOR {{RFC8949}}, and EXI {{W3C.REC-exi-20110310}} are used.
 
 Representational State Transfer (REST):
 : An architectural style for Internet-scale distributed hypermedia systems.
@@ -240,6 +261,17 @@ Safe Method:
 
 Server:
 : A node that listens for requests, performs the requested operation and sends responses back to the clients.
+
+
+Thing:
+: A physical device that is also made available in the Internet of
+  Things.  The term is used here for Things that are notable for their
+  interaction with the physical world beyond interaction with humans;
+  a temperature sensor or a light might be a Thing, but a router that
+  employs both temperature sensors and indicator lights might exhibit
+  less Thingness, as the effects of its functioning are mostly on the
+  digital side.
+
 
 Transfer protocols:
 : In particular in IoT domain, protocols above transport layer that are used to transfer data objects and provide semantics for operations on the data.
@@ -360,7 +392,7 @@ A host name (e.g., a fully qualified domain name) or an IP address, potentially 
 The path and query contain data to identify a resource within the scope of the URI's scheme and naming authority. 
 The fragment allows to refer to some portion of the resource, such as a Record in a SenML Pack (Section 9 of {{RFC8428}}).
 However, fragments are processed only at client side and not sent on the wire. 
-{{?RFC7320}} provides more details on URI design and ownership with best current practices for establishing URI structures, conventions, and formats.
+{{?RFC8820}} provides more details on URI design and ownership with best current practices for establishing URI structures, conventions, and formats.
 
 For RESTful IoT applications, typical schemes include "https", "coaps", "http", and "coap". 
 These refer to HTTP and CoAP, with and without Transport Layer Security (TLS, {{RFC5246}} for TLS 1.2 and {{RFC8446}} for TLS 1.3).
@@ -390,7 +422,7 @@ Typical media-types for IoT systems include:
 * "text/plain" for simple UTF-8 text
 * "application/octet-stream" for arbitrary binary data
 * "application/json" for the JSON format {{RFC8259}}
-* "application/cbor" for CBOR {{RFC7049}}
+* "application/cbor" for CBOR {{RFC8949}}
 * "application/exi" for EXI {{W3C.REC-exi-20110310}}
 * "application/link-format" for CoRE Link Format {{RFC6690}}
 * "application/senml+json" and "application/senml+cbor" for Sensor Measurement Lists (SenML) data {{RFC8428}}
@@ -562,7 +594,7 @@ A REST interface is fully defined by:
 
 The concept of hypermedia controls is also known as HATEOAS: Hypermedia As The Engine Of Application State.
 The origin server embeds controls for the interface into its representations and thereby informs the client about possible next requests.
-The most used control for RESTful systems today is Web Linking {{RFC5988}}.
+The most used control for RESTful systems today is Web Linking {{RFC8288}}.
 Hypermedia forms are more powerful controls that describe how to construct more complex requests, including representations to modify resource state.
 
 While this is the most complex constraints (in particular the hypermedia controls), it improves many different key properties.
