@@ -29,12 +29,12 @@ author:
 
 - ins: M. Kovatsch
   name: Matthias Kovatsch
-  org: Siemens AG
-  street: 'Otto-Hahn-Ring 6'
+  org: Huawei Technologies
+  street: 'Riesstr. 25'
   city: Munich
-  code: D-81739
+  code: D-80992
   country: Germany
-  email: matthias.kovatsch@siemens.com
+  email: matthias.kovatsch@huawei.com
 
 - ins: K. Hartke
   name: Klaus Hartke
