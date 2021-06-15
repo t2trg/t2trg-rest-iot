@@ -8,9 +8,10 @@ This is the working area for the Individual internet-draft, "RESTful Design for 
 
 ## Design team meetings
 
-15.6.2021 15-16:00 CEST
+15.6.2021 15:05-16:00 CEST
 
 Location: https://ietf.webex.com/meet/t2trg
+
 notes: TBD
 
 ## Building the Draft
