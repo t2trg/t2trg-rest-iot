@@ -143,7 +143,7 @@ Action:
 : An affordance that can potentially be used to perform a named operation on an Object.
 
 Action Result:
-: A representation sent as a response by a server that does not represent resource state.
+: A representation sent as a response by a server that does not represent resource state, but the result of the interaction with the originally addressed resource.
 
 Affordance:
 : An element of an interface offered for interaction, defining its
@@ -157,7 +157,7 @@ Cache:
 
 Client:
 : A node that sends requests to servers and receives responses.
-In RESTful IoT systems it's common for nodes to have more than one role (e.g., both server and client; see {{sec-architecture}}).
+In RESTful IoT systems it is common for nodes to have more than one role (i.e., to be both server and client; see {{sec-architecture}}).
 
 Client State:
 : The state kept by a client between requests.
@@ -174,7 +174,6 @@ Dereference:
 Dereferencable URI:
 : A URI that can be dereferenced, i.e., interaction with the identified resource is possible. 
 Not all HTTP or CoAP URIs are dereferencable, e.g., when the target resource does not exist.
-
 
 Event:
 : An affordance that can potentially be used to obtain information about what happened to an Object.
@@ -261,6 +260,7 @@ Safe Method:
 
 Server:
 : A node that listens for requests, performs the requested operation and sends responses back to the clients.
+In RESTful IoT systems it is common for nodes to have more than one role (i.e., to be both server and client; see {{sec-architecture}}).
 
 Thing:
 : A physical device that is also made available in the Internet of
@@ -270,7 +270,6 @@ Thing:
   employs both temperature sensors and indicator lights might exhibit
   less Thingness, as the effects of its functioning are mostly on the
   digital side.
-
 
 Transfer protocols:
 : In particular in IoT domain, protocols above transport layer that are used to transfer data objects and provide semantics for operations on the data.
@@ -353,20 +352,20 @@ Unlike intermediaries, however, they can take the initiative as a client (e.g., 
 
 ## System design
 
-When designing a RESTful system, the primary effort goes into modeling the state of the distributed application and assigning it to the different components (i.e., clients and servers).
-How clients can navigate through the resources and modify state to achieve their goals is defined through hypermedia controls, that is, links and forms.
+When designing a RESTful system, the primary effort goes into modeling the application as distributed state and assigning it to the different components (i.e., clients and servers).
+The secondary effort is then selecting or designing the necessary representation formats to exchange information and enable interaction between the components through resources.
+How clients can navigate through the resource space and modify state to achieve their goals is encoded in hypermedia controls, that is, links and forms within the representations.
 Hypermedia controls span a kind of a state machine where the nodes are resources (or action results) and the transitions are links or forms.
-Clients run this state machine (i.e., the application) by retrieving representations, processing the data, and following the included hypermedia controls.
-In REST, remote state is changed by submitting forms.
+Clients run this distributed state machine (i.e., the application) by retrieving representations, processing the data, and following the included links and/or submitting forms to modify remote state.
 This is usually done by retrieving the current state, modifying the state on the client side, and transferring the new state to the server in the form of new representations -- rather than calling a service and modifying the state on the server side.
 
 Client state encompasses the current state of the described state machine and the possible next transitions derived from the hypermedia controls within the currently processed representation (see {{sec-terms}}).
 Furthermore, clients can have part of the state of the distributed application in local variables.
 
 Resource state includes the more persistent data of an application (i.e., independent of individual clients).
-This can be static data such as device descriptions, persistent data such as system configurations, but also dynamic data such as the current value of a sensor on a thing.
+This can be static data such as device descriptions, persistent data such as system configurations, but also dynamic data such as the current value of a sensor on a Thing.
 
-It is important to distinguish between "client state" and "resource state" and keep them separate.
+In the design, it is important to distinguish between "client state" and "resource state", and keep them separate.
 Following the Stateless constraint, the client state must be kept only on clients.
 That is, there is no establishment of shared information about past and future interactions between client and server (usually called a session).
 On the one hand, this makes requests a bit more verbose since every request must contain all the information necessary to process it.
