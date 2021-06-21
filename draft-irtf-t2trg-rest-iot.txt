@@ -5,10 +5,10 @@
 Network Working Group                                         A. Keranen
 Internet-Draft                                                  Ericsson
 Intended status: Informational                               M. Kovatsch
-Expires: 26 August 2021                              Huawei Technologies
+Expires: 23 December 2021                            Huawei Technologies
                                                                K. Hartke
                                                                 Ericsson
-                                                        22 February 2021
+                                                            21 June 2021
 
 
              RESTful Design for Internet of Things Systems
@@ -36,7 +36,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 26 August 2021.
+   This Internet-Draft will expire on 23 December 2021.
 
 Copyright Notice
 
@@ -53,9 +53,9 @@ Copyright Notice
 
 
 
-Keranen, et al.          Expires 26 August 2021                 [Page 1]
+Keranen, et al.         Expires 23 December 2021                [Page 1]
 
-Internet-Draft       RESTful Design for IoT Systems        February 2021
+Internet-Draft       RESTful Design for IoT Systems            June 2021
 
 
    This document is subject to BCP 78 and the IETF Trust's Legal
@@ -109,9 +109,9 @@ Table of Contents
 
 
 
-Keranen, et al.          Expires 26 August 2021                 [Page 2]
+Keranen, et al.         Expires 23 December 2021                [Page 2]
 
-Internet-Draft       RESTful Design for IoT Systems        February 2021
+Internet-Draft       RESTful Design for IoT Systems            June 2021
 
 
    9.  References  . . . . . . . . . . . . . . . . . . . . . . . . .  28
@@ -133,50 +133,46 @@ Internet-Draft       RESTful Design for IoT Systems        February 2021
 
    Different protocols can be used with RESTful systems, but at the time
    of writing the most common protocols are HTTP [RFC7230] and CoAP
-   [RFC7252].  Since RESTful APIs are often simple and lightweight, they
-   are a good fit for various IoT applications.  The goal of this
-   document is to give basic guidance for designing RESTful systems and
-   APIs for IoT applications and give pointers for more information.
+   [RFC7252].  Since RESTful APIs are often lightweight and enable loose
+   decoupling of system components, they are a good fit for various IoT
+   applications.  The goal of this document is to give basic guidance
+   for designing RESTful systems and APIs for IoT applications and give
+   pointers for more information.
 
    Design of a good RESTful IoT system has naturally many commonalities
    with other Web systems.  Compared to other systems, the key
    characteristics of many RESTful IoT systems include:
 
-   *  need to accommodate for constrained devices, so with IoT, REST is
-      not only used for scaling out (large number of clients on a web
+   *  accommodate for constrained devices [RFC7228], so with IoT, REST
+      is not only used for scaling out (large number of clients on a Web
       server), but also for scaling down (efficient server on
-      constrained node)
+      constrained node, e.g., in energy consumption or implementation
+      complexity)
 
-   *  data formats, interaction patterns, and other mechanisms that
-      minimize, or preferably avoid, the need for human interaction
+   *  facilitate efficient transfer over (often) constrained networks
+      and lightweight processing in constrained nodes through compact
+      and simple data formats
 
-   *  for some classes [RFC7228] of server endpoints, significant
-      constraints, e.g., in energy consumption, and thus implementation
-      complexity, may apply
+   *  minimize or preferably avoid the need for human interaction
+      through machine-understandable data formats and interaction
+      patterns
+
+   *  enable the system to evolve gradually in the field, as the usually
+      large number of endpoints can not be updated simultaneously
 
    *  endpoints are commonly both clients and servers
 
-   *  preference for compact and simple data formats to facilitate
-      efficient transfer over (often) constrained networks and
-      lightweight processing in constrained nodes
 
 
 
-
-
-
-Keranen, et al.          Expires 26 August 2021                 [Page 3]
+Keranen, et al.         Expires 23 December 2021                [Page 3]
 
-Internet-Draft       RESTful Design for IoT Systems        February 2021
+Internet-Draft       RESTful Design for IoT Systems            June 2021
 
-
-   *  the usually large number of endpoints can not be updated
-      simultaneously, yet the system needs to be able to evolve in the
-      field without long downtimes
 
 2.  Terminology
 
-   This section explains some of the common terminology that is used in
+   This section explains selected terminology that is commonly used in
    the context of RESTful design for IoT systems.  For terminology of
    constrained nodes and networks, see [RFC7228].  Terminology on
    modeling of Things and their Affordances (Properties, Actions, and
@@ -184,6 +180,9 @@ Internet-Draft       RESTful Design for IoT Systems        February 2021
 
    Action:  An affordance that can potentially be used to perform a
       named operation on an Object.
+
+   Action Result:  A representation sent as a response by a server that
+      does not represent resource state.
 
    Affordance:  An element of an interface offered for interaction,
       defining its possible uses or making clear how it can or should be
@@ -215,20 +214,21 @@ Internet-Draft       RESTful Design for IoT Systems        February 2021
       Proactive Content Negotiation and Reactive Content Negotiation.
 
    Dereference:  To use an access mechanism (e.g., HTTP or CoAP) to
-      perform an action on a URI's resource.
+      interact with the resource of a URI.
 
-   Dereferencable URI:  A URI that can be dereferenced, i.e., an action
+   Dereferencable URI:  A URI that can be dereferenced, i.e.,
 
 
 
-Keranen, et al.          Expires 26 August 2021                 [Page 4]
+
+Keranen, et al.         Expires 23 December 2021                [Page 4]
 
-Internet-Draft       RESTful Design for IoT Systems        February 2021
+Internet-Draft       RESTful Design for IoT Systems            June 2021
 
 
-      can be performed on the identified resource.  Not all HTTP or CoAP
-      URIs are dereferencable, e.g., when the target resource does not
-      exist.
+      interaction with the identified resource is possible.  Not all
+      HTTP or CoAP URIs are dereferencable, e.g., when the target
+      resource does not exist.
 
    Event:  An affordance that can potentially be used to obtain
       information about what happened to an Object.
@@ -277,9 +277,9 @@ Internet-Draft       RESTful Design for IoT Systems        February 2021
 
 
 
-Keranen, et al.          Expires 26 August 2021                 [Page 5]
+Keranen, et al.         Expires 23 December 2021                [Page 5]
 
-Internet-Draft       RESTful Design for IoT Systems        February 2021
+Internet-Draft       RESTful Design for IoT Systems            June 2021
 
 
       representations of its resources and the ultimate recipient of any
@@ -329,19 +329,19 @@ Internet-Draft       RESTful Design for IoT Systems        February 2021
       can be, e.g., a sensor, the current value of a sensor, the
       location of a device, or the current state of an actuator.
 
-   Resource State:  A model of a resource's possible states that is
+   Resource State:  A model of the possible states of a resource that is
 
 
 
-Keranen, et al.          Expires 26 August 2021                 [Page 6]
+Keranen, et al.         Expires 23 December 2021                [Page 6]
 
-Internet-Draft       RESTful Design for IoT Systems        February 2021
+Internet-Draft       RESTful Design for IoT Systems            June 2021
 
 
-      represented in a supported representation type, typically a media
-      type.  Resources can change state because of REST interactions
-      with them, or they can change state for reasons outside of the
-      REST model.
+      expressed in supported representation formats.  Resources can
+      change state because of REST interactions with them, or they can
+      change state for reasons outside of the REST model, e.g., business
+      logic implemented on the server side such as sampling a sensor.
 
    Resource Type:  An identifier that annotates the application-
       semantics of a resource (see Section 3.1 of [RFC6690]).
@@ -389,9 +389,9 @@ Internet-Draft       RESTful Design for IoT Systems        February 2021
 
 
 
-Keranen, et al.          Expires 26 August 2021                 [Page 7]
+Keranen, et al.         Expires 23 December 2021                [Page 7]
 
-Internet-Draft       RESTful Design for IoT Systems        February 2021
+Internet-Draft       RESTful Design for IoT Systems            June 2021
 
 
 3.1.  Architecture
@@ -407,10 +407,10 @@ Internet-Draft       RESTful Design for IoT Systems        February 2021
    sensors and actuators, are commonly acting as servers and exposing
    their physical world interaction capabilities (e.g., temperature
    measurement or door lock control capability) as resources.  Typical
-   IoT system client can be a cloud service that retrieves data from the
-   sensors and commands the actuators based on the sensor information.
-   Alternatively an IoT data storage system could work as a server where
-   IoT sensor devices send data, in client role.
+   IoT system clients can be a cloud service that retrieves data from
+   the sensors and commands the actuators based on the sensor
+   information.  Alternatively an IoT data storage system could work as
+   a server where IoT sensor devices send data, in client role.
 
                  ________                       _________
                 |        |                     |         |
@@ -445,9 +445,9 @@ Internet-Draft       RESTful Design for IoT Systems        February 2021
 
 
 
-Keranen, et al.          Expires 26 August 2021                 [Page 8]
+Keranen, et al.         Expires 23 December 2021                [Page 8]
 
-Internet-Draft       RESTful Design for IoT Systems        February 2021
+Internet-Draft       RESTful Design for IoT Systems            June 2021
 
 
    Reverse proxies are usually imposed by the origin server.  In
@@ -472,7 +472,7 @@ Internet-Draft       RESTful Design for IoT Systems        February 2021
    intermediaries, however, they can take the initiative as a client
    (e.g., to register with a directory, such as CoRE Resource Directory
    [I-D.ietf-core-resource-directory], or to interact with another
-   thing) and act as origin server at the same time (e.g., to serve
+   Thing) and act as origin server at the same time (e.g., to serve
    sensor values or provide an actuator interface).
 
       ________                                         _________
@@ -496,22 +496,22 @@ Internet-Draft       RESTful Design for IoT Systems        February 2021
    can navigate through the resources and modify state to achieve their
    goals is defined through hypermedia controls, that is, links and
    forms.  Hypermedia controls span a kind of a state machine where the
-   nodes are resources and the transitions are links or forms.  Clients
-   run this state machine (i.e., the application) by retrieving
+   nodes are resources (or action results) and the transitions are links
+   or forms.  Clients run this state machine (i.e., the application) by
 
 
 
-Keranen, et al.          Expires 26 August 2021                 [Page 9]
+Keranen, et al.         Expires 23 December 2021                [Page 9]
 
-Internet-Draft       RESTful Design for IoT Systems        February 2021
+Internet-Draft       RESTful Design for IoT Systems            June 2021
 
 
-   representations, processing the data, and following the included
-   hypermedia controls.  In REST, remote state is changed by submitting
-   forms.  This is usually done by retrieving the current state,
-   modifying the state on the client side, and transferring the new
-   state to the server in the form of new representations -- rather than
-   calling a service and modifying the state on the server side.
+   retrieving representations, processing the data, and following the
+   included hypermedia controls.  In REST, remote state is changed by
+   submitting forms.  This is usually done by retrieving the current
+   state, modifying the state on the client side, and transferring the
+   new state to the server in the form of new representations -- rather
+   than calling a service and modifying the state on the server side.
 
    Client state encompasses the current state of the described state
    machine and the possible next transitions derived from the hypermedia
@@ -557,9 +557,9 @@ Internet-Draft       RESTful Design for IoT Systems        February 2021
 
 
 
-Keranen, et al.          Expires 26 August 2021                [Page 10]
+Keranen, et al.         Expires 23 December 2021               [Page 10]
 
-Internet-Draft       RESTful Design for IoT Systems        February 2021
+Internet-Draft       RESTful Design for IoT Systems            June 2021
 
 
      foo://example.com:8042/over/there?name=ferret#nose
@@ -613,9 +613,9 @@ Internet-Draft       RESTful Design for IoT Systems        February 2021
 
 
 
-Keranen, et al.          Expires 26 August 2021                [Page 11]
+Keranen, et al.         Expires 23 December 2021               [Page 11]
 
-Internet-Draft       RESTful Design for IoT Systems        February 2021
+Internet-Draft       RESTful Design for IoT Systems            June 2021
 
 
    The query parameters can be used to parametrize the resource.  For
@@ -669,9 +669,9 @@ Internet-Draft       RESTful Design for IoT Systems        February 2021
 
 
 
-Keranen, et al.          Expires 26 August 2021                [Page 12]
+Keranen, et al.         Expires 23 December 2021               [Page 12]
 
-Internet-Draft       RESTful Design for IoT Systems        February 2021
+Internet-Draft       RESTful Design for IoT Systems            June 2021
 
 
    The terms "media-type", "content-type", and "content-format" (short
@@ -725,9 +725,9 @@ Internet-Draft       RESTful Design for IoT Systems        February 2021
 
 
 
-Keranen, et al.          Expires 26 August 2021                [Page 13]
+Keranen, et al.         Expires 23 December 2021               [Page 13]
 
-Internet-Draft       RESTful Design for IoT Systems        February 2021
+Internet-Draft       RESTful Design for IoT Systems            June 2021
 
 
 3.5.2.  POST
@@ -781,9 +781,9 @@ Internet-Draft       RESTful Design for IoT Systems        February 2021
 
 
 
-Keranen, et al.          Expires 26 August 2021                [Page 14]
+Keranen, et al.         Expires 23 December 2021               [Page 14]
 
-Internet-Draft       RESTful Design for IoT Systems        February 2021
+Internet-Draft       RESTful Design for IoT Systems            June 2021
 
 
    The DELETE method is not safe, but is idempotent.
@@ -837,9 +837,9 @@ Internet-Draft       RESTful Design for IoT Systems        February 2021
 
 
 
-Keranen, et al.          Expires 26 August 2021                [Page 15]
+Keranen, et al.         Expires 23 December 2021               [Page 15]
 
-Internet-Draft       RESTful Design for IoT Systems        February 2021
+Internet-Draft       RESTful Design for IoT Systems            June 2021
 
 
    GET request are cacheable).  In CoAP, the cacheability of a response
@@ -893,9 +893,9 @@ Internet-Draft       RESTful Design for IoT Systems        February 2021
 
 
 
-Keranen, et al.          Expires 26 August 2021                [Page 16]
+Keranen, et al.         Expires 23 December 2021               [Page 16]
 
-Internet-Draft       RESTful Design for IoT Systems        February 2021
+Internet-Draft       RESTful Design for IoT Systems            June 2021
 
 
 4.2.  Stateless
@@ -949,9 +949,9 @@ Internet-Draft       RESTful Design for IoT Systems        February 2021
 
 
 
-Keranen, et al.          Expires 26 August 2021                [Page 17]
+Keranen, et al.         Expires 23 December 2021               [Page 17]
 
-Internet-Draft       RESTful Design for IoT Systems        February 2021
+Internet-Draft       RESTful Design for IoT Systems            June 2021
 
 
 4.4.  Uniform Interface
@@ -1005,9 +1005,9 @@ Internet-Draft       RESTful Design for IoT Systems        February 2021
 
 
 
-Keranen, et al.          Expires 26 August 2021                [Page 18]
+Keranen, et al.         Expires 23 December 2021               [Page 18]
 
-Internet-Draft       RESTful Design for IoT Systems        February 2021
+Internet-Draft       RESTful Design for IoT Systems            June 2021
 
 
    For a large number of IoT applications, the hypermedia controls are
@@ -1061,9 +1061,9 @@ Internet-Draft       RESTful Design for IoT Systems        February 2021
 
 
 
-Keranen, et al.          Expires 26 August 2021                [Page 19]
+Keranen, et al.         Expires 23 December 2021               [Page 19]
 
-Internet-Draft       RESTful Design for IoT Systems        February 2021
+Internet-Draft       RESTful Design for IoT Systems            June 2021
 
 
 5.  Hypermedia-driven Applications
@@ -1117,9 +1117,9 @@ Internet-Draft       RESTful Design for IoT Systems        February 2021
 
 
 
-Keranen, et al.          Expires 26 August 2021                [Page 20]
+Keranen, et al.         Expires 23 December 2021               [Page 20]
 
-Internet-Draft       RESTful Design for IoT Systems        February 2021
+Internet-Draft       RESTful Design for IoT Systems            June 2021
 
 
 5.2.  Knowledge
@@ -1173,9 +1173,9 @@ Internet-Draft       RESTful Design for IoT Systems        February 2021
 
 
 
-Keranen, et al.          Expires 26 August 2021                [Page 21]
+Keranen, et al.         Expires 23 December 2021               [Page 21]
 
-Internet-Draft       RESTful Design for IoT Systems        February 2021
+Internet-Draft       RESTful Design for IoT Systems            June 2021
 
 
    Directory [I-D.ietf-core-resource-directory]).  For Constrained
@@ -1229,9 +1229,9 @@ Internet-Draft       RESTful Design for IoT Systems        February 2021
 
 
 
-Keranen, et al.          Expires 26 August 2021                [Page 22]
+Keranen, et al.         Expires 23 December 2021               [Page 22]
 
-Internet-Draft       RESTful Design for IoT Systems        February 2021
+Internet-Draft       RESTful Design for IoT Systems            June 2021
 
 
    Examples of the collection pattern in RESTful IoT systems are the
@@ -1285,9 +1285,9 @@ Internet-Draft       RESTful Design for IoT Systems        February 2021
 
 
 
-Keranen, et al.          Expires 26 August 2021                [Page 23]
+Keranen, et al.         Expires 23 December 2021               [Page 23]
 
-Internet-Draft       RESTful Design for IoT Systems        February 2021
+Internet-Draft       RESTful Design for IoT Systems            June 2021
 
 
    Monitoring information would be modeled as state of the task
@@ -1341,9 +1341,9 @@ Internet-Draft       RESTful Design for IoT Systems        February 2021
 
 
 
-Keranen, et al.          Expires 26 August 2021                [Page 24]
+Keranen, et al.         Expires 23 December 2021               [Page 24]
 
-Internet-Draft       RESTful Design for IoT Systems        February 2021
+Internet-Draft       RESTful Design for IoT Systems            June 2021
 
 
    have the states unpressed and pressed.  There are, however, a few
@@ -1397,9 +1397,9 @@ Internet-Draft       RESTful Design for IoT Systems        February 2021
 
 
 
-Keranen, et al.          Expires 26 August 2021                [Page 25]
+Keranen, et al.         Expires 23 December 2021               [Page 25]
 
-Internet-Draft       RESTful Design for IoT Systems        February 2021
+Internet-Draft       RESTful Design for IoT Systems            June 2021
 
 
    change-of-state notifications of an index resource (cf.  Collection
@@ -1453,9 +1453,9 @@ Internet-Draft       RESTful Design for IoT Systems        February 2021
 
 
 
-Keranen, et al.          Expires 26 August 2021                [Page 26]
+Keranen, et al.         Expires 23 December 2021               [Page 26]
 
-Internet-Draft       RESTful Design for IoT Systems        February 2021
+Internet-Draft       RESTful Design for IoT Systems            June 2021
 
 
 7.  Security Considerations
@@ -1509,9 +1509,9 @@ Internet-Draft       RESTful Design for IoT Systems        February 2021
 
 
 
-Keranen, et al.          Expires 26 August 2021                [Page 27]
+Keranen, et al.         Expires 23 December 2021               [Page 27]
 
-Internet-Draft       RESTful Design for IoT Systems        February 2021
+Internet-Draft       RESTful Design for IoT Systems            June 2021
 
 
 8.  Acknowledgement
@@ -1535,40 +1535,44 @@ Internet-Draft       RESTful Design for IoT Systems        February 2021
    [I-D.ietf-core-dev-urn]
               Arkko, J., Jennings, C., and Z. Shelby, "Uniform Resource
               Names for Device Identifiers", Work in Progress, Internet-
-              Draft, draft-ietf-core-dev-urn-10, 13 January 2021,
+              Draft, draft-ietf-core-dev-urn-11, 22 February 2021,
               <https://www.ietf.org/archive/id/draft-ietf-core-dev-urn-
-              10.txt>.
+              11.txt>.
 
    [I-D.ietf-core-dynlink]
               Koster, M. and B. Silverajan, "Dynamic Resource Linking
               for Constrained RESTful Environments", Work in Progress,
-              Internet-Draft, draft-ietf-core-dynlink-12, 12 January
+              Internet-Draft, draft-ietf-core-dynlink-13, 22 February
               2021, <https://www.ietf.org/archive/id/draft-ietf-core-
-              dynlink-12.txt>.
+              dynlink-13.txt>.
 
    [I-D.ietf-core-href]
-              Hartke, K., "Constrained Resource Identifiers", Work in
-              Progress, Internet-Draft, draft-ietf-core-href-03, 9 March
-              2020, <https://www.ietf.org/archive/id/draft-ietf-core-
-              href-03.txt>.
+              Hartke, K. and C. Bormann, "Constrained Resource
+              Identifiers", Work in Progress, Internet-Draft, draft-
+              ietf-core-href-04, 7 May 2021,
+              <https://www.ietf.org/archive/id/draft-ietf-core-href-
+              04.txt>.
 
    [I-D.ietf-core-resource-directory]
               Amsüss, C., Shelby, Z., Koster, M., Bormann, C., and P. V.
               D. Stok, "CoRE Resource Directory", Work in Progress,
-              Internet-Draft, draft-ietf-core-resource-directory-27, 22
-              February 2021, <https://www.ietf.org/archive/id/draft-
-              ietf-core-resource-directory-27.txt>.
+              Internet-Draft, draft-ietf-core-resource-directory-28, 7
+              March 2021, <https://www.ietf.org/archive/id/draft-ietf-
+              core-resource-directory-28.txt>.
+
+
+
+
+
+
+Keranen, et al.         Expires 23 December 2021               [Page 28]
+
+Internet-Draft       RESTful Design for IoT Systems            June 2021
+
 
    [REST]     Fielding, R., "Architectural Styles and the Design of
               Network-based Software Architectures", Ph.D. Dissertation,
               University of California, Irvine , 2000.
-
-
-
-Keranen, et al.          Expires 26 August 2021                [Page 28]
-
-Internet-Draft       RESTful Design for IoT Systems        February 2021
-
 
    [RFC3986]  Berners-Lee, T., Fielding, R., and L. Masinter, "Uniform
               Resource Identifier (URI): Generic Syntax", STD 66,
@@ -1617,13 +1621,9 @@ Internet-Draft       RESTful Design for IoT Systems        February 2021
 
 
 
-
-
-
-
-Keranen, et al.          Expires 26 August 2021                [Page 29]
+Keranen, et al.         Expires 23 December 2021               [Page 29]
 
-Internet-Draft       RESTful Design for IoT Systems        February 2021
+Internet-Draft       RESTful Design for IoT Systems            June 2021
 
 
    [RFC7959]  Bormann, C. and Z. Shelby, Ed., "Block-Wise Transfers in
@@ -1677,9 +1677,9 @@ Internet-Draft       RESTful Design for IoT Systems        February 2021
 
 
 
-Keranen, et al.          Expires 26 August 2021                [Page 30]
+Keranen, et al.         Expires 23 December 2021               [Page 30]
 
-Internet-Draft       RESTful Design for IoT Systems        February 2021
+Internet-Draft       RESTful Design for IoT Systems            June 2021
 
 
    [I-D.bormann-core-media-content-type-format]
@@ -1709,41 +1709,41 @@ Internet-Draft       RESTful Design for IoT Systems        February 2021
               L. Seitz, "Datagram Transport Layer Security (DTLS)
               Profile for Authentication and Authorization for
               Constrained Environments (ACE)", Work in Progress,
-              Internet-Draft, draft-ietf-ace-dtls-authorize-15, 20
-              January 2021, <https://www.ietf.org/archive/id/draft-ietf-
-              ace-dtls-authorize-15.txt>.
+              Internet-Draft, draft-ietf-ace-dtls-authorize-18, 4 June
+              2021, <https://www.ietf.org/archive/id/draft-ietf-ace-
+              dtls-authorize-18.txt>.
 
    [I-D.ietf-ace-oauth-authz]
               Seitz, L., Selander, G., Wahlstroem, E., Erdtman, S., and
               H. Tschofenig, "Authentication and Authorization for
               Constrained Environments (ACE) using the OAuth 2.0
               Framework (ACE-OAuth)", Work in Progress, Internet-Draft,
-              draft-ietf-ace-oauth-authz-37, 4 February 2021,
+              draft-ietf-ace-oauth-authz-42, 8 June 2021,
               <https://www.ietf.org/archive/id/draft-ietf-ace-oauth-
-              authz-37.txt>.
+              authz-42.txt>.
 
    [I-D.ietf-ace-oscore-profile]
               Palombini, F., Seitz, L., Selander, G., and M. Gunnarsson,
               "OSCORE Profile of the Authentication and Authorization
               for Constrained Environments Framework", Work in Progress,
-              Internet-Draft, draft-ietf-ace-oscore-profile-16, 28
-              January 2021, <https://www.ietf.org/archive/id/draft-ietf-
-              ace-oscore-profile-16.txt>.
+              Internet-Draft, draft-ietf-ace-oscore-profile-19, 6 May
+              2021, <https://www.ietf.org/archive/id/draft-ietf-ace-
+              oscore-profile-19.txt>.
 
 
 
 
-Keranen, et al.          Expires 26 August 2021                [Page 31]
+Keranen, et al.         Expires 23 December 2021               [Page 31]
 
-Internet-Draft       RESTful Design for IoT Systems        February 2021
+Internet-Draft       RESTful Design for IoT Systems            June 2021
 
 
    [I-D.ietf-asdf-sdf]
               Koster, M. and C. Bormann, "Semantic Definition Format
               (SDF) for Data and Interactions of Things", Work in
-              Progress, Internet-Draft, draft-ietf-asdf-sdf-03, 22
-              February 2021, <https://www.ietf.org/archive/id/draft-
-              ietf-asdf-sdf-03.txt>.
+              Progress, Internet-Draft, draft-ietf-asdf-sdf-06, 1 June
+              2021, <https://www.ietf.org/archive/id/draft-ietf-asdf-
+              sdf-06.txt>.
 
    [I-D.ietf-core-coap-pubsub]
               Koster, M., Keranen, A., and J. Jimenez, "Publish-
@@ -1789,9 +1789,9 @@ Internet-Draft       RESTful Design for IoT Systems        February 2021
 
 
 
-Keranen, et al.          Expires 26 August 2021                [Page 32]
+Keranen, et al.         Expires 23 December 2021               [Page 32]
 
-Internet-Draft       RESTful Design for IoT Systems        February 2021
+Internet-Draft       RESTful Design for IoT Systems            June 2021
 
 
    [RFC7925]  Tschofenig, H., Ed. and T. Fossati, "Transport Layer
@@ -1845,9 +1845,9 @@ Internet-Draft       RESTful Design for IoT Systems        February 2021
 
 
 
-Keranen, et al.          Expires 26 August 2021                [Page 33]
+Keranen, et al.         Expires 23 December 2021               [Page 33]
 
-Internet-Draft       RESTful Design for IoT Systems        February 2021
+Internet-Draft       RESTful Design for IoT Systems            June 2021
 
 
    [W3C-TD]   Kaebisch, S., Kamiya, T., McCool, M., Charpenay, V., and
@@ -1901,4 +1901,4 @@ Authors' Addresses
 
 
 
-Keranen, et al.          Expires 26 August 2021                [Page 34]
+Keranen, et al.         Expires 23 December 2021               [Page 34]
