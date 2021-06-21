@@ -164,6 +164,9 @@ Client State:
 This typically includes the currently processed representation, the set of active requests, the history of requests, bookmarks (URIs stored for later retrieval), and application-specific state (e.g., local variables).
 (Note that this is called "Application State" in {{REST}}, which has some ambiguity in modern (IoT) systems where the overall state of the distributed application (i.e., application state) is reflected in the union of all Client States and Resource States of all clients and servers involved.)
 
+Content Type:
+: A string that carries the media type plus potential parameters for the representation format such as "text/plain;charset=UTF-8".
+
 Content Negotiation:
 : The practice of determining the "best" representation for a client when examining the current state of a resource. 
 The most common forms of content negotiation are Proactive Content Negotiation and Reactive Content Negotiation.
@@ -203,7 +206,7 @@ Link Relation Type:
 : An identifier that describes how the link target resource relates to the current resource (see {{RFC8288}}).
 
 Media Type:
-: A string such as "text/html" or "application/json" that is used to label representations so that it is known how the representation should be interpreted and how it is encoded.
+: An IANA-registered string such as "text/html" or "application/json" that is used to label representations so that it is known how the representation should be interpreted and how it is encoded.
 
 Method:
 : An operation associated with a resource. Common methods include GET, PUT, POST, and DELETE (see {{sec-methods}} for details).
@@ -369,9 +372,9 @@ For IoT systems, this constraint lowers the memory requirements for server imple
 
 ## Uniform Resource Identifiers (URIs) {#sec-uris}
 
-An important part of RESTful API design is to model the system as a set of resources whose state can be retrieved and/or modified and where resources can be potentially also created and/or deleted.
+An important aspect of RESTful API design is to model the system as a set of resources, which potentially can be created and/or deleted dynamically and whose state can be retrieved and/or modified.
 
-Uniform Resource Identifiers (URIs) are used to indicate a resource for interaction, to reference a resource from another resource, to advertise or bookmark a resource, or to index a resource by search engines.
+Uniform Resource Identifiers (URIs) are used to indicate resources for interaction, to reference a resource from another resource, to advertise or bookmark a resource, or to index a resource by search engines.
 
       foo://example.com:8042/over/there?name=ferret#nose
       \_/   \______________/\_________/ \_________/ \__/
@@ -381,9 +384,9 @@ Uniform Resource Identifiers (URIs) are used to indicate a resource for interact
 A URI is a sequence of characters that matches the syntax defined in {{RFC3986}}. 
 It consists of a hierarchical sequence of five components: scheme, authority, path, query, and fragment (from most significant to least significant). 
 A scheme creates a namespace for resources and defines how the following components identify a resource within that namespace. 
-The authority identifies an entity that governs part of the namespace, such as the server "www.example.org" in the "http" scheme. 
-A host name (e.g., a fully qualified domain name) or an IP address, potentially followed by a transport layer port number, are usually used in the authority component for the "http" and "coap" schemes. 
-The path and query contain data to identify a resource within the scope of the URI's scheme and naming authority. 
+The authority identifies an entity that governs part of the namespace, such as the server "www.example.org" in the "https" scheme. 
+A hostname (e.g., a fully qualified domain name) or an IP address literal, potentially followed by a transport layer port number, are usually used for the authority component.
+The path and query contain data to identify a resource within the scope of the scheme-dependent naming authority (i.e., "http://www.example.org/" is a different authority than "https://www.example.org").
 The fragment allows to refer to some portion of the resource, such as a Record in a SenML Pack (Section 9 of {{RFC8428}}).
 However, fragments are processed only at client side and not sent on the wire. 
 {{?RFC8820}} provides more details on URI design and ownership with best current practices for establishing URI structures, conventions, and formats.
@@ -391,16 +394,16 @@ However, fragments are processed only at client side and not sent on the wire.
 For RESTful IoT applications, typical schemes include "https", "coaps", "http", and "coap". 
 These refer to HTTP and CoAP, with and without Transport Layer Security (TLS, {{RFC5246}} for TLS 1.2 and {{RFC8446}} for TLS 1.3).
 (CoAP uses Datagram TLS (DTLS) {{RFC6347}}, the variant of TLS for UDP.) 
-These four schemes also provide means for locating the resource; using the HTTP protocol for "http" and "https", and with the CoAP protocol for "coap" and "coaps". 
-If the scheme is different for two URIs (e.g., "coap" vs. "coaps"), it is important to note that even if the rest of the URI is identical, these are two different resources, in two distinct namespaces.
+These four schemes also provide means for locating the resource; using the protocols HTTP for "http" and "https" and CoAP for "coap" and "coaps".
+If the scheme is different for two URIs (e.g., "coap" vs. "coaps"), it is important to note that even if the remainder of the URI is identical, these are two different resources, in two distinct namespaces.
 
-Some schemes are for URIs with main purpose as identifiers and hence are not dereferencable, e.g., the "urn" scheme can be used to construct unique names in registered namespaces. 
-In particular the "urn:dev" {{I-D.ietf-core-dev-urn}} details multiple ways for generating and representing endpoint identifiers of IoT devices.
+Some schemes are for URIs with main purpose as identifiers, and hence are not dereferencable, e.g., the "urn" scheme can be used to construct unique names in registered namespaces. 
+In particular the "urn:dev" URI {{I-D.ietf-core-dev-urn}} details multiple ways for generating and representing endpoint identifiers of IoT devices.
 
 The query parameters can be used to parametrize the resource. 
 For example, a GET request may use query parameters to request the server to send only certain kind data of the resource (i.e., filtering the response). 
-Query parameters in PUT and POST requests do not have such established semantics and are not commonly used.
-Whether the order of the query parameters matters in URIs is unspecified and they can be re-ordered e.g., by proxies. 
+Query parameters in PUT and POST requests do not have such established semantics and are not used consistently.
+Whether the order of the query parameters matters in URIs is unspecified and they can be re-ordered, for instance by proxies. 
 Therefore applications should not rely on their order; see Section 3.3 of {{?RFC6943}} for more details.
 
 Due to the relatively complex processing rules and text representation format, URI handling can be difficult to implement correctly in constrained devices.
@@ -408,10 +411,10 @@ Constrained Resource Identifiers {{!I-D.ietf-core-href}} provide a CBOR-based fo
 
 ## Representations
 
-Clients can retrieve the resource state from an origin server or manipulate resource state on the origin server by transferring resource representations.
-Resource representations have a content-type (media-type, optionally with parameters) that tells how the representation should be interpreted by identifying the representation format used.
-
-Typical media-types for IoT systems include:
+Clients can retrieve the resource state from a server or manipulate resource state on the (origin) server by transferring resource representations.
+Resource representations must have metadata that identies the representation format used, so the representations can be interpreted correctly.
+This is usually a simple string such as the IANA-registered Internet Media Types.
+Typical media types for IoT systems include:
 
 * "text/plain" for simple UTF-8 text
 * "application/octet-stream" for arbitrary binary data
@@ -421,9 +424,9 @@ Typical media-types for IoT systems include:
 * "application/link-format" for CoRE Link Format {{RFC6690}}
 * "application/senml+json" and "application/senml+cbor" for Sensor Measurement Lists (SenML) data {{RFC8428}}
 
-A full list of registered Internet Media Types is available at the IANA registry {{IANA-media-types}} and numerical identifiers for media-types, parameters, and content-codings registered for use with CoAP are listed at CoAP Content-Formats IANA registry {{IANA-CoAP-media}}.
+A full list of registered Internet Media Types is available at the IANA registry {{IANA-media-types}} and numerical identifiers for media types, parameters, and content codings registered for use with CoAP are listed at CoAP Content-Formats IANA registry {{IANA-CoAP-media}}.
 
-The terms "media-type", "content-type", and "content-format" (short identifier of content-type and content-coding, abbreviated for historical reasons "ct") are often used when referring to representation formats used with CoAP.
+The terms "media type", "content type" (media type plus potential parameters), and "content format" (short identifier of content type and content coding, abbreviated for historical reasons "ct") are often used when referring to representation formats used with CoAP.
 The differences between these terms are discussed in more detail in {{I-D.bormann-core-media-content-type-format}}.
 
 ## HTTP/CoAP Methods {#sec-methods}
