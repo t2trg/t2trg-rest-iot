@@ -182,7 +182,8 @@ Internet-Draft       RESTful Design for IoT Systems            June 2021
       named operation on an Object.
 
    Action Result:  A representation sent as a response by a server that
-      does not represent resource state.
+      does not represent resource state, but the result of the
+      interaction with the originally addressed resource.
 
    Affordance:  An element of an interface offered for interaction,
       defining its possible uses or making clear how it can or should be
@@ -194,8 +195,8 @@ Internet-Draft       RESTful Design for IoT Systems            June 2021
       controls storage, retrieval, and deletion of messages in it.
 
    Client:  A node that sends requests to servers and receives
-      responses.  In RESTful IoT systems it's common for nodes to have
-      more than one role (e.g., both server and client; see
+      responses.  In RESTful IoT systems it is common for nodes to have
+      more than one role (i.e., to be both server and client; see
       Section 3.1).
 
    Client State:  The state kept by a client between requests.  This
@@ -217,7 +218,6 @@ Internet-Draft       RESTful Design for IoT Systems            June 2021
       interact with the resource of a URI.
 
    Dereferencable URI:  A URI that can be dereferenced, i.e.,
-
 
 
 
@@ -357,7 +357,9 @@ Internet-Draft       RESTful Design for IoT Systems            June 2021
       the origin server when applied to a resource.
 
    Server:  A node that listens for requests, performs the requested
-      operation and sends responses back to the clients.
+      operation and sends responses back to the clients.  In RESTful IoT
+      systems it is common for nodes to have more than one role (i.e.,
+      to be both server and client; see Section 3.1).
 
    Thing:  A physical device that is also made available in the Internet
       of Things.  The term is used here for Things that are notable for
@@ -379,8 +381,6 @@ Internet-Draft       RESTful Design for IoT Systems            June 2021
       resources.  See Section 3.3 for more details.
 
 3.  Basics
-
-
 
 
 
@@ -491,13 +491,13 @@ Internet-Draft       RESTful Design for IoT Systems            June 2021
 3.2.  System design
 
    When designing a RESTful system, the primary effort goes into
-   modeling the state of the distributed application and assigning it to
-   the different components (i.e., clients and servers).  How clients
-   can navigate through the resources and modify state to achieve their
-   goals is defined through hypermedia controls, that is, links and
-   forms.  Hypermedia controls span a kind of a state machine where the
-   nodes are resources (or action results) and the transitions are links
-   or forms.  Clients run this state machine (i.e., the application) by
+   modeling the application as distributed state and assigning it to the
+   different components (i.e., clients and servers).  The secondary
+   effort is then selecting or designing the necessary representation
+   formats to exchange information and enable interaction between the
+   components through resources.  How clients can navigate through the
+   resource space and modify state to achieve their goals is encoded in
+   hypermedia controls, that is, links and forms within the
 
 
 
@@ -506,9 +506,12 @@ Keranen, et al.         Expires 23 December 2021                [Page 9]
 Internet-Draft       RESTful Design for IoT Systems            June 2021
 
 
-   retrieving representations, processing the data, and following the
-   included hypermedia controls.  In REST, remote state is changed by
-   submitting forms.  This is usually done by retrieving the current
+   representations.  Hypermedia controls span a kind of a state machine
+   where the nodes are resources (or action results) and the transitions
+   are links or forms.  Clients run this distributed state machine
+   (i.e., the application) by retrieving representations, processing the
+   data, and following the included links and/or submitting forms to
+   modify remote state.  This is usually done by retrieving the current
    state, modifying the state on the client side, and transferring the
    new state to the server in the form of new representations -- rather
    than calling a service and modifying the state on the server side.
@@ -523,22 +526,23 @@ Internet-Draft       RESTful Design for IoT Systems            June 2021
    (i.e., independent of individual clients).  This can be static data
    such as device descriptions, persistent data such as system
    configurations, but also dynamic data such as the current value of a
-   sensor on a thing.
+   sensor on a Thing.
 
-   It is important to distinguish between "client state" and "resource
-   state" and keep them separate.  Following the Stateless constraint,
-   the client state must be kept only on clients.  That is, there is no
-   establishment of shared information about past and future
-   interactions between client and server (usually called a session).
-   On the one hand, this makes requests a bit more verbose since every
-   request must contain all the information necessary to process it.  On
-   the other hand, this makes servers efficient and scalable, since they
-   do not have to keep any state about their clients.  Requests can
-   easily be distributed over multiple worker threads or server
-   instances.  For IoT systems, this constraint lowers the memory
-   requirements for server implementations, which is particularly
-   important for constrained servers (e.g., sensor nodes) and servers
-   serving large amount of clients (e.g., Resource Directory).
+   In the design, it is important to distinguish between "client state"
+   and "resource state", and keep them separate.  Following the
+   Stateless constraint, the client state must be kept only on clients.
+   That is, there is no establishment of shared information about past
+   and future interactions between client and server (usually called a
+   session).  On the one hand, this makes requests a bit more verbose
+   since every request must contain all the information necessary to
+   process it.  On the other hand, this makes servers efficient and
+   scalable, since they do not have to keep any state about their
+   clients.  Requests can easily be distributed over multiple worker
+   threads or server instances.  For IoT systems, this constraint lowers
+   the memory requirements for server implementations, which is
+   particularly important for constrained servers (e.g., sensor nodes)
+   and servers serving large amount of clients (e.g., Resource
+   Directory).
 
 3.3.  Uniform Resource Identifiers (URIs)
 
@@ -550,10 +554,6 @@ Internet-Draft       RESTful Design for IoT Systems            June 2021
    for interaction, to reference a resource from another resource, to
    advertise or bookmark a resource, or to index a resource by search
    engines.
-
-
-
-
 
 
 
