@@ -121,27 +121,29 @@ At its core is a set of constraints, which when fulfilled enable desirable prope
 When REST principles are applied to the design of a system, the result is often called RESTful and in particular an API following these principles is called a RESTful API.
 
 Different protocols can be used with RESTful systems, but at the time of writing the most common protocols are HTTP {{RFC7230}} and CoAP {{RFC7252}}.
-Since RESTful APIs are often simple and lightweight, they are a good fit for various IoT applications.
+Since RESTful APIs are often lightweight and enable loose decoupling of system components, they are a good fit for various IoT applications.
 The goal of this document is to give basic guidance for designing RESTful systems and APIs for IoT applications and give pointers for more information.
 
 Design of a good RESTful IoT system has naturally many commonalities with other Web systems.
 Compared to other systems, the key characteristics of many RESTful IoT systems include:
 
-* need to accommodate for constrained devices, so with IoT, REST is not only used for scaling out (large number of clients on a web server), but also for scaling down (efficient server on constrained node)
-* data formats, interaction patterns, and other mechanisms that minimize, or preferably avoid, the need for human interaction
-* for some classes {{RFC7228}} of server endpoints, significant constraints, e.g., in energy consumption, and thus implementation complexity, may apply
+* accommodate for constrained devices {{RFC7228}}, so with IoT, REST is not only used for scaling out (large number of clients on a Web server), but also for scaling down (efficient server on constrained node, e.g., in energy consumption or implementation complexity)
+* facilitate efficient transfer over (often) constrained networks and lightweight processing in constrained nodes through compact and simple data formats
+* minimize or preferably avoid the need for human interaction through machine-understandable data formats and interaction patterns
+* enable the system to evolve gradually in the field, as the usually large number of endpoints can not be updated simultaneously
 * endpoints are commonly both clients and servers
-* preference for compact and simple data formats to facilitate efficient transfer over (often) constrained networks and lightweight processing in constrained nodes
-* the usually large number of endpoints can not be updated simultaneously, yet the system needs to be able to evolve in the field without long downtimes
 
 # Terminology {#sec-terms}
 
-This section explains some of the common terminology that is used in the context of RESTful design for IoT systems. For terminology of constrained nodes and networks, see {{RFC7228}}.
-Terminology on modeling of Things and their Affordances (Properties,
-Actions, and Events) was taken from {{?I-D.ietf-asdf-sdf}}.
+This section explains selected terminology that is commonly used in the context of RESTful design for IoT systems.
+For terminology of constrained nodes and networks, see {{RFC7228}}.
+Terminology on modeling of Things and their Affordances (Properties, Actions, and Events) was taken from {{?I-D.ietf-asdf-sdf}}.
 
 Action:
 : An affordance that can potentially be used to perform a named operation on an Object.
+
+Action Result:
+: A representation sent as a response by a server that does not represent resource state.
 
 Affordance:
 : An element of an interface offered for interaction, defining its
@@ -167,10 +169,10 @@ Content Negotiation:
 The most common forms of content negotiation are Proactive Content Negotiation and Reactive Content Negotiation.
 
 Dereference:
-: To use an access mechanism (e.g., HTTP or CoAP) to perform an action on a URI's resource.
+: To use an access mechanism (e.g., HTTP or CoAP) to interact with the resource of a URI.
 
 Dereferencable URI:
-: A URI that can be dereferenced, i.e., an action can be performed on the identified resource. 
+: A URI that can be dereferenced, i.e., interaction with the identified resource is possible. 
 Not all HTTP or CoAP URIs are dereferencable, e.g., when the target resource does not exist.
 
 
@@ -215,11 +217,9 @@ Proactive Content Negotiation:
 : A content negotiation mechanism where the server selects a representation based on the expressed preference of the client. 
 For example, an IoT application could send a request to a sensor with preferred media type "application/senml+json".
 
-
 Property:
 : An affordance that can potentially be used to read, write, and/or
   observe state on an Object.
-
 
 Reactive Content Negotiation:
 : A content negotiation mechanism where the client selects a representation from a list of available representations. 
@@ -246,8 +246,8 @@ A resource often encapsulates a piece of state in a system.
 Typical resources in an IoT system can be, e.g., a sensor, the current value of a sensor, the location of a device, or the current state of an actuator.
 
 Resource State:
-: A model of a resource's possible states that is represented in a supported representation type, typically a media type. 
-Resources can change state because of REST interactions with them, or they can change state for reasons outside of the REST model.
+: A model of the possible states of a resource that is expressed in supported representation formats. 
+Resources can change state because of REST interactions with them, or they can change state for reasons outside of the REST model, e.g., business logic implemented on the server side such as sampling a sensor.
 
 Resource Type:
 : An identifier that annotates the application-semantics of a resource (see Section 3.1 of {{RFC6690}}).
@@ -261,7 +261,6 @@ Safe Method:
 
 Server:
 : A node that listens for requests, performs the requested operation and sends responses back to the clients.
-
 
 Thing:
 : A physical device that is also made available in the Internet of
@@ -283,16 +282,18 @@ Uniform Resource Identifier (URI):
 : A global identifier for resources. 
 See {{sec-uris}} for more details.
 
+
 # Basics
 
 ## Architecture {#sec-architecture}
 
 The components of a RESTful system are assigned one or both of two roles: client or server.
-Note that the terms "client" and "server" refer only to the roles that the nodes assume for a particular message exchange. The same node might act as a client in some communications and a server in others.
+Note that the terms "client" and "server" refer only to the roles that the nodes assume for a particular message exchange.
+The same node might act as a client in some communications and a server in others.
 Classic user agents (e.g., Web browsers) are always in the client role and have the initiative to issue requests.
 Origin servers always have the server role and govern over the resources they host.
 Simple IoT devices, such as sensors and actuators, are commonly acting as servers and exposing their physical world interaction capabilities (e.g., temperature measurement or door lock control capability) as resources.
-Typical IoT system client can be a cloud service that retrieves data from the sensors and commands the actuators based on the sensor information.
+Typical IoT system clients can be a cloud service that retrieves data from the sensors and commands the actuators based on the sensor information.
 Alternatively an IoT data storage system could work as a server where IoT sensor devices send data, in client role.
 
 ~~~~~~~~~~~~~~~~~~~
@@ -334,7 +335,7 @@ This property is enabled by the Layered System constraint of REST, which says th
 {: artwork-align="center" #basic-arch-b title="Communication with Reverse Proxy"}
 
 Nodes in IoT systems often implement both roles.
-Unlike intermediaries, however, they can take the initiative as a client (e.g., to register with a directory, such as CoRE Resource Directory {{I-D.ietf-core-resource-directory}}, or to interact with another thing) and act as origin server at the same time (e.g., to serve sensor values or provide an actuator interface).
+Unlike intermediaries, however, they can take the initiative as a client (e.g., to register with a directory, such as CoRE Resource Directory {{I-D.ietf-core-resource-directory}}, or to interact with another Thing) and act as origin server at the same time (e.g., to serve sensor values or provide an actuator interface).
 
 ~~~~~~~~~~~~~~~~~~~
  ________                                         _________
@@ -354,7 +355,7 @@ Unlike intermediaries, however, they can take the initiative as a client (e.g., 
 
 When designing a RESTful system, the primary effort goes into modeling the state of the distributed application and assigning it to the different components (i.e., clients and servers).
 How clients can navigate through the resources and modify state to achieve their goals is defined through hypermedia controls, that is, links and forms.
-Hypermedia controls span a kind of a state machine where the nodes are resources and the transitions are links or forms.
+Hypermedia controls span a kind of a state machine where the nodes are resources (or action results) and the transitions are links or forms.
 Clients run this state machine (i.e., the application) by retrieving representations, processing the data, and following the included hypermedia controls.
 In REST, remote state is changed by submitting forms.
 This is usually done by retrieving the current state, modifying the state on the client side, and transferring the new state to the server in the form of new representations -- rather than calling a service and modifying the state on the server side.
