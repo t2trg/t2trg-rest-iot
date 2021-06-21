@@ -11,7 +11,7 @@ Expires: 23 December 2021                            Huawei Technologies
                                                             21 June 2021
 
 
-             RESTful Design for Internet of Things Systems
+       Guidance for RESTful Design for Internet of Things Systems
                     draft-irtf-t2trg-rest-iot-latest
 
 Abstract
