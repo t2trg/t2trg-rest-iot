@@ -263,13 +263,7 @@ Server:
 In RESTful IoT systems it is common for nodes to have more than one role (i.e., to be both server and client; see {{sec-architecture}}).
 
 Thing:
-: A physical device that is also made available in the Internet of
-  Things.  The term is used here for Things that are notable for their
-  interaction with the physical world beyond interaction with humans;
-  a temperature sensor or a light might be a Thing, but a router that
-  employs both temperature sensors and indicator lights might exhibit
-  less Thingness, as the effects of its functioning are mostly on the
-  digital side.
+: A physical item that is also made available in the Internet of Things.
 
 Transfer protocols:
 : In particular in IoT domain, protocols above transport layer that are used to transfer data objects and provide semantics for operations on the data.
