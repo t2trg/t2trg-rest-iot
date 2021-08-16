@@ -38,12 +38,7 @@ author:
 
 - ins: K. Hartke
   name: Klaus Hartke
-  org: Ericsson
-  street: Torshamnsgatan 23
-  city: Stockholm
-  code: SE-16483
-  country: Sweden
-  email: klaus.hartke@ericsson.com
+  email: hartke@projectcool.de
   
 normative:
   RFC3986:
