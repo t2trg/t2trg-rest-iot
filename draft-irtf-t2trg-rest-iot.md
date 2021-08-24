@@ -101,8 +101,9 @@ informative:
     date: Feb 2013
     target: http://amundsen.com/media-types/collection/format/
   HCI:
-    title:  The Encyclopedia of Human-Computer Interaction, 2nd Ed.
-    author: Interaction Design Foundation
+    title: The Encyclopedia of Human-Computer Interaction, 2nd Ed.
+    author:
+    - ins: Interaction Design Foundation
     date: 2013
     target: https://www.interaction-design.org/literature/book/the-encyclopedia-of-human-computer-interaction-2nd-ed
 --- abstract
