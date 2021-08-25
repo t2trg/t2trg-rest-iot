@@ -13,7 +13,7 @@ pi:
   colonspace: 'yes'
   rfcedstyle: 'no'
   tocdepth: '4'
-title: Guidance for RESTful Design for Internet of Things Systems
+title: Guidance on RESTful Design for Internet of Things Systems
 abbrev: RESTful Design for IoT Systems
 area: T2TRG
 author:
