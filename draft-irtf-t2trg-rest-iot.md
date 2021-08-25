@@ -52,7 +52,7 @@ normative:
     seriesinfo: Ph.D. Dissertation, University of California, Irvine
   RFC6347:
   I-D.ietf-core-resource-directory:
-  I-D.ietf-core-dev-urn:
+  RFC9039:
   RFC8949:
   W3C.REC-exi-20110310:
   RFC5246:
@@ -358,7 +358,7 @@ The secondary effort is then selecting or designing the necessary representation
 How clients can navigate through the resource space and modify state to achieve their goals is encoded in hypermedia controls, that is, links and forms within the representations.
 The concept behind hypermedia controls is to provide machine-understandable "affordances" {{HCI}}, which refer to the perceived and actual properties of a Thing and determine how it could possibly be used.
 A physical door may have a door knob as affordance, indicating that the door can be opened by twisting the knob; a keyhole may indicate that it can be locked.
-For Things in the IoT, these affordances may serialized as two hypermedia forms, which include semantic identifiers from a controlled vocabulary (e.g., schema.org) and the instructions on how to formulate the requests for opening and locking, resp.
+For Things in the IoT, these affordances may be serialized as two hypermedia forms, which include semantic identifiers from a controlled vocabulary (e.g., schema.org) and the instructions on how to formulate the requests for opening and locking, respectively.
 Overall, this allows to realize a Uniform Interface (see {{sec-uniform-interface}}), which enables loose coupling between clients and servers.
 
 Hypermedia controls span a kind of a state machine where the nodes are resources (or action results) and the transitions are links or forms.
@@ -407,7 +407,7 @@ These four schemes also provide means for locating the resource; using the proto
 If the scheme is different for two URIs (e.g., "coap" vs. "coaps"), it is important to note that even if the remainder of the URI is identical, these are two different resources, in two distinct namespaces.
 
 Some schemes are for URIs with main purpose as identifiers, and hence are not dereferencable, e.g., the "urn" scheme can be used to construct unique names in registered namespaces. 
-In particular the "urn:dev" URI {{I-D.ietf-core-dev-urn}} details multiple ways for generating and representing endpoint identifiers of IoT devices.
+In particular the "urn:dev" URI {{RFC9039}} details multiple ways for generating and representing endpoint identifiers of IoT devices.
 
 The query parameters can be used to parametrize the resource. 
 For example, a GET request may use query parameters to request the server to send only certain kind data of the resource (i.e., filtering the response). 
@@ -421,7 +421,7 @@ Constrained Resource Identifiers {{!I-D.ietf-core-href}} provide a CBOR-based fo
 ## Representations
 
 Clients can retrieve the resource state from a server or manipulate resource state on the (origin) server by transferring resource representations.
-Resource representations must have metadata that identies the representation format used, so the representations can be interpreted correctly.
+Resource representations must have metadata that identifies the representation format used, so the representations can be interpreted correctly.
 This is usually a simple string such as the IANA-registered Internet Media Types.
 Typical media types for IoT systems include:
 
