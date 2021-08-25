@@ -194,7 +194,7 @@ Gateway:
 See also "Reverse Proxy".
 
 Hypermedia Control:
-: Information provided by the server on how to dereference a URI for a specific interaction; in hypermedia systems the serialization of an affordance that can be embedded in representations or response message headers.
+: Information provided by a server on how to use its RESTful API; usually a URI and instructions on how to dereference it for a specific interaction. Hypermedia Controls are the serialized/encoded affordances of hypermedia systems.
 
 Idempotent Method:
 : A method where multiple identical requests with that method lead to the same visible resource state as a single such request. 
@@ -641,7 +641,7 @@ Still, code-on-demand can be useful for small polyfills, e.g., to decode payload
 
 # Hypermedia-driven Applications
 
-Hypermedia-driven applications take advantage of hypermedia controls, i.e., links and forms, embedded in the resource representations. 
+Hypermedia-driven applications take advantage of hypermedia controls, i.e., links and forms, which are embedded in representations or response message headers.
 A hypermedia client is a client that is capable of processing these hypermedia controls.
 Hypermedia links can be used to give additional information about a resource representation (e.g., the source URI of the representation) or pointing to other resources. 
 The forms can be used to describe the structure of the data that can be sent (e.g., with a POST or PUT method) to a server, or how a data retrieval (e.g., GET) request for a resource should be formed. 
