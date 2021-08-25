@@ -13,7 +13,7 @@ pi:
   colonspace: 'yes'
   rfcedstyle: 'no'
   tocdepth: '4'
-title: RESTful Design for Internet of Things Systems
+title: Guidance for RESTful Design for Internet of Things Systems
 abbrev: RESTful Design for IoT Systems
 area: T2TRG
 author:
@@ -38,12 +38,7 @@ author:
 
 - ins: K. Hartke
   name: Klaus Hartke
-  org: Ericsson
-  street: Torshamnsgatan 23
-  city: Stockholm
-  code: SE-16483
-  country: Sweden
-  email: klaus.hartke@ericsson.com
+  email: hartke@projectcool.de
   
 normative:
   RFC3986:
@@ -57,7 +52,7 @@ normative:
     seriesinfo: Ph.D. Dissertation, University of California, Irvine
   RFC6347:
   I-D.ietf-core-resource-directory:
-  I-D.ietf-core-dev-urn:
+  RFC9039:
   RFC8949:
   W3C.REC-exi-20110310:
   RFC5246:
@@ -105,6 +100,12 @@ informative:
     - ins: M. Amundsen
     date: Feb 2013
     target: http://amundsen.com/media-types/collection/format/
+  HCI:
+    title: The Encyclopedia of Human-Computer Interaction, 2nd Ed.
+    author:
+    - ins: Interaction Design Foundation
+    date: 2013
+    target: https://www.interaction-design.org/literature/book/the-encyclopedia-of-human-computer-interaction-2nd-ed
 --- abstract
 
 This document gives guidance for designing Internet of Things (IoT) systems
@@ -121,27 +122,29 @@ At its core is a set of constraints, which when fulfilled enable desirable prope
 When REST principles are applied to the design of a system, the result is often called RESTful and in particular an API following these principles is called a RESTful API.
 
 Different protocols can be used with RESTful systems, but at the time of writing the most common protocols are HTTP {{RFC7230}} and CoAP {{RFC7252}}.
-Since RESTful APIs are often simple and lightweight, they are a good fit for various IoT applications.
+Since RESTful APIs are often lightweight and enable loose coupling of system components, they are a good fit for various Internet of Things (IoT) applications, which in general aim at interconnecting the physical world with the virtual world.
 The goal of this document is to give basic guidance for designing RESTful systems and APIs for IoT applications and give pointers for more information.
 
 Design of a good RESTful IoT system has naturally many commonalities with other Web systems.
 Compared to other systems, the key characteristics of many RESTful IoT systems include:
 
-* need to accommodate for constrained devices, so with IoT, REST is not only used for scaling out (large number of clients on a web server), but also for scaling down (efficient server on constrained node)
-* data formats, interaction patterns, and other mechanisms that minimize, or preferably avoid, the need for human interaction
-* for some classes {{RFC7228}} of server endpoints, significant constraints, e.g., in energy consumption, and thus implementation complexity, may apply
-* endpoints are commonly both clients and servers
-* preference for compact and simple data formats to facilitate efficient transfer over (often) constrained networks and lightweight processing in constrained nodes
-* the usually large number of endpoints can not be updated simultaneously, yet the system needs to be able to evolve in the field without long downtimes
+* accommodating for constrained devices {{RFC7228}}, so with IoT, REST is not only used for scaling out (large number of clients on a Web server), but also for scaling down (efficient server on constrained node, e.g., in energy consumption or implementation complexity)
+* facilitating efficient transfer over (often) constrained networks and lightweight processing in constrained nodes through compact and simple data formats
+* minimizing or preferably avoiding the need for human interaction through machine-understandable data formats and interaction patterns
+* enabling the system to evolve gradually in the field, as the usually large number of endpoints can not be updated simultaneously
+* having endpoints that are both clients and servers
 
 # Terminology {#sec-terms}
 
-This section explains some of the common terminology that is used in the context of RESTful design for IoT systems. For terminology of constrained nodes and networks, see {{RFC7228}}.
-Terminology on modeling of Things and their Affordances (Properties,
-Actions, and Events) was taken from {{?I-D.ietf-asdf-sdf}}.
+This section explains selected terminology that is commonly used in the context of RESTful design for IoT systems.
+For terminology of constrained nodes and networks, see {{RFC7228}}.
+Terminology on modeling of Things and their affordances (Properties, Actions, and Events) was taken from {{?I-D.ietf-asdf-sdf}}.
 
 Action:
-: An affordance that can potentially be used to perform a named operation on an Object.
+: An affordance that can potentially be used to perform a named operation on a Thing.
+
+Action Result:
+: A representation sent as a response by a server that does not represent resource state, but the result of the interaction with the originally addressed resource.
 
 Affordance:
 : An element of an interface offered for interaction, defining its
@@ -154,31 +157,33 @@ Cache:
 : A local store of response messages and the subsystem that controls storage, retrieval, and deletion of messages in it.
 
 Client:
-: A node that sends requests to servers and receives responses.
-In RESTful IoT systems it's common for nodes to have more than one role (e.g., both server and client; see {{sec-architecture}}).
+: A node that sends requests to servers and receives responses; it therefore has the initiative to interact.
+In RESTful IoT systems it is common for nodes to have more than one role (i.e., to be both server and client; see {{sec-architecture}}).
 
 Client State:
 : The state kept by a client between requests.
 This typically includes the currently processed representation, the set of active requests, the history of requests, bookmarks (URIs stored for later retrieval), and application-specific state (e.g., local variables).
-(Note that this is called "Application State" in {{REST}}, which has some ambiguity in modern (IoT) systems where the overall state of the distributed application (i.e., application state) is reflected in the union of all Client States and Resource States of all clients and servers involved.)
+(Note that this is called "Application State" in {{REST}}, which has some ambiguity in modern (IoT) systems where resources are highly dynamic and the overall state of the distributed application (i.e., application state) is reflected in the union of all Client States and Resource States of all clients and servers involved.)
+
+Content Type:
+: A string that carries the media type plus potential parameters for the representation format such as "text/plain;charset=UTF-8".
 
 Content Negotiation:
 : The practice of determining the "best" representation for a client when examining the current state of a resource. 
 The most common forms of content negotiation are Proactive Content Negotiation and Reactive Content Negotiation.
 
 Dereference:
-: To use an access mechanism (e.g., HTTP or CoAP) to perform an action on a URI's resource.
+: To use an access mechanism (e.g., HTTP or CoAP) to interact with the resource of a URI.
 
 Dereferencable URI:
-: A URI that can be dereferenced, i.e., an action can be performed on the identified resource. 
+: A URI that can be dereferenced, i.e., interaction with the identified resource is possible. 
 Not all HTTP or CoAP URIs are dereferencable, e.g., when the target resource does not exist.
 
-
 Event:
-: An affordance that can potentially be used to obtain information about what happened to an Object.
+: An affordance that can potentially be used to (recurrently) obtain information about what happened to a Thing, e.g., through server push.
 
 Form:
-: A hypermedia control that enables a client to change the state of a resource or to construct a query locally.
+: A hypermedia control that enables a client to construct more complex requests, e.g., to change the state of a resource or perform specific queries.
 
 Forward Proxy:
 : An intermediary that is selected by a client, usually via local configuration rules, and that can be tasked to make requests on behalf of the client. 
@@ -189,8 +194,7 @@ Gateway:
 See also "Reverse Proxy".
 
 Hypermedia Control:
-: A component, such as a link or a form, embedded in a representation that identifies a resource for future hypermedia interactions. 
-If the client engages in an interaction with the identified resource, the result may be a change to resource state and/or client state.
+: Information provided by a server on how to use its RESTful API; usually a URI and instructions on how to dereference it for a specific interaction. Hypermedia Controls are the serialized/encoded affordances of hypermedia systems.
 
 Idempotent Method:
 : A method where multiple identical requests with that method lead to the same visible resource state as a single such request. 
@@ -202,7 +206,7 @@ Link Relation Type:
 : An identifier that describes how the link target resource relates to the current resource (see {{RFC8288}}).
 
 Media Type:
-: A string such as "text/html" or "application/json" that is used to label representations so that it is known how the representation should be interpreted and how it is encoded.
+: An IANA-registered string such as "text/html" or "application/json" that is used to label representations so that it is known how the representation should be interpreted and how it is encoded.
 
 Method:
 : An operation associated with a resource. Common methods include GET, PUT, POST, and DELETE (see {{sec-methods}} for details).
@@ -213,21 +217,18 @@ In contrast, intermediaries (such as proxies caching a representation) can assum
 
 Proactive Content Negotiation:
 : A content negotiation mechanism where the server selects a representation based on the expressed preference of the client. 
-For example, an IoT application could send a request to a sensor with preferred media type "application/senml+json".
-
+For example, an IoT application could send a request that prefers to accept the media type "application/senml+json".
 
 Property:
-: An affordance that can potentially be used to read, write, and/or
-  observe state on an Object.
-
+: An affordance that can potentially be used to read, write, and/or observe state on a Thing.
 
 Reactive Content Negotiation:
-: A content negotiation mechanism where the client selects a representation from a list of available representations. 
+: A content negotiation mechanism where the client selects a representation from a list of available representations.
 The list may, for example, be included by a server in an initial response. 
 If the user agent is not satisfied by the initial response representation, it can request one or more of the alternative representations, selected based on metadata (e.g., available media types) included in the response.
 
 Representation:
-: A serialization that represents the current or intended state of a resource and that can be transferred between clients and servers. 
+: A serialization that represents the current or intended state of a resource and that can be transferred between client and server. 
 REST requires representations to be self-describing, meaning that there must be metadata that allows peers to understand which representation format is used.
 Depending on the protocol needs and capabilities, there can be additional metadata that is transmitted along with the representation.
 
@@ -246,8 +247,8 @@ A resource often encapsulates a piece of state in a system.
 Typical resources in an IoT system can be, e.g., a sensor, the current value of a sensor, the location of a device, or the current state of an actuator.
 
 Resource State:
-: A model of a resource's possible states that is represented in a supported representation type, typically a media type. 
-Resources can change state because of REST interactions with them, or they can change state for reasons outside of the REST model.
+: A model of the possible states of a resource that is expressed in supported representation formats. 
+Resources can change state because of REST interactions with them, or they can change state for reasons outside of the REST model, e.g., business logic implemented on the server side such as sampling a sensor.
 
 Resource Type:
 : An identifier that annotates the application-semantics of a resource (see Section 3.1 of {{RFC6690}}).
@@ -260,21 +261,14 @@ Safe Method:
 : A method that does not result in any state change on the origin server when applied to a resource. 
 
 Server:
-: A node that listens for requests, performs the requested operation and sends responses back to the clients.
-
+: A node that listens for requests, performs the requested operation, and sends responses back to the clients.
+In RESTful IoT systems it is common for nodes to have more than one role (i.e., to be both server and client; see {{sec-architecture}}).
 
 Thing:
-: A physical device that is also made available in the Internet of
-  Things.  The term is used here for Things that are notable for their
-  interaction with the physical world beyond interaction with humans;
-  a temperature sensor or a light might be a Thing, but a router that
-  employs both temperature sensors and indicator lights might exhibit
-  less Thingness, as the effects of its functioning are mostly on the
-  digital side.
-
+: A physical item that is made available in the Internet of Things, thereby enabling digital interaction with the physical world for humans, services, and/or other Things.
 
 Transfer protocols:
-: In particular in IoT domain, protocols above transport layer that are used to transfer data objects and provide semantics for operations on the data.
+: In particular in the IoT domain, protocols above the transport layer that are used to transfer data objects and provide semantics for operations on the data.
 
 Transfer layer:
 : Re-usable part of the application layer used to transfer the application specific data items using a standard set of methods that can fulfill application-specific operations.
@@ -283,17 +277,23 @@ Uniform Resource Identifier (URI):
 : A global identifier for resources. 
 See {{sec-uris}} for more details.
 
+
 # Basics
 
 ## Architecture {#sec-architecture}
 
 The components of a RESTful system are assigned one or both of two roles: client or server.
-Note that the terms "client" and "server" refer only to the roles that the nodes assume for a particular message exchange. The same node might act as a client in some communications and a server in others.
+Note that the terms "client" and "server" refer only to the roles that the nodes assume for a particular message exchange.
+The same node might act as a client in some communications and a server in others.
 Classic user agents (e.g., Web browsers) are always in the client role and have the initiative to issue requests.
 Origin servers always have the server role and govern over the resources they host.
 Simple IoT devices, such as sensors and actuators, are commonly acting as servers and exposing their physical world interaction capabilities (e.g., temperature measurement or door lock control capability) as resources.
-Typical IoT system client can be a cloud service that retrieves data from the sensors and commands the actuators based on the sensor information.
-Alternatively an IoT data storage system could work as a server where IoT sensor devices send data, in client role.
+
+Which resources exist and how they can be used is expressed by the servers in so-called affordances, which is metadata that can be included in responses (e.g., the initial response from a well-known resource) or be made available out of band (e.g., through a W3C Thing Description document {{W3C-TD}} from a directory).
+In RESTful systems, affordances are encoded as hypermedia controls of which exist two types: links that allow to navigate between resources and forms that enable clients to formulate more complex requests (e.g., to modify a resource or perform a query).
+
+A typical IoT system client can be a cloud service that retrieves data from the sensors and commands the actuators based on the sensor information.
+Alternatively an IoT data storage system could work as a server where IoT sensor devices send their data in client role.
 
 ~~~~~~~~~~~~~~~~~~~
  ________                       _________
@@ -334,7 +334,7 @@ This property is enabled by the Layered System constraint of REST, which says th
 {: artwork-align="center" #basic-arch-b title="Communication with Reverse Proxy"}
 
 Nodes in IoT systems often implement both roles.
-Unlike intermediaries, however, they can take the initiative as a client (e.g., to register with a directory, such as CoRE Resource Directory {{I-D.ietf-core-resource-directory}}, or to interact with another thing) and act as origin server at the same time (e.g., to serve sensor values or provide an actuator interface).
+Unlike intermediaries, however, they can take the initiative as a client (e.g., to register with a directory, such as CoRE Resource Directory {{I-D.ietf-core-resource-directory}}, or to interact with another Thing) and act as origin server at the same time (e.g., to serve sensor values or provide an actuator interface).
 
 ~~~~~~~~~~~~~~~~~~~
  ________                                         _________
@@ -352,32 +352,38 @@ Unlike intermediaries, however, they can take the initiative as a client (e.g., 
 
 ## System design
 
-When designing a RESTful system, the primary effort goes into modeling the state of the distributed application and assigning it to the different components (i.e., clients and servers).
-How clients can navigate through the resources and modify state to achieve their goals is defined through hypermedia controls, that is, links and forms.
-Hypermedia controls span a kind of a state machine where the nodes are resources and the transitions are links or forms.
-Clients run this state machine (i.e., the application) by retrieving representations, processing the data, and following the included hypermedia controls.
-In REST, remote state is changed by submitting forms.
+When designing a RESTful system, the primary effort goes into modeling the application as distributed state and assigning it to the different components (i.e., clients and servers).
+The secondary effort is then selecting or designing the necessary representation formats to exchange information and enable interaction between the components through resources.
+
+How clients can navigate through the resource space and modify state to achieve their goals is encoded in hypermedia controls, that is, links and forms within the representations.
+The concept behind hypermedia controls is to provide machine-understandable "affordances" {{HCI}}, which refer to the perceived and actual properties of a Thing and determine how it could possibly be used.
+A physical door may have a door knob as affordance, indicating that the door can be opened by twisting the knob; a keyhole may indicate that it can be locked.
+For Things in the IoT, these affordances may be serialized as two hypermedia forms, which include semantic identifiers from a controlled vocabulary (e.g., schema.org) and the instructions on how to formulate the requests for opening and locking, respectively.
+Overall, this allows to realize a Uniform Interface (see {{sec-uniform-interface}}), which enables loose coupling between clients and servers.
+
+Hypermedia controls span a kind of a state machine where the nodes are resources (or action results) and the transitions are links or forms.
+Clients run this distributed state machine (i.e., the application) by retrieving representations, processing the data, and following the included links and/or submitting forms to modify remote state.
 This is usually done by retrieving the current state, modifying the state on the client side, and transferring the new state to the server in the form of new representations -- rather than calling a service and modifying the state on the server side.
 
-Client state encompasses the current state of the described state machine and the possible next transitions derived from the hypermedia controls within the currently processed representation (see {{sec-terms}}).
+Client state encompasses the current state of the described state machine and the possible next transitions derived from the hypermedia controls within the currently processed representation.
 Furthermore, clients can have part of the state of the distributed application in local variables.
 
 Resource state includes the more persistent data of an application (i.e., independent of individual clients).
-This can be static data such as device descriptions, persistent data such as system configurations, but also dynamic data such as the current value of a sensor on a thing.
+This can be static data such as device descriptions, persistent data such as system configurations, but also dynamic data such as the current value of a sensor on a Thing.
 
-It is important to distinguish between "client state" and "resource state" and keep them separate.
+In the design, it is important to distinguish between "client state" and "resource state", and keep them separate.
 Following the Stateless constraint, the client state must be kept only on clients.
 That is, there is no establishment of shared information about past and future interactions between client and server (usually called a session).
 On the one hand, this makes requests a bit more verbose since every request must contain all the information necessary to process it.
 On the other hand, this makes servers efficient and scalable, since they do not have to keep any state about their clients.
-Requests can easily be distributed over multiple worker threads or server instances.
+Requests can easily be distributed over multiple worker threads or server instances (cf. load balancing).
 For IoT systems, this constraint lowers the memory requirements for server implementations, which is particularly important for constrained servers (e.g., sensor nodes) and servers serving large amount of clients (e.g., Resource Directory).
 
 ## Uniform Resource Identifiers (URIs) {#sec-uris}
 
-An important part of RESTful API design is to model the system as a set of resources whose state can be retrieved and/or modified and where resources can be potentially also created and/or deleted.
+An important aspect of RESTful API design is to model the system as a set of resources, which potentially can be created and/or deleted dynamically and whose state can be retrieved and/or modified.
 
-Uniform Resource Identifiers (URIs) are used to indicate a resource for interaction, to reference a resource from another resource, to advertise or bookmark a resource, or to index a resource by search engines.
+Uniform Resource Identifiers (URIs) are used to indicate resources for interaction, to reference a resource from another resource, to advertise or bookmark a resource, or to index a resource by search engines.
 
       foo://example.com:8042/over/there?name=ferret#nose
       \_/   \______________/\_________/ \_________/ \__/
@@ -387,9 +393,9 @@ Uniform Resource Identifiers (URIs) are used to indicate a resource for interact
 A URI is a sequence of characters that matches the syntax defined in {{RFC3986}}. 
 It consists of a hierarchical sequence of five components: scheme, authority, path, query, and fragment (from most significant to least significant). 
 A scheme creates a namespace for resources and defines how the following components identify a resource within that namespace. 
-The authority identifies an entity that governs part of the namespace, such as the server "www.example.org" in the "http" scheme. 
-A host name (e.g., a fully qualified domain name) or an IP address, potentially followed by a transport layer port number, are usually used in the authority component for the "http" and "coap" schemes. 
-The path and query contain data to identify a resource within the scope of the URI's scheme and naming authority. 
+The authority identifies an entity that governs part of the namespace, such as the server "www.example.org" in the "https" scheme. 
+A hostname (e.g., a fully qualified domain name) or an IP address literal, potentially followed by a transport layer port number, are usually used for the authority component.
+The path and query contain data to identify a resource within the scope of the scheme-dependent naming authority (i.e., "http://www.example.org/" is a different authority than "https://www.example.org").
 The fragment allows to refer to some portion of the resource, such as a Record in a SenML Pack (Section 9 of {{RFC8428}}).
 However, fragments are processed only at client side and not sent on the wire. 
 {{?RFC8820}} provides more details on URI design and ownership with best current practices for establishing URI structures, conventions, and formats.
@@ -397,16 +403,16 @@ However, fragments are processed only at client side and not sent on the wire.
 For RESTful IoT applications, typical schemes include "https", "coaps", "http", and "coap". 
 These refer to HTTP and CoAP, with and without Transport Layer Security (TLS, {{RFC5246}} for TLS 1.2 and {{RFC8446}} for TLS 1.3).
 (CoAP uses Datagram TLS (DTLS) {{RFC6347}}, the variant of TLS for UDP.) 
-These four schemes also provide means for locating the resource; using the HTTP protocol for "http" and "https", and with the CoAP protocol for "coap" and "coaps". 
-If the scheme is different for two URIs (e.g., "coap" vs. "coaps"), it is important to note that even if the rest of the URI is identical, these are two different resources, in two distinct namespaces.
+These four schemes also provide means for locating the resource; using the protocols HTTP for "http" and "https" and CoAP for "coap" and "coaps".
+If the scheme is different for two URIs (e.g., "coap" vs. "coaps"), it is important to note that even if the remainder of the URI is identical, these are two different resources, in two distinct namespaces.
 
-Some schemes are for URIs with main purpose as identifiers and hence are not dereferencable, e.g., the "urn" scheme can be used to construct unique names in registered namespaces. 
-In particular the "urn:dev" {{I-D.ietf-core-dev-urn}} details multiple ways for generating and representing endpoint identifiers of IoT devices.
+Some schemes are for URIs with main purpose as identifiers, and hence are not dereferencable, e.g., the "urn" scheme can be used to construct unique names in registered namespaces. 
+In particular the "urn:dev" URI {{RFC9039}} details multiple ways for generating and representing endpoint identifiers of IoT devices.
 
 The query parameters can be used to parametrize the resource. 
 For example, a GET request may use query parameters to request the server to send only certain kind data of the resource (i.e., filtering the response). 
-Query parameters in PUT and POST requests do not have such established semantics and are not commonly used.
-Whether the order of the query parameters matters in URIs is unspecified and they can be re-ordered e.g., by proxies. 
+Query parameters in PUT and POST requests do not have such established semantics and are not used consistently.
+Whether the order of the query parameters matters in URIs is unspecified and they can be re-ordered, for instance by proxies. 
 Therefore applications should not rely on their order; see Section 3.3 of {{?RFC6943}} for more details.
 
 Due to the relatively complex processing rules and text representation format, URI handling can be difficult to implement correctly in constrained devices.
@@ -414,10 +420,10 @@ Constrained Resource Identifiers {{!I-D.ietf-core-href}} provide a CBOR-based fo
 
 ## Representations
 
-Clients can retrieve the resource state from an origin server or manipulate resource state on the origin server by transferring resource representations.
-Resource representations have a content-type (media-type, optionally with parameters) that tells how the representation should be interpreted by identifying the representation format used.
-
-Typical media-types for IoT systems include:
+Clients can retrieve the resource state from a server or manipulate resource state on the (origin) server by transferring resource representations.
+Resource representations must have metadata that identifies the representation format used, so the representations can be interpreted correctly.
+This is usually a simple string such as the IANA-registered Internet Media Types.
+Typical media types for IoT systems include:
 
 * "text/plain" for simple UTF-8 text
 * "application/octet-stream" for arbitrary binary data
@@ -427,9 +433,9 @@ Typical media-types for IoT systems include:
 * "application/link-format" for CoRE Link Format {{RFC6690}}
 * "application/senml+json" and "application/senml+cbor" for Sensor Measurement Lists (SenML) data {{RFC8428}}
 
-A full list of registered Internet Media Types is available at the IANA registry {{IANA-media-types}} and numerical identifiers for media-types, parameters, and content-codings registered for use with CoAP are listed at CoAP Content-Formats IANA registry {{IANA-CoAP-media}}.
+A full list of registered Internet Media Types is available at the IANA registry {{IANA-media-types}} and numerical identifiers for media types, parameters, and content codings registered for use with CoAP are listed at CoAP Content-Formats IANA registry {{IANA-CoAP-media}}.
 
-The terms "media-type", "content-type", and "content-format" (short identifier of content-type and content-coding, abbreviated for historical reasons "ct") are often used when referring to representation formats used with CoAP.
+The terms "media type", "content type" (media type plus potential parameters), and "content format" (short identifier of content type and content coding, abbreviated for historical reasons "ct") are often used when referring to representation formats used with CoAP.
 The differences between these terms are discussed in more detail in {{I-D.bormann-core-media-content-type-format}}.
 
 ## HTTP/CoAP Methods {#sec-methods}
@@ -635,7 +641,7 @@ Still, code-on-demand can be useful for small polyfills, e.g., to decode payload
 
 # Hypermedia-driven Applications
 
-Hypermedia-driven applications take advantage of hypermedia controls, i.e., links and forms, embedded in the resource representations. 
+Hypermedia-driven applications take advantage of hypermedia controls, i.e., links and forms, which are embedded in representations or response message headers.
 A hypermedia client is a client that is capable of processing these hypermedia controls.
 Hypermedia links can be used to give additional information about a resource representation (e.g., the source URI of the representation) or pointing to other resources. 
 The forms can be used to describe the structure of the data that can be sent (e.g., with a POST or PUT method) to a server, or how a data retrieval (e.g., GET) request for a resource should be formed. 
