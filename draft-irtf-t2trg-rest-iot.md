@@ -850,11 +850,3 @@ Further IoT security considerations are available in {{?RFC8576}}.
 The authors would like to thank Mike Amundsen, Heidi-Maria Back, Carsten Bormann, Tero Kauppinen, Michael Koster, Mert Ocak, Robby Simpson, Ravi Subramaniam, Dave Thaler, Niklas Widell, and Erik Wilde for the reviews and feedback.
 
 --- back
-
-# Future Work
-
-* Unreliable (best effort) communication, robust communication in network with high packet loss, 3-way commit
-
-* Discuss directories, such as CoAP Resource Directory
-
-* More information on how to design resources; choosing what is modeled as a resource, etc.
