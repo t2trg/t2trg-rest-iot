@@ -477,6 +477,7 @@ The POST method is not safe nor idempotent.
 
 The PUT method requests that the state of the target resource be created or replaced with the state defined by the representation enclosed in the request message payload.
 A successful PUT of a given representation would suggest that a subsequent GET on that same target resource will result in an equivalent representation being sent.
+A PUT request applied to the target resource can have side effects on other resources.
 
 The fundamental difference between the POST and PUT methods is highlighted by the different intent for the enclosed representation.
 The target resource in a POST request is intended to handle the enclosed representation according to the resource's own semantics, whereas the enclosed representation in a PUT request is defined as replacing the state of the target resource.
