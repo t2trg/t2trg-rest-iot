@@ -17,7 +17,7 @@ title: Guidance on RESTful Design for Internet of Things Systems
 abbrev: RESTful Design for IoT Systems
 area: T2TRG
 author:
- 
+
 - ins: A. Keranen
   name: Ari Keranen
   org: Ericsson
@@ -39,7 +39,7 @@ author:
 - ins: K. Hartke
   name: Klaus Hartke
   email: hartke@projectcool.de
-  
+
 normative:
   RFC3986:
   RFC7230:
@@ -177,14 +177,14 @@ Content Type:
 : A string that carries the media type plus potential parameters for the representation format such as "text/plain;charset=UTF-8".
 
 Content Negotiation:
-: The practice of determining the "best" representation for a client when examining the current state of a resource. 
+: The practice of determining the "best" representation for a client when examining the current state of a resource.
 The most common forms of content negotiation are Proactive Content Negotiation and Reactive Content Negotiation.
 
 Dereference:
 : To use an access mechanism (e.g., HTTP or CoAP) to interact with the resource of a URI.
 
 Dereferenceable URI:
-: A URI that can be dereferenced, i.e., interaction with the identified resource is possible. 
+: A URI that can be dereferenced, i.e., interaction with the identified resource is possible.
 Not all HTTP or CoAP URIs are dereferenceable, e.g., when the target resource does not exist.
 
 Event:
@@ -194,7 +194,7 @@ Form:
 : A hypermedia control that enables a client to construct more complex requests, e.g., to change the state of a resource or perform specific queries.
 
 Forward Proxy:
-: An intermediary that is selected by a client, usually via local configuration rules, and that can be tasked to make requests on behalf of the client. 
+: An intermediary that is selected by a client, usually via local configuration rules, and that can be tasked to make requests on behalf of the client.
 This may be useful, for example, when the client lacks the capability to make the request itself or to service the response from a cache in order to reduce response time, network bandwidth, and energy consumption.
 
 Gateway:
@@ -205,7 +205,7 @@ Hypermedia Control:
 : Information provided by a server on how to use its RESTful API; usually a URI and instructions on how to dereference it for a specific interaction. Hypermedia Controls are the serialized/encoded affordances of hypermedia systems.
 
 Idempotent Method:
-: A method where multiple identical requests with that method lead to the same visible resource state as a single such request. 
+: A method where multiple identical requests with that method lead to the same visible resource state as a single such request.
 
 Link:
 : A hypermedia control that enables a client to navigate between resources and thereby change the client state.
@@ -224,7 +224,7 @@ Origin Server:
 In contrast, intermediaries (such as proxies caching a representation) can assume the role of a server, but are not the source for representations as these are acquired from the origin server.
 
 Proactive Content Negotiation:
-: A content negotiation mechanism where the server selects a representation based on the expressed preference of the client. 
+: A content negotiation mechanism where the server selects a representation based on the expressed preference of the client.
 For example, an IoT application could send a request that prefers to accept the media type "application/senml+json".
 
 Property:
@@ -232,41 +232,41 @@ Property:
 
 Reactive Content Negotiation:
 : A content negotiation mechanism where the client selects a representation from a list of available representations.
-The list may, for example, be included by a server in an initial response. 
+The list may, for example, be included by a server in an initial response.
 If the user agent is not satisfied by the initial response representation, it can request one or more of the alternative representations, selected based on metadata (e.g., available media types) included in the response.
 
 Representation:
-: A serialization that represents the current or intended state of a resource and that can be transferred between client and server. 
+: A serialization that represents the current or intended state of a resource and that can be transferred between client and server.
 REST requires representations to be self-describing, meaning that there must be metadata that allows peers to understand which representation format is used.
 Depending on the protocol needs and capabilities, there can be additional metadata that is transmitted along with the representation.
 
 Representation Format:
-: A set of rules for serializing resource state. 
-On the Web, the most prevalent representation format is HTML. 
+: A set of rules for serializing resource state.
+On the Web, the most prevalent representation format is HTML.
 Other common formats include plain text and formats based on JSON {{RFC8259}}, XML, or RDF. Within IoT systems, often compact formats based on JSON, CBOR {{RFC8949}}, and EXI {{W3C.REC-exi-20110310}} are used.
 
 Representational State Transfer (REST):
 : An architectural style for Internet-scale distributed hypermedia systems.
 
 Resource:
-: An item of interest identified by a URI. 
-Anything that can be named can be a resource. 
-A resource often encapsulates a piece of state in a system. 
+: An item of interest identified by a URI.
+Anything that can be named can be a resource.
+A resource often encapsulates a piece of state in a system.
 Typical resources in an IoT system can be, e.g., a sensor, the current value of a sensor, the location of a device, or the current state of an actuator.
 
 Resource State:
-: A model of the possible states of a resource that is expressed in supported representation formats. 
+: A model of the possible states of a resource that is expressed in supported representation formats.
 Resources can change state because of REST interactions with them, or they can change state for reasons outside of the REST model, e.g., business logic implemented on the server side such as sampling a sensor.
 
 Resource Type:
 : An identifier that annotates the application-semantics of a resource (see {{Section 3.1 of RFC6690}}).
 
 Reverse Proxy:
-: An intermediary that appears as a server towards the client but satisfies the requests by forwarding them to the actual server (possibly via one or more other intermediaries). 
+: An intermediary that appears as a server towards the client but satisfies the requests by forwarding them to the actual server (possibly via one or more other intermediaries).
 A reverse proxy is often used to encapsulate legacy services, to improve server performance through caching, and to enable load balancing across multiple machines.
 
 Safe Method:
-: A method that does not result in any state change on the origin server when applied to a resource. 
+: A method that does not result in any state change on the origin server when applied to a resource.
 
 Server:
 : A node that listens for requests, performs the requested operation, and sends responses back to the clients.
@@ -282,7 +282,7 @@ Transfer layer:
 : Re-usable part of the application layer used to transfer the application specific data items using a standard set of methods that can fulfill application-specific operations.
 
 Uniform Resource Identifier (URI):
-: A global identifier for resources. 
+: A global identifier for resources.
 See {{sec-uris}} for more details.
 
 
@@ -398,29 +398,29 @@ Uniform Resource Identifiers (URIs) are used to indicate resources for interacti
        |           |            |            |        |
     scheme     authority       path        query   fragment
 
-A URI is a sequence of characters that matches the syntax defined in {{RFC3986}}. 
-It consists of a hierarchical sequence of five components: scheme, authority, path, query, and fragment (from most significant to least significant). 
-A scheme creates a namespace for resources and defines how the following components identify a resource within that namespace. 
-The authority identifies an entity that governs part of the namespace, such as the server "www.example.org" in the "https" scheme. 
+A URI is a sequence of characters that matches the syntax defined in {{RFC3986}}.
+It consists of a hierarchical sequence of five components: scheme, authority, path, query, and fragment (from most significant to least significant).
+A scheme creates a namespace for resources and defines how the following components identify a resource within that namespace.
+The authority identifies an entity that governs part of the namespace, such as the server "www.example.org" in the "https" scheme.
 A hostname (e.g., a fully qualified domain name) or an IP address literal, potentially followed by a transport layer port number, are usually used for the authority component.
 The path and query contain data to identify a resource within the scope of the scheme-dependent naming authority (i.e., "http://www.example.org/" is a different authority than "https://www.example.org").
 The fragment allows to refer to some portion of the resource, such as a Record in a SenML Pack ({{Section 9 of RFC8428}}).
-However, fragments are processed only at client side and not sent on the wire. 
+However, fragments are processed only at client side and not sent on the wire.
 {{?RFC8820}} provides more details on URI design and ownership with best current practices for establishing URI structures, conventions, and formats.
 
-For RESTful IoT applications, typical schemes include "https", "coaps", "http", and "coap". 
+For RESTful IoT applications, typical schemes include "https", "coaps", "http", and "coap".
 These refer to HTTP and CoAP, with and without Transport Layer Security (TLS, {{RFC5246}} for TLS 1.2 and {{RFC8446}} for TLS 1.3).
-(CoAP uses Datagram TLS (DTLS) {{RFC6347}}, the variant of TLS for UDP.) 
+(CoAP uses Datagram TLS (DTLS) {{RFC6347}}, the variant of TLS for UDP.)
 These four schemes also provide means for locating the resource; using the protocols HTTP for "http" and "https" and CoAP for "coap" and "coaps".
 If the scheme is different for two URIs (e.g., "coap" vs. "coaps"), it is important to note that even if the remainder of the URI is identical, these are two different resources, in two distinct namespaces.
 
-Some schemes are for URIs with main purpose as identifiers, and hence are not dereferenceable, e.g., the "urn" scheme can be used to construct unique names in registered namespaces. 
+Some schemes are for URIs with main purpose as identifiers, and hence are not dereferenceable, e.g., the "urn" scheme can be used to construct unique names in registered namespaces.
 In particular the "urn:dev" URI {{RFC9039}} details multiple ways for generating and representing endpoint identifiers of IoT devices.
 
 The query parameters can be used to parameterize the resource.
-For example, a GET request may use query parameters to request the server to send only certain kind data of the resource (i.e., filtering the response). 
+For example, a GET request may use query parameters to request the server to send only certain kind data of the resource (i.e., filtering the response).
 Query parameters in PUT and POST requests do not have such established semantics and are not used consistently.
-Whether the order of the query parameters matters in URIs is unspecified and they can be re-ordered, for instance by proxies. 
+Whether the order of the query parameters matters in URIs is unspecified and they can be re-ordered, for instance by proxies.
 Therefore applications should not rely on their order; see {{Section 3.3.4 of ?RFC6943}} for more details.
 
 Due to the relatively complex processing rules and text representation format, URI handling can be difficult to implement correctly in constrained devices.
@@ -448,17 +448,17 @@ The differences between these terms are discussed in more detail in {{I-D.borman
 
 ## HTTP/CoAP Methods {#sec-methods}
 
-{{Section 4.3 of RFC7231}} defines the set of methods in HTTP; 
+{{Section 4.3 of RFC7231}} defines the set of methods in HTTP;
 {{Section 5.8 of RFC7252}} defines the set of methods in CoAP.
 As part of the Uniform Interface constraint, each method can have certain properties that give guarantees to clients.
 
-Safe methods do not cause any state change on the origin server when applied to a resource. 
-For example, the GET method only returns a representation of the resource state but does not change the resource. 
+Safe methods do not cause any state change on the origin server when applied to a resource.
+For example, the GET method only returns a representation of the resource state but does not change the resource.
 Thus, it is always safe for a client to retrieve a representation without affecting server-side state.
 
 Idempotent methods can be applied multiple times to the same resource while causing the same visible resource state as a single such request.
-For example, the PUT method replaces the state of a resource with a new state; replacing the state multiple times with the same new state still results in the same state for the resource. 
-However, the response from the server can be different when the same idempotent method is used multiple times. 
+For example, the PUT method replaces the state of a resource with a new state; replacing the state multiple times with the same new state still results in the same state for the resource.
+However, the response from the server can be different when the same idempotent method is used multiple times.
 For example when DELETE is used twice on an existing resource, the first request would remove the association and return success acknowledgement whereas the second request would likely result in error response due to non-existing resource.
 
 The following lists the most relevant methods and gives a short explanation of their semantics.
@@ -494,9 +494,9 @@ The PUT method is not safe, but is idempotent.
 
 ### DELETE
 
-The DELETE method requests that the origin server remove the association between the target resource and its current functionality. 
+The DELETE method requests that the origin server remove the association between the target resource and its current functionality.
 
-If the target resource has one or more current representations, they might or might not be destroyed by the origin server, and the associated storage might or might not be reclaimed, depending entirely on the nature of the resource and its implementation by the origin server. 
+If the target resource has one or more current representations, they might or might not be destroyed by the origin server, and the associated storage might or might not be reclaimed, depending entirely on the nature of the resource and its implementation by the origin server.
 
 The DELETE method is not safe, but is idempotent.
 
@@ -518,7 +518,7 @@ The CoAP-specific iPATCH method is a variant of the PATCH method that is not saf
 
 ## HTTP/CoAP Status/Response Codes
 
-{{Section 6 of RFC7231}} defines a set of Status Codes in HTTP that are used by application to indicate whether a request was understood and satisfied, and how to interpret the answer. 
+{{Section 6 of RFC7231}} defines a set of Status Codes in HTTP that are used by application to indicate whether a request was understood and satisfied, and how to interpret the answer.
 Similarly, {{Section 5.9 of RFC7252}} defines the set of Response Codes in CoAP.
 
 The status codes consist of three digits (e.g., "404" with HTTP or "4.04" with CoAP) where the first digit expresses the class of the code.
@@ -546,7 +546,7 @@ When all constraints are applied correctly, REST enables architectural propertie
 * Simplicity
 * Modifiability
 * Visibility
-* Portability 
+* Portability
 
 The following sub-sections briefly summarize the REST constraints and explain how they enable the listed properties.
 
@@ -598,7 +598,7 @@ This simple interaction model is enabled by exchanging representations and modif
 
 In contrast, in a service-oriented RPC approach, all required ways to modify state need to be modeled explicitly in the interface resulting in a large set of methods -- which differs from application to application.
 Moreover, it is also likely that different parties come up with different ways how to modify state, including the naming of the procedures, while the state within an application is a bit easier to agree on.
- 
+
 A REST interface is fully defined by:
 
 * URIs to identify resources
@@ -651,8 +651,8 @@ Still, code-on-demand can be useful for small polyfills, e.g., to decode payload
 
 Hypermedia-driven applications take advantage of hypermedia controls, i.e., links and forms, which are embedded in representations or response message headers.
 A hypermedia client is a client that is capable of processing these hypermedia controls.
-Hypermedia links can be used to give additional information about a resource representation (e.g., the source URI of the representation) or pointing to other resources. 
-The forms can be used to describe the structure of the data that can be sent (e.g., with a POST or PUT method) to a server, or how a data retrieval (e.g., GET) request for a resource should be formed. 
+Hypermedia links can be used to give additional information about a resource representation (e.g., the source URI of the representation) or pointing to other resources.
+The forms can be used to describe the structure of the data that can be sent (e.g., with a POST or PUT method) to a server, or how a data retrieval (e.g., GET) request for a resource should be formed.
 In a hypermedia-driven application the client interacts with the server using only the hypermedia controls, instead of selecting methods and/or constructing URIs based on out-of-band information, such as API documentation.
 The Constrained RESTful Application Language (CoRAL) {{!I-D.ietf-core-coral}} provides a hypermedia-format that is suitable for constrained IoT environments.
 
@@ -665,24 +665,24 @@ In particular, they describe available resources and possible operations on thes
 
 There are multiple reasons why a server might introduce new links or forms:
 
-* The server implements a newer version of the application. 
+* The server implements a newer version of the application.
 Older clients ignore the new links and forms, while newer clients are able to take advantage of the new features by following the new links and submitting the new forms.
-* The server offers links and forms depending on the current state. 
-The server can tell the client which operations are currently valid and thus help the client navigate the application state machine. 
+* The server offers links and forms depending on the current state.
+The server can tell the client which operations are currently valid and thus help the client navigate the application state machine.
 The client does not have to have knowledge which operations are allowed in the current state or make a request just to find out that the operation is not valid.
-* The server offers links and forms depending on the client's access control rights. 
+* The server offers links and forms depending on the client's access control rights.
 If the client is unauthorized to perform a certain operation, then the server can simply omit the links and forms for that operation.
 
 ## Knowledge
 
 A client needs to have knowledge of a couple of things for successful interaction with a server.
-This includes what resources are available, what representations of resource states are available, what each representation describes, how to retrieve a representation, what state changing operations on a resource are possible, how to perform these operations, and so on.                                        
+This includes what resources are available, what representations of resource states are available, what each representation describes, how to retrieve a representation, what state changing operations on a resource are possible, how to perform these operations, and so on.
 
 Some part of this knowledge, such as how to retrieve the representation of a resource state, is typically hard-coded in the client software.
 For other parts, a choice can often be made between hard-coding the knowledge or acquiring it on-demand.
 The key to success in either case is the use of in-band information for identifying the knowledge that is required.
 This enables the client to verify that it has all the required knowledge or to acquire missing knowledge on-demand.
-                      
+
 A hypermedia-driven application typically uses the following identifiers:
 
 * URI schemes that identify communication protocols,
@@ -705,11 +705,11 @@ For Constrained RESTful environments "/.well-known/core" relative URI is defined
 ## Hypermedia-driven Design Guidance
 
 Assuming self-describing representation formats (i.e., human-readable with carefully chosen terms or processible by a formatting tool) and a client supporting the URI scheme used, a good rule of thumb for a good hypermedia-driven design is the following:
-A developer should only need an entry point URI to drive the application. 
-All further information how to navigate through the application (links) and how to construct more complex requests (forms) are published by the server(s). 
+A developer should only need an entry point URI to drive the application.
+All further information how to navigate through the application (links) and how to construct more complex requests (forms) are published by the server(s).
 There must be no need for additional, out-of-band information (e.g., API specification).
 
-For machines, a well-chosen set of information needs to be shared a priori to agree on machine-understandable semantics. 
+For machines, a well-chosen set of information needs to be shared a priori to agree on machine-understandable semantics.
 Agreeing on the exact semantics of terms for relation types and data elements will of course also help the developer.
 {{I-D.hartke-core-apps}} proposes a convention for specifying the set of information in a structured way.
 
@@ -725,11 +725,11 @@ The following sections describe how common design problems such as different int
 
 ## Collections
 
-A common pattern in RESTful systems across different domains is the collection. 
+A common pattern in RESTful systems across different domains is the collection.
 A collection can be used to combine multiple resources together by providing resources that consist of set of (often partial) representations of resources, called items, and links to resources.
 The collection resource also defines hypermedia controls for managing and searching the items in the collection.
 
-Examples of the collection pattern in RESTful IoT systems are the CoRE Resource Directory {{I-D.ietf-core-resource-directory}}, CoAP pub/sub broker {{?I-D.ietf-core-coap-pubsub}}, and resource discovery via ".well-known/core". 
+Examples of the collection pattern in RESTful IoT systems are the CoRE Resource Directory {{I-D.ietf-core-resource-directory}}, CoAP pub/sub broker {{?I-D.ietf-core-coap-pubsub}}, and resource discovery via ".well-known/core".
 Collection+JSON {{CollectionJSON}} is an example of a generic collection Media Type.
 
 ## Calling a Procedure
