@@ -100,12 +100,20 @@ informative:
     - ins: M. Amundsen
     date: Feb 2013
     target: http://amundsen.com/media-types/collection/format/
+# The below has a weird label, and is a bit of an incomplete reference.
   HCI:
-    title: The Encyclopedia of Human-Computer Interaction, 2nd Ed.
     author:
-    - ins: Interaction Design Foundation
+    - org: Interaction Design Foundation
+    title: The Encyclopedia of Human-Computer Interaction
+    rc: 2nd Ed.
     date: 2013
     target: https://www.interaction-design.org/literature/book/the-encyclopedia-of-human-computer-interaction-2nd-ed
+
+venue:
+  mail: t2trg@irtf.org
+  group: Thing-to-Thing
+  github: t2trg/t2trg-rest-iot
+
 --- abstract
 
 This document gives guidance for designing Internet of Things (IoT) systems
@@ -175,9 +183,9 @@ The most common forms of content negotiation are Proactive Content Negotiation a
 Dereference:
 : To use an access mechanism (e.g., HTTP or CoAP) to interact with the resource of a URI.
 
-Dereferencable URI:
+Dereferenceable URI:
 : A URI that can be dereferenced, i.e., interaction with the identified resource is possible. 
-Not all HTTP or CoAP URIs are dereferencable, e.g., when the target resource does not exist.
+Not all HTTP or CoAP URIs are dereferenceable, e.g., when the target resource does not exist.
 
 Event:
 : An affordance that can potentially be used to (recurrently) obtain information about what happened to a Thing, e.g., through server push.
@@ -251,7 +259,7 @@ Resource State:
 Resources can change state because of REST interactions with them, or they can change state for reasons outside of the REST model, e.g., business logic implemented on the server side such as sampling a sensor.
 
 Resource Type:
-: An identifier that annotates the application-semantics of a resource (see Section 3.1 of {{RFC6690}}).
+: An identifier that annotates the application-semantics of a resource (see {{Section 3.1 of RFC6690}}).
 
 Reverse Proxy:
 : An intermediary that appears as a server towards the client but satisfies the requests by forwarding them to the actual server (possibly via one or more other intermediaries). 
@@ -396,7 +404,7 @@ A scheme creates a namespace for resources and defines how the following compone
 The authority identifies an entity that governs part of the namespace, such as the server "www.example.org" in the "https" scheme. 
 A hostname (e.g., a fully qualified domain name) or an IP address literal, potentially followed by a transport layer port number, are usually used for the authority component.
 The path and query contain data to identify a resource within the scope of the scheme-dependent naming authority (i.e., "http://www.example.org/" is a different authority than "https://www.example.org").
-The fragment allows to refer to some portion of the resource, such as a Record in a SenML Pack (Section 9 of {{RFC8428}}).
+The fragment allows to refer to some portion of the resource, such as a Record in a SenML Pack ({{Section 9 of RFC8428}}).
 However, fragments are processed only at client side and not sent on the wire. 
 {{?RFC8820}} provides more details on URI design and ownership with best current practices for establishing URI structures, conventions, and formats.
 
@@ -406,14 +414,14 @@ These refer to HTTP and CoAP, with and without Transport Layer Security (TLS, {{
 These four schemes also provide means for locating the resource; using the protocols HTTP for "http" and "https" and CoAP for "coap" and "coaps".
 If the scheme is different for two URIs (e.g., "coap" vs. "coaps"), it is important to note that even if the remainder of the URI is identical, these are two different resources, in two distinct namespaces.
 
-Some schemes are for URIs with main purpose as identifiers, and hence are not dereferencable, e.g., the "urn" scheme can be used to construct unique names in registered namespaces. 
+Some schemes are for URIs with main purpose as identifiers, and hence are not dereferenceable, e.g., the "urn" scheme can be used to construct unique names in registered namespaces. 
 In particular the "urn:dev" URI {{RFC9039}} details multiple ways for generating and representing endpoint identifiers of IoT devices.
 
-The query parameters can be used to parametrize the resource. 
+The query parameters can be used to parameterize the resource.
 For example, a GET request may use query parameters to request the server to send only certain kind data of the resource (i.e., filtering the response). 
 Query parameters in PUT and POST requests do not have such established semantics and are not used consistently.
 Whether the order of the query parameters matters in URIs is unspecified and they can be re-ordered, for instance by proxies. 
-Therefore applications should not rely on their order; see Section 3.3 of {{?RFC6943}} for more details.
+Therefore applications should not rely on their order; see {{Section 3.3.4 of ?RFC6943}} for more details.
 
 Due to the relatively complex processing rules and text representation format, URI handling can be difficult to implement correctly in constrained devices.
 Constrained Resource Identifiers {{!I-D.ietf-core-href}} provide a CBOR-based format of URIs that is better suited also for resource constrained IoT devices.
@@ -440,8 +448,8 @@ The differences between these terms are discussed in more detail in {{I-D.borman
 
 ## HTTP/CoAP Methods {#sec-methods}
 
-Section 4.3 of {{RFC7231}} defines the set of methods in HTTP; 
-Section 5.8 of {{RFC7252}} defines the set of methods in CoAP.
+{{Section 4.3 of RFC7231}} defines the set of methods in HTTP; 
+{{Section 5.8 of RFC7252}} defines the set of methods in CoAP.
 As part of the Uniform Interface constraint, each method can have certain properties that give guarantees to clients.
 
 Safe methods do not cause any state change on the origin server when applied to a resource. 
@@ -510,8 +518,8 @@ The CoAP-specific iPATCH method is a variant of the PATCH method that is not saf
 
 ## HTTP/CoAP Status/Response Codes
 
-Section 6 of {{RFC7231}} defines a set of Status Codes in HTTP that are used by application to indicate whether a request was understood and satisfied, and how to interpret the answer. 
-Similarly, Section 5.9 of {{RFC7252}} defines the set of Response Codes in CoAP.
+{{Section 6 of RFC7231}} defines a set of Status Codes in HTTP that are used by application to indicate whether a request was understood and satisfied, and how to interpret the answer. 
+Similarly, {{Section 5.9 of RFC7252}} defines the set of Response Codes in CoAP.
 
 The status codes consist of three digits (e.g., "404" with HTTP or "4.04" with CoAP) where the first digit expresses the class of the code.
 Implementations do not need to understand all status codes, but the class of the code must be understood.
@@ -777,7 +785,7 @@ There are, however, a few issues with this approach.
 Polling (i.e., periodically retrieving) the door bell resource state is not a good option, as the client is highly unlikely to be able to observe all the changes in the pressed state with any realistic polling interval.
 When using CoAP Observe with Confirmable notifications, the server will usually send two notifications for the event that the door bell was pressed:
 notification for changing from unpressed to pressed and another one for changing back to unpressed.
-If the time between the state changes is very short, the server might drop the first notification, as Observe only guarantees only eventual consistency (see Section 1.3 of {{RFC7641}}).
+If the time between the state changes is very short, the server might drop the first notification, as Observe only guarantees only eventual consistency (see {{Section 1.3 of RFC7641}}).
 
 The solution is to pick a state model that fits better to the application.
 In the case of the door bell -- and many other event-driven resources -- the solution could be a counter that counts how often the bell was pressed.
@@ -828,9 +836,9 @@ These include:
 
 * Transport Layer Security (TLS): {{RFC8446}}, {{RFC5246}}, and {{RFC6347}}
 * Internet X.509 Public Key Infrastructure: {{RFC5280}}
-* HTTP security: Section 9 of {{RFC7230}}, Section 9 of {{RFC7231}}, etc.
-* CoAP security: Section 11 of {{RFC7252}}
-* URI security: Section 7 of {{RFC3986}}
+* HTTP security: {{Section 9 of RFC7230}}, {{Section 9 of RFC7231}}, etc.
+* CoAP security: {{Section 11 of RFC7252}}
+* URI security: {{Section 7 of RFC3986}}
 
 IoT-specific security is active area of standardization at the time of writing.
 First finalized specifications include:
