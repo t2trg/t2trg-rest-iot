@@ -369,7 +369,7 @@ A physical door may have a door knob as affordance, indicating that the door can
 For Things in the IoT, these affordances may be serialized as two hypermedia forms, which include semantic identifiers from a controlled vocabulary (e.g., schema.org) and the instructions on how to formulate the requests for opening and locking, respectively.
 Overall, this allows to realize a Uniform Interface (see {{sec-uniform-interface}}), which enables loose coupling between clients and servers.
 
-Hypermedia controls span a kind of a state machine where the nodes are resources (or action results) and the transitions are links or forms.
+Hypermedia controls span a kind of state machine where the nodes are resources (or action results) and the transitions are links or forms.
 Clients run this distributed state machine (i.e., the application) by retrieving representations, processing the data, and following the included links and/or submitting forms to modify remote state.
 This is usually done by retrieving the current state, modifying the state on the client side, and transferring the new state to the server in the form of new representations -- rather than calling a service and modifying the state on the server side.
 
@@ -404,7 +404,7 @@ A scheme creates a namespace for resources and defines how the following compone
 The authority identifies an entity that governs part of the namespace, such as the server "www.example.org" in the "https" scheme.
 A hostname (e.g., a fully qualified domain name) or an IP address literal, potentially followed by a transport layer port number, are usually used for the authority component.
 The path and query contain data to identify a resource within the scope of the scheme-dependent naming authority (i.e., "http://www.example.org/" is a different authority than "https://www.example.org").
-The fragment allows to refer to some portion of the resource, such as a Record in a SenML Pack ({{Section 9 of RFC8428}}).
+The fragment allows referring to some portion of the resource, such as a Record in a SenML Pack ({{Section 9 of RFC8428}}).
 However, fragments are processed only at client side and not sent on the wire.
 {{?RFC8820}} provides more details on URI design and ownership with best current practices for establishing URI structures, conventions, and formats.
 
@@ -420,8 +420,8 @@ In particular the "urn:dev" URI {{RFC9039}} details multiple ways for generating
 The query parameters can be used to parameterize the resource.
 For example, a GET request may use query parameters to request the server to send only certain kind data of the resource (i.e., filtering the response).
 Query parameters in PUT and POST requests do not have such established semantics and are not used consistently.
-Whether the order of the query parameters matters in URIs is unspecified and they can be re-ordered, for instance by proxies.
-Therefore applications should not rely on their order; see {{Section 3.3.4 of ?RFC6943}} for more details.
+Whether the order of the query parameters matters in URIs is unspecified; they can be re-ordered, for instance by proxies.
+Therefore, applications should not rely on their order; see {{Section 3.3.4 of ?RFC6943}} for more details.
 
 Due to the relatively complex processing rules and text representation format, URI handling can be difficult to implement correctly in constrained devices.
 Constrained Resource Identifiers {{!I-D.ietf-core-href}} provide a CBOR-based format of URIs that is better suited also for resource constrained IoT devices.
@@ -465,7 +465,7 @@ The following lists the most relevant methods and gives a short explanation of t
 
 ### GET
 
-The GET method requests a current representation for the target resource, while the origin server must ensure that there are no side-effects on the resource state.
+The GET method requests a current representation for the target resource, while the origin server must ensure that there are no side effects on the resource state.
 Only the origin server needs to know how each of its resource identifiers corresponds to an implementation and how each implementation manages to select and send a current representation of the target resource in a response to GET.
 
 A payload within a GET request message has no defined semantics.
@@ -548,7 +548,7 @@ When all constraints are applied correctly, REST enables architectural propertie
 * Visibility
 * Portability
 
-The following sub-sections briefly summarize the REST constraints and explain how they enable the listed properties.
+The following subsections briefly summarize the REST constraints and explain how they enable the listed properties.
 
 ## Client-Server
 
@@ -583,7 +583,7 @@ This enables clients and intermediary to store responses and re-use them to loca
 The cache-control metadata is necessary to decide whether the information in the cached response is still fresh or stale and needs to be discarded.
 
 Cache improves performance, as less data needs to be transferred and response times can be reduced significantly.
-Less transfers also improves scalability, as origin servers can be protected from too many requests.
+Needing fewer transfers also improves scalability, as origin servers can be protected from too many requests.
 Local caches furthermore improve reliability, since requests can be answered even if the origin server is temporarily not available.
 
 Caching usually only makes sense when the data is used by multiple participants.
@@ -611,7 +611,7 @@ The origin server embeds controls for the interface into its representations and
 The most used control for RESTful systems today is Web Linking {{RFC8288}}.
 Hypermedia forms are more powerful controls that describe how to construct more complex requests, including representations to modify resource state.
 
-While this is the most complex constraints (in particular the hypermedia controls), it improves many different key properties.
+While this is the most complex constraints (in particular the hypermedia controls), it improves many key properties.
 It improves simplicity, as uniform interfaces are easier to understand.
 The self-descriptive messages improve visibility.
 The limitation to a known set of representation formats fosters portability.
@@ -704,7 +704,7 @@ For Constrained RESTful environments "/.well-known/core" relative URI is defined
 
 ## Hypermedia-driven Design Guidance
 
-Assuming self-describing representation formats (i.e., human-readable with carefully chosen terms or processible by a formatting tool) and a client supporting the URI scheme used, a good rule of thumb for a good hypermedia-driven design is the following:
+Assuming self-describing representation formats (i.e., human-readable with carefully chosen terms or processable by a formatting tool) and a client supporting the URI scheme used, a good rule of thumb for a good hypermedia-driven design is the following:
 A developer should only need an entry point URI to drive the application.
 All further information how to navigate through the application (links) and how to construct more complex requests (forms) are published by the server(s).
 There must be no need for additional, out-of-band information (e.g., API specification).
@@ -717,7 +717,7 @@ Agreeing on the exact semantics of terms for relation types and data elements wi
 # Design Patterns
 
 Certain kinds of design problems are often recurring in variety of domains, and often re-usable design patterns can be applied to them.
-Also some interactions with a RESTful IoT system are straightforward to design;
+Also, some interactions with a RESTful IoT system are straightforward to design;
 a classic example of reading a temperature from a thermometer device is almost always implemented as a GET request to a resource that represents the current value of the thermometer.
 However, certain interactions, for example data conversions or event handling, do not have as straightforward and well established ways to represent the logic with resources and REST methods.
 
@@ -777,21 +777,21 @@ A POST request is also more suitable, when the result is time-dependent and the 
 
 In event-centric paradigms such as pub/sub, events are usually represented by an incoming message that might even be identical for each occurrence.
 Since the messages are queued, the receiver is aware of each occurrence of the event and can react accordingly.
-For instance, in an event-centric system, ringing a door bell would result in a message being sent that represents the event that it was rung.
+For instance, in an event-centric system, ringing a doorbell would result in a message being sent that represents the event that it was rung.
 
 In resource-oriented paradigms such as REST, messages usually carry the current state of the remote resource, independent from the changes (i.e., events) that have lead to that state.
-In a naive yet natural design, a door bell could be modeled as a resource that can have the states unpressed and pressed.
+In a naive yet natural design, a doorbell could be modeled as a resource that can have the states unpressed and pressed.
 There are, however, a few issues with this approach.
-Polling (i.e., periodically retrieving) the door bell resource state is not a good option, as the client is highly unlikely to be able to observe all the changes in the pressed state with any realistic polling interval.
-When using CoAP Observe with Confirmable notifications, the server will usually send two notifications for the event that the door bell was pressed:
+Polling (i.e., periodically retrieving) the doorbell resource state is not a good option, as the client is highly unlikely to be able to observe all the changes in the pressed state with any realistic polling interval.
+When using CoAP Observe with Confirmable notifications, the server will usually send two notifications for the event that the doorbell was pressed:
 notification for changing from unpressed to pressed and another one for changing back to unpressed.
-If the time between the state changes is very short, the server might drop the first notification, as Observe only guarantees only eventual consistency (see {{Section 1.3 of RFC7641}}).
+If the time between the state changes is very short, the server might drop the first notification, as Observe only guarantees eventual consistency (see {{Section 1.3 of RFC7641}}).
 
 The solution is to pick a state model that fits better to the application.
-In the case of the door bell -- and many other event-driven resources -- the solution could be a counter that counts how often the bell was pressed.
+In the case of the doorbell -- and many other event-driven resources -- the solution could be a counter that counts how often the bell was pressed.
 The corresponding action is taken each time the client observes a change in the received representation.
 In the case of a network outage, this could lead to a ringing sound long after the bell was rung.
-Also including a timestamp of the last counter increment in the state can help to suppress ringing a sound when the event has become obsolete. Another solution would be to change the client/server roles of the door bell button and the ringer, as described in {{sec-server-push}}.
+Also including a timestamp of the last counter increment in the state can help to suppress ringing a sound when the event has become obsolete. Another solution would be to change the client/server roles of the doorbell button and the ringer, as described in {{sec-server-push}}.
 
 ## Server Push {#sec-server-push}
 
