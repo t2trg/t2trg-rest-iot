@@ -298,7 +298,8 @@ Origin servers always have the server role and govern over the resources they ho
 Simple IoT devices, such as sensors and actuators, are commonly acting as servers and exposing their physical world interaction capabilities (e.g., temperature measurement or door lock control capability) as resources.
 
 Which resources exist and how they can be used is expressed by the servers in so-called affordances, which is metadata that can be included in responses (e.g., the initial response from a well-known resource) or be made available out of band (e.g., through a W3C Thing Description document {{W3C-TD}} from a directory).
-In RESTful systems, affordances are encoded as hypermedia controls of which exist two types: links that allow to navigate between resources and forms that enable clients to formulate more complex requests (e.g., to modify a resource or perform a query).
+In RESTful systems, affordances are encoded as hypermedia controls.
+A hypermedia control is a link or a form: links allow to navigate between resources and forms enable clients to formulate more complex requests (e.g., to modify a resource or perform a query).
 
 A typical IoT system client can be a cloud service that retrieves data from the sensors and commands the actuators based on the sensor information.
 Alternatively an IoT data storage system could work as a server where IoT sensor devices send their data in client role.
