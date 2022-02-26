@@ -301,7 +301,7 @@ Which resources exist and how they can be used is expressed by the servers in so
 In RESTful systems, affordances are encoded as hypermedia controls.
 A hypermedia control is a link or a form: links allow to navigate between resources and forms enable clients to formulate more complex requests (e.g., to modify a resource or perform a query).
 
-A typical IoT system client can be a cloud service that retrieves data from the sensors and commands the actuators based on the sensor information.
+A typical example of an IoT system client is a cloud service that retrieves data from the sensors and commands the actuators based on the sensor information.
 Alternatively an IoT data storage system could work as a server where IoT sensor devices send their data in client role.
 
 ~~~~~~~~~~~~~~~~~~~
