@@ -415,7 +415,7 @@ These refer to HTTP and CoAP, with and without Transport Layer Security (TLS, {{
 These four schemes also provide means for locating the resource; using the protocols HTTP for "http" and "https" and CoAP for "coap" and "coaps".
 If the scheme is different for two URIs (e.g., "coap" vs. "coaps"), it is important to note that even if the remainder of the URI is identical, these are two different resources, in two distinct namespaces.
 
-Some schemes are for URIs with main purpose as identifiers, and hence are not dereferenceable, e.g., the "urn" scheme can be used to construct unique names in registered namespaces.
+Some schemes are for URIs with the main purpose as identifiers, and hence are not dereferenceable, e.g., the "urn" scheme can be used to construct unique names in registered namespaces.
 In particular the "urn:dev" URI {{RFC9039}} details multiple ways for generating and representing endpoint identifiers of IoT devices.
 
 The query parameters can be used to parameterize the resource.
@@ -584,7 +584,7 @@ This constraint requires responses to have implicit or explicit cache-control me
 This enables clients and intermediary to store responses and re-use them to locally answer future requests.
 The cache-control metadata is necessary to decide whether the information in the cached response is still fresh or stale and needs to be discarded.
 
-Cache improves performance, as less data needs to be transferred and response times can be reduced significantly.
+A cache improves performance, as less data needs to be transferred and response times can be reduced significantly.
 Needing fewer transfers also improves scalability, as origin servers can be protected from too many requests.
 Local caches furthermore improve reliability, since requests can be answered even if the origin server is temporarily not available.
 
@@ -702,14 +702,14 @@ A client begins interacting with an application through a GET request on an entr
 The entry point URI is the only URI a client is expected to know before interacting with an application.
 From there, the client is expected to make all requests by following links and submitting forms that are provided in previous responses.
 The entry point URI can be obtained, for example, by manual configuration or some discovery process (e.g., DNS-SD {{RFC6763}} or Resource Directory {{I-D.ietf-core-resource-directory}}).
-For Constrained RESTful environments "/.well-known/core" relative URI is defined as a default entry point for requesting the links hosted by servers with known or discovered addresses {{RFC6690}}.
+For Constrained RESTful environments "/.well-known/core", a relative URI is defined as a default entry point for requesting the links hosted by servers with known or discovered addresses {{RFC6690}}.
 
 ## Hypermedia-driven Design Guidance
 
 Assuming self-describing representation formats (i.e., human-readable with carefully chosen terms or processable by a formatting tool) and a client supporting the URI scheme used, a good rule of thumb for a good hypermedia-driven design is the following:
 A developer should only need an entry point URI to drive the application.
 All further information how to navigate through the application (links) and how to construct more complex requests (forms) are published by the server(s).
-There must be no need for additional, out-of-band information (e.g., API specification).
+There must be no need for additional, out-of-band information (e.g., an API specification).
 
 For machines, a well-chosen set of information needs to be shared a priori to agree on machine-understandable semantics.
 Agreeing on the exact semantics of terms for relation types and data elements will of course also help the developer.
@@ -718,7 +718,7 @@ Agreeing on the exact semantics of terms for relation types and data elements wi
 
 # Design Patterns
 
-Certain kinds of design problems are often recurring in variety of domains, and often re-usable design patterns can be applied to them.
+Certain kinds of design problems are often recurring in a variety of domains, and often re-usable design patterns can be applied to them.
 Also, some interactions with a RESTful IoT system are straightforward to design;
 a classic example of reading a temperature from a thermometer device is almost always implemented as a GET request to a resource that represents the current value of the thermometer.
 However, certain interactions, for example data conversions or event handling, do not have as straightforward and well established ways to represent the logic with resources and REST methods.
