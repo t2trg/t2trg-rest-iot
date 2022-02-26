@@ -507,7 +507,7 @@ The DELETE method is not safe, but is idempotent.
 
 The CoAP-specific FETCH method {{RFC8132}} requests a representation of a resource parameterized by a representation enclosed in the request.
 
-The fundamental difference between the GET and FETCH methods is that the request parameters are included as the payload of a FETCH request, while in a GET request they're typically part of the query string of the request URI.
+The fundamental difference between the GET and FETCH methods is that the request parameters are included as the payload of a FETCH request, while in a GET request they are typically part of the query string of the request URI.
 
 The FETCH method is safe and idempotent.
 
