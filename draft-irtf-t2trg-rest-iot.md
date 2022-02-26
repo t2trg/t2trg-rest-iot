@@ -442,7 +442,8 @@ Typical media types for IoT systems include:
 * "application/link-format" for CoRE Link Format {{RFC6690}}
 * "application/senml+json" and "application/senml+cbor" for Sensor Measurement Lists (SenML) data {{RFC8428}}
 
-A full list of registered Internet Media Types is available at the IANA registry {{IANA-media-types}} and numerical identifiers for media types, parameters, and content codings registered for use with CoAP are listed at CoAP Content-Formats IANA registry {{IANA-CoAP-media}}.
+A full list of registered Internet Media Types is available at the IANA registry {{IANA-media-types}}.
+Numerical identifiers for media types, parameters, and content codings registered for use with CoAP are listed at CoAP Content-Formats IANA registry {{IANA-CoAP-media}}.
 
 The terms "media type", "content type" (media type plus potential parameters), and "content format" (short identifier of content type and content coding, abbreviated for historical reasons "ct") are often used when referring to representation formats used with CoAP.
 The differences between these terms are discussed in more detail in {{I-D.bormann-core-media-content-type-format}}.
