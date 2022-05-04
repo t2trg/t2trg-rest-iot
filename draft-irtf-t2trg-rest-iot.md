@@ -100,6 +100,12 @@ informative:
     - ins: M. Amundsen
     date: Feb 2013
     target: http://amundsen.com/media-types/collection/format/
+  BTCorev5.3:
+    author:
+    - org: Bluetooth Special Interest Group
+    title: Core Specification 5.3
+    date: 13 July 2021
+    target: https://www.bluetooth.com/specifications/specs/core-specification-4-2/
 # The below has a weird label, and is a bit of an incomplete reference.
   HCI:
     author:
@@ -133,8 +139,8 @@ Different protocols can be used with RESTful systems, but at the time of writing
 Since RESTful APIs are often lightweight and enable loose coupling of system components, they are a good fit for various Internet of Things (IoT) applications, which in general aim at interconnecting the physical world with the virtual world.
 The goal of this document is to give basic guidance for designing RESTful systems and APIs for IoT applications and give pointers for more information.
 
-Design of a good RESTful IoT system naturally has many commonalities with other Web systems.
-Compared to other systems, the key characteristics of many RESTful IoT systems include:
+Designing a good RESTful IoT system naturally has many commonalities with other Web systems.
+Compared to others, the key characteristics of many RESTful IoT systems include:
 
 * accommodating for constrained devices {{RFC7228}}, so with IoT, REST is not only used for scaling out (large number of clients on a Web server), but also for scaling down (efficient server on constrained node, e.g., in energy consumption or implementation complexity)
 * facilitating efficient transfer over (often) constrained networks and lightweight processing in constrained nodes through compact and simple data formats
@@ -155,11 +161,9 @@ Action Result:
 : A representation sent as a response by a server that does not represent resource state, but the result of the interaction with the originally addressed resource.
 
 Affordance:
-: An element of an interface offered for interaction, defining its
-  possible uses or making clear how it can or should be used.  The
-  term is used here for the digital interfaces of a Thing only; it
-  might also have physical affordances such as buttons, dials, and
-  displays.
+: An element of an interface offered for interaction, defining its possible uses or making clear how it can or should be used.
+The term is used here for the digital interfaces of a Thing only;
+the Thing might also have physical affordances such as buttons, dials, and displays.
 
 Cache:
 : A local store of response messages and the subsystem that controls storage, retrieval, and deletion of messages in it.
@@ -262,8 +266,8 @@ Resource Type:
 : An identifier that annotates the application-semantics of a resource (see {{Section 3.1 of RFC6690}}).
 
 Reverse Proxy:
-: An intermediary that appears as a server towards the client but satisfies the requests by forwarding them to the actual server (possibly via one or more other intermediaries).
-A reverse proxy is often used to encapsulate legacy services, to improve server performance through caching, and to enable load balancing across multiple machines.
+: An intermediary that appears as a server towards the client, but satisfies the requests by forwarding them toward the origin server (possibly via one or more other intermediaries).
+A reverse proxy is often used to encapsulate legacy services, to improve server performance through caching, or to enable load balancing across multiple machines.
 
 Safe Method:
 : A method that does not result in any state change on the origin server when applied to a resource.
@@ -290,74 +294,78 @@ See {{sec-uris}} for more details.
 
 ## Architecture {#sec-architecture}
 
-The components of a RESTful system are assigned one or both of two roles: client or server.
-Note that the terms "client" and "server" refer only to the roles that the nodes assume for a particular message exchange.
-The same node might act as a client in some communications and a server in others.
-Classic user agents (e.g., Web browsers) are always in the client role and have the initiative to issue requests.
+Components of a RESTful system assume one of two roles when interacting: client or server.
+Clients have the initiative to issue requests, while servers only respond to incoming requests.
+The same component might act as a client in some interactions and a server in others.
+Classic user agents (e.g., Web browsers) are always in the client role.
 Origin servers always have the server role and govern over the resources they host.
-Simple IoT devices, such as sensors and actuators, are commonly acting as servers and exposing their physical world interaction capabilities (e.g., temperature measurement or door lock control capability) as resources.
 
-Which resources exist and how they can be used is expressed by the servers in so-called affordances, which is metadata that can be included in responses (e.g., the initial response from a well-known resource) or be made available out of band (e.g., through a W3C Thing Description document {{W3C-TD}} from a directory).
-In RESTful systems, affordances are encoded as hypermedia controls.
-A hypermedia control is a link or a form: links allow to navigate between resources and forms enable clients to formulate more complex requests (e.g., to modify a resource or perform a query).
+Which resources exist and how they can be used is expressed by the server in so-called affordances.
+Affordances can be described in responses (e.g., the initial response from a well-known resource) or out of band (e.g., through a W3C Thing Description document {{W3C-TD}} from a directory).
+In RESTful systems, affordances are encoded as hypermedia controls (links and forms):
+links allow to navigate between resources and forms enable clients to formulate more complex requests (e.g., to modify a resource or perform a query).
 
+Simple IoT devices, such as sensors and actuators, are commonly acting as servers to expose their physical world interaction capabilities (e.g., temperature measurement or door lock control capability) as resources.
 A typical example of an IoT system client is a cloud service that retrieves data from the sensors and commands the actuators based on the sensor information.
 Alternatively an IoT data storage system could work as a server where IoT sensor devices send their data in client role.
 
 ~~~~~~~~~~~~~~~~~~~
- ________                       _________
-|        |                     |         |
-| User  (C)-------------------(S) Origin |
-| Agent  |                     |  Server |
-|________|                     |_________|
-(Browser)                      (Web Server)
+   ________                       _________
+  |        |                     |         |
+  | User  (C)-------------------(S) Origin |
+  | Agent  |                     |  Server |
+  |________|                     |_________|
+(Cloud Service,                 (IoT Device,
+    Sensor)                      Data Store)
 ~~~~~~~~~~~~~~~~~~~
 {: artwork-align="center" #basic-arch-x title="Client-Server Communication"}
 
-Intermediaries (such as forward proxies, reverse proxies, and gateways) implement both roles, but only forward requests to other intermediaries or origin servers.
-They can also translate requests to different protocols, for instance, as CoAP-HTTP cross-proxies {{?RFC8075}}.
+Intermediaries (such as forward proxies, reverse proxies, and gateways) implement both roles, but only forward requests to other intermediaries or origin servers (i.e., do not have initiative).
+They often provide a cache to improve the overall system performance or, in the case of IoT, shield constrained devices from too many requests.
+They can also translate requests to different RESTful protocols, for instance, as CoAP-HTTP cross-proxies {{?RFC8075}}.
 
 ~~~~~~~~~~~~~~~~~~~
- ________       __________                        _________
-|        |     |          |                      |         |
-| User  (C)---(S) Inter- (C)--------------------(S) Origin |
-| Agent  |     |  mediary |                      |  Server |
-|________|     |__________|                      |_________|
-(Browser)     (Forward Proxy)                    (Web Server)
+   ________       __________                        _________
+  |        |     |          |                      |         |
+  | User  (C)---(S) Inter- (C)--------------------(S) Origin |
+  | Agent  |     |  mediary |                      |  Server |
+  |________|     |__________|                      |_________|
+(IoT Device)     (Cross-Proxy)                    (Web Server)
 ~~~~~~~~~~~~~~~~~~~
 {: artwork-align="center" #basic-arch-a title="Communication with Forward Proxy"}
 
-Reverse proxies are usually imposed by the origin server.
-In addition to the features of a forward proxy, they can also provide an interface for non-RESTful services such as legacy systems or alternative technologies such as Bluetooth ATT/GATT.
-In this case, reverse proxies are usually called gateways.
-This property is enabled by the Layered System constraint of REST, which says that a client cannot see beyond the server it is connected to (i.e., it is left unaware of the protocol/paradigm change).
+Reverse proxies are usually imposed by the origin server to transparently implement new features such as load balancing or interfaces to non-RESTful services such as legacy systems or alternative technologies such as Bluetooth ATT/GATT {{BTCorev5.3}}.
+In the latter case, reverse proxies are usually called gateways.
+Because of the Layered System constraint of REST, which says that a client cannot see beyond the server it is connected to, the user agent is not and does not need to be aware of the changes introduced through reverse proxies.
 
 ~~~~~~~~~~~~~~~~~~~
- ________                        __________       _________
-|        |                      |          |     |         |
-| User  (C)--------------------(S) Inter- (x)---(x) Origin |
-| Agent  |                      |  mediary |     |  Server |
-|________|                      |__________|     |_________|
-(Browser)                        (Gateway)     (Legacy System)
+   ________                        __________       _________
+  |        |                      |          |     |         |
+  | User  (C)--------------------(S) Inter- (x)---(x) Origin |
+  | Agent  |                      |  mediary |     |  Server |
+  |________|                      |__________|     |_________|
+(Cloud Service)                    (Gateway)     (Legacy System)
 ~~~~~~~~~~~~~~~~~~~
 {: artwork-align="center" #basic-arch-b title="Communication with Reverse Proxy"}
 
-Nodes in IoT systems often implement both roles.
+Components in IoT systems often implement both roles.
 Unlike intermediaries, however, they can take the initiative as a client (e.g., to register with a directory, such as CoRE Resource Directory {{I-D.ietf-core-resource-directory}}, or to interact with another Thing) and act as origin server at the same time (e.g., to serve sensor values or provide an actuator interface).
 
 ~~~~~~~~~~~~~~~~~~~
  ________                                         _________
 |        |                                       |         |
 | Thing (C)-------------------------------------(S) Origin |
-|       (S)                                      |  Server |
-|________| \                                     |_________|
- (Sensor)   \   ________                     (Resource Directory)
-             \ |        |
-              (C) Thing |
-               |________|
-              (Controller)
+|       (S)                                 ___/ |  Server |
+|________| \                            ___/     |_________|
+ (Sensor)   \                       ___/    (Resource Directory)
+             \   _________      ___/              _________
+              \ |         | ___/                 |         |
+               (C) Thing (C)                     |  User   |
+                |        (S)--------------------(C) Agent  |
+                |_________|                      |_________|
+               (Controller)                 (Configuration Tool)
 ~~~~~~~~~~~~~~~~~~~
-{: artwork-align="center" #basic-arch-c title="Constrained RESTful environments"}
+{: artwork-align="center" #basic-arch-c title="Communication with Things"}
 
 ## System design
 
@@ -372,12 +380,12 @@ Overall, this allows to realize a Uniform Interface (see {{sec-uniform-interface
 
 Hypermedia controls span a kind of state machine where the nodes are resources (or action results) and the transitions are links or forms.
 Clients run this distributed state machine (i.e., the application) by retrieving representations, processing the data, and following the included links and/or submitting forms to modify remote state.
-This is usually done by retrieving the current state, modifying the state on the client side, and transferring the new state to the server in the form of new representations -- rather than calling a service and modifying the state on the server side.
+This is usually done by retrieving the current state, modifying the copy of the state on the client side, and transferring the new state to the server in the form of new representations -- rather than calling a service and modifying the state on the server side.
 
 Client state encompasses the current state of the described state machine and the possible next transitions derived from the hypermedia controls within the currently processed representation.
 Furthermore, clients can have part of the state of the distributed application in local variables.
 
-Resource state includes the more persistent data of an application (i.e., independent of individual clients).
+Resource state includes the more persistent data of an application (i.e., data that exists independent of individual clients).
 This can be static data such as device descriptions, persistent data such as system configurations, but also dynamic data such as the current value of a sensor on a Thing.
 
 In the design, it is important to distinguish between "client state" and "resource state", and keep them separate.
@@ -400,13 +408,13 @@ Uniform Resource Identifiers (URIs) are used to indicate resources for interacti
     scheme     authority       path        query   fragment
 
 A URI is a sequence of characters that matches the syntax defined in {{RFC3986}}.
-It consists of a hierarchical sequence of five components: scheme, authority, path, query, and fragment (from most significant to least significant).
+It consists of a hierarchical sequence of five components: scheme, authority, path, query, and fragement identifier (from most significant to least significant), while not all components are necessary to form a valid URI.
 A scheme creates a namespace for resources and defines how the following components identify a resource within that namespace.
 The authority identifies an entity that governs part of the namespace, such as the server "www.example.org" in the "https" scheme.
-A hostname (e.g., a fully qualified domain name) or an IP address literal, potentially followed by a transport layer port number, are usually used for the authority component.
-The path and query contain data to identify a resource within the scope of the scheme-dependent naming authority (i.e., "http://www.example.org/" is a different authority than "https://www.example.org").
-The fragment allows referring to some portion of the resource, such as a Record in a SenML Pack ({{Section 9 of RFC8428}}).
-However, fragments are processed only at client side and not sent on the wire.
+A hostname (e.g., a fully qualified domain name) or an IP address literal, optionally followed by a transport layer port number, are usually used for the authority component.
+The path and optional query contain data to identify a resource within the scope of the scheme-dependent naming authority (i.e., "http://www.example.org" is a different authority than "https://www.example.org"); if no path is given, the root resource is addressed.
+The fragement identifier allows referring to some portion of the resource, such as a Record in a SenML Pack ({{Section 9 of RFC8428}}).
+However, fragement identifiers are processed only at client side and not sent on the wire.
 {{?RFC8820}} provides more details on URI design and ownership with best current practices for establishing URI structures, conventions, and formats.
 
 For RESTful IoT applications, typical schemes include "https", "coaps", "http", and "coap".
@@ -421,11 +429,11 @@ In particular the "urn:dev" URI {{RFC9039}} details multiple ways for generating
 The query parameters can be used to parameterize the resource.
 For example, a GET request may use query parameters to request the server to send only certain kind data of the resource (i.e., filtering the response).
 Query parameters in PUT and POST requests do not have such established semantics and are not used consistently.
-Whether the order of the query parameters matters in URIs is unspecified; they can be re-ordered, for instance by proxies.
+Whether the order of the query parameters matters in URIs is up to the server implementation; they might even be re-ordered, for instance by intermediaries.
 Therefore, applications should not rely on their order; see {{Section 3.3.4 of ?RFC6943}} for more details.
 
 Due to the relatively complex processing rules and text representation format, URI handling can be difficult to implement correctly in constrained devices.
-Constrained Resource Identifiers {{!I-D.ietf-core-href}} provide a CBOR-based format of URIs that is better suited also for resource constrained IoT devices.
+Constrained Resource Identifiers {{!I-D.ietf-core-href}} provide a CBOR-based format of URIs that is better suited for resource constrained devices.
 
 ## Representations
 
@@ -434,7 +442,7 @@ Resource representations must have metadata that identifies the representation f
 This is usually a simple string such as the IANA-registered Internet Media Types.
 Typical media types for IoT systems include:
 
-* "text/plain" for simple UTF-8 text
+* "text/plain" for simple text (more precisely "text/plain;charset=UTF-8" for UTF-8 encoding)
 * "application/octet-stream" for arbitrary binary data
 * "application/json" for the JSON format {{RFC8259}}
 * "application/cbor" for CBOR {{RFC8949}}
@@ -458,10 +466,10 @@ Safe methods do not cause any state change on the origin server when applied to 
 For example, the GET method only returns a representation of the resource state but does not change the resource.
 Thus, it is always safe for a client to retrieve a representation without affecting server-side state.
 
-Idempotent methods can be applied multiple times to the same resource while causing the same visible resource state as a single such request.
+Idempotent methods can be applied multiple times to the same resource while causing the same eventual resource state as a single such request (unless something else caused the resource state to change).
 For example, the PUT method replaces the state of a resource with a new state; replacing the state multiple times with the same new state still results in the same state for the resource.
-However, the response from the server can be different when the same idempotent method is used multiple times.
-For example when DELETE is used twice on an existing resource, the first request would remove the association and return success acknowledgement whereas the second request would likely result in error response due to non-existing resource.
+However, responses from the server can be different when the same idempotent method is used multiple times.
+For example when DELETE is used twice on an existing resource, the first request would remove the association and return a success acknowledgement, whereas the second request would likely result in an error response due to non-existing resource, as neither response is a representation of the resource.
 
 The following lists the most relevant methods and gives a short explanation of their semantics.
 
@@ -521,22 +529,22 @@ The CoAP-specific iPATCH method is a variant of the PATCH method that is not saf
 
 ## HTTP/CoAP Status/Response Codes
 
-{{Section 6 of RFC7231}} defines a set of Status Codes in HTTP that are used by application to indicate whether a request was understood and satisfied, and how to interpret the answer.
+{{Section 6 of RFC7231}} defines a set of Status Codes in HTTP that are assigned by the server to indicate whether a request was understood and satisfied, and how to interpret the answer.
 Similarly, {{Section 5.9 of RFC7252}} defines the set of Response Codes in CoAP.
 
 The status codes consist of three digits (e.g., "404" with HTTP or "4.04" with CoAP) where the first digit expresses the class of the code.
 Implementations do not need to understand all status codes, but the class of the code must be understood.
-Codes starting with 1 are informational; the request was received and being processed.
+Codes starting with 1 are informational; the request was received and being processed (not available in CoAP).
 Codes starting with 2 indicate a successful request.
-Codes starting with 3 indicate redirection; further action is needed to complete the request.
+Codes starting with 3 indicate redirection; further action is needed to complete the request (not available in CoAP).
 Codes stating with 4 and 5 indicate errors.
-The codes starting with 4 mean client error (e.g., bad syntax in the request) whereas codes starting with 5 mean server error; there was no apparent problem with the request, but server was not able to fulfill the request.
+The codes starting with 4 mean client error (e.g., bad syntax in the request) whereas codes starting with 5 mean server error; there was no apparent problem with the request, but the server was not able to fulfill the request.
 
 Responses may be stored in a cache to satisfy future, equivalent requests.
 HTTP and CoAP use two different patterns to decide what responses are cacheable.
 In HTTP, the cacheability of a response depends on the request method (e.g., responses returned in reply to a GET request are cacheable).
 In CoAP, the cacheability of a response depends on the response code (e.g., responses with code 2.04 are cacheable).
-This difference also leads to slightly different semantics for the codes starting with 2; for example, CoAP does not have a 2.00 response code whereas 200 ("OK") is commonly used with HTTP.
+This difference also leads to slightly different codes starting with 2; for example, CoAP does not have a 2.00 response code whereas 200 ("OK") is commonly used with HTTP.
 
 # REST Constraints
 
@@ -556,7 +564,7 @@ The following subsections briefly summarize the REST constraints and explain how
 ## Client-Server
 
 As explained in the Architecture section, RESTful system components have clear roles in every interaction.
-Clients have the initiative to issue requests, intermediaries can only forward requests, and servers respond requests, while origin servers are the ultimate recipient of requests that intent to modify resource state.
+Clients have the initiative to issue requests, intermediaries can only forward requests, and servers respond to requests, while origin servers are the ultimate recipient of requests that intend to modify resource state.
 
 This improves simplicity and visibility (also for digital forensics), as it is clear which component started an interaction.
 Furthermore, it improves modifiability through a clear separation of concerns.
@@ -582,14 +590,14 @@ Constrained IoT devices may choose to externalize metadata and hypermedia contro
 ## Cache
 
 This constraint requires responses to have implicit or explicit cache-control metadata.
-This enables clients and intermediary to store responses and re-use them to locally answer future requests.
+This enables clients and intermediaries to store responses and re-use them to locally answer future requests.
 The cache-control metadata is necessary to decide whether the information in the cached response is still fresh or stale and needs to be discarded.
 
 A cache improves performance, as less data needs to be transferred and response times can be reduced significantly.
 Needing fewer transfers also improves scalability, as origin servers can be protected from too many requests.
 Local caches furthermore improve reliability, since requests can be answered even if the origin server is temporarily not available.
 
-Caching usually only makes sense when the data is used by multiple participants.
+Introducing additional components to perform caching only makes sense when the data is used by multiple participants (otherwise client-side caching would be enough).
 In IoT systems, however, it might make sense to cache also individual data to protect constrained devices and networks from frequent requests of data that does not change often.
 Security often hinders the ability to cache responses.
 For IoT systems, object security {{RFC8613}} may be preferable over transport layer security, as it enables intermediaries to cache responses while preserving security.
@@ -614,7 +622,7 @@ The origin server embeds controls for the interface into its representations and
 The most used control for RESTful systems today is Web Linking {{RFC8288}}.
 Hypermedia forms are more powerful controls that describe how to construct more complex requests, including representations to modify resource state.
 
-While this is the most complex constraints (in particular the hypermedia controls), it improves many key properties.
+While this is the most complex constraint (in particular the hypermedia controls), it improves many key properties.
 It improves simplicity, as uniform interfaces are easier to understand.
 The self-descriptive messages improve visibility.
 The limitation to a known set of representation formats fosters portability.
@@ -732,7 +740,7 @@ A common pattern in RESTful systems across different domains is the collection.
 A collection can be used to combine multiple resources together by providing resources that consist of set of (often partial) representations of resources, called items, and links to resources.
 The collection resource also defines hypermedia controls for managing and searching the items in the collection.
 
-Examples of the collection pattern in RESTful IoT systems are the CoRE Resource Directory {{I-D.ietf-core-resource-directory}}, CoAP pub/sub broker {{?I-D.ietf-core-coap-pubsub}}, and resource discovery via ".well-known/core".
+Examples of the collection pattern in RESTful IoT systems include the CoRE Resource Directory {{I-D.ietf-core-resource-directory}}, CoAP pub/sub broker {{?I-D.ietf-core-coap-pubsub}}, and resource discovery via ".well-known/core".
 Collection+JSON {{CollectionJSON}} is an example of a generic collection Media Type.
 
 ## Calling a Procedure
@@ -757,6 +765,7 @@ The server would respond instantly with a "Created" status (HTTP code 201 or CoA
 The created resource can be used to monitor the progress, to potentially modify queued tasks or cancel tasks, and to eventually retrieve the result.
 
 Monitoring information would be modeled as state of the task resource, and hence be retrievable as representation.
+CoAP Observe can help to be notified efficiently about completion or other changes to this information.
 The result -- when available -- can be embedded in the representation or given as a link to another sub-resource.
 Modifying tasks can be modeled with forms that either update sub-resources via PUT or do a partial write using PATCH or POST.
 Canceling a task would be modeled with a form that uses DELETE to remove the task resource.
@@ -767,7 +776,7 @@ A conversion service is a good example where REST resources need to behave more 
 The knowledge of converting from one representation to another is located only at the server to relieve clients from high processing or storing lots of data.
 There are different approaches that all depend on the particular conversion problem.
 
-As mentioned in the previous sections, POST request are a good way to model functionality that does not necessarily affect resource state.
+As mentioned in the previous sections, POST requests are a good way to model functionality that does not necessarily affect resource state.
 When the input data for the conversion is small and the conversion result is deterministic, however, it can be better to use a GET request with the input data in the URI query part.
 The query is parameterizing the conversion resource, so that it acts like a look-up table.
 The benefit is that results can be cached also for HTTP (where responses to POST are not cacheable).
@@ -778,7 +787,7 @@ A POST request is also more suitable, when the result is time-dependent and the 
 
 ### Events as State
 
-In event-centric paradigms such as pub/sub, events are usually represented by an incoming message that might even be identical for each occurrence.
+In event-centric paradigms such as Publish-Subscribe (PubSub), events are usually represented by an incoming message that might even be identical for each occurrence.
 Since the messages are queued, the receiver is aware of each occurrence of the event and can react accordingly.
 For instance, in an event-centric system, ringing a doorbell would result in a message being sent that represents the event that it was rung.
 
@@ -788,7 +797,7 @@ There are, however, a few issues with this approach.
 Polling (i.e., periodically retrieving) the doorbell resource state is not a good option, as the client is highly unlikely to be able to observe all the changes in the pressed state with any realistic polling interval.
 When using CoAP Observe with Confirmable notifications, the server will usually send two notifications for the event that the doorbell was pressed:
 notification for changing from unpressed to pressed and another one for changing back to unpressed.
-If the time between the state changes is very short, the server might drop the first notification, as Observe only guarantees eventual consistency (see {{Section 1.3 of RFC7641}}).
+If the time between the state changes is very short, the server might drop the first notification, as Observe guarantees eventual consistency only (see {{Section 1.3 of RFC7641}}).
 
 The solution is to pick a state model that fits better to the application.
 In the case of the doorbell -- and many other event-driven resources -- the solution could be a counter that counts how often the bell was pressed.
@@ -843,7 +852,7 @@ These include:
 * CoAP security: {{Section 11 of RFC7252}}
 * URI security: {{Section 7 of RFC3986}}
 
-IoT-specific security is active area of standardization at the time of writing.
+IoT-specific security is an active area of standardization at the time of writing.
 First finalized specifications include:
 
 * (D)TLS Profiles for the Internet of Things: {{RFC7925}}
