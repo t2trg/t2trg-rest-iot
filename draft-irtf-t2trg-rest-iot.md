@@ -105,7 +105,7 @@ informative:
     - org: Bluetooth Special Interest Group
     title: Core Specification 5.3
     date: 13 July 2021
-    target: https://www.bluetooth.com/specifications/specs/core-specification-4-2/
+    target: https://www.bluetooth.com/specifications/specs/core-specification-5-3/
 # The below has a weird label, and is a bit of an incomplete reference.
   HCI:
     author:
@@ -211,6 +211,9 @@ Hypermedia Control:
 Idempotent Method:
 : A method where multiple identical requests with that method lead to the same visible resource state as a single such request.
 
+Intermediary:
+: System component in both server and client role. See "Forward Proxy", "Gateway", and "Reverse Proxy".
+
 Link:
 : A hypermedia control that enables a client to navigate between resources and thereby change the client state.
 
@@ -266,7 +269,7 @@ Resource Type:
 : An identifier that annotates the application-semantics of a resource (see {{Section 3.1 of RFC6690}}).
 
 Reverse Proxy:
-: An intermediary that appears as a server towards the client, but satisfies the requests by forwarding them toward the origin server (possibly via one or more other intermediaries).
+: An intermediary that appears as a server towards the client, but satisfies the requests by making its own request toward the origin server (possibly via one or more other intermediaries) and replying accordingly.
 A reverse proxy is often used to encapsulate legacy services, to improve server performance through caching, or to enable load balancing across multiple machines.
 
 Safe Method:
@@ -298,6 +301,7 @@ Components of a RESTful system assume one of two roles when interacting: client 
 Clients have the initiative to issue requests, while servers only respond to incoming requests.
 The same component might act as a client in some interactions and a server in others.
 Classic user agents (e.g., Web browsers) are always in the client role.
+Intermediaries have both roles, as they receive requests in server role and satisfy them by issuing their own requests in client role.
 Origin servers always have the server role and govern over the resources they host.
 
 Which resources exist and how they can be used is expressed by the server in so-called affordances.
@@ -349,7 +353,7 @@ Because of the Layered System constraint of REST, which says that a client canno
 {: artwork-align="center" #basic-arch-b title="Communication with Reverse Proxy"}
 
 Components in IoT systems often implement both roles.
-Unlike intermediaries, however, they can take the initiative as a client (e.g., to register with a directory, such as CoRE Resource Directory {{I-D.ietf-core-resource-directory}}, or to interact with another Thing) and act as origin server at the same time (e.g., to serve sensor values or provide an actuator interface).
+Unlike intermediaries, however, they can take the initiative as a client (e.g., to register with a directory, such as CoRE Resource Directory {{I-D.ietf-core-resource-directory}}, or to interact with another IoT device) and act as origin server at the same time (e.g., to serve sensor values or provide an actuator interface).
 
 ~~~~~~~~~~~~~~~~~~~
  ________                                         _________
