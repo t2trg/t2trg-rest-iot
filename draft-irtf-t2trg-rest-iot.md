@@ -319,8 +319,8 @@ Alternatively an IoT data storage system could work as a server where IoT sensor
   | User  (C)-------------------(S) Origin |
   | Agent  |                     |  Server |
   |________|                     |_________|
-(Cloud Service,                 (IoT Device,
-    Sensor)                      Data Store)
+(e.g., Sensor,                (e.g., Data Store,
+Cloud Service)                   IoT Device)
 ~~~~~~~~~~~~~~~~~~~
 {: artwork-align="center" #basic-arch-x title="Client-Server Communication"}
 
@@ -329,12 +329,12 @@ They often provide a cache to improve the overall system performance or, in the 
 They can also translate requests to different RESTful protocols, for instance, as CoAP-HTTP cross-proxies {{?RFC8075}}.
 
 ~~~~~~~~~~~~~~~~~~~
-   ________       __________                        _________
-  |        |     |          |                      |         |
-  | User  (C)---(S) Inter- (C)--------------------(S) Origin |
-  | Agent  |     |  mediary |                      |  Server |
-  |________|     |__________|                      |_________|
-(IoT Device)     (Cross-Proxy)                    (Web Server)
+       ________        __________                        _________
+      |        |      |          |                      |         |
+      | User  (C)---(S) Inter- (C)---------------------(S) Origin |
+      | Agent  |      |  mediary |                      |  Server |
+      |________|      |__________|                      |_________|
+(e.g., IoT Device) (e.g., Cross-Proxy)               (e.g., Web Server)
 ~~~~~~~~~~~~~~~~~~~
 {: artwork-align="center" #basic-arch-a title="Communication with Forward Proxy"}
 
@@ -343,12 +343,12 @@ In the latter case, reverse proxies are usually called gateways.
 Because of the Layered System constraint of REST, which says that a client cannot see beyond the server it is connected to, the user agent is not and does not need to be aware of the changes introduced through reverse proxies.
 
 ~~~~~~~~~~~~~~~~~~~
-   ________                        __________       _________
-  |        |                      |          |     |         |
-  | User  (C)--------------------(S) Inter- (x)---(x) Origin |
-  | Agent  |                      |  mediary |     |  Server |
-  |________|                      |__________|     |_________|
-(Cloud Service)                    (Gateway)     (Legacy System)
+      ________                        __________       _________
+     |        |                      |          |     |         |
+     | User  (C)--------------------(S) Inter- (x)---(x) Origin |
+     | Agent  |                      |  mediary |     |  Server |
+     |________|                      |__________|     |_________|
+(e.g., Cloud Service)              (e.g., Gateway)   (e.g., Legacy System)
 ~~~~~~~~~~~~~~~~~~~
 {: artwork-align="center" #basic-arch-b title="Communication with Reverse Proxy"}
 
@@ -361,13 +361,13 @@ Unlike intermediaries, however, they can take the initiative as a client (e.g., 
 | Thing (C)-------------------------------------(S) Origin |
 |       (S)                                 ___/ |  Server |
 |________| \                            ___/     |_________|
- (Sensor)   \                       ___/    (Resource Directory)
-             \   _________      ___/              _________
+ (e.g.,     \                       ___/   (e.g., Resource Directory)
+  Sensor)    \   _________      ___/              _________
               \ |         | ___/                 |         |
                (C) Thing (C)                     |  User   |
                 |        (S)--------------------(C) Agent  |
                 |_________|                      |_________|
-               (Controller)                 (Configuration Tool)
+             (e.g., Controller)            (e.g., Configuration Tool)
 ~~~~~~~~~~~~~~~~~~~
 {: artwork-align="center" #basic-arch-c title="Communication with Things"}
 
