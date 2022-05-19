@@ -791,7 +791,7 @@ A POST request is also more suitable, when the result is time-dependent and the 
 
 ### Events as State
 
-In event-centric paradigms such as Publish-Subscribe (PubSub), events are usually represented by an incoming message that might even be identical for each occurrence.
+In event-centric paradigms such as Publish-Subscribe (pub/sub), events are usually represented by an incoming message that might even be identical for each occurrence.
 Since the messages are queued, the receiver is aware of each occurrence of the event and can react accordingly.
 For instance, in an event-centric system, ringing a doorbell would result in a message being sent that represents the event that it was rung.
 
