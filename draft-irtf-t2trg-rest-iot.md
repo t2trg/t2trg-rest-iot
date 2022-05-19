@@ -309,7 +309,7 @@ Affordances can be described in responses (e.g., the initial response from a wel
 In RESTful systems, affordances are encoded as hypermedia controls (links and forms):
 links allow to navigate between resources and forms enable clients to formulate more complex requests (e.g., to modify a resource or perform a query).
 
-Simple IoT devices, such as sensors and actuators, are commonly acting as servers to expose their physical world interaction capabilities (e.g., temperature measurement or door lock control capability) as resources.
+Simple IoT devices, such as connected sensors and actuators, are commonly acting as servers to expose their physical world interaction capabilities (e.g., temperature measurement or door lock control capability) as resources.
 A typical example of an IoT system client is a cloud service that retrieves data from the sensors and commands the actuators based on the sensor information.
 Alternatively an IoT data storage system could work as a server where IoT sensor devices send their data in client role.
 
