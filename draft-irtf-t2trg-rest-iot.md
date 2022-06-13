@@ -422,7 +422,7 @@ However, fragement identifiers are processed only at client side and not sent on
 
 For RESTful IoT applications, typical schemes include "https", "coaps", "http", and "coap".
 These refer to HTTP and CoAP, with and without Transport Layer Security (TLS, {{RFC5246}} for TLS 1.2 and {{RFC8446}} for TLS 1.3).
-(CoAP uses Datagram TLS (DTLS) {{RFC6347}}, the variant of TLS for UDP.)
+(CoAP uses Datagram TLS (DTLS) {{RFC6347}}{{!RFC9147}}, the variant of TLS for UDP.)
 These four schemes also provide means for locating the resource; using the protocols HTTP for "http" and "https" and CoAP for "coap" and "coaps".
 If the scheme is different for two URIs (e.g., "coap" vs. "coaps"), it is important to note that even if the remainder of the URI is identical, these are two different resources, in two distinct namespaces.
 
