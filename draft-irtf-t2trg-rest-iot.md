@@ -304,16 +304,8 @@ See {{sec-uris}} for more details.
 ## Architecture {#sec-architecture}
 
 Components of a RESTful system assume one of two roles when interacting: client or server.
-Clients have the initiative to issue requests, while servers only respond to incoming requests.
-The same component might act as a client in some interactions and a server in others.
-Classic user agents (e.g., Web browsers) are always in the client role.
-Intermediaries have both roles, as they receive requests in server role and satisfy them by issuing their own requests in client role.
-Origin servers always have the server role and govern over the resources they host.
-
-Which resources exist and how they can be used is expressed by the server in so-called affordances.
-Affordances can be described in responses (e.g., the initial response from a well-known resource) or out of band (e.g., through a W3C Thing Description document {{W3C-TD}} from a directory).
-In RESTful systems, affordances are encoded as hypermedia controls (links and forms):
-links allow to navigate between resources and forms enable clients to formulate more complex requests (e.g., to modify a resource or perform a query).
+Classic user agents (e.g., Web browsers) are always in the client role and have the initiative to interact with other components.
+Origin servers govern over the resources they host and always have the server role, in which they wait for requests.
 
 Simple IoT devices, such as connected sensors and actuators, are commonly acting as servers to expose their physical world interaction capabilities (e.g., temperature measurement or door lock control capability) as resources.
 A typical example of an IoT system client is a cloud service that retrieves data from the sensors and commands the actuators based on the sensor information.
@@ -330,21 +322,25 @@ Cloud Service)                   IoT Device)
 ~~~~~~~~~~~~~~~~~~~
 {: artwork-align="center" #basic-arch-x title="Client-Server Communication"}
 
-Intermediaries (such as forward proxies, reverse proxies, and gateways) implement both roles, but only forward requests to other intermediaries or origin servers (i.e., do not have initiative).
+Intermediaries implement both roles, as they receive requests in server role and satisfy them by issuing their own requests in client role.
+They do not, however, have initiative to issue requests on their own.
 They often provide a cache to improve the overall system performance or, in the case of IoT, shield constrained devices from too many requests.
 They can also translate requests to different RESTful protocols, for instance, as CoAP-HTTP cross-proxies {{?RFC8075}}.
 
+A forward proxy is an intermediary seleceted by the user agent because of local application or system configuration.
+It then forwards the request on behalf of the user agent, for instance, when the user agent is restricted by firewall rules or otherwise lacks the capability itself (e.g., a CoAP device contacting an HTTP origin server).
+
 ~~~~~~~~~~~~~~~~~~~
-       ________        __________                        _________
-      |        |      |          |                      |         |
-      | User  (C)---(S) Inter- (C)---------------------(S) Origin |
-      | Agent  |      |  mediary |                      |  Server |
-      |________|      |__________|                      |_________|
+       ________       __________                        _________
+      |        |     |          |                      |         |
+      | User  (C)---(S) Inter- (C)--------------------(S) Origin |
+      | Agent  |     |  mediary |                      |  Server |
+      |________|     |__________|                      |_________|
 (e.g., IoT Device) (e.g., Cross-Proxy)               (e.g., Web Server)
 ~~~~~~~~~~~~~~~~~~~
 {: artwork-align="center" #basic-arch-a title="Communication with Forward Proxy"}
 
-Reverse proxies are usually imposed by the origin server to transparently implement new features such as load balancing or interfaces to non-RESTful services such as legacy systems or alternative technologies such as Bluetooth ATT/GATT {{BTCorev5.3}}.
+A reverse proxy is usually imposed by the origin server to transparently implement new features such as load balancing or interfaces to non-RESTful services such as legacy systems or alternative technologies such as Bluetooth ATT/GATT {{BTCorev5.3}}.
 In the latter case, reverse proxies are usually called gateways.
 Because of the Layered System constraint of REST, which says that a client cannot see beyond the server it is connected to, the user agent is not and does not need to be aware of the changes introduced through reverse proxies.
 
@@ -382,14 +378,17 @@ Unlike intermediaries, however, they can take the initiative as a client (e.g., 
 When designing a RESTful system, the primary effort goes into modeling the application as distributed state and assigning it to the different components (i.e., clients and servers).
 The secondary effort is then selecting or designing the necessary representation formats to exchange information and enable interaction between the components through resources.
 
-How clients can navigate through the resource space and modify state to achieve their goals is encoded in hypermedia controls, that is, links and forms within the representations.
-The concept behind hypermedia controls is to provide machine-understandable "affordances" {{HCI}}, which refer to the perceived and actual properties of a Thing and determine how it could possibly be used.
+Which resources exist and how they can be used is expressed by the server in so-called affordances, a concept adopted in the field of human-computer interaction {{HCI}}.
+Affordances can be described in responses (e.g., the initial response from a well-known resource) or out of band (e.g., through a W3C Thing Description document {{W3C-TD}} from a directory).
+In RESTful systems, affordances are encoded as hypermedia controls (links and forms):
+links allow to navigate between resources and forms enable clients to formulate more complex requests (e.g., to modify a resource or perform a query).
+
 A physical door may have a door knob as affordance, indicating that the door can be opened by twisting the knob; a keyhole may indicate that it can be locked.
 For Things in the IoT, these affordances may be serialized as two hypermedia forms, which include semantic identifiers from a controlled vocabulary (e.g., schema.org) and the instructions on how to formulate the requests for opening and locking, respectively.
 Overall, this allows to realize a Uniform Interface (see {{sec-uniform-interface}}), which enables loose coupling between clients and servers.
 
-Hypermedia controls span a kind of state machine where the nodes are resources (or action results) and the transitions are links or forms.
-Clients run this distributed state machine (i.e., the application) by retrieving representations, processing the data, and following the included links and/or submitting forms to modify remote state.
+Hypermedia controls span a kind of state machine, where the nodes are resources or action results and the transitions are links or forms.
+Clients run this distributed state machine (i.e., the application) by retrieving representations, processing the data, and following the included links and/or submitting forms to trigger the corresponding transition.
 This is usually done by retrieving the current state, modifying the copy of the state on the client side, and transferring the new state to the server in the form of new representations -- rather than calling a service and modifying the state on the server side.
 
 Client state encompasses the current state of the described state machine and the possible next transitions derived from the hypermedia controls within the currently processed representation.
