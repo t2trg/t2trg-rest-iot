@@ -112,7 +112,12 @@ informative:
     title: Core Specification 5.3
     date: 13 July 2021
     target: https://www.bluetooth.com/specifications/specs/core-specification-5-3/
-# The below has a weird label, and is a bit of an incomplete reference.
+  POLYFILLS:
+    author:
+    - org: W3C Technical Architecture Group (TAG)
+    title: Polyfills and the evolution of the Web
+    date: 07 February 2017
+    target: https://www.w3.org/2001/tag/doc/polyfills/
   HCI:
     author:
     - org: Interaction Design Foundation
@@ -671,7 +676,7 @@ It also improves performance, as the server can provide code for local pre-proce
 As of today, code-on-demand has not been explored much in IoT systems.
 Aspects to consider are that either one or both nodes are constrained and might not have the resources to host or dynamically fetch and execute such code.
 Moreover, the origin server often has no understanding of the actual application a mashup client realizes.
-Still, code-on-demand can be useful for small polyfills, e.g., to decode payloads, and potentially other features in the future.
+Still, code-on-demand can be useful for small polyfills {{POLYFILLS}}, e.g., to decode payloads, and potentially other features in the future.
 
 # Hypermedia-driven Applications
 
