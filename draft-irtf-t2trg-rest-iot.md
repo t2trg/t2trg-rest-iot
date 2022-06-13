@@ -373,7 +373,7 @@ Unlike intermediaries, however, they can take the initiative as a client (e.g., 
 ~~~~~~~~~~~~~~~~~~~
 {: artwork-align="center" #basic-arch-c title="Communication with Things"}
 
-## System design
+## System Design
 
 When designing a RESTful system, the primary effort goes into modeling the application as distributed state and assigning it to the different components (i.e., clients and servers).
 The secondary effort is then selecting or designing the necessary representation formats to exchange information and enable interaction between the components through resources.
