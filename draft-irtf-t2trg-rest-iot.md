@@ -67,6 +67,12 @@ normative:
   RFC8613:
   W3C.REC-html5-20141028:
 informative:
+  HATEOAS:
+    title: REST APIs must be hypertext-driven
+    author:
+    - ins: R. Fielding
+    date: 20 October 2008
+    target: https://roy.gbiv.com/untangled/2008/rest-apis-must-be-hypertext-driven
   RFC5789:
   RFC8132:
   RFC6763:
@@ -625,7 +631,7 @@ A REST interface is fully defined by:
 * self-descriptive messages with a standard set of methods (e.g., GET, POST, PUT, DELETE with their guaranteed properties)
 * hypermedia controls within representations
 
-The concept of hypermedia controls is also known as HATEOAS: Hypermedia As The Engine Of Application State.
+The concept of hypermedia controls is also known as HATEOAS: Hypermedia As The Engine Of Application State {{HATEOAS}}.
 The origin server embeds controls for the interface into its representations and thereby informs the client about possible next requests.
 The most used control for RESTful systems today is Web Linking {{RFC8288}}.
 Hypermedia forms are more powerful controls that describe how to construct more complex requests, including representations to modify resource state.
