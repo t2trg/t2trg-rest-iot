@@ -654,11 +654,12 @@ Another approach is to combine a generic format such as JSON with syntactic as w
 
 This constraint enforces that a client cannot see beyond the server with which it is interacting.
 
-A layered system is easier to modify, as topology changes become transparent.
-Furthermore, this helps scalability, as intermediaries such as load balancers can be introduced without changing the client side.
-The clean separation of concerns helps with simplicity.
+A layered system is easier to modify, as topology changes become transparent (i.e., remain unnoticed by previous layers).
+This in turn helps scalability, as reverse proxies such as load balancers can be introduced without changing the client side.
+The clean separation of concerns in layers helps with simplicity.
 
-IoT systems greatly benefit from this constraint, as it allows to effectively shield constrained devices behind intermediaries and is also the basis for gateways, which are used to integrate other (IoT) ecosystems.
+IoT systems greatly benefit from this constraint, as it allows to effectively shield constrained devices behind intermediaries.
+It is also the basis for gateways, which are used to integrate other (IoT) ecosystems.
 
 ## Code-on-Demand
 
