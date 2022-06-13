@@ -81,6 +81,7 @@ informative:
   RFC7925:
   RFC8428:
   RFC8259:
+  I-D.bormann-t2trg-stp:
   I-D.handrews-json-schema-validation:
   I-D.hartke-core-apps:
   W3C-TD:
@@ -829,11 +830,11 @@ The CoAP Observe mechanism offers eventual consistency, which guarantees "that i
 It intrinsically deals with the challenges of lossy networks, where notifications might be lost, and constrained networks, where there might not be enough bandwidth to propagate all changes.
 
 For stand-alone event notifications, that is, where every single notification contains an identifiable event that must not be lost, observing resources is not a good fit.
-A better strategy is to model each event as a new resource, whose existence is notified through change-of-state notifications of an index resource (cf. Collection pattern).
+A better strategy is to model each event as a new resource, whose existence is notified through change-of-state notifications of an index resource {{I-D.bormann-t2trg-stp}}.
 Large numbers of events will cause the notification to grow large, as it needs to contain a large number of Web links.
-Block-wise transfers {{RFC7959}} can help here.
-When the links are ordered by freshness of the events, the first block can already contain all links to new events.
-Then, observers do not need to retrieve the remaining blocks from the server, but only the representations of the new event resources.
+Block-wise transfers {{RFC7959}} or pagenation can help here.
+When the links are ordered by freshness of the events, the first block or page can already contain all links to new events.
+Then, observers do not need to retrieve the remaining blocks or pages from the server, but only the representations of the new event resources.
 
 An alternative pattern is to exploit the dual roles of IoT devices, in particular when using CoAP: they are usually client and server at the same time.
 An endpoint interested in observing the events would subscribe to them by registering a callback URI at the origin server, e.g., using a POST request with the URI or a hypermedia document in the payload, and receiving the location of a temporary "subscription resource" as handle in the response.
