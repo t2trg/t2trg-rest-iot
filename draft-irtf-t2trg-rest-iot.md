@@ -51,7 +51,7 @@ normative:
     date: 2000
     seriesinfo: Ph.D. Dissertation, University of California, Irvine
   RFC6347:
-  I-D.ietf-core-resource-directory:
+  RFC9176:
   RFC9039:
   RFC8949:
   W3C.REC-exi-20110310:
@@ -352,7 +352,7 @@ Because of the Layered System constraint of REST, which says that a client canno
 {: artwork-align="center" #basic-arch-b title="Communication with Reverse Proxy"}
 
 Components in IoT systems often implement both roles.
-Unlike intermediaries, however, they can take the initiative as a client (e.g., to register with a directory, such as CoRE Resource Directory {{I-D.ietf-core-resource-directory}}, or to interact with another IoT device) and act as origin server at the same time (e.g., to serve sensor values or provide an actuator interface).
+Unlike intermediaries, however, they can take the initiative as a client (e.g., to register with a directory, such as CoRE Resource Directory {{RFC9176}}, or to interact with another IoT device) and act as origin server at the same time (e.g., to serve sensor values or provide an actuator interface).
 
 ~~~~~~~~~~~~~~~~~~~
  ________                                         _________
@@ -713,7 +713,7 @@ The knowledge about these identifiers as well as matching implementations have t
 A client begins interacting with an application through a GET request on an entry point URI.
 The entry point URI is the only URI a client is expected to know before interacting with an application.
 From there, the client is expected to make all requests by following links and submitting forms that are provided in previous responses.
-The entry point URI can be obtained, for example, by manual configuration or some discovery process (e.g., DNS-SD {{RFC6763}} or Resource Directory {{I-D.ietf-core-resource-directory}}).
+The entry point URI can be obtained, for example, by manual configuration or some discovery process (e.g., DNS-SD {{RFC6763}} or Resource Directory {{RFC9176}}).
 For Constrained RESTful environments "/.well-known/core", a relative URI is defined as a default entry point for requesting the links hosted by servers with known or discovered addresses {{RFC6690}}.
 
 ## Hypermedia-driven Design Guidance
@@ -743,7 +743,7 @@ A common pattern in RESTful systems across different domains is the collection.
 A collection can be used to combine multiple resources together by providing resources that consist of set of (often partial) representations of resources, called items, and links to resources.
 The collection resource also defines hypermedia controls for managing and searching the items in the collection.
 
-Examples of the collection pattern in RESTful IoT systems include the CoRE Resource Directory {{I-D.ietf-core-resource-directory}}, CoAP pub/sub broker {{?I-D.ietf-core-coap-pubsub}}, and resource discovery via ".well-known/core".
+Examples of the collection pattern in RESTful IoT systems include the CoRE Resource Directory {{RFC9176}}, CoAP pub/sub broker {{?I-D.ietf-core-coap-pubsub}}, and resource discovery via ".well-known/core".
 Collection+JSON {{CollectionJSON}} is an example of a generic collection Media Type.
 
 ## Calling a Procedure
