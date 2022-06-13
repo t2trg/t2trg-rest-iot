@@ -608,10 +608,15 @@ For IoT systems, object security {{RFC8613}} may be preferable over transport la
 ## Uniform Interface {#sec-uniform-interface}
 
 All RESTful APIs use the same, uniform interface independent of the application.
-This simple interaction model is enabled by exchanging representations and modifying state locally, which simplifies the interface between clients and servers to a small set of methods to retrieve, update, and delete state -- which applies to all applications.
+This simple interaction model is enabled by exchanging representations and modifying state locally, which simplifies the interface between clients and servers to a small set of methods to retrieve, update, and delete state.
+This small set can apply to many different applications.
 
-In contrast, in a service-oriented RPC approach, all required ways to modify state need to be modeled explicitly in the interface resulting in a large set of methods -- which differs from application to application.
-Moreover, it is also likely that different parties come up with different ways how to modify state, including the naming of the procedures, while the state within an application is a bit easier to agree on.
+In contrast, in a service-oriented RPC approach, state is modified remotely, directly by the server, and only the instruction what to modify is exchanged.
+Also retrieving state for local use is usually solved through specific instructions depending on the individual information.
+This requires to model all the necessary instructions beforehand and assign them to named procedures.
+This results in a application-specific interface with a large set of methods/procedures.
+Moreover, it is also likely that different parties come up with different ways how to modify state, including the naming of the procedures.
+Hence, even very similar applications are likely not interoperable.
 
 A REST interface is fully defined by:
 
