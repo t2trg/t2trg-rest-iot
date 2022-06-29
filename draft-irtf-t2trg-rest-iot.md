@@ -483,7 +483,7 @@ Thus, it is always safe for a client to retrieve a representation without affect
 Idempotent methods can be applied multiple times to the same resource while causing the same eventual resource state as a single such request (unless something else caused the resource state to change).
 For example, the PUT method replaces the state of a resource with a new state; replacing the state multiple times with the same new state still results in the same state for the resource.
 However, responses from the server can be different when the same idempotent method is used multiple times.
-For example when DELETE is used twice on an existing resource, the first request would remove the association and return a success acknowledgement, whereas the second request would likely result in an error response due to non-existing resource, as neither response is a representation of the resource.
+For example when DELETE is used twice on an existing resource, the first request would remove the association and return a success acknowledgement, whereas the second request would likely result in an error response due to non-existing resource (note that neither response is a representation of the resource).
 
 The following lists the most relevant methods and gives a short explanation of their semantics.
 
