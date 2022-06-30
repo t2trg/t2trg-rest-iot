@@ -332,7 +332,7 @@ They do not, however, have initiative to issue requests on their own.
 They often provide a cache to improve the overall system performance or, in the case of IoT, shield constrained devices from too many requests.
 They can also translate requests to different RESTful protocols, for instance, as CoAP-HTTP cross-proxies {{?RFC8075}}.
 
-A forward proxy is an intermediary seleceted by the user agent because of local application or system configuration.
+A forward proxy is an intermediary selected by the user agent because of local application or system configuration.
 It then forwards the request on behalf of the user agent, for instance, when the user agent is restricted by firewall rules or otherwise lacks the capability itself (e.g., a CoAP device contacting an HTTP origin server).
 
 ~~~~~~~~~~~~~~~~~~~
@@ -422,13 +422,13 @@ Uniform Resource Identifiers (URIs) are used to indicate resources for interacti
     scheme     authority       path        query   fragment
 
 A URI is a sequence of characters that matches the syntax defined in {{RFC3986}}.
-It consists of a hierarchical sequence of five components: scheme, authority, path, query, and fragement identifier (from most significant to least significant), while not all components are necessary to form a valid URI.
+It consists of a hierarchical sequence of five components: scheme, authority, path, query, and fragment identifier (from most significant to least significant), while not all components are necessary to form a valid URI.
 A scheme creates a namespace for resources and defines how the following components identify a resource within that namespace.
 The authority identifies an entity that governs part of the namespace, such as the server "www.example.org" in the "https" scheme.
 A hostname (e.g., a fully qualified domain name) or an IP address literal, optionally followed by a transport layer port number, are usually used for the authority component.
 The path and optional query contain data to identify a resource within the scope of the scheme-dependent naming authority (i.e., "http://www.example.org" is a different authority than "https://www.example.org"); if no path is given, the root resource is addressed.
-The fragement identifier allows referring to some portion of the resource, such as a Record in a SenML Pack ({{Section 9 of RFC8428}}).
-However, fragement identifiers are processed only at client side and not sent on the wire.
+The fragment identifier allows referring to some portion of the resource, such as a Record in a SenML Pack ({{Section 9 of RFC8428}}).
+However, fragment identifiers are processed only at client side and not sent on the wire.
 {{?RFC8820}} provides more details on URI design and ownership with best current practices for establishing URI structures, conventions, and formats.
 
 For RESTful IoT applications, typical schemes include "https", "coaps", "http", and "coap".
@@ -837,7 +837,7 @@ It intrinsically deals with the challenges of lossy networks, where notification
 For stand-alone event notifications, that is, where every single notification contains an identifiable event that must not be lost, observing resources is not a good fit.
 A better strategy is to model each event as a new resource, whose existence is notified through change-of-state notifications of an index resource {{I-D.bormann-t2trg-stp}}.
 Large numbers of events will cause the notification to grow large, as it needs to contain a large number of Web links.
-Block-wise transfers {{RFC7959}} or pagenation can help here.
+Block-wise transfers {{RFC7959}} or pagination can help here.
 When the links are ordered by freshness of the events, the first block or page can already contain all links to new events.
 Then, observers do not need to retrieve the remaining blocks or pages from the server, but only the representations of the new event resources.
 
