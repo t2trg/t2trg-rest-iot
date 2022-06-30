@@ -18,8 +18,8 @@ abbrev: RESTful Design for IoT Systems
 area: T2TRG
 author:
 
-- ins: A. Keranen
-  name: Ari Keranen
+- ins: A. Keränen
+  name: Ari Keränen
   org: Ericsson
   street: ''
   city: Jorvas
