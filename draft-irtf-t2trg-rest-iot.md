@@ -42,8 +42,8 @@ author:
 
 normative:
   RFC3986:
-  RFC7230:
-  RFC7231:
+  RFC9110:
+  RFC9112:
   REST:
     title: Architectural Styles and the Design of Network-based Software Architectures
     author:
@@ -60,6 +60,7 @@ normative:
   RFC6347:
   RFC8288:
   RFC6690:
+  RFC7252:
   RFC7641:
   RFC7959:
   RFC6202:
@@ -77,7 +78,6 @@ informative:
   RFC8132:
   RFC6763:
   RFC7228:
-  RFC7252:
   RFC7925:
   RFC8428:
   RFC8259:
@@ -146,7 +146,7 @@ The Representational State Transfer (REST) architectural style {{REST}} is a set
 At its core is a set of constraints, which when fulfilled enable desirable properties for distributed software systems such as scalability and modifiability.
 When REST principles are applied to the design of a system, the result is often called RESTful and in particular an API following these principles is called a RESTful API.
 
-Different protocols can be used with RESTful systems, but at the time of writing the most common protocols are HTTP {{RFC7230}} and CoAP {{RFC7252}}.
+Different protocols can be used with RESTful systems, but at the time of writing the most common protocols are HTTP {{RFC9110}} and CoAP {{RFC7252}}.
 Since RESTful APIs are often lightweight and enable loose coupling of system components, they are a good fit for various Internet of Things (IoT) applications, which in general aim at interconnecting the physical world with the virtual world.
 The goal of this document is to give basic guidance for designing RESTful systems and APIs for IoT applications and give pointers for more information.
 
@@ -472,7 +472,7 @@ The differences between these terms are discussed in more detail in {{Section 2 
 
 ## HTTP/CoAP Methods {#sec-methods}
 
-{{Section 4.3 of RFC7231}} defines the set of methods in HTTP;
+{{Section 9.3 of RFC9110}} defines the set of methods in HTTP;
 {{Section 5.8 of RFC7252}} defines the set of methods in CoAP.
 As part of the Uniform Interface constraint, each method can have certain properties that give guarantees to clients.
 
@@ -543,11 +543,11 @@ The CoAP-specific iPATCH method is a variant of the PATCH method that is not saf
 
 ## HTTP/CoAP Status/Response Codes
 
-{{Section 6 of RFC7231}} defines a set of Status Codes in HTTP that are assigned by the server to indicate whether a request was understood and satisfied, and how to interpret the answer.
+{{Section 15 of RFC9110}} defines a set of Status Codes in HTTP that are assigned by the server to indicate whether a request was understood and satisfied, and how to interpret the answer.
 Similarly, {{Section 5.9 of RFC7252}} defines the set of Response Codes in CoAP.
 
-The status codes consist of three digits (e.g., "404" with HTTP or "4.04" with CoAP) where the first digit expresses the class of the code.
-Implementations do not need to understand all status codes, but the class of the code must be understood.
+The codes consist of three digits (e.g., "404" with HTTP or "4.04" with CoAP) where the first digit expresses the class of the code.
+Implementations do not need to understand all codes, but the class of the code must be understood.
 Codes starting with 1 are informational; the request was received and being processed (not available in CoAP).
 Codes starting with 2 indicate a successful request.
 Codes starting with 3 indicate redirection; further action is needed to complete the request (not available in CoAP).
@@ -868,7 +868,7 @@ These include:
 
 * Transport Layer Security (TLS): {{RFC8446}}, {{RFC5246}}, and {{RFC6347}}
 * Internet X.509 Public Key Infrastructure: {{RFC5280}}
-* HTTP security: {{Section 9 of RFC7230}}, {{Section 9 of RFC7231}}, etc.
+* HTTP security: {{Section 11 of RFC9112}}, {{Section 17 of RFC9110}}, etc.
 * CoAP security: {{Section 11 of RFC7252}}
 * URI security: {{Section 7 of RFC3986}}
 
