@@ -546,8 +546,8 @@ The CoAP-specific iPATCH method is a variant of the PATCH method that is not saf
 {{Section 15 of RFC9110}} defines a set of Status Codes in HTTP that are assigned by the server to indicate whether a request was understood and satisfied, and how to interpret the answer.
 Similarly, {{Section 5.9 of RFC7252}} defines the set of Response Codes in CoAP.
 
-The status codes consist of three digits (e.g., "404" with HTTP or "4.04" with CoAP) where the first digit expresses the class of the code.
-Implementations do not need to understand all status codes, but the class of the code must be understood.
+The codes consist of three digits (e.g., "404" with HTTP or "4.04" with CoAP) where the first digit expresses the class of the code.
+Implementations do not need to understand all codes, but the class of the code must be understood.
 Codes starting with 1 are informational; the request was received and being processed (not available in CoAP).
 Codes starting with 2 indicate a successful request.
 Codes starting with 3 indicate redirection; further action is needed to complete the request (not available in CoAP).
