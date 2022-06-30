@@ -42,8 +42,8 @@ author:
 
 normative:
   RFC3986:
-  RFC7230:
   RFC9110:
+  RFC9112:
   REST:
     title: Architectural Styles and the Design of Network-based Software Architectures
     author:
@@ -868,7 +868,7 @@ These include:
 
 * Transport Layer Security (TLS): {{RFC8446}}, {{RFC5246}}, and {{RFC6347}}
 * Internet X.509 Public Key Infrastructure: {{RFC5280}}
-* HTTP security: {{Section 9 of RFC7230}}, {{Section 17 of RFC9110}}, etc.
+* HTTP security: {{Section 11 of RFC9112}}, {{Section 17 of RFC9110}}, etc.
 * CoAP security: {{Section 11 of RFC7252}}
 * URI security: {{Section 7 of RFC3986}}
 
