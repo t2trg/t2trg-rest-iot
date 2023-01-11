@@ -880,8 +880,8 @@ First finalized specifications include:
 * CBOR Web Token {{?RFC8392}}
 * Proof-of-Possession Key Semantics for CBOR Web Tokens (CWTs) {{?RFC8747}}
 * Object Security for Constrained RESTful Environments (OSCORE) {{RFC8613}}
-* Authentication and Authorization for Constrained Environments (ACE) using the OAuth 2.0 Framework {{?I-D.ietf-ace-oauth-authz}}
-* ACE profiles for DTLS {{?I-D.ietf-ace-dtls-authorize}} and OSCORE {{?I-D.ietf-ace-oscore-profile}}
+* Authentication and Authorization for Constrained Environments (ACE) using the OAuth 2.0 Framework {{?RFC9200}}
+* ACE profiles for DTLS {{?RFC9202}} and OSCORE {{?RFC9203}}
 
 Further IoT security considerations are available in {{?RFC8576}}.
 
