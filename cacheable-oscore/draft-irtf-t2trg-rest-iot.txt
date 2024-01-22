@@ -5,9 +5,9 @@
 Network Working Group                                         A. Keränen
 Internet-Draft                                                  Ericsson
 Intended status: Informational                               M. Kovatsch
-Expires: 26 January 2024                                         Siemens
+Expires: 25 July 2024                                            Siemens
                                                                K. Hartke
-                                                            25 July 2023
+                                                         22 January 2024
 
 
        Guidance on RESTful Design for Internet of Things Systems
@@ -50,11 +50,11 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 26 January 2024.
+   This Internet-Draft will expire on 25 July 2024.
 
 Copyright Notice
 
-   Copyright (c) 2023 IETF Trust and the persons identified as the
+   Copyright (c) 2024 IETF Trust and the persons identified as the
    document authors.  All rights reserved.
 
    This document is subject to BCP 78 and the IETF Trust's Legal
@@ -846,7 +846,8 @@ Table of Contents
    often.  Security often hinders the ability to cache responses.  For
    IoT systems, object security [RFC8613] may be preferable over
    transport layer security, as it enables intermediaries to cache
-   responses while preserving security.
+   responses while preserving security
+   [I-D.amsuess-core-cachable-oscore].
 
 4.4.  Uniform Interface
 
@@ -1348,9 +1349,9 @@ Table of Contents
    [I-D.ietf-core-href]
               Bormann, C. and H. Birkholz, "Constrained Resource
               Identifiers", Work in Progress, Internet-Draft, draft-
-              ietf-core-href-13, 10 July 2023,
+              ietf-core-href-14, 9 January 2024,
               <https://datatracker.ietf.org/doc/html/draft-ietf-core-
-              href-13>.
+              href-14>.
 
    [REST]     Fielding, R., "Architectural Styles and the Design of
               Network-based Software Architectures", Ph.D. Dissertation,
@@ -1478,6 +1479,13 @@ Table of Contents
               <https://www.interaction-design.org/literature/book/the-
               encyclopedia-of-human-computer-interaction-2nd-ed>.
 
+   [I-D.amsuess-core-cachable-oscore]
+              Amsüss, C. and M. Tiloca, "Cacheable OSCORE", Work in
+              Progress, Internet-Draft, draft-amsuess-core-cachable-
+              oscore-08, 10 January 2024,
+              <https://datatracker.ietf.org/doc/html/draft-amsuess-core-
+              cachable-oscore-08>.
+
    [I-D.bormann-t2trg-stp]
               Bormann, C. and K. Hartke, "The Series Transfer Pattern
               (STP)", Work in Progress, Internet-Draft, draft-bormann-
@@ -1500,19 +1508,20 @@ Table of Contents
               core-apps-08>.
 
    [I-D.ietf-asdf-sdf]
-              Koster, M. and C. Bormann, "Semantic Definition Format
-              (SDF) for Data and Interactions of Things", Work in
-              Progress, Internet-Draft, draft-ietf-asdf-sdf-14, 10 July
-              2023, <https://datatracker.ietf.org/doc/html/draft-ietf-
-              asdf-sdf-14>.
+              Koster, M., Bormann, C., and A. Keränen, "Semantic
+              Definition Format (SDF) for Data and Interactions of
+              Things", Work in Progress, Internet-Draft, draft-ietf-
+              asdf-sdf-17, 5 November 2023,
+              <https://datatracker.ietf.org/doc/html/draft-ietf-asdf-
+              sdf-17>.
 
    [I-D.ietf-core-coap-pubsub]
-              Koster, M., Keränen, A., and J. Jimenez, "A publish-
+              Jimenez, J., Koster, M., and A. Keränen, "A publish-
               subscribe architecture for the Constrained Application
               Protocol (CoAP)", Work in Progress, Internet-Draft, draft-
-              ietf-core-coap-pubsub-12, 13 March 2023,
+              ietf-core-coap-pubsub-13, 20 October 2023,
               <https://datatracker.ietf.org/doc/html/draft-ietf-core-
-              coap-pubsub-12>.
+              coap-pubsub-13>.
 
    [IANA-CoAP-media]
               "CoAP Content-Formats", n.d.,
