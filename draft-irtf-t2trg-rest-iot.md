@@ -654,7 +654,7 @@ For IoT, the critical parts of the Uniform Interface constraint are the descript
 Simply using, for instance, "application/json" does not help machine clients to understand the semantics of the representation.
 Yet defining very precise media types limits the re-usability and interoperability.
 Representation formats such as SenML {{RFC8428}} try to find a good trade-off between precision and re-usability.
-Another approach is to combine a generic format such as JSON with syntactic as well as semantic annotations (see {{I-D.handrews-json-schema-validation}} and {{W3C-TD}}, resp.).
+Another approach is to combine a generic format such as JSON or CBOR with syntactic (see {{I-D.handrews-json-schema-validation}} and {{RFC8610)}}) as well as semantic annotations (e.g., {{W3C-TD}}).
 
 ## Layered System
 
