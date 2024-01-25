@@ -14,25 +14,23 @@ that follow the principles of the Representational State Transfer (REST)
 architectural style. This document is a product of the IRTF Thing-to-Thing
 Research Group (T2TRG). 
     " name="description">
-<meta content="xml2rfc 3.15.3" name="generator">
+<meta content="xml2rfc 3.19.1" name="generator">
 <meta content="draft-irtf-t2trg-rest-iot-latest" name="ietf.draft">
 <!-- Generator version information:
-  xml2rfc 3.15.3
-    Python 3.10.9
-    appdirs 1.4.4
-    ConfigArgParse 1.5.3
-    google-i18n-address 2.5.2
-    html5lib 1.1
+  xml2rfc 3.19.1
+    Python 3.11.6
+    ConfigArgParse 1.7
+    google-i18n-address 3.1.0
     intervaltree 3.1.0
     Jinja2 3.1.2
-    lxml 4.9.2
-    MarkupSafe 2.1.1
+    lxml 4.9.3
+    platformdirs 4.1.0
     pycountry 22.3.5
-    PyYAML 6.0
-    requests 2.28.1
-    setuptools 65.6.0
+    PyYAML 6.0.1
+    requests 2.31.0
+    setuptools 68.2.2
     six 1.16.0
-    wcwidth 0.2.5
+    wcwidth 0.2.13
 -->
 <link href="draft-irtf-t2trg-rest-iot.xml" rel="alternate" type="application/rfc+xml">
 <link href="#copyright" rel="license">
@@ -363,7 +361,7 @@ ul.empty li, .ulEmpty li {
   margin-top: 0.5em;
 }
 :is(ul, ol).compact, .ulCompact, .olCompact {
-  line-height: 100%;
+  line-height: 1;
   margin: 0 0 0 2em;
 }
 
@@ -373,10 +371,13 @@ dl {
   --indent: 3ch;
   /* --indent: attr(indent ch); not supported in any browser, but we can dream */
 }
+dl.olPercent {
+  --indent: 5ch;
+}
 dl > dt {
   float: left;
-  margin-right: 1em;
-  min-width: 12ch;
+  margin-right: 2ch;
+  min-width: 8ch;
 }
 dl.dlNewline > dt {
   float: none;
@@ -385,6 +386,9 @@ dl > dd {
   margin-bottom: .8em;
   margin-left: var(--indent) !important; /* stupid element overrides */
   min-height: 2ex;
+}
+dl.olPercent > dt {
+  min-width: calc(var(--indent) - 2ch);
 }
 :is(dl.compact, .dlCompact) > dd {
   margin-bottom: 0;
@@ -407,11 +411,11 @@ dl > dd > dl {
 a, a[href].selfRef:hover {
   text-decoration: none;
 }
-a[href].selfRef {
-  color: var(--text-color);
-}
 a[href] {
   color: var(--link-color);
+}
+a[href].selfRef, .iref + a[href].internal {
+  color: var(--text-color);
 }
 a[href]:hover {
   text-decoration: underline;
@@ -585,10 +589,14 @@ hr {
 .bcp14 {
   font-variant: small-caps;
   font-weight: 600;
-  font-size: 14.5px;
+  font-size: var(--small-font-size);
 }
 .role {
   font-variant: all-small-caps;
+}
+sub, sup {
+  line-height: 1;
+  font-size: 80%;
 }
 
 /* info block */
@@ -604,6 +612,7 @@ hr {
   clear: left;
   float: left;
   text-align: right;
+  margin-right: 1ch;
 }
 #identifiers dd {
   margin: 0;
@@ -644,7 +653,7 @@ hr {
 }
 #toc nav li {
   line-height: 1.3em;
-  margin: 0.75em 0;
+  margin: 2px 0;
   padding-left: 1.2em;
   text-indent: -1.2em;
 }
@@ -655,7 +664,8 @@ hr {
 .references dt {
   text-align: right;
   font-weight: bold;
-  min-width: 7em;
+  min-width: 10ch;
+  margin-right: 1.5ch;
 }
 .references dt:target::before {
   content: "⇒";
@@ -663,7 +673,7 @@ hr {
   margin: 0 10px 0 -25px;
 }
 .references dd {
-  margin-left: 8em !important;
+  margin-left: 12ch !important;
   overflow: auto;
 }
 
@@ -736,7 +746,7 @@ hr.addr {
     z-index: 2;
     top: 0;
     right: 0;
-    padding: 0;
+    padding: 1px 0 0 0;
     margin: 0;
     border-bottom: 1px solid #ccc;
     opacity: 0.6;
@@ -860,16 +870,13 @@ hr.addr {
     border-top: none;
     padding-top: 0;
   }
-  figure, pre {
+  figure, pre, .vcard {
     page-break-inside: avoid;
-  }
-  figure {
-    overflow: scroll;
   }
   h1, h2, h3, h4, h5, h6 {
     page-break-after: avoid;
   }
-  h2+*, h3+*, h4+*, h5+*, h6+* {
+  :is(h2, h3, h4, h5, h6)+*, dd {
     page-break-before: avoid;
   }
   pre {
@@ -882,6 +889,9 @@ hr.addr {
   }
   td {
     border-top: 1px solid #ddd;
+  }
+  .toplink {
+    display: none;
   }
 }
 
@@ -983,28 +993,6 @@ address div.right {
   text-align: right;
 }
 
-/* Give the table caption label the same styling as the figcaption */
-
-@media print {
-  .toplink {
-    display: none;
-  }
-
-  /* avoid overwriting the top border line with the ToC header */
-  #toc {
-    padding-top: 1px;
-  }
-
-  /* Avoid page breaks inside dl and author address entries */
-  dd {
-    page-break-before: avoid;
-  }
-  .vcard {
-    page-break-inside: avoid;
-  }
-
-}
-
 /* Dark mode. */
 @media (prefers-color-scheme: dark) {
 :root {
@@ -1041,11 +1029,11 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <thead><tr>
 <td class="left">Internet-Draft</td>
 <td class="center">RESTful Design for IoT Systems</td>
-<td class="right">January 2023</td>
+<td class="right">January 2024</td>
 </tr></thead>
 <tfoot><tr>
 <td class="left">Keränen, et al.</td>
-<td class="center">Expires 15 July 2023</td>
+<td class="center">Expires 28 July 2024</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1058,12 +1046,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <dd class="internet-draft">draft-irtf-t2trg-rest-iot-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2023-01-11" class="published">11 January 2023</time>
+<time datetime="2024-01-25" class="published">25 January 2024</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Informational</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2023-07-15">15 July 2023</time></dd>
+<dd class="expires"><time datetime="2024-07-28">28 July 2024</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1122,7 +1110,7 @@ Research Group (T2TRG).<a href="#section-abstract-1" class="pilcrow">¶</a></p>
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 15 July 2023.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 28 July 2024.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1131,7 +1119,7 @@ Research Group (T2TRG).<a href="#section-abstract-1" class="pilcrow">¶</a></p>
 <a href="#name-copyright-notice" class="section-name selfRef">Copyright Notice</a>
         </h2>
 <p id="section-boilerplate.2-1">
-            Copyright (c) 2023 IETF Trust and the persons identified as the
+            Copyright (c) 2024 IETF Trust and the persons identified as the
             document authors. All rights reserved.<a href="#section-boilerplate.2-1" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.2-2">
             This document is subject to BCP 78 and the IETF Trust's Legal
@@ -1139,10 +1127,7 @@ Research Group (T2TRG).<a href="#section-abstract-1" class="pilcrow">¶</a></p>
             (<span><a href="https://trustee.ietf.org/license-info">https://trustee.ietf.org/license-info</a></span>) in effect on the date of
             publication of this document. Please review these documents
             carefully, as they describe your rights and restrictions with
-            respect to this document. Code Components extracted from this
-            document must include Revised BSD License text as described in
-            Section 4.e of the Trust Legal Provisions and are provided without
-            warranty as described in the Revised BSD License.<a href="#section-boilerplate.2-2" class="pilcrow">¶</a></p>
+            respect to this document.<a href="#section-boilerplate.2-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="toc">
@@ -1306,15 +1291,20 @@ The goal of this document is to give basic guidance for designing RESTful system
 <p id="section-1-3">Designing a good RESTful IoT system naturally has many commonalities with other Web systems.
 Compared to others, the key characteristics of many RESTful IoT systems include:<a href="#section-1-3" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-1-4.1">accommodating for constrained devices <span>[<a href="#RFC7228" class="cite xref">RFC7228</a>]</span>, so with IoT, REST is not only used for scaling out (large number of clients on a Web server), but also for scaling down (efficient server on constrained node, e.g., in energy consumption or implementation complexity)<a href="#section-1-4.1" class="pilcrow">¶</a>
+<li class="normal" id="section-1-4.1">
+          <p id="section-1-4.1.1">accommodating for constrained devices <span>[<a href="#RFC7228" class="cite xref">RFC7228</a>]</span>, so with IoT, REST is not only used for scaling out (large number of clients on a Web server), but also for scaling down (efficient server on constrained node, e.g., in energy consumption or implementation complexity)<a href="#section-1-4.1.1" class="pilcrow">¶</a></p>
 </li>
-        <li class="normal" id="section-1-4.2">facilitating efficient transfer over (often) constrained networks and lightweight processing in constrained nodes through compact and simple data formats<a href="#section-1-4.2" class="pilcrow">¶</a>
+        <li class="normal" id="section-1-4.2">
+          <p id="section-1-4.2.1">facilitating efficient transfer over (often) constrained networks and lightweight processing in constrained nodes through compact and simple data formats<a href="#section-1-4.2.1" class="pilcrow">¶</a></p>
 </li>
-        <li class="normal" id="section-1-4.3">avoiding (or at least minimizing) the need for human interaction through machine-understandable data formats and interaction patterns<a href="#section-1-4.3" class="pilcrow">¶</a>
+        <li class="normal" id="section-1-4.3">
+          <p id="section-1-4.3.1">avoiding (or at least minimizing) the need for human interaction through machine-understandable data formats and interaction patterns<a href="#section-1-4.3.1" class="pilcrow">¶</a></p>
 </li>
-        <li class="normal" id="section-1-4.4">enabling the system to evolve gradually in the field, as the usually large number of endpoints can not be updated simultaneously<a href="#section-1-4.4" class="pilcrow">¶</a>
+        <li class="normal" id="section-1-4.4">
+          <p id="section-1-4.4.1">enabling the system to evolve gradually in the field, as the usually large number of endpoints can not be updated simultaneously<a href="#section-1-4.4.1" class="pilcrow">¶</a></p>
 </li>
-        <li class="normal" id="section-1-4.5">having endpoints that are both clients and servers<a href="#section-1-4.5" class="pilcrow">¶</a>
+        <li class="normal" id="section-1-4.5">
+          <p id="section-1-4.5.1">having endpoints that are both clients and servers<a href="#section-1-4.5.1" class="pilcrow">¶</a></p>
 </li>
       </ul>
 </section>
@@ -1725,19 +1715,26 @@ Resource representations must have metadata that identifies the representation f
 This is usually a simple string such as the IANA-registered Internet Media Types.
 Typical media types for IoT systems include:<a href="#section-3.4-1" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-3.4-2.1">"text/plain" for simple text (more precisely "text/plain;charset=UTF-8" for UTF-8 encoding)<a href="#section-3.4-2.1" class="pilcrow">¶</a>
+<li class="normal" id="section-3.4-2.1">
+            <p id="section-3.4-2.1.1">"text/plain" for simple text (more precisely "text/plain;charset=UTF-8" for UTF-8 encoding)<a href="#section-3.4-2.1.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="section-3.4-2.2">"application/octet-stream" for arbitrary binary data<a href="#section-3.4-2.2" class="pilcrow">¶</a>
+          <li class="normal" id="section-3.4-2.2">
+            <p id="section-3.4-2.2.1">"application/octet-stream" for arbitrary binary data<a href="#section-3.4-2.2.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="section-3.4-2.3">"application/json" for the JSON format <span>[<a href="#RFC8259" class="cite xref">RFC8259</a>]</span><a href="#section-3.4-2.3" class="pilcrow">¶</a>
+          <li class="normal" id="section-3.4-2.3">
+            <p id="section-3.4-2.3.1">"application/json" for the JSON format <span>[<a href="#RFC8259" class="cite xref">RFC8259</a>]</span><a href="#section-3.4-2.3.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="section-3.4-2.4">"application/cbor" for CBOR <span>[<a href="#RFC8949" class="cite xref">RFC8949</a>]</span><a href="#section-3.4-2.4" class="pilcrow">¶</a>
+          <li class="normal" id="section-3.4-2.4">
+            <p id="section-3.4-2.4.1">"application/cbor" for CBOR <span>[<a href="#RFC8949" class="cite xref">RFC8949</a>]</span><a href="#section-3.4-2.4.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="section-3.4-2.5">"application/exi" for EXI <span>[<a href="#W3C.REC-exi-20110310" class="cite xref">W3C.REC-exi-20110310</a>]</span><a href="#section-3.4-2.5" class="pilcrow">¶</a>
+          <li class="normal" id="section-3.4-2.5">
+            <p id="section-3.4-2.5.1">"application/exi" for EXI <span>[<a href="#W3C.REC-exi-20110310" class="cite xref">W3C.REC-exi-20110310</a>]</span><a href="#section-3.4-2.5.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="section-3.4-2.6">"application/link-format" for CoRE Link Format <span>[<a href="#RFC6690" class="cite xref">RFC6690</a>]</span><a href="#section-3.4-2.6" class="pilcrow">¶</a>
+          <li class="normal" id="section-3.4-2.6">
+            <p id="section-3.4-2.6.1">"application/link-format" for CoRE Link Format <span>[<a href="#RFC6690" class="cite xref">RFC6690</a>]</span><a href="#section-3.4-2.6.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="section-3.4-2.7">"application/senml+json" and "application/senml+cbor" for Sensor Measurement Lists (SenML) data <span>[<a href="#RFC8428" class="cite xref">RFC8428</a>]</span><a href="#section-3.4-2.7" class="pilcrow">¶</a>
+          <li class="normal" id="section-3.4-2.7">
+            <p id="section-3.4-2.7.1">"application/senml+json" and "application/senml+cbor" for Sensor Measurement Lists (SenML) data <span>[<a href="#RFC8428" class="cite xref">RFC8428</a>]</span><a href="#section-3.4-2.7.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
 <p id="section-3.4-3">A full list of registered Internet Media Types is available at the IANA registry <span>[<a href="#IANA-media-types" class="cite xref">IANA-media-types</a>]</span>.
@@ -1861,19 +1858,26 @@ This difference also leads to slightly different codes starting with 2; for exam
 <p id="section-4-1">The REST architectural style defines a set of constraints for the system design.
 When all constraints are applied correctly, REST enables architectural properties of key interest <span>[<a href="#REST" class="cite xref">REST</a>]</span>:<a href="#section-4-1" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-4-2.1">Performance<a href="#section-4-2.1" class="pilcrow">¶</a>
+<li class="normal" id="section-4-2.1">
+          <p id="section-4-2.1.1">Performance<a href="#section-4-2.1.1" class="pilcrow">¶</a></p>
 </li>
-        <li class="normal" id="section-4-2.2">Scalability<a href="#section-4-2.2" class="pilcrow">¶</a>
+        <li class="normal" id="section-4-2.2">
+          <p id="section-4-2.2.1">Scalability<a href="#section-4-2.2.1" class="pilcrow">¶</a></p>
 </li>
-        <li class="normal" id="section-4-2.3">Reliability<a href="#section-4-2.3" class="pilcrow">¶</a>
+        <li class="normal" id="section-4-2.3">
+          <p id="section-4-2.3.1">Reliability<a href="#section-4-2.3.1" class="pilcrow">¶</a></p>
 </li>
-        <li class="normal" id="section-4-2.4">Simplicity<a href="#section-4-2.4" class="pilcrow">¶</a>
+        <li class="normal" id="section-4-2.4">
+          <p id="section-4-2.4.1">Simplicity<a href="#section-4-2.4.1" class="pilcrow">¶</a></p>
 </li>
-        <li class="normal" id="section-4-2.5">Modifiability<a href="#section-4-2.5" class="pilcrow">¶</a>
+        <li class="normal" id="section-4-2.5">
+          <p id="section-4-2.5.1">Modifiability<a href="#section-4-2.5.1" class="pilcrow">¶</a></p>
 </li>
-        <li class="normal" id="section-4-2.6">Visibility<a href="#section-4-2.6" class="pilcrow">¶</a>
+        <li class="normal" id="section-4-2.6">
+          <p id="section-4-2.6.1">Visibility<a href="#section-4-2.6.1" class="pilcrow">¶</a></p>
 </li>
-        <li class="normal" id="section-4-2.7">Portability<a href="#section-4-2.7" class="pilcrow">¶</a>
+        <li class="normal" id="section-4-2.7">
+          <p id="section-4-2.7.1">Portability<a href="#section-4-2.7.1" class="pilcrow">¶</a></p>
 </li>
       </ul>
 <p id="section-4-3">The following subsections briefly summarize the REST constraints and explain how they enable the listed properties.<a href="#section-4-3" class="pilcrow">¶</a></p>
@@ -1940,13 +1944,17 @@ Moreover, it is also likely that different parties come up with different ways h
 Hence, even very similar applications are likely not interoperable.<a href="#section-4.4-2" class="pilcrow">¶</a></p>
 <p id="section-4.4-3">A REST interface is fully defined by:<a href="#section-4.4-3" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-4.4-4.1">URIs to identify resources<a href="#section-4.4-4.1" class="pilcrow">¶</a>
+<li class="normal" id="section-4.4-4.1">
+            <p id="section-4.4-4.1.1">URIs to identify resources<a href="#section-4.4-4.1.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="section-4.4-4.2">representation formats to represent and manipulate resource state<a href="#section-4.4-4.2" class="pilcrow">¶</a>
+          <li class="normal" id="section-4.4-4.2">
+            <p id="section-4.4-4.2.1">representation formats to represent and manipulate resource state<a href="#section-4.4-4.2.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="section-4.4-4.3">self-descriptive messages with a standard set of methods (e.g., GET, POST, PUT, DELETE with their guaranteed properties)<a href="#section-4.4-4.3" class="pilcrow">¶</a>
+          <li class="normal" id="section-4.4-4.3">
+            <p id="section-4.4-4.3.1">self-descriptive messages with a standard set of methods (e.g., GET, POST, PUT, DELETE with their guaranteed properties)<a href="#section-4.4-4.3.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="section-4.4-4.4">hypermedia controls within representations<a href="#section-4.4-4.4" class="pilcrow">¶</a>
+          <li class="normal" id="section-4.4-4.4">
+            <p id="section-4.4-4.4.1">hypermedia controls within representations<a href="#section-4.4-4.4.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
 <p id="section-4.4-5">The concept of hypermedia controls is also known as HATEOAS: Hypermedia As The Engine Of Application State <span>[<a href="#HATEOAS" class="cite xref">HATEOAS</a>]</span>.
@@ -1964,7 +1972,7 @@ For IoT, the critical parts of the Uniform Interface constraint are the descript
 Simply using, for instance, "application/json" does not help machine clients to understand the semantics of the representation.
 Yet defining very precise media types limits the re-usability and interoperability.
 Representation formats such as SenML <span>[<a href="#RFC8428" class="cite xref">RFC8428</a>]</span> try to find a good trade-off between precision and re-usability.
-Another approach is to combine a generic format such as JSON with syntactic as well as semantic annotations (see <span>[<a href="#I-D.handrews-json-schema-validation" class="cite xref">I-D.handrews-json-schema-validation</a>]</span> and <span>[<a href="#W3C-TD" class="cite xref">W3C-TD</a>]</span>, resp.).<a href="#section-4.4-7" class="pilcrow">¶</a></p>
+Another approach is to combine a generic format such as JSON or CBOR with syntactic (see <span>[<a href="#I-D.handrews-json-schema-validation" class="cite xref">I-D.handrews-json-schema-validation</a>]</span> and <span>[<a href="#RFC8610" class="cite xref">RFC8610</a>]</span>) as well as semantic annotations (e.g., <span>[<a href="#W3C-TD" class="cite xref">W3C-TD</a>]</span>).<a href="#section-4.4-7" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="layered-system">
@@ -2018,15 +2026,18 @@ Hypermedia controls serve as indicators in capability negotiation.
 In particular, they describe available resources and possible operations on these resources using links and forms, respectively.<a href="#section-5.1-1" class="pilcrow">¶</a></p>
 <p id="section-5.1-2">There are multiple reasons why a server might introduce new links or forms:<a href="#section-5.1-2" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-5.1-3.1">The server implements a newer version of the application.
-Older clients ignore the new links and forms, while newer clients are able to take advantage of the new features by following the new links and submitting the new forms.<a href="#section-5.1-3.1" class="pilcrow">¶</a>
+<li class="normal" id="section-5.1-3.1">
+            <p id="section-5.1-3.1.1">The server implements a newer version of the application.
+Older clients ignore the new links and forms, while newer clients are able to take advantage of the new features by following the new links and submitting the new forms.<a href="#section-5.1-3.1.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="section-5.1-3.2">The server offers links and forms depending on the current state.
+          <li class="normal" id="section-5.1-3.2">
+            <p id="section-5.1-3.2.1">The server offers links and forms depending on the current state.
 The server can tell the client which operations are currently valid and thus help the client navigate the application state machine.
-The client does not have to have knowledge which operations are allowed in the current state or make a request just to find out that the operation is not valid.<a href="#section-5.1-3.2" class="pilcrow">¶</a>
+The client does not have to have knowledge which operations are allowed in the current state or make a request just to find out that the operation is not valid.<a href="#section-5.1-3.2.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="section-5.1-3.3">The server offers links and forms depending on the client's access control rights.
-If the client is unauthorized to perform a certain operation, then the server can simply omit the links and forms for that operation.<a href="#section-5.1-3.3" class="pilcrow">¶</a>
+          <li class="normal" id="section-5.1-3.3">
+            <p id="section-5.1-3.3.1">The server offers links and forms depending on the client's access control rights.
+If the client is unauthorized to perform a certain operation, then the server can simply omit the links and forms for that operation.<a href="#section-5.1-3.3.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
 </section>
@@ -2044,17 +2055,23 @@ The key to success in either case is the use of in-band information for identify
 This enables the client to verify that it has all the required knowledge or to acquire missing knowledge on-demand.<a href="#section-5.2-2" class="pilcrow">¶</a></p>
 <p id="section-5.2-3">A hypermedia-driven application typically uses the following identifiers:<a href="#section-5.2-3" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-5.2-4.1">URI schemes that identify communication protocols,<a href="#section-5.2-4.1" class="pilcrow">¶</a>
+<li class="normal" id="section-5.2-4.1">
+            <p id="section-5.2-4.1.1">URI schemes that identify communication protocols,<a href="#section-5.2-4.1.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="section-5.2-4.2">Internet Media Types that identify representation formats,<a href="#section-5.2-4.2" class="pilcrow">¶</a>
+          <li class="normal" id="section-5.2-4.2">
+            <p id="section-5.2-4.2.1">Internet Media Types that identify representation formats,<a href="#section-5.2-4.2.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="section-5.2-4.3">link relation types or resource types that identify link semantics,<a href="#section-5.2-4.3" class="pilcrow">¶</a>
+          <li class="normal" id="section-5.2-4.3">
+            <p id="section-5.2-4.3.1">link relation types or resource types that identify link semantics,<a href="#section-5.2-4.3.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="section-5.2-4.4">form relation types that identify form semantics,<a href="#section-5.2-4.4" class="pilcrow">¶</a>
+          <li class="normal" id="section-5.2-4.4">
+            <p id="section-5.2-4.4.1">form relation types that identify form semantics,<a href="#section-5.2-4.4.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="section-5.2-4.5">variable names that identify the semantics of variables in templated links, and<a href="#section-5.2-4.5" class="pilcrow">¶</a>
+          <li class="normal" id="section-5.2-4.5">
+            <p id="section-5.2-4.5.1">variable names that identify the semantics of variables in templated links, and<a href="#section-5.2-4.5.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="section-5.2-4.6">form field names that identify the semantics of form fields in forms.<a href="#section-5.2-4.6" class="pilcrow">¶</a>
+          <li class="normal" id="section-5.2-4.6">
+            <p id="section-5.2-4.6.1">form field names that identify the semantics of form fields in forms.<a href="#section-5.2-4.6.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
 <p id="section-5.2-5">The knowledge about these identifiers as well as matching implementations have to be shared a priori in a RESTful system.<a href="#section-5.2-5" class="pilcrow">¶</a></p>
@@ -2232,33 +2249,45 @@ We assume that system designers apply classic Web security on top of the basic R
 Thus, security protocols and considerations from related specifications apply to RESTful IoT design.
 These include:<a href="#section-7-1" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-7-2.1">Transport Layer Security (TLS): <span>[<a href="#RFC8446" class="cite xref">RFC8446</a>]</span>, <span>[<a href="#RFC5246" class="cite xref">RFC5246</a>]</span>, and <span>[<a href="#RFC6347" class="cite xref">RFC6347</a>]</span><a href="#section-7-2.1" class="pilcrow">¶</a>
+<li class="normal" id="section-7-2.1">
+          <p id="section-7-2.1.1">Transport Layer Security (TLS): <span>[<a href="#RFC8446" class="cite xref">RFC8446</a>]</span>, <span>[<a href="#RFC5246" class="cite xref">RFC5246</a>]</span>, and <span>[<a href="#RFC6347" class="cite xref">RFC6347</a>]</span><a href="#section-7-2.1.1" class="pilcrow">¶</a></p>
 </li>
-        <li class="normal" id="section-7-2.2">Internet X.509 Public Key Infrastructure: <span>[<a href="#RFC5280" class="cite xref">RFC5280</a>]</span><a href="#section-7-2.2" class="pilcrow">¶</a>
+        <li class="normal" id="section-7-2.2">
+          <p id="section-7-2.2.1">Internet X.509 Public Key Infrastructure: <span>[<a href="#RFC5280" class="cite xref">RFC5280</a>]</span><a href="#section-7-2.2.1" class="pilcrow">¶</a></p>
 </li>
-        <li class="normal" id="section-7-2.3">HTTP security: <span><a href="https://rfc-editor.org/rfc/rfc9112#section-11" class="relref">Section 11</a> of [<a href="#RFC9112" class="cite xref">RFC9112</a>]</span>, <span><a href="https://rfc-editor.org/rfc/rfc9110#section-17" class="relref">Section 17</a> of [<a href="#RFC9110" class="cite xref">RFC9110</a>]</span>, etc.<a href="#section-7-2.3" class="pilcrow">¶</a>
+        <li class="normal" id="section-7-2.3">
+          <p id="section-7-2.3.1">HTTP security: <span><a href="https://rfc-editor.org/rfc/rfc9112#section-11" class="relref">Section 11</a> of [<a href="#RFC9112" class="cite xref">RFC9112</a>]</span>, <span><a href="https://rfc-editor.org/rfc/rfc9110#section-17" class="relref">Section 17</a> of [<a href="#RFC9110" class="cite xref">RFC9110</a>]</span>, etc.<a href="#section-7-2.3.1" class="pilcrow">¶</a></p>
 </li>
-        <li class="normal" id="section-7-2.4">CoAP security: <span><a href="https://rfc-editor.org/rfc/rfc7252#section-11" class="relref">Section 11</a> of [<a href="#RFC7252" class="cite xref">RFC7252</a>]</span><a href="#section-7-2.4" class="pilcrow">¶</a>
+        <li class="normal" id="section-7-2.4">
+          <p id="section-7-2.4.1">CoAP security: <span><a href="https://rfc-editor.org/rfc/rfc7252#section-11" class="relref">Section 11</a> of [<a href="#RFC7252" class="cite xref">RFC7252</a>]</span><a href="#section-7-2.4.1" class="pilcrow">¶</a></p>
 </li>
-        <li class="normal" id="section-7-2.5">URI security: <span><a href="https://rfc-editor.org/rfc/rfc3986#section-7" class="relref">Section 7</a> of [<a href="#RFC3986" class="cite xref">RFC3986</a>]</span><a href="#section-7-2.5" class="pilcrow">¶</a>
+        <li class="normal" id="section-7-2.5">
+          <p id="section-7-2.5.1">URI security: <span><a href="https://rfc-editor.org/rfc/rfc3986#section-7" class="relref">Section 7</a> of [<a href="#RFC3986" class="cite xref">RFC3986</a>]</span><a href="#section-7-2.5.1" class="pilcrow">¶</a></p>
 </li>
       </ul>
 <p id="section-7-3">IoT-specific security is an active area of standardization at the time of writing.
 First finalized specifications include:<a href="#section-7-3" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-7-4.1">(D)TLS Profiles for the Internet of Things: <span>[<a href="#RFC7925" class="cite xref">RFC7925</a>]</span><a href="#section-7-4.1" class="pilcrow">¶</a>
+<li class="normal" id="section-7-4.1">
+          <p id="section-7-4.1.1">(D)TLS Profiles for the Internet of Things: <span>[<a href="#RFC7925" class="cite xref">RFC7925</a>]</span><a href="#section-7-4.1.1" class="pilcrow">¶</a></p>
 </li>
-        <li class="normal" id="section-7-4.2">CBOR Object Signing and Encryption (COSE) <span>[<a href="#RFC8152" class="cite xref">RFC8152</a>]</span><a href="#section-7-4.2" class="pilcrow">¶</a>
+        <li class="normal" id="section-7-4.2">
+          <p id="section-7-4.2.1">CBOR Object Signing and Encryption (COSE) <span>[<a href="#RFC8152" class="cite xref">RFC8152</a>]</span><a href="#section-7-4.2.1" class="pilcrow">¶</a></p>
 </li>
-        <li class="normal" id="section-7-4.3">CBOR Web Token <span>[<a href="#RFC8392" class="cite xref">RFC8392</a>]</span><a href="#section-7-4.3" class="pilcrow">¶</a>
+        <li class="normal" id="section-7-4.3">
+          <p id="section-7-4.3.1">CBOR Web Token <span>[<a href="#RFC8392" class="cite xref">RFC8392</a>]</span><a href="#section-7-4.3.1" class="pilcrow">¶</a></p>
 </li>
-        <li class="normal" id="section-7-4.4">Proof-of-Possession Key Semantics for CBOR Web Tokens (CWTs) <span>[<a href="#RFC8747" class="cite xref">RFC8747</a>]</span><a href="#section-7-4.4" class="pilcrow">¶</a>
+        <li class="normal" id="section-7-4.4">
+          <p id="section-7-4.4.1">Proof-of-Possession Key Semantics for CBOR Web Tokens (CWTs) <span>[<a href="#RFC8747" class="cite xref">RFC8747</a>]</span><a href="#section-7-4.4.1" class="pilcrow">¶</a></p>
 </li>
-        <li class="normal" id="section-7-4.5">Object Security for Constrained RESTful Environments (OSCORE) <span>[<a href="#RFC8613" class="cite xref">RFC8613</a>]</span><a href="#section-7-4.5" class="pilcrow">¶</a>
+        <li class="normal" id="section-7-4.5">
+          <p id="section-7-4.5.1">Object Security for Constrained RESTful Environments (OSCORE) <span>[<a href="#RFC8613" class="cite xref">RFC8613</a>]</span><a href="#section-7-4.5.1" class="pilcrow">¶</a></p>
 </li>
-        <li class="normal" id="section-7-4.6">Authentication and Authorization for Constrained Environments (ACE) using the OAuth 2.0 Framework <span>[<a href="#RFC9200" class="cite xref">RFC9200</a>]</span><a href="#section-7-4.6" class="pilcrow">¶</a>
+        <li class="normal" id="section-7-4.6">
+          <p id="section-7-4.6.1">Authentication and Authorization for Constrained Environments (ACE) using the OAuth 2.0 Framework <span>[<a href="#RFC9200" class="cite xref">RFC9200</a>]</span><a href="#section-7-4.6.1" class="pilcrow">¶</a></p>
 </li>
-        <li class="normal" id="section-7-4.7">ACE profiles for DTLS <span>[<a href="#RFC9202" class="cite xref">RFC9202</a>]</span> and OSCORE <span>[<a href="#RFC9203" class="cite xref">RFC9203</a>]</span><a href="#section-7-4.7" class="pilcrow">¶</a>
+        <li class="normal" id="section-7-4.7">
+          <p id="section-7-4.7.1">ACE profiles for DTLS <span>[<a href="#RFC9202" class="cite xref">RFC9202</a>]</span> and OSCORE <span>[<a href="#RFC9203" class="cite xref">RFC9203</a>]</span><a href="#section-7-4.7.1" class="pilcrow">¶</a></p>
 </li>
       </ul>
 <p id="section-7-5">Further IoT security considerations are available in <span>[<a href="#RFC8576" class="cite xref">RFC8576</a>]</span>.<a href="#section-7-5" class="pilcrow">¶</a></p>
@@ -2276,6 +2305,7 @@ First finalized specifications include:<a href="#section-7-3" class="pilcrow">¶
       <h2 id="name-references">
 <a href="#section-9" class="section-number selfRef">9. </a><a href="#name-references" class="section-name selfRef">References</a>
       </h2>
+<div id="sec-normative-references">
 <section id="section-9.1">
         <h3 id="name-normative-references">
 <a href="#section-9.1" class="section-number selfRef">9.1. </a><a href="#name-normative-references" class="section-name selfRef">Normative References</a>
@@ -2291,7 +2321,7 @@ First finalized specifications include:<a href="#section-7-3" class="pilcrow">¶
 <dd class="break"></dd>
 <dt id="I-D.ietf-core-href">[I-D.ietf-core-href]</dt>
         <dd>
-<span class="refAuthor">Bormann, C.</span> and <span class="refAuthor">H. Birkholz</span>, <span class="refTitle">"Constrained Resource Identifiers"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-core-href-11</span>, <time datetime="2022-09-07" class="refDate">7 September 2022</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-core-href-11">https://datatracker.ietf.org/doc/html/draft-ietf-core-href-11</a>&gt;</span>. </dd>
+<span class="refAuthor">Bormann, C.</span> and <span class="refAuthor">H. Birkholz</span>, <span class="refTitle">"Constrained Resource Identifiers"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-core-href-14</span>, <time datetime="2024-01-09" class="refDate">9 January 2024</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-core-href-14">https://datatracker.ietf.org/doc/html/draft-ietf-core-href-14</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="REST">[REST]</dt>
         <dd>
@@ -2379,6 +2409,8 @@ First finalized specifications include:<a href="#section-7-3" class="pilcrow">¶
 <dd class="break"></dd>
 </dl>
 </section>
+</div>
+<div id="sec-informative-references">
 <section id="section-9.2">
         <h3 id="name-informative-references">
 <a href="#section-9.2" class="section-number selfRef">9.2. </a><a href="#name-informative-references" class="section-name selfRef">Informative References</a>
@@ -2414,11 +2446,11 @@ First finalized specifications include:<a href="#section-7-3" class="pilcrow">¶
 <dd class="break"></dd>
 <dt id="I-D.ietf-asdf-sdf">[I-D.ietf-asdf-sdf]</dt>
         <dd>
-<span class="refAuthor">Koster, M.</span> and <span class="refAuthor">C. Bormann</span>, <span class="refTitle">"Semantic Definition Format (SDF) for Data and Interactions of Things"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-asdf-sdf-12</span>, <time datetime="2022-06-30" class="refDate">30 June 2022</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-asdf-sdf-12">https://datatracker.ietf.org/doc/html/draft-ietf-asdf-sdf-12</a>&gt;</span>. </dd>
+<span class="refAuthor">Koster, M.</span>, <span class="refAuthor">Bormann, C.</span>, and <span class="refAuthor">A. Keränen</span>, <span class="refTitle">"Semantic Definition Format (SDF) for Data and Interactions of Things"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-asdf-sdf-17</span>, <time datetime="2023-11-05" class="refDate">5 November 2023</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-asdf-sdf-17">https://datatracker.ietf.org/doc/html/draft-ietf-asdf-sdf-17</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="I-D.ietf-core-coap-pubsub">[I-D.ietf-core-coap-pubsub]</dt>
         <dd>
-<span class="refAuthor">Koster, M.</span>, <span class="refAuthor">Keränen, A.</span>, and <span class="refAuthor">J. Jimenez</span>, <span class="refTitle">"Publish-Subscribe Broker for the Constrained Application Protocol (CoAP)"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-core-coap-pubsub-11</span>, <time datetime="2022-11-07" class="refDate">7 November 2022</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-core-coap-pubsub-11">https://datatracker.ietf.org/doc/html/draft-ietf-core-coap-pubsub-11</a>&gt;</span>. </dd>
+<span class="refAuthor">Jimenez, J.</span>, <span class="refAuthor">Koster, M.</span>, and <span class="refAuthor">A. Keränen</span>, <span class="refTitle">"A publish-subscribe architecture for the Constrained Application Protocol (CoAP)"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-core-coap-pubsub-13</span>, <time datetime="2023-10-20" class="refDate">20 October 2023</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-core-coap-pubsub-13">https://datatracker.ietf.org/doc/html/draft-ietf-core-coap-pubsub-13</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="IANA-CoAP-media">[IANA-CoAP-media]</dt>
         <dd>
@@ -2480,6 +2512,10 @@ First finalized specifications include:<a href="#section-7-3" class="pilcrow">¶
         <dd>
 <span class="refAuthor">Garcia-Morchon, O.</span>, <span class="refAuthor">Kumar, S.</span>, and <span class="refAuthor">M. Sethi</span>, <span class="refTitle">"Internet of Things (IoT) Security: State of the Art and Challenges"</span>, <span class="seriesInfo">RFC 8576</span>, <span class="seriesInfo">DOI 10.17487/RFC8576</span>, <time datetime="2019-04" class="refDate">April 2019</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc8576">https://www.rfc-editor.org/rfc/rfc8576</a>&gt;</span>. </dd>
 <dd class="break"></dd>
+<dt id="RFC8610">[RFC8610]</dt>
+        <dd>
+<span class="refAuthor">Birkholz, H.</span>, <span class="refAuthor">Vigano, C.</span>, and <span class="refAuthor">C. Bormann</span>, <span class="refTitle">"Concise Data Definition Language (CDDL): A Notational Convention to Express Concise Binary Object Representation (CBOR) and JSON Data Structures"</span>, <span class="seriesInfo">RFC 8610</span>, <span class="seriesInfo">DOI 10.17487/RFC8610</span>, <time datetime="2019-06" class="refDate">June 2019</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc8610">https://www.rfc-editor.org/rfc/rfc8610</a>&gt;</span>. </dd>
+<dd class="break"></dd>
 <dt id="RFC8747">[RFC8747]</dt>
         <dd>
 <span class="refAuthor">Jones, M.</span>, <span class="refAuthor">Seitz, L.</span>, <span class="refAuthor">Selander, G.</span>, <span class="refAuthor">Erdtman, S.</span>, and <span class="refAuthor">H. Tschofenig</span>, <span class="refTitle">"Proof-of-Possession Key Semantics for CBOR Web Tokens (CWTs)"</span>, <span class="seriesInfo">RFC 8747</span>, <span class="seriesInfo">DOI 10.17487/RFC8747</span>, <time datetime="2020-03" class="refDate">March 2020</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc8747">https://www.rfc-editor.org/rfc/rfc8747</a>&gt;</span>. </dd>
@@ -2510,6 +2546,7 @@ First finalized specifications include:<a href="#section-7-3" class="pilcrow">¶
 <dd class="break"></dd>
 </dl>
 </section>
+</div>
 </section>
 <div id="authors-addresses">
 <section id="appendix-A">
