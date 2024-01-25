@@ -1925,7 +1925,7 @@ Local caches furthermore improve reliability, since requests can be answered eve
 <p id="section-4.3-3">Introducing additional components to perform caching only makes sense when the data is used by multiple participants (otherwise client-side caching would be enough).
 In IoT systems, however, it might make sense to cache also individual data to protect constrained devices and networks from frequent requests of data that does not change often.
 Security often hinders the ability to cache responses.
-For IoT systems, object security <span>[<a href="#RFC8613" class="cite xref">RFC8613</a>]</span> may be preferable over transport layer security, as it enables intermediaries to cache responses while preserving security.<a href="#section-4.3-3" class="pilcrow">¶</a></p>
+For IoT systems, object security <span>[<a href="#RFC8613" class="cite xref">RFC8613</a>]</span> may be preferable over transport layer security, as it enables intermediaries to cache responses while preserving security <span>[<a href="#I-D.amsuess-core-cachable-oscore" class="cite xref">I-D.amsuess-core-cachable-oscore</a>]</span>.<a href="#section-4.3-3" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="sec-uniform-interface">
@@ -2431,6 +2431,10 @@ First finalized specifications include:<a href="#section-7-3" class="pilcrow">¶
 <dt id="HCI">[HCI]</dt>
         <dd>
 <span class="refAuthor">Interaction Design Foundation</span>, <span class="refTitle">"The Encyclopedia of Human-Computer Interaction"</span>, <span class="refContent">2nd Ed.</span>, <time datetime="2013" class="refDate">2013</time>, <span>&lt;<a href="https://www.interaction-design.org/literature/book/the-encyclopedia-of-human-computer-interaction-2nd-ed">https://www.interaction-design.org/literature/book/the-encyclopedia-of-human-computer-interaction-2nd-ed</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="I-D.amsuess-core-cachable-oscore">[I-D.amsuess-core-cachable-oscore]</dt>
+        <dd>
+<span class="refAuthor">Amsüss, C.</span> and <span class="refAuthor">M. Tiloca</span>, <span class="refTitle">"Cacheable OSCORE"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-amsuess-core-cachable-oscore-08</span>, <time datetime="2024-01-10" class="refDate">10 January 2024</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-amsuess-core-cachable-oscore-08">https://datatracker.ietf.org/doc/html/draft-amsuess-core-cachable-oscore-08</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="I-D.bormann-t2trg-stp">[I-D.bormann-t2trg-stp]</dt>
         <dd>

@@ -846,7 +846,8 @@ Table of Contents
    often.  Security often hinders the ability to cache responses.  For
    IoT systems, object security [RFC8613] may be preferable over
    transport layer security, as it enables intermediaries to cache
-   responses while preserving security.
+   responses while preserving security
+   [I-D.amsuess-core-cachable-oscore].
 
 4.4.  Uniform Interface
 
@@ -1478,6 +1479,13 @@ Table of Contents
               Computer Interaction", 2nd Ed., 2013,
               <https://www.interaction-design.org/literature/book/the-
               encyclopedia-of-human-computer-interaction-2nd-ed>.
+
+   [I-D.amsuess-core-cachable-oscore]
+              Amsüss, C. and M. Tiloca, "Cacheable OSCORE", Work in
+              Progress, Internet-Draft, draft-amsuess-core-cachable-
+              oscore-08, 10 January 2024,
+              <https://datatracker.ietf.org/doc/html/draft-amsuess-core-
+              cachable-oscore-08>.
 
    [I-D.bormann-t2trg-stp]
               Bormann, C. and K. Hartke, "The Series Transfer Pattern
