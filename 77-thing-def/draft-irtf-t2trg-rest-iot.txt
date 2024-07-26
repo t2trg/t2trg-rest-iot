@@ -5,9 +5,9 @@
 Network Working Group                                         A. Keränen
 Internet-Draft                                                  Ericsson
 Intended status: Informational                               M. Kovatsch
-Expires: 25 July 2024                                            Siemens
+Expires: 27 January 2025                                         Siemens
                                                                K. Hartke
-                                                         22 January 2024
+                                                            26 July 2024
 
 
        Guidance on RESTful Design for Internet of Things Systems
@@ -50,7 +50,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 25 July 2024.
+   This Internet-Draft will expire on 27 January 2025.
 
 Copyright Notice
 
@@ -328,8 +328,8 @@ Table of Contents
       IoT systems it is common for nodes to have more than one role
       (i.e., to be both server and client; see Section 3.1).
 
-   Thing:  A physical item that is made available in the Internet of
-      Things, thereby enabling digital interaction with the physical
+   Thing:  A physical item that is also available for interaction over a
+      network, thereby enabling digital interaction with the physical
       world for humans, services, and/or other Things.
 
    Transfer protocols:  In particular in the IoT domain, protocols above
@@ -911,8 +911,9 @@ Table of Contents
    usability and interoperability.  Representation formats such as SenML
    [RFC8428] try to find a good trade-off between precision and re-
    usability.  Another approach is to combine a generic format such as
-   JSON with syntactic as well as semantic annotations (see
-   [I-D.handrews-json-schema-validation] and [W3C-TD], resp.).
+   JSON or CBOR with syntactic (see
+   [I-D.handrews-json-schema-validation] and [RFC8610]) as well as
+   semantic annotations (e.g., [W3C-TD]).
 
 4.5.  Layered System
 
@@ -1335,9 +1336,9 @@ Table of Contents
    [I-D.ietf-core-coral]
               Amsüss, C. and T. Fossati, "The Constrained RESTful
               Application Language (CoRAL)", Work in Progress, Internet-
-              Draft, draft-ietf-core-coral-05, 7 March 2022,
+              Draft, draft-ietf-core-coral-06, 4 March 2024,
               <https://datatracker.ietf.org/doc/html/draft-ietf-core-
-              coral-05>.
+              coral-06>.
 
    [I-D.ietf-core-dynlink]
               Koster, M. and B. Silverajan, "Dynamic Resource Linking
@@ -1349,9 +1350,9 @@ Table of Contents
    [I-D.ietf-core-href]
               Bormann, C. and H. Birkholz, "Constrained Resource
               Identifiers", Work in Progress, Internet-Draft, draft-
-              ietf-core-href-14, 9 January 2024,
+              ietf-core-href-16, 24 July 2024,
               <https://datatracker.ietf.org/doc/html/draft-ietf-core-
-              href-14>.
+              href-16>.
 
    [REST]     Fielding, R., "Architectural Styles and the Design of
               Network-based Software Architectures", Ph.D. Dissertation,
@@ -1482,9 +1483,9 @@ Table of Contents
    [I-D.amsuess-core-cachable-oscore]
               Amsüss, C. and M. Tiloca, "Cacheable OSCORE", Work in
               Progress, Internet-Draft, draft-amsuess-core-cachable-
-              oscore-08, 10 January 2024,
+              oscore-09, 8 July 2024,
               <https://datatracker.ietf.org/doc/html/draft-amsuess-core-
-              cachable-oscore-08>.
+              cachable-oscore-09>.
 
    [I-D.bormann-t2trg-stp]
               Bormann, C. and K. Hartke, "The Series Transfer Pattern
@@ -1511,17 +1512,17 @@ Table of Contents
               Koster, M., Bormann, C., and A. Keränen, "Semantic
               Definition Format (SDF) for Data and Interactions of
               Things", Work in Progress, Internet-Draft, draft-ietf-
-              asdf-sdf-17, 5 November 2023,
+              asdf-sdf-18, 28 February 2024,
               <https://datatracker.ietf.org/doc/html/draft-ietf-asdf-
-              sdf-17>.
+              sdf-18>.
 
    [I-D.ietf-core-coap-pubsub]
               Jimenez, J., Koster, M., and A. Keränen, "A publish-
               subscribe architecture for the Constrained Application
               Protocol (CoAP)", Work in Progress, Internet-Draft, draft-
-              ietf-core-coap-pubsub-13, 20 October 2023,
+              ietf-core-coap-pubsub-14, 18 April 2024,
               <https://datatracker.ietf.org/doc/html/draft-ietf-core-
-              coap-pubsub-13>.
+              coap-pubsub-14>.
 
    [IANA-CoAP-media]
               "CoAP Content-Formats", n.d.,
@@ -1593,6 +1594,12 @@ Table of Contents
               Things (IoT) Security: State of the Art and Challenges",
               RFC 8576, DOI 10.17487/RFC8576, April 2019,
               <https://www.rfc-editor.org/rfc/rfc8576>.
+
+   [RFC8610]  Birkholz, H., Vigano, C., and C. Bormann, "Concise Data
+              Definition Language (CDDL): A Notational Convention to
+              Express Concise Binary Object Representation (CBOR) and
+              JSON Data Structures", RFC 8610, DOI 10.17487/RFC8610,
+              June 2019, <https://www.rfc-editor.org/rfc/rfc8610>.
 
    [RFC8747]  Jones, M., Seitz, L., Selander, G., Erdtman, S., and H.
               Tschofenig, "Proof-of-Possession Key Semantics for CBOR
