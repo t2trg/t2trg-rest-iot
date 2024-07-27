@@ -294,7 +294,7 @@ Server:
 In RESTful IoT systems it is common for nodes to have more than one role (i.e., to be both server and client; see {{sec-architecture}}).
 
 Thing:
-: A physical item that is made available in the Internet of Things, thereby enabling digital interaction with the physical world for humans, services, and/or other Things.
+: A physical item that is also available for interaction over a network, thereby enabling digital interaction with the physical world for humans, services, and/or other Things.
 
 Transfer protocols:
 : In particular in the IoT domain, protocols above the transport layer that are used to transfer data objects and provide semantics for operations on the data.
