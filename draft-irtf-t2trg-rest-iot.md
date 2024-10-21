@@ -87,6 +87,7 @@ informative:
   I-D.handrews-json-schema-validation:
   I-D.hartke-core-apps:
   I-D.amsuess-core-cachable-oscore:
+  I-D.ietf-httpbis-safe-method-w-body:
   W3C-TD:
     title: Web of Things (WoT) Thing Description
     author:
@@ -528,13 +529,15 @@ If the target resource has one or more current representations, they might or mi
 
 The DELETE method is not safe, but is idempotent.
 
-### FETCH
+### FETCH / QUERY
 
 The CoAP-specific FETCH method {{RFC8132}} requests a representation of a resource parameterized by a representation enclosed in the request.
 
 The fundamental difference between the GET and FETCH methods is that the request parameters are included as the payload of a FETCH request, while in a GET request they are typically part of the query string of the request URI.
 
 The FETCH method is safe and idempotent.
+
+For HTTP a new QUERY method is being specified {{I-D.ietf-httpbis-safe-method-w-body}} for making a safe, idempotent request that contains content.
 
 ### PATCH
 
