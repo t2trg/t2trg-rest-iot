@@ -170,7 +170,7 @@ For terminology of constrained nodes and networks, see {{RFC7228}}.
 Terminology on modeling of Things and their affordances (Properties, Actions, and Events) was taken from {{?I-D.ietf-asdf-sdf}}.
 
 Action:
-: An affordance that can potentially be used to perform a named operation on a Thing.
+: A kind of affordance that can potentially be used to perform a named operation on a Thing.
 
 Action Result:
 : A representation sent as a response by a server that does not represent resource state, but the result of the interaction with the originally addressed resource.
@@ -207,7 +207,7 @@ Dereferenceable URI:
 Not all HTTP or CoAP URIs are dereferenceable, e.g., when the target resource does not exist.
 
 Event:
-: An affordance that can potentially be used to (recurrently) obtain information about what happened to a Thing, e.g., through server push.
+: A kind of affordance that can potentially be used to (recurrently) obtain information about what happened to a Thing, e.g., through server push.
 
 Form:
 : A hypermedia control that enables a client to construct more complex requests, e.g., to change the state of a resource or perform specific queries.
@@ -250,7 +250,7 @@ Proactive Content Negotiation:
 For example, an IoT application could send a request that prefers to accept the media type "application/senml+json".
 
 Property:
-: An affordance that can potentially be used to read, write, and/or observe state on a Thing.
+: A kind of affordance that can potentially be used to read, write, and/or observe state on a Thing.
 
 Reactive Content Negotiation:
 : A content negotiation mechanism where the client selects a representation from a list of available representations.
