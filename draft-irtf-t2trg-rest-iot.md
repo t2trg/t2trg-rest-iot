@@ -477,7 +477,7 @@ The differences between these terms are discussed in more detail in {{Section 2 
 
 {{Section 9.3 of RFC9110}} defines the set of methods in HTTP;
 {{Section 5.8 of RFC7252}} defines the set of methods in CoAP.
-As part of the Uniform Interface constraint, each method can have certain properties that give guarantees to clients.
+As part of the Uniform Interface constraint (see {{sec-uniform-interface}}), each method can have certain properties that give guarantees to clients.
 
 Safe methods do not cause any state change on the origin server when applied to a resource.
 For example, the GET method only returns a representation of the resource state but does not change the resource.
