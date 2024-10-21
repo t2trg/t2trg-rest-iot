@@ -397,7 +397,7 @@ Overall, this allows to realize a Uniform Interface (see {{sec-uniform-interface
 
 Hypermedia controls span a kind of state machine, where the nodes are resources or action results and the transitions are links or forms.
 Clients run this distributed state machine (i.e., the application) by retrieving representations, processing the data, and following the included links and/or submitting forms to trigger the corresponding transition.
-This is usually done by retrieving the current state, modifying the copy of the state on the client side, and transferring the new state to the server in the form of new representations -- rather than calling a service and modifying the state on the server side.
+This is usually done by retrieving the current state, modifying the copy of the state on the client side, and transferring the new state to the server in the form of new representations -- rather than calling a service and modifying the state on the server side (see {{sec-calling-procedure}}).
 
 Client state encompasses the current state of the described state machine and the possible next transitions derived from the hypermedia controls within the currently processed representation.
 Furthermore, clients can have part of the state of the distributed application in local variables.
@@ -766,7 +766,7 @@ The collection resource also defines hypermedia controls for managing and search
 Examples of the collection pattern in RESTful IoT systems include the CoRE Resource Directory {{RFC9176}}, CoAP pub/sub broker {{?I-D.ietf-core-coap-pubsub}}, and resource discovery via ".well-known/core".
 Collection+JSON {{CollectionJSON}} is an example of a generic collection Media Type.
 
-## Calling a Procedure
+## Calling a Procedure {#sec-calling-procedure}
 
 To modify resource state, clients usually use GET to retrieve a representation from the server, modify that locally, and transfer the resulting state back to the server with a PUT (see {{sec-uniform-interface}}).
 Sometimes, however, the state can only be modified on the server side, for instance, because representations would be too large to transfer or part of the required information shall not be accessible to clients.
