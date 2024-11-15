@@ -5,9 +5,9 @@
 Network Working Group                                         A. Keränen
 Internet-Draft                                                  Ericsson
 Intended status: Informational                               M. Kovatsch
-Expires: 28 January 2025                                         Siemens
+Expires: 19 May 2025                                             Siemens
                                                                K. Hartke
-                                                            27 July 2024
+                                                        15 November 2024
 
 
        Guidance on RESTful Design for Internet of Things Systems
@@ -50,7 +50,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 28 January 2025.
+   This Internet-Draft will expire on 19 May 2025.
 
 Copyright Notice
 
@@ -77,7 +77,7 @@ Table of Contents
        3.5.2.  POST
        3.5.3.  PUT
        3.5.4.  DELETE
-       3.5.5.  FETCH
+       3.5.5.  FETCH / QUERY
        3.5.6.  PATCH
      3.6.  HTTP/CoAP Status/Response Codes
    4.  REST Constraints
@@ -160,8 +160,8 @@ Table of Contents
    modeling of Things and their affordances (Properties, Actions, and
    Events) was taken from [I-D.ietf-asdf-sdf].
 
-   Action:  An affordance that can potentially be used to perform a
-      named operation on a Thing.
+   Action:  A kind of affordance that can potentially be used to perform
+      a named operation on a Thing.
 
    Action Result:  A representation sent as a response by a server that
       does not represent resource state, but the result of the
@@ -209,9 +209,9 @@ Table of Contents
       HTTP or CoAP URIs are dereferenceable, e.g., when the target
       resource does not exist.
 
-   Event:  An affordance that can potentially be used to (recurrently)
-      obtain information about what happened to a Thing, e.g., through
-      server push.
+   Event:  A kind of affordance that can potentially be used to
+      (recurrently) obtain information about what happened to a Thing,
+      e.g., through server push.
 
    Form:  A hypermedia control that enables a client to construct more
       complex requests, e.g., to change the state of a resource or
@@ -268,8 +268,8 @@ Table of Contents
       send a request that prefers to accept the media type "application/
       senml+json".
 
-   Property:  An affordance that can potentially be used to read, write,
-      and/or observe state on a Thing.
+   Property:  A kind of affordance that can potentially be used to read,
+      write, and/or observe state on a Thing.
 
    Reactive Content Negotiation:  A content negotiation mechanism where
       the client selects a representation from a list of available
@@ -477,7 +477,7 @@ Table of Contents
    modifying the copy of the state on the client side, and transferring
    the new state to the server in the form of new representations --
    rather than calling a service and modifying the state on the server
-   side.
+   side (see Section 6.2).
 
    Client state encompasses the current state of the described state
    machine and the possible next transitions derived from the hypermedia
@@ -620,8 +620,8 @@ Table of Contents
 
    Section 9.3 of [RFC9110] defines the set of methods in HTTP;
    Section 5.8 of [RFC7252] defines the set of methods in CoAP.  As part
-   of the Uniform Interface constraint, each method can have certain
-   properties that give guarantees to clients.
+   of the Uniform Interface constraint (see Section 4.4), each method
+   can have certain properties that give guarantees to clients.
 
    Safe methods do not cause any state change on the origin server when
    applied to a resource.  For example, the GET method only returns a
@@ -709,7 +709,7 @@ Table of Contents
 
    The DELETE method is not safe, but is idempotent.
 
-3.5.5.  FETCH
+3.5.5.  FETCH / QUERY
 
    The CoAP-specific FETCH method [RFC8132] requests a representation of
    a resource parameterized by a representation enclosed in the request.
@@ -720,6 +720,10 @@ Table of Contents
    string of the request URI.
 
    The FETCH method is safe and idempotent.
+
+   For HTTP a new QUERY method is being specified
+   [I-D.ietf-httpbis-safe-method-w-body] for making a safe, idempotent
+   request that contains content.
 
 3.5.6.  PATCH
 
@@ -1520,9 +1524,16 @@ Table of Contents
               Jimenez, J., Koster, M., and A. Keränen, "A publish-
               subscribe architecture for the Constrained Application
               Protocol (CoAP)", Work in Progress, Internet-Draft, draft-
-              ietf-core-coap-pubsub-14, 18 April 2024,
+              ietf-core-coap-pubsub-15, 21 October 2024,
               <https://datatracker.ietf.org/doc/html/draft-ietf-core-
-              coap-pubsub-14>.
+              coap-pubsub-15>.
+
+   [I-D.ietf-httpbis-safe-method-w-body]
+              Reschke, J., Malhotra, A., Snell, J. M., and M. Bishop,
+              "The HTTP QUERY Method", Work in Progress, Internet-Draft,
+              draft-ietf-httpbis-safe-method-w-body-06, 21 October 2024,
+              <https://datatracker.ietf.org/doc/html/draft-ietf-httpbis-
+              safe-method-w-body-06>.
 
    [IANA-CoAP-media]
               "CoAP Content-Formats", n.d.,
