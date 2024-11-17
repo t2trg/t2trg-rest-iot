@@ -1,0 +1,3480 @@
+{
+  "magic": "E!vIA5L86J2I",
+  "timestamp": "2024-11-17T01:27:29.761803+00:00",
+  "repo": "t2trg/t2trg-rest-iot",
+  "labels": [
+    {
+      "name": "bug",
+      "description": null,
+      "color": "fc2929"
+    },
+    {
+      "name": "duplicate",
+      "description": null,
+      "color": "cccccc"
+    },
+    {
+      "name": "enhancement",
+      "description": null,
+      "color": "84b6eb"
+    },
+    {
+      "name": "help wanted",
+      "description": null,
+      "color": "159818"
+    },
+    {
+      "name": "invalid",
+      "description": null,
+      "color": "e6e6e6"
+    },
+    {
+      "name": "question",
+      "description": null,
+      "color": "cc317c"
+    },
+    {
+      "name": "wontfix",
+      "description": null,
+      "color": "ffffff"
+    }
+  ],
+  "issues": [
+    {
+      "number": 1,
+      "id": "MDU6SXNzdWUxMjk0NzUwMzU=",
+      "title": "Include text on changing control flow with HATEOAS",
+      "url": "https://github.com/t2trg/t2trg-rest-iot/issues/1",
+      "state": "CLOSED",
+      "author": "mkovatsc",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [
+        "mkovatsc"
+      ],
+      "labels": [],
+      "body": "Hypermedia allows the server to redirect or introduce new links that are presented to the client to change the application during runtime. Client and server can evolve independently.\n",
+      "createdAt": "2016-01-28T14:52:35Z",
+      "updatedAt": "2018-07-19T05:14:46Z",
+      "closedAt": "2018-07-19T05:14:46Z",
+      "comments": [
+        {
+          "author": "ektrah",
+          "authorAssociation": "COLLABORATOR",
+          "body": "To expand a bit on this, there are multiple reasons why a server might introduce new links or forms:\n- The server implements a newer version of the application. Older clients ignore the new links and forms, while newer clients are able to take advantage of the new features by following the new links and submitting the new forms.\n- The server offers links and forms depending on the current state. The server can tell the client which operations are currently valid and thus help the client navigate the application state machine. The client does not have to have knowledge which operations are allowed in the current state or make a request just to find out that the operation is not valid.\n- The server offers links and forms depending on the client's access control rights. If the client is unauthorized to perform a certain operation, then the server can simply omit the links and forms for that operation.\n",
+          "createdAt": "2016-01-28T17:38:44Z",
+          "updatedAt": "2016-01-28T17:38:44Z"
+        },
+        {
+          "author": "mkovatsc",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Extensibility at runtime\n",
+          "createdAt": "2016-07-17T11:33:13Z",
+          "updatedAt": "2016-07-17T11:33:13Z"
+        },
+        {
+          "author": "mkovatsc",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Not too much details, but current best practices, since this will be outcome of the RG.\n",
+          "createdAt": "2016-07-17T11:40:26Z",
+          "updatedAt": "2016-07-17T11:40:26Z"
+        },
+        {
+          "author": "mkovatsc",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Related comment by Mike Amundsen:\n\n> Flow control MAY be managed from either the client (\"please set this valve to position 3\") or the resource server (\"According to my configuration data, your client certificate only allows you to do one of the following...\") Rather than try to define \"session state\" as flow control, I think it s better the establish lines of responsibility for client state and resource state.\n",
+          "createdAt": "2016-07-18T17:04:26Z",
+          "updatedAt": "2016-07-18T17:04:26Z"
+        },
+        {
+          "author": "mkovatsc",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Mike Admundsen:\n\n> I suggest the following updated wording for the opening:\n> \"Important part of designing a system is to model is as a set of resources which represent the \"state of the system.\" Clients MAY be allowed to modify the state of resources by passing representations to the server (using request bodies). Servers manipulate the state of clients by passing representations of resources (using response bodies).\"\n\nI have a different conception of the second part: Servers cannot manipulate the state of clients directly. Clients have the initiative for what to do with received representations (they do not expose their internal state as resources!). I find the aspect more important that servers provide the possible state transitions through the announcement of links and forms.\n",
+          "createdAt": "2016-07-18T17:11:04Z",
+          "updatedAt": "2016-07-18T17:11:04Z"
+        },
+        {
+          "author": "mkovatsc",
+          "authorAssociation": "COLLABORATOR",
+          "body": "This issue is addressed through Section 5.\r\n\r\nThe comments do not apply anymore to the current version. They should be verified during a holistic review of the document.",
+          "createdAt": "2018-07-19T05:14:46Z",
+          "updatedAt": "2018-07-19T05:14:46Z"
+        }
+      ]
+    },
+    {
+      "number": 2,
+      "id": "MDU6SXNzdWUxMjk0NzUzNjc=",
+      "title": "Include summary of hartke-core-apps",
+      "url": "https://github.com/t2trg/t2trg-rest-iot/issues/2",
+      "state": "CLOSED",
+      "author": "mkovatsc",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [
+        "akeranen"
+      ],
+      "labels": [],
+      "body": "Communication among different parties needs to agree upon some shared concepts => media types, rel types.\n\nArgument for loose coupling, open system, etc.\n",
+      "createdAt": "2016-01-28T14:54:00Z",
+      "updatedAt": "2019-11-04T20:12:25Z",
+      "closedAt": "2019-11-04T20:12:25Z",
+      "comments": [
+        {
+          "author": "mkovatsc",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Take over section 3 (Template with list of what needs to be shared a priori).\r\nCheck other bits, e.g., URI design.",
+          "createdAt": "2018-07-16T19:04:03Z",
+          "updatedAt": "2018-07-16T19:04:03Z"
+        },
+        {
+          "author": "mkovatsc",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Check why \"System design\" is under \"Basics\".",
+          "createdAt": "2018-07-16T19:10:17Z",
+          "updatedAt": "2018-07-16T19:10:17Z"
+        },
+        {
+          "author": "akeranen",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Addressed in https://tools.ietf.org/html/draft-irtf-t2trg-rest-iot-04#section-5.4",
+          "createdAt": "2019-11-04T20:12:25Z",
+          "updatedAt": "2019-11-04T20:12:25Z"
+        }
+      ]
+    },
+    {
+      "number": 4,
+      "id": "MDU6SXNzdWUxNDM1NzkwMzE=",
+      "title": "Hierarchical and non-hierarchical URI parts",
+      "url": "https://github.com/t2trg/t2trg-rest-iot/issues/4",
+      "state": "CLOSED",
+      "author": "akeranen",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "> On 22 Mar 2016, at 14:08, Simpson, Robby (GE Energy Connections) robby.simpson@ge.com wrote:\n> In reading draft-keranen-t2trg-rest-iot-01 I note the following:\n> The path is hierarchical; the query is non-hierarchical.\n> It is my understanding that this statement is subject to debate.\n\nhttp://www.ietf.org/mail-archive/web/t2trg/current/msg00186.html\n",
+      "createdAt": "2016-03-25T19:39:36Z",
+      "updatedAt": "2016-07-17T11:21:36Z",
+      "closedAt": "2016-07-17T11:21:36Z",
+      "comments": [
+        {
+          "author": "mkovatsc",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Fixed in PR #5 \n",
+          "createdAt": "2016-07-17T11:21:36Z",
+          "updatedAt": "2016-07-17T11:21:36Z"
+        }
+      ]
+    },
+    {
+      "number": 6,
+      "id": "MDU6SXNzdWUxNjU5NzI1NTM=",
+      "title": "Include feedback by Mike Amundsen",
+      "url": "https://github.com/t2trg/t2trg-rest-iot/issues/6",
+      "state": "CLOSED",
+      "author": "mkovatsc",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [
+        "mkovatsc"
+      ],
+      "labels": [],
+      "body": "Sections\n\nhttps://www.ietf.org/mail-archive/web/t2trg/current/msg00204.html\n\nREST constraints\n\nhttps://www.ietf.org/mail-archive/web/t2trg/current/msg00199.html\n",
+      "createdAt": "2016-07-17T11:27:36Z",
+      "updatedAt": "2018-07-19T05:15:22Z",
+      "closedAt": "2018-07-19T05:15:22Z",
+      "comments": [
+        {
+          "author": "mkovatsc",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Many points were moved to the corresponding issue.\n",
+          "createdAt": "2016-07-18T17:24:44Z",
+          "updatedAt": "2016-07-18T17:24:44Z"
+        },
+        {
+          "author": "mkovatsc",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Let's pick the interesting discussion about the REST constraints here:\n\nI like the idea of revisiting the constraints. I am less sure of MAY, SHOULD, and MUST is the best taxonomy here.\n\n# Client-Server :  MAY\n\nThe experience from CoAP shows that it is most practical to have both roles simultaneously on a device. The division into client and server is still very useful because it declares which component had the initiative to do something, which is helpful for the visibility, but also accountability in \"digital forensics\"(?). When an IoT device has initiative (because there is a user, e.g., pressing a button, or it has some policy/rules/AI), it acts as a client. When a device offers a service, it is in server role. Both can happen on the same device\n\n# Stateless : SHOULD\n\nThere are not details in the mail why Mike picked SHOULD. One concern is of course efficiency and compact messages. Introducing state can help a lot here.\nI guess we need a proper evaluation of the desired properties enabled through statelessness and the advantages from breaking the constraint.\n\nMaybe helpful: FTP vs HTTP comparison about how filepath is conveyed.\n\n# Cache : MUST\n\nYes, must be enabled whenever possible to protect constrained devices.\nThis is a bit endangered through security, as transport layer security is currently predominant.\nObject security is quite interesting here. One should analyze how to enable caching for encrypted content that can be accessed by multiple participants. There should be guidance what trade-offs are made with respect to security, since cache-key options may not be encrypted...\n\nCaching usually only makes sense when the data is used by multiple/many participants. In the IoT, it might make sense to cache also individual data to protect constrained devices.\n\n# Uniform Interface : MUST\n\nHere the explanation of the methods would fit, and why one should respect their properties (no side effects with a GET...).\nCoAP is collecting more methods (FETCH, PATCH). Explain the different philosophy compared to RPC.\n\n## Identification of Resources : MUST\n\nNot sure how to understand this.\nIs this related to queries and FETCH?\n\n## Manipulation of Resources through Representations : MUST\n\nHmm. This simply results from the uniform interface and context-dependent meaning of methods.\nShould this be reinterpreted somehow?\n\nAn interesting point here could be the handling of events, that is state that is pushed from the server to the client and each individual notification is important and must not be lost (which makes them different from Observe notifications).\n\n# Self-Describing Messages : SHOULD\n\nPartly, this is statelessness.\nThe other part is not relying on implicit out-of-band information.\nThat is, proper use of Internet Media Types (and not just labeling everything app/json).\n\n# Hypermedia as the Engine of App State : MAY\n\nIoT often has \"dead ends\" in the application: a sensor or actuator that does not link any further.\nFor discovery, HATEOAS is still very important and I see a MUST there to enable loose coupling.\n\n# Layered System : MUST\n\nMight this be related to sleepy devices? Explicit delegation?\n\n# Code-On-Demand : MAY\n\nWe have to find examples where this would apply, in particular since code is shipped from the server to the client.\nFor instance, form checking is irrelevant in a Thing-to-Thing context.\nPreprocessing of data is interesting, but that should be done on the server side, which is the origin of data (e.g., a sensor).\n",
+          "createdAt": "2016-07-18T18:01:46Z",
+          "updatedAt": "2016-07-18T18:01:46Z"
+        },
+        {
+          "author": "mkovatsc",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Let's start with having a short discussion paragraph about this under Sections 4.x",
+          "createdAt": "2018-07-16T19:25:46Z",
+          "updatedAt": "2018-07-16T19:25:46Z"
+        },
+        {
+          "author": "mkovatsc",
+          "authorAssociation": "COLLABORATOR",
+          "body": "#41 waiting to be merged.",
+          "createdAt": "2018-07-19T05:15:22Z",
+          "updatedAt": "2018-07-19T05:15:22Z"
+        }
+      ]
+    },
+    {
+      "number": 7,
+      "id": "MDU6SXNzdWUxNjU5NzI1ODc=",
+      "title": "Text on discovery",
+      "url": "https://github.com/t2trg/t2trg-rest-iot/issues/7",
+      "state": "OPEN",
+      "author": "mkovatsc",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [
+        "akeranen"
+      ],
+      "labels": [],
+      "body": "No hardcoded URIs, discovery step.\n\nDirectories vs search engines in the IoT (devices usually do not link to other devices like Web pages link to other Web pages).\n",
+      "createdAt": "2016-07-17T11:28:53Z",
+      "updatedAt": "2018-07-16T19:26:34Z",
+      "closedAt": null,
+      "comments": [
+        {
+          "author": "akeranen",
+          "authorAssociation": "COLLABORATOR",
+          "body": "DNS, DNS-SD, RD, etc.",
+          "createdAt": "2017-07-18T11:01:40Z",
+          "updatedAt": "2017-07-18T11:01:40Z"
+        },
+        {
+          "author": "mkovatsc",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Should be covered if Section Hypermedia-driven Applications talks about Entry Point URIs and then hypermedia controls.",
+          "createdAt": "2017-09-07T13:56:26Z",
+          "updatedAt": "2017-09-07T13:56:26Z"
+        },
+        {
+          "author": "akeranen",
+          "authorAssociation": "COLLABORATOR",
+          "body": "How do you discover that certain operations (e.g., FETCH/PATCH with SenML) are supported\r\n\r\n- Out of band info: based on system properties, etc.\r\n- Opportunistic: try and check response code\r\n- CoRE discovery methods: link rels, interfaces, etc.",
+          "createdAt": "2018-07-03T15:44:44Z",
+          "updatedAt": "2018-07-03T15:44:44Z"
+        },
+        {
+          "author": "mkovatsc",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Ari wrote up some text on the plane, which needs to be aligned with the document.",
+          "createdAt": "2018-07-16T19:24:23Z",
+          "updatedAt": "2018-07-16T19:24:23Z"
+        }
+      ]
+    },
+    {
+      "number": 8,
+      "id": "MDU6SXNzdWUxNjU5NzI2OTg=",
+      "title": "Pragmatic definition of \"application state\"",
+      "url": "https://github.com/t2trg/t2trg-rest-iot/issues/8",
+      "state": "CLOSED",
+      "author": "mkovatsc",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Originally, application state defined the state kept on the client, that is, what Web page is currently rendered and which pages were visited before.\n\nThis does not make sense anymore when resource state is more than static Web pages, but parameters, physical state, etc. \"Application state\" logically would mean the state of the overall IoT application (state of the client and resoource state).\n",
+      "createdAt": "2016-07-17T11:32:34Z",
+      "updatedAt": "2017-03-13T10:47:55Z",
+      "closedAt": "2017-03-13T10:47:55Z",
+      "comments": [
+        {
+          "author": "mkovatsc",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Related comment by Mike Amundsen:\n\n> I suggest using the words \"client state\" and \"resource state\" in section 3.2 of draft-keranen-t2trg-rest-iot. This more clearly identifies who is responsible for which state elements and avoids discussions about \"application\" and \"session\" definitions.\n",
+          "createdAt": "2016-07-18T17:03:15Z",
+          "updatedAt": "2016-07-18T17:03:15Z"
+        }
+      ]
+    },
+    {
+      "number": 9,
+      "id": "MDU6SXNzdWUxNjU5NzI4MDg=",
+      "title": "Guidance on resource design",
+      "url": "https://github.com/t2trg/t2trg-rest-iot/issues/9",
+      "state": "OPEN",
+      "author": "mkovatsc",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "What should be a resource? (cf. object-oriented design; state, not actions)\nSize of resources (to many properties in one resource vs. to many roundtrips)\n",
+      "createdAt": "2016-07-17T11:35:48Z",
+      "updatedAt": "2017-09-08T12:50:56Z",
+      "closedAt": null,
+      "comments": [
+        {
+          "author": "mkovatsc",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Mike Amundsen:\n\n> Section 3.4\n> I think most of the text here can be removed and replaced with a reference to existing RFCs on URI (e.g. 3986). I think it would also be good guidance to reference RFC7320 (\"URI Design and Ownership\")[3].\n\nThe definition of URIs and design of resources is closely related.\n",
+          "createdAt": "2016-07-18T17:16:07Z",
+          "updatedAt": "2016-07-18T17:16:07Z"
+        },
+        {
+          "author": "mkovatsc",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Also include text from http://www.jopera.org/files/SOA2009-REST-Patterns_0.pdf\n",
+          "createdAt": "2016-11-15T06:22:24Z",
+          "updatedAt": "2016-11-15T06:22:24Z"
+        },
+        {
+          "author": "mkovatsc",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Include information on parents/children: resources are not implicitly related through the URI path, but only though explicit links. (The designer of the server namespace (resources) usually picks a logical structure and co-humans can easily guess that logic, but they mustn't).\n",
+          "createdAt": "2016-11-15T07:17:59Z",
+          "updatedAt": "2016-11-15T07:17:59Z"
+        },
+        {
+          "author": "akeranen",
+          "authorAssociation": "COLLABORATOR",
+          "body": "To the guidelines before the design patterns.\r\nThink about state instead of interaction.",
+          "createdAt": "2017-09-08T12:50:56Z",
+          "updatedAt": "2017-09-08T12:50:56Z"
+        }
+      ]
+    },
+    {
+      "number": 10,
+      "id": "MDU6SXNzdWUxNjU5NzI5NjU=",
+      "title": "Update terminology from thesis text",
+      "url": "https://github.com/t2trg/t2trg-rest-iot/issues/10",
+      "state": "CLOSED",
+      "author": "mkovatsc",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "@ektrah \n",
+      "createdAt": "2016-07-17T11:40:49Z",
+      "updatedAt": "2017-03-10T13:06:27Z",
+      "closedAt": "2017-03-10T13:06:27Z",
+      "comments": [
+        {
+          "author": "mkovatsc",
+          "authorAssociation": "COLLABORATOR",
+          "body": "@ektrah What is the status here (of your thesis)?\nErik provided some updates.\nHow do we proceed with the \"application state\" issue? (#8)\n",
+          "createdAt": "2016-11-15T05:38:07Z",
+          "updatedAt": "2016-11-15T05:46:27Z"
+        },
+        {
+          "author": "akeranen",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Klaus has nothing to add",
+          "createdAt": "2017-03-10T13:06:27Z",
+          "updatedAt": "2017-03-10T13:06:27Z"
+        }
+      ]
+    },
+    {
+      "number": 12,
+      "id": "MDU6SXNzdWUxODkzMTQ5ODU=",
+      "title": "Back Burner Topics",
+      "url": "https://github.com/t2trg/t2trg-rest-iot/issues/12",
+      "state": "OPEN",
+      "author": "mkovatsc",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "**Media type design:** After having learned from HSML and Coral (and maybe WoT TD), we should write on the lessons learned\r\n\r\n[\"Media type design\" is easy: it is just a string to identify representation formats. The latter are hard to design.]",
+      "createdAt": "2016-11-15T07:02:33Z",
+      "updatedAt": "2016-11-16T07:13:12Z",
+      "closedAt": null,
+      "comments": [
+        {
+          "author": "mkovatsc",
+          "authorAssociation": "COLLABORATOR",
+          "body": "**The applicability of REST:** where does the REST style work well (e.g., resource oriented architectures) and where it is not as good fit (e.g., RPC style actions). How can we extend the applicability and where should we stop and do something else.\n",
+          "createdAt": "2016-11-15T07:03:42Z",
+          "updatedAt": "2016-11-15T07:03:42Z"
+        },
+        {
+          "author": "mkovatsc",
+          "authorAssociation": "COLLABORATOR",
+          "body": "**Throttling and chatty APIs:** minimize the impact of a DDoS attack or bug in consumer code. more than a single call to perform a single, common function.\n",
+          "createdAt": "2016-11-16T07:13:12Z",
+          "updatedAt": "2016-11-16T07:13:12Z"
+        }
+      ]
+    },
+    {
+      "number": 16,
+      "id": "MDU6SXNzdWUyMTM4NzQ4MzA=",
+      "title": "The term \"gateway\"",
+      "url": "https://github.com/t2trg/t2trg-rest-iot/issues/16",
+      "state": "CLOSED",
+      "author": "mkovatsc",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Did we have a policy to avoid the term gateway? I am about to add the information that if a reverse proxy converts to non-RESTful services, it is usually called a gateway...",
+      "createdAt": "2017-03-13T19:37:52Z",
+      "updatedAt": "2017-09-11T19:26:37Z",
+      "closedAt": "2017-09-11T19:26:37Z",
+      "comments": [
+        {
+          "author": "akeranen",
+          "authorAssociation": "COLLABORATOR",
+          "body": "We use and define the term in the draft; so it's OK",
+          "createdAt": "2017-09-11T19:26:37Z",
+          "updatedAt": "2017-09-11T19:26:37Z"
+        }
+      ]
+    },
+    {
+      "number": 17,
+      "id": "MDU6SXNzdWUyMTQzMzYxMzI=",
+      "title": "Rule of thumb for good hypermedia-driven design",
+      "url": "https://github.com/t2trg/t2trg-rest-iot/issues/17",
+      "state": "CLOSED",
+      "author": "mkovatsc",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "I just gave this advice and it might be a good rule of thumb:\r\n\r\nAssuming human-readable representation formats (i.e., text-based not binary) and a client supporting the URI scheme used, a good rule of thumb for a good hypermedia-driven design is the following:\r\nA developer should only need an entry point URI to drive the application. All further information how to navigate through the application (links) and how to construct more complex requests (forms) are published by the server(s). There must be no need for additional, out-of-band information (e.g., API specification).\r\n\r\nFor machines, a well-chosen set of information needs to be shared a priori to agree on machine-understandable semantics. (Agreeing on the exact semantics of terms for relation types and data elements will of course also help the developer.)",
+      "createdAt": "2017-03-15T09:53:05Z",
+      "updatedAt": "2018-10-22T18:54:50Z",
+      "closedAt": "2018-10-22T18:54:50Z",
+      "comments": [
+        {
+          "author": "cabo",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "Yes, except that text-based doesn't mean human-readable (as exemplified by JSON -- in reality you need a formatting tool to look at any instances that aren't entirely trivial).  More important is that the format is self-describing (and the tool you need to look at that not too obscure).",
+          "createdAt": "2017-03-15T11:19:53Z",
+          "updatedAt": "2017-03-15T11:19:53Z"
+        },
+        {
+          "author": "mkovatsc",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Yes, yes, all this is already in the assumptions to get a concise rule of thumb :)\r\n\r\nNext iteration:\r\n\r\nAssuming self-describing representation formats (i.e., human-readable with carefully chosen terms or processible by a formatting tool) and a client supporting the URI scheme used, a good rule of thumb for a good hypermedia-driven design is the following:\r\nA developer should only need an entry point URI to drive the application. All further information how to navigate through the application (links) and how to construct more complex requests (forms) are published by the server(s). There must be no need for additional, out-of-band information (e.g., API specification).\r\n\r\nFor machines, a well-chosen set of information needs to be shared a priori to agree on machine-understandable semantics. (Agreeing on the exact semantics of terms for relation types and data elements will of course also help the developer.)",
+          "createdAt": "2017-03-15T15:45:02Z",
+          "updatedAt": "2017-03-15T15:45:51Z"
+        }
+      ]
+    },
+    {
+      "number": 26,
+      "id": "MDU6SXNzdWUyNTYyNDE1NzA=",
+      "title": "Further guidance on choosing the right method",
+      "url": "https://github.com/t2trg/t2trg-rest-iot/issues/26",
+      "state": "CLOSED",
+      "author": "akeranen",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Why it's a bad idea to use POST for everything",
+      "createdAt": "2017-09-08T12:40:35Z",
+      "updatedAt": "2022-06-13T11:51:46Z",
+      "closedAt": "2022-06-13T11:51:46Z",
+      "comments": [
+        {
+          "author": "mkovatsc",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Quickly explain, why using a safe method can be good, why idempotent is good in distributed systems, ... ",
+          "createdAt": "2018-07-16T19:29:50Z",
+          "updatedAt": "2018-07-16T19:29:50Z"
+        },
+        {
+          "author": "akeranen",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Benefits of idempotent methods for constrained IoT devices: don't have to keep track of requests.",
+          "createdAt": "2018-10-27T16:25:04Z",
+          "updatedAt": "2018-10-27T16:25:04Z"
+        },
+        {
+          "author": "mkovatsc",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Closing duplicate, continue in #48",
+          "createdAt": "2022-06-13T11:51:46Z",
+          "updatedAt": "2022-06-13T11:51:46Z"
+        }
+      ]
+    },
+    {
+      "number": 32,
+      "id": "MDU6SXNzdWUzMDY4NTI0OTc=",
+      "title": "FETCH and PATCH methods ",
+      "url": "https://github.com/t2trg/t2trg-rest-iot/issues/32",
+      "state": "CLOSED",
+      "author": "akeranen",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Add to methods section ",
+      "createdAt": "2018-03-20T12:53:37Z",
+      "updatedAt": "2018-10-22T20:38:02Z",
+      "closedAt": "2018-10-22T20:38:02Z",
+      "comments": []
+    },
+    {
+      "number": 36,
+      "id": "MDU6SXNzdWUzNDEzMjMxNTc=",
+      "title": "Data and Metadata not necessarily always together on the wire",
+      "url": "https://github.com/t2trg/t2trg-rest-iot/issues/36",
+      "state": "CLOSED",
+      "author": "mkovatsc",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "From WISHI hackathon breakout:\r\n\r\nCapture that constrained networks may split data from metadata -- they are still bound together, but not always sent together.",
+      "createdAt": "2018-07-15T13:58:28Z",
+      "updatedAt": "2019-07-05T16:02:16Z",
+      "closedAt": "2019-07-05T16:02:16Z",
+      "comments": [
+        {
+          "author": "mkovatsc",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Minimal text under 4.2 Stateless with PR #41 ",
+          "createdAt": "2018-07-19T13:46:03Z",
+          "updatedAt": "2018-07-19T13:46:03Z"
+        },
+        {
+          "author": "akeranen",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Was addressed with 41",
+          "createdAt": "2019-07-05T16:02:16Z",
+          "updatedAt": "2019-07-05T16:02:16Z"
+        }
+      ]
+    },
+    {
+      "number": 37,
+      "id": "MDU6SXNzdWUzNDEzNTIzNzI=",
+      "title": "Improve IoT aspect",
+      "url": "https://github.com/t2trg/t2trg-rest-iot/issues/37",
+      "state": "OPEN",
+      "author": "mkovatsc",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "It could help to point out that for IoT, REST must be used a bit stricter, as it is machines and not humans that use it.",
+      "createdAt": "2018-07-15T21:06:39Z",
+      "updatedAt": "2018-10-27T16:26:00Z",
+      "closedAt": null,
+      "comments": [
+        {
+          "author": "mkovatsc",
+          "authorAssociation": "COLLABORATOR",
+          "body": "e.g., rel attributes on links",
+          "createdAt": "2018-07-15T21:08:08Z",
+          "updatedAt": "2018-07-15T21:08:08Z"
+        },
+        {
+          "author": "akeranen",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Add web links to typical IoT data formats? \r\n",
+          "createdAt": "2018-10-27T16:26:00Z",
+          "updatedAt": "2018-10-27T16:26:00Z"
+        }
+      ]
+    },
+    {
+      "number": 39,
+      "id": "MDU6SXNzdWUzNDE2MjU0MzE=",
+      "title": "Text on dereferencing URIs in the URI section",
+      "url": "https://github.com/t2trg/t2trg-rest-iot/issues/39",
+      "state": "CLOSED",
+      "author": "mkovatsc",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "We added the terms to the terminology, but should explain a bit more at the end of the URI sections.",
+      "createdAt": "2018-07-16T18:23:36Z",
+      "updatedAt": "2018-07-16T18:35:08Z",
+      "closedAt": "2018-07-16T18:35:08Z",
+      "comments": [
+        {
+          "author": "mkovatsc",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Solved in #34 ",
+          "createdAt": "2018-07-16T18:35:08Z",
+          "updatedAt": "2018-07-16T18:35:08Z"
+        }
+      ]
+    },
+    {
+      "number": 40,
+      "id": "MDU6SXNzdWUzNDIzODc2MzY=",
+      "title": "Explain issue with URI query parameters",
+      "url": "https://github.com/t2trg/t2trg-rest-iot/issues/40",
+      "state": "OPEN",
+      "author": "mkovatsc",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "The URI query is just a piece of string after the question mark. There is no global specification how it should be parsed etc.\r\n\r\nHTML defined the usage of &amp; , which is supported by CoAP, but implementations handle it differently, for instance, when a query parameter occurs multiple times.",
+      "createdAt": "2018-07-18T15:47:27Z",
+      "updatedAt": "2019-11-22T06:44:29Z",
+      "closedAt": null,
+      "comments": [
+        {
+          "author": "akeranen",
+          "authorAssociation": "COLLABORATOR",
+          "body": "For GET query filter should often rather use FETCH. In general better to use payload than query parameters. But OTOH bookmarking better with query params. ",
+          "createdAt": "2019-11-22T06:44:29Z",
+          "updatedAt": "2019-11-22T06:44:29Z"
+        }
+      ]
+    },
+    {
+      "number": 48,
+      "id": "MDU6SXNzdWU0NjA5MzQ0NzM=",
+      "title": "Choosing REST methods",
+      "url": "https://github.com/t2trg/t2trg-rest-iot/issues/48",
+      "state": "OPEN",
+      "author": "akeranen",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Method should be chosen based the caching and proxy behavior, and idempotency and safety.",
+      "createdAt": "2019-06-26T12:13:07Z",
+      "updatedAt": "2022-06-13T11:51:25Z",
+      "closedAt": null,
+      "comments": [
+        {
+          "author": "mkovatsc",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Moved here from #26 to close duplicate:\r\n\r\n* Why it's a bad idea to use POST for everything\r\n* Quickly explain, why using a safe method can be good, why idempotent is good in distributed systems, ...\r\n* Benefits of idempotent methods for constrained IoT devices: don't have to keep track of requests.",
+          "createdAt": "2022-06-13T11:51:25Z",
+          "updatedAt": "2022-06-13T11:51:25Z"
+        }
+      ]
+    },
+    {
+      "number": 51,
+      "id": "MDU6SXNzdWU0NjU0MjU3Njk=",
+      "title": "Recommended way to configure server push",
+      "url": "https://github.com/t2trg/t2trg-rest-iot/issues/51",
+      "state": "CLOSED",
+      "author": "akeranen",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "To be aligned with the dynlink draft",
+      "createdAt": "2019-07-08T19:38:26Z",
+      "updatedAt": "2019-11-04T22:21:52Z",
+      "closedAt": "2019-11-04T22:21:52Z",
+      "comments": []
+    },
+    {
+      "number": 52,
+      "id": "MDU6SXNzdWU0NzA3OTY3Mzc=",
+      "title": "URI design consideration",
+      "url": "https://github.com/t2trg/t2trg-rest-iot/issues/52",
+      "state": "OPEN",
+      "author": "akeranen",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "From WISHI discussions with @ektrah.\r\n\r\nClient generated identifiers in URIs have pros and cons.\r\n\r\nPros:\r\n* Might appeal to users (looks nicer)\r\n* It's useful or debugging purposes. No-one will remember server-generated URIs \r\n* someone some day may need to write that URI somewhere manually\r\n\r\nCons:\r\n* you don't want the users dictate how you index your database. If user can decide the URI components, can't use them as such but need additional level of indirection for routing and IDs.\r\n* you may not want to reflect logical hierarchies of the program in the URIs. URLs should include only the minimal amount of information to locate the right database record.\r\n* short IDs are actually often useful even human users\r\n\r\nOne compromise:\r\n* URIs with both server- and human-readable parts. `http://example.com/theserverid/user-friendly-name`",
+      "createdAt": "2019-07-21T15:57:28Z",
+      "updatedAt": "2019-07-21T15:57:28Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 61,
+      "id": "I_kwDOAvXAV85LqGqx",
+      "title": "Major: CoRE explanation under 3.1 Architecture",
+      "url": "https://github.com/t2trg/t2trg-rest-iot/issues/61",
+      "state": "OPEN",
+      "author": "mkovatsc",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [
+        "mkovatsc",
+        "ektrah"
+      ],
+      "labels": [],
+      "body": "Primarily, text related to Figure 4 (Thing-to-Thing communication) explaining client + server\r\n\r\nAfter all this time, I think this document tries to explain, why there has been a \u201cConstrained RESTful Environments\u201d group in the first place and what the benefits of REST are for such an environment. This somehow is in this document, but not explained well\u2026\r\nSomething to intro?\r\n\r\nNeed short list why Contrained REST environments / use of REST is a good idea. Anarchic environment where everyone can put their stuff and link together with hypermedia. Compared to MQTT broker where everyone needs to agree on topics etc.",
+      "createdAt": "2022-06-13T11:56:23Z",
+      "updatedAt": "2022-06-13T15:50:32Z",
+      "closedAt": null,
+      "comments": [
+        {
+          "author": "mkovatsc",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Also give context for 3.2. System Design -- resource state and\r\n\r\n> the client state must be kept only on clients\r\n\r\nMaybe say that the whole design assumes that a server can have multiple clients that (by default) interact through the server.",
+          "createdAt": "2022-06-13T15:50:32Z",
+          "updatedAt": "2022-06-13T15:50:32Z"
+        }
+      ]
+    },
+    {
+      "number": 62,
+      "id": "I_kwDOAvXAV85LqJk3",
+      "title": "Major: Explain the role of Actions in IoT (opposed to central state transfer pattern)",
+      "url": "https://github.com/t2trg/t2trg-rest-iot/issues/62",
+      "state": "CLOSED",
+      "author": "mkovatsc",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "From 3.2. System Design\r\n\r\n> This is usually done by retrieving the current state, modifying the state on the client side, and transferring the new state to the server in the form of new representations -- rather than calling a service and modifying the state on the server side.\r\n\r\nCarsten's comment: \"This plays down actions a lot\"\r\n\r\nMight be best suited for the \"Calling a procedure\" section.",
+      "createdAt": "2022-06-13T12:07:20Z",
+      "updatedAt": "2024-10-21T20:34:58Z",
+      "closedAt": "2024-10-21T20:34:58Z",
+      "comments": [
+        {
+          "author": "akeranen",
+          "authorAssociation": "COLLABORATOR",
+          "body": "The \"calling a procedure\" section explains the other option in quite some detail so I think adding a cross-ref there is good enough fix here. Now in PR #81.",
+          "createdAt": "2024-10-21T19:23:22Z",
+          "updatedAt": "2024-10-21T19:23:22Z"
+        }
+      ]
+    },
+    {
+      "number": 63,
+      "id": "I_kwDOAvXAV85LqKv9",
+      "title": "Editorial: Uniform Interface appearing in 3.5, but discussed in 4.4",
+      "url": "https://github.com/t2trg/t2trg-rest-iot/issues/63",
+      "state": "CLOSED",
+      "author": "mkovatsc",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "> As part of the Uniform Interface constraint, each method can have certain properties that give guarantees to clients.",
+      "createdAt": "2022-06-13T12:11:38Z",
+      "updatedAt": "2024-10-21T20:34:04Z",
+      "closedAt": "2024-10-21T20:34:04Z",
+      "comments": [
+        {
+          "author": "akeranen",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Actually first time in [3.2](https://www.ietf.org/archive/id/draft-irtf-t2trg-rest-iot-12.html#section-3.2) with reference to 4.4 \r\n> Overall, this allows to realize a Uniform Interface (see Section 4.4), which enables loose coupling between clients and servers.",
+          "createdAt": "2024-01-24T17:17:00Z",
+          "updatedAt": "2024-01-24T17:17:00Z"
+        },
+        {
+          "author": "akeranen",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Seems like simplest way to fix this is to add another cross-ref. Now in PR 80.",
+          "createdAt": "2024-10-21T18:32:33Z",
+          "updatedAt": "2024-10-21T18:32:33Z"
+        }
+      ]
+    },
+    {
+      "number": 64,
+      "id": "I_kwDOAvXAV85LqLcm",
+      "title": "Minor: Reason(s) for different semantics in CoAP response codes",
+      "url": "https://github.com/t2trg/t2trg-rest-iot/issues/64",
+      "state": "OPEN",
+      "author": "mkovatsc",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [
+        "ektrah"
+      ],
+      "labels": [],
+      "body": "> In CoAP, the cacheability of a response depends on the response code (e.g., responses with code 2.04 are cacheable).  This difference also leads to slightly different semantics for the codes starting with 2; for example, CoAP does not have a 2.00 response code whereas 200 (\"OK\") is commonly used with HTTP.\r\n\r\nIs it really that difference that leads to the 2.xx semantics of CoAP?",
+      "createdAt": "2022-06-13T12:14:08Z",
+      "updatedAt": "2022-06-30T13:56:46Z",
+      "closedAt": null,
+      "comments": [
+        {
+          "author": "ektrah",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Yes, I think so. In HTTP, the cacheability of a response depends on the request method and *200 OK* is used for practically all methods. In CoAP, the cacheability of a response depends on the response code (so that, for example, a *4.29 Too Many Requests* response can be reused even for a POST request) and we separated the success cases into 2.05 for GET, 2.01/2.04 for PUT/POST, and 2.02 for DELETE.",
+          "createdAt": "2022-06-13T12:30:57Z",
+          "updatedAt": "2022-06-13T12:30:57Z"
+        },
+        {
+          "author": "mkovatsc",
+          "authorAssociation": "COLLABORATOR",
+          "body": "In PR #74 , I rewrote the text, as the main message is probably that in CoAP the response code ALONE decides cacheability, while HTTP has complex rules.",
+          "createdAt": "2022-06-30T08:59:21Z",
+          "updatedAt": "2022-06-30T08:59:21Z"
+        },
+        {
+          "author": "mkovatsc",
+          "authorAssociation": "COLLABORATOR",
+          "body": "During this, I stumbled over the question how 4.01 Unauthorized and 4.03 Forbidden can be cacheable..\r\n@ektrah ?",
+          "createdAt": "2022-06-30T09:00:27Z",
+          "updatedAt": "2022-06-30T09:00:27Z"
+        },
+        {
+          "author": "ektrah",
+          "authorAssociation": "COLLABORATOR",
+          "body": "According to the *Stateless* constraint, all requests must be self-containing. So, if you\u2019re not authorized to access a resource when making a request the first time, you\u2019re also not authorized when making the same request again. (Of course, the server should set an appropriate Max-Age so that you\u2019re not stuck with the cached response forever.)",
+          "createdAt": "2022-06-30T09:39:36Z",
+          "updatedAt": "2022-06-30T09:39:36Z"
+        },
+        {
+          "author": "ektrah",
+          "authorAssociation": "COLLABORATOR",
+          "body": "For some error response codes, the CoAP Max-Age Option is actually closer to the HTTP Retry-After header field. ",
+          "createdAt": "2022-06-30T09:43:42Z",
+          "updatedAt": "2022-06-30T09:43:42Z"
+        },
+        {
+          "author": "mkovatsc",
+          "authorAssociation": "COLLABORATOR",
+          "body": "The issue I see is, how could the request and its fields that are evaluated by the cache carry any authorization or authentication information? I would say there is none and auth* information always comes from from something else, so returning a cached response just breaks the application, no?",
+          "createdAt": "2022-06-30T09:44:26Z",
+          "updatedAt": "2022-06-30T09:45:02Z"
+        },
+        {
+          "author": "ektrah",
+          "authorAssociation": "COLLABORATOR",
+          "body": "If \u201cauth* information always comes from something else\u201d then \u201csomething else\u201d must be part of the cache key (or like a change in DTLS epoch that keeps cache entries apart).",
+          "createdAt": "2022-06-30T11:09:39Z",
+          "updatedAt": "2022-06-30T11:09:39Z"
+        },
+        {
+          "author": "mkovatsc",
+          "authorAssociation": "COLLABORATOR",
+          "body": "* What could be NOT \"something else\" to authenticate/authorize?\r\n* Could anyone other than the origin server know what else to put into the cache key?\r\n\r\nI am not sure we are heading to something useful here, but it also feels related to #65.",
+          "createdAt": "2022-06-30T11:35:42Z",
+          "updatedAt": "2022-06-30T11:35:42Z"
+        },
+        {
+          "author": "ektrah",
+          "authorAssociation": "COLLABORATOR",
+          "body": "* For example, a query string or some new CoAP option with a bearer token \r\n* I\u2019d say everyone (including the origin server) *must* know (and agree) what to put in the cache key. For example an intermediary with a cache can serve a fresh, cached response to a new client. If the intermediary doesn\u2019t include authorizations in the cache key, it might leak information meant for an authorized client when acting on behalf of another, unauthorized client. ",
+          "createdAt": "2022-06-30T13:56:46Z",
+          "updatedAt": "2022-06-30T13:56:46Z"
+        }
+      ]
+    },
+    {
+      "number": 65,
+      "id": "I_kwDOAvXAV85LqMAN",
+      "title": "Minor: 4.3 Caching and cacheable OSCORE",
+      "url": "https://github.com/t2trg/t2trg-rest-iot/issues/65",
+      "state": "OPEN",
+      "author": "mkovatsc",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "> For IoT systems, object security [RFC8613] may be preferable over transport layer security, as it enables intermediaries to cache responses while preserving security.\r\n\r\n\"Cacheable OSCORE\", Christian Amsuess, Marco Tiloca, 2021-10-25, <draft-amsuess-core-cachable-oscore-03.txt>\r\nI guess this is why our wording is \"may be\" and \"enables\".. Should we add an explicit note?",
+      "createdAt": "2022-06-13T12:16:07Z",
+      "updatedAt": "2024-01-26T07:54:59Z",
+      "closedAt": null,
+      "comments": [
+        {
+          "author": "akeranen",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Added ref to the Cacheable OSCORE draft; let's see whether we can give more detailed guidance based on future learnings on the topic.",
+          "createdAt": "2024-01-26T07:54:58Z",
+          "updatedAt": "2024-01-26T07:54:58Z"
+        }
+      ]
+    },
+    {
+      "number": 66,
+      "id": "I_kwDOAvXAV85LqP95",
+      "title": "Major: RESTful vs REST (with HATEOAS)",
+      "url": "https://github.com/t2trg/t2trg-rest-iot/issues/66",
+      "state": "OPEN",
+      "author": "mkovatsc",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Also touches the use of \"API\", where the need to read a document instead of HATEOAS is not REST(ful). One could argue that REST is a uniform API.\r\n\r\nNeed to make a decision on how to treat this in the discussion (explain the difference) and then be consistent throughout the document.",
+      "createdAt": "2022-06-13T12:29:47Z",
+      "updatedAt": "2022-06-13T12:29:47Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 67,
+      "id": "I_kwDOAvXAV85LqY6h",
+      "title": "Minor: Include RFC 8132 *ETCH",
+      "url": "https://github.com/t2trg/t2trg-rest-iot/issues/67",
+      "state": "CLOSED",
+      "author": "mkovatsc",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [
+        "akeranen"
+      ],
+      "labels": [],
+      "body": "Issue was raised in 6.2.3.  Conversion, but also affects methods section.",
+      "createdAt": "2022-06-13T13:00:54Z",
+      "updatedAt": "2024-10-21T20:34:31Z",
+      "closedAt": "2024-10-21T20:34:31Z",
+      "comments": [
+        {
+          "author": "mkovatsc",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Methods section has *ETCH and correct reference, however, the following related comment on the HTTP counterpart:\r\n\r\n> Minor: Mention https://datatracker.ietf.org/doc/draft-ietf-httpbis-safe-method-w-body/ ?",
+          "createdAt": "2022-06-13T17:19:40Z",
+          "updatedAt": "2022-06-13T17:19:40Z"
+        },
+        {
+          "author": "akeranen",
+          "authorAssociation": "COLLABORATOR",
+          "body": "At the moment the draft is expired. If it's revived and going towards RFC, could add a ref.",
+          "createdAt": "2024-01-24T17:30:05Z",
+          "updatedAt": "2024-01-24T17:30:05Z"
+        },
+        {
+          "author": "cabo",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "We could mention that the HTTPBIS WG is chewing on it, but there is no active draft at the moment.",
+          "createdAt": "2024-01-24T17:48:53Z",
+          "updatedAt": "2024-01-24T17:48:53Z"
+        }
+      ]
+    },
+    {
+      "number": 68,
+      "id": "I_kwDOAvXAV85LqwUy",
+      "title": "Minor: Content Type in terminology section with senml-data-ct",
+      "url": "https://github.com/t2trg/t2trg-rest-iot/issues/68",
+      "state": "CLOSED",
+      "author": "mkovatsc",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [
+        "akeranen"
+      ],
+      "labels": [],
+      "body": "> AK --> Unclear if \"ct\" field in SenML (draft-ietf-core-senml-data-ct) or senml+json etc.\r\n>     MK: just adding \"application/senml+json\" would be fine.\r\n> AK: actually, seems this was more about the terminology explained in senmll-data-ct. I updated the \"representations\" section accordingly and checked with CB that this is sufficient to address the issue here\r\n\r\nUnclear if this is now resolved or not.",
+      "createdAt": "2022-06-13T14:09:06Z",
+      "updatedAt": "2022-06-30T08:14:38Z",
+      "closedAt": "2022-06-30T08:14:37Z",
+      "comments": [
+        {
+          "author": "akeranen",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Resolved in editorial branch.",
+          "createdAt": "2022-06-30T08:14:37Z",
+          "updatedAt": "2022-06-30T08:14:37Z"
+        }
+      ]
+    },
+    {
+      "number": 69,
+      "id": "I_kwDOAvXAV85LrU55",
+      "title": "Editorial: Check all references to RFC723x and update Section numbers",
+      "url": "https://github.com/t2trg/t2trg-rest-iot/issues/69",
+      "state": "CLOSED",
+      "author": "mkovatsc",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [
+        "akeranen"
+      ],
+      "labels": [],
+      "body": "; httpbis-messaging/-semantics/-cache are in the RFC editor queue and will be published before this document.\r\n\r\nhttps://www.rfc-editor.org/cluster_info.php?cid=C430",
+      "createdAt": "2022-06-13T15:59:05Z",
+      "updatedAt": "2022-06-30T09:15:47Z",
+      "closedAt": "2022-06-30T09:15:47Z",
+      "comments": [
+        {
+          "author": "cabo",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "They actually have been published.",
+          "createdAt": "2022-06-13T16:20:35Z",
+          "updatedAt": "2022-06-13T16:20:35Z"
+        },
+        {
+          "author": "mkovatsc",
+          "authorAssociation": "COLLABORATOR",
+          "body": "> They actually have been published.\r\n\r\nThanks!",
+          "createdAt": "2022-06-13T17:32:24Z",
+          "updatedAt": "2022-06-13T17:32:24Z"
+        }
+      ]
+    },
+    {
+      "number": 70,
+      "id": "I_kwDOAvXAV85LrrHK",
+      "title": "Major: Server-sent events (SSE)",
+      "url": "https://github.com/t2trg/t2trg-rest-iot/issues/70",
+      "state": "OPEN",
+      "author": "mkovatsc",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [
+        "cabo"
+      ],
+      "labels": [],
+      "body": "> Server-sent events (SSE) are seriously bizarre; I think this could be\r\nmentioned here.\r\n\r\nWe need some consensus on the \"bizarreness\" or at least to understand the expected guidance.\r\n\r\nSSE work a bit like HTTP headers with an identifier `event:` followed by a user-defined string and newline (`\\n`) and then the identifier 'data:' followed by a user-defined string without newline (can be a JSON structure) and terminated with an empty line (`\\n\\n`) -- bizarrely not using `\\r\\n` like HTTP headers...\r\n\r\nI don't think we need to explain this in this document.",
+      "createdAt": "2022-06-13T17:26:22Z",
+      "updatedAt": "2024-10-21T19:04:41Z",
+      "closedAt": null,
+      "comments": [
+        {
+          "author": "cabo",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "\r\n> I don't think we need to explain this in this document.\r\n\r\nNo.  I think the important observation is that SSE cannot do REST, as there is no transfer of representations, just header-like data.",
+          "createdAt": "2024-10-21T18:58:47Z",
+          "updatedAt": "2024-10-21T18:58:47Z"
+        },
+        {
+          "author": "akeranen",
+          "authorAssociation": "COLLABORATOR",
+          "body": "SSE is [currently mentioned](https://www.ietf.org/archive/id/draft-irtf-t2trg-rest-iot-14.html#section-6.3-6) only as a workaround and text notes that it \"reduces HTTP to a pure transport\":\r\n> In HTTP, there exist a number of workarounds to enable server push, e.g., long polling and streaming [RFC6202] or server-sent events [W3C.REC-html5-20141028].  In IoT systems, long polling can introduce a considerable overhead, as the request has to be repeated for each notification. Streaming and server-sent events (the latter is actually an evolution of the former) are more efficient, as only one request is sent. However, there is only one response header and subsequent notifications can only have content. Individual status and metadata needs to be included in the content message. This reduces HTTP again to a pure transport, as its status signaling and metadata capabilities cannot be used.",
+          "createdAt": "2024-10-21T19:04:40Z",
+          "updatedAt": "2024-10-21T19:04:40Z"
+        }
+      ]
+    },
+    {
+      "number": 71,
+      "id": "I_kwDOAvXAV85Lrr-k",
+      "title": "Minor: SotA for syntactic/structural validation",
+      "url": "https://github.com/t2trg/t2trg-rest-iot/issues/71",
+      "state": "CLOSED",
+      "author": "mkovatsc",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [
+        "cabo"
+      ],
+      "labels": [],
+      "body": "Section 4.4. refers to JSON Schema at the end as an example for syntactic/structural validation and has the comment:\r\n\r\n> I think we have a better reference for structural (syntactic) validation.\r\n\r\nStill unclear which would be that better reference that is used in practice. Could be picked up in WISHI call.\r\n",
+      "createdAt": "2022-06-13T17:30:06Z",
+      "updatedAt": "2024-01-25T19:00:28Z",
+      "closedAt": "2024-01-25T19:00:28Z",
+      "comments": [
+        {
+          "author": "akeranen",
+          "authorAssociation": "COLLABORATOR",
+          "body": "CDDL could be mentioned for structural/syntactic validation and perhaps mention also CBOR as a generic format relevant in this context.",
+          "createdAt": "2024-01-24T17:23:12Z",
+          "updatedAt": "2024-01-24T17:23:12Z"
+        }
+      ]
+    },
+    {
+      "number": 72,
+      "id": "I_kwDOAvXAV85LrsYO",
+      "title": "Fix build pipeline",
+      "url": "https://github.com/t2trg/t2trg-rest-iot/issues/72",
+      "state": "CLOSED",
+      "author": "mkovatsc",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [
+        "mkovatsc",
+        "akeranen"
+      ],
+      "labels": [],
+      "body": "Builds are currently failing most likely as we need to rename our `master` to `main`.\r\nI am not sure I want to do this with a large open pull request...\r\n\r\nLet's get okay to merge, then rename and fix the pipeline.",
+      "createdAt": "2022-06-13T17:31:50Z",
+      "updatedAt": "2022-06-30T08:07:17Z",
+      "closedAt": "2022-06-30T08:07:17Z",
+      "comments": [
+        {
+          "author": "cabo",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "This is the branch of I-d-template, not the one of t2trg-rest-iot.\r\n\r\nJust run\r\n\r\n```\r\nsed -i~ s/master/main/ Makefile \r\nrm -rf lib\r\n```\r\n",
+          "createdAt": "2022-06-13T18:10:37Z",
+          "updatedAt": "2022-06-13T18:10:37Z"
+        },
+        {
+          "author": "mkovatsc",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Thanks @akeranen for fixing!",
+          "createdAt": "2022-06-30T08:07:17Z",
+          "updatedAt": "2022-06-30T08:07:17Z"
+        }
+      ]
+    },
+    {
+      "number": 77,
+      "id": "I_kwDOAvXAV86KQ0wb",
+      "title": "Updating definition of Thing",
+      "url": "https://github.com/t2trg/t2trg-rest-iot/issues/77",
+      "state": "CLOSED",
+      "author": "akeranen",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "\r\nCurrent definition of \"Thing\" in the RESTful IoT draft is:\r\n> Thing: A physical item that is made available in the Internet of Things, thereby enabling digital interaction with the physical world for humans, services, and/or other Things.\r\n\r\nDuring the drafting of the SDF specification, it was noted that this definition is rather circular (\"Thing\" in \"IoT\") and would be better as\r\n\r\n> A physical item that is also available for interaction over a network\r\n\r\nSuggest to update the definition in this draft accordingly.\r\n",
+      "createdAt": "2024-05-27T19:11:49Z",
+      "updatedAt": "2024-07-27T07:42:01Z",
+      "closedAt": "2024-07-27T07:42:01Z",
+      "comments": []
+    }
+  ],
+  "pulls": [
+    {
+      "number": 3,
+      "id": "MDExOlB1bGxSZXF1ZXN0NjI2OTgxMDY=",
+      "title": "Set of small tweaks and more details on idempotency",
+      "url": "https://github.com/t2trg/t2trg-rest-iot/pull/3",
+      "state": "MERGED",
+      "author": "akeranen",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2016-03-14T04:00:09Z",
+      "updatedAt": "2022-06-13T12:04:51Z",
+      "baseRepository": "t2trg/t2trg-rest-iot",
+      "baseRefName": "master",
+      "baseRefOid": "28a0c1a758f5360e27518b18fcc6199b5ef32d87",
+      "headRepository": "t2trg/t2trg-rest-iot",
+      "headRefName": "editorial-tweaks",
+      "headRefOid": "bc92dcde38b97b8744267b9163f0e024ab104252",
+      "closedAt": "2016-03-15T06:16:37Z",
+      "mergedAt": "2016-03-15T06:16:37Z",
+      "mergedBy": "mkovatsc",
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 5,
+      "id": "MDExOlB1bGxSZXF1ZXN0NzYzMzM1MzE=",
+      "title": "Updated text about URI path and query components",
+      "url": "https://github.com/t2trg/t2trg-rest-iot/pull/5",
+      "state": "MERGED",
+      "author": "akeranen",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Removed \"path is hierarchical query not\" comment.\nAdded note about query component order being unspecified.\n",
+      "createdAt": "2016-07-05T20:01:21Z",
+      "updatedAt": "2016-07-17T11:21:10Z",
+      "baseRepository": "t2trg/t2trg-rest-iot",
+      "baseRefName": "master",
+      "baseRefOid": "b665c9dc40a51454967f8b8b9b4e44ba048d3914",
+      "headRepository": "t2trg/t2trg-rest-iot",
+      "headRefName": "hierarchical-uris",
+      "headRefOid": "4ef8fb8da6a1366ea8e1c1fcaab7632eee17ec8e",
+      "closedAt": "2016-07-17T11:21:08Z",
+      "mergedAt": "2016-07-17T11:21:08Z",
+      "mergedBy": "mkovatsc",
+      "mergeCommit": {
+        "oid": "013a3f2d03ac94c12fd26768ae747318ec76b496"
+      },
+      "comments": [
+        {
+          "author": "akeranen",
+          "authorAssociation": "COLLABORATOR",
+          "body": "This addresses issue #4 \n",
+          "createdAt": "2016-07-12T06:49:01Z",
+          "updatedAt": "2016-07-12T06:49:01Z"
+        }
+      ],
+      "reviews": []
+    },
+    {
+      "number": 11,
+      "id": "MDExOlB1bGxSZXF1ZXN0ODgwNzg0ODE=",
+      "title": "some definition tweaks",
+      "url": "https://github.com/t2trg/t2trg-rest-iot/pull/11",
+      "state": "MERGED",
+      "author": "dret",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2016-10-05T13:33:19Z",
+      "updatedAt": "2016-11-01T08:16:05Z",
+      "baseRepository": "t2trg/t2trg-rest-iot",
+      "baseRefName": "master",
+      "baseRefOid": "d785ec93d14ce61d9dc234cb8da77f8fd4a46377",
+      "headRepository": "dret/t2trg-rest-iot",
+      "headRefName": "patch-1",
+      "headRefOid": "3c5a84d32cb4eb9c38904460e6c210416e71b429",
+      "closedAt": "2016-10-31T19:59:56Z",
+      "mergedAt": "2016-10-31T19:59:56Z",
+      "mergedBy": "akeranen",
+      "mergeCommit": {
+        "oid": "5dcf1cfd10a95ad650e8684836db3584db564297"
+      },
+      "comments": [
+        {
+          "author": "akeranen",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Very good input, thanks Erik!\n",
+          "createdAt": "2016-10-31T20:00:08Z",
+          "updatedAt": "2016-10-31T20:00:08Z"
+        }
+      ],
+      "reviews": []
+    },
+    {
+      "number": 13,
+      "id": "MDExOlB1bGxSZXF1ZXN0OTM3MTI2NTY=",
+      "title": "Added RFC7320 reference and info about URI fragments",
+      "url": "https://github.com/t2trg/t2trg-rest-iot/pull/13",
+      "state": "MERGED",
+      "author": "akeranen",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2016-11-15T07:17:53Z",
+      "updatedAt": "2022-06-13T12:04:55Z",
+      "baseRepository": "t2trg/t2trg-rest-iot",
+      "baseRefName": "master",
+      "baseRefOid": "3a64df1bd089d6476e6c63f12e7d49b7b98af751",
+      "headRepository": "t2trg/t2trg-rest-iot",
+      "headRefName": "uri-design-update",
+      "headRefOid": "681df85e27b562c38a8a4b2702771374f9e59dab",
+      "closedAt": "2017-03-13T10:29:12Z",
+      "mergedAt": "2017-03-13T10:29:12Z",
+      "mergedBy": "mkovatsc",
+      "mergeCommit": {
+        "oid": "914988c3f2dd1cc6574e5cd519649cd621db2a50"
+      },
+      "comments": [
+        {
+          "author": "mkovatsc",
+          "authorAssociation": "COLLABORATOR",
+          "body": "+1\n",
+          "createdAt": "2016-11-16T07:15:05Z",
+          "updatedAt": "2016-11-16T07:15:05Z"
+        }
+      ],
+      "reviews": []
+    },
+    {
+      "number": 14,
+      "id": "MDExOlB1bGxSZXF1ZXN0MTEwMTI2MzMy",
+      "title": "No more app state",
+      "url": "https://github.com/t2trg/t2trg-rest-iot/pull/14",
+      "state": "MERGED",
+      "author": "akeranen",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Addressing issue #8",
+      "createdAt": "2017-03-10T13:16:58Z",
+      "updatedAt": "2017-03-13T10:48:02Z",
+      "baseRepository": "t2trg/t2trg-rest-iot",
+      "baseRefName": "master",
+      "baseRefOid": "3a64df1bd089d6476e6c63f12e7d49b7b98af751",
+      "headRepository": "t2trg/t2trg-rest-iot",
+      "headRefName": "no-more-app-state",
+      "headRefOid": "cfb0ebbfee086d98dedda9b72afecdd8f950bec7",
+      "closedAt": "2017-03-13T10:47:55Z",
+      "mergedAt": "2017-03-13T10:47:55Z",
+      "mergedBy": "mkovatsc",
+      "mergeCommit": {
+        "oid": "3702db07adb3442811d486bc4bc5c749ebd57261"
+      },
+      "comments": [
+        {
+          "author": "mkovatsc",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Thanks Ari :)\r\nI will do a final pass and merge.",
+          "createdAt": "2017-03-13T10:40:07Z",
+          "updatedAt": "2017-03-13T10:40:07Z"
+        }
+      ],
+      "reviews": [
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3MjY1MTc2NDg=",
+          "commit": {
+            "abbreviatedOid": "cd8a4d9"
+          },
+          "author": "mkovatsc",
+          "authorAssociation": "COLLABORATOR",
+          "state": "CHANGES_REQUESTED",
+          "body": "I would add a comment in the definition, that this is called \"Application State\" in Fielding's thesis, but has some ambiguity in mordern (IoT) applications, where resource state is very dynamic and reflects part of the state in which the overall application is.",
+          "createdAt": "2017-03-13T10:34:33Z",
+          "updatedAt": "2017-03-13T10:34:33Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 15,
+      "id": "MDExOlB1bGxSZXF1ZXN0MTEwMzgyODYx",
+      "title": "Editorial pass",
+      "url": "https://github.com/t2trg/t2trg-rest-iot/pull/15",
+      "state": "MERGED",
+      "author": "mkovatsc",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "The intro was a collection of independent sentences, each in a new paragraph. I am trying to improve the flow with more proper, fluent paragraphs.\r\n\r\nMore editorial changes to come today.",
+      "createdAt": "2017-03-13T11:15:25Z",
+      "updatedAt": "2022-06-13T11:38:43Z",
+      "baseRepository": "t2trg/t2trg-rest-iot",
+      "baseRefName": "master",
+      "baseRefOid": "3702db07adb3442811d486bc4bc5c749ebd57261",
+      "headRepository": "t2trg/t2trg-rest-iot",
+      "headRefName": "mkovatsc-editorial-pass",
+      "headRefOid": "7c07d1c8811ebb327dcc0d1e0946883fd5b5c56f",
+      "closedAt": "2017-03-13T22:37:19Z",
+      "mergedAt": "2017-03-13T22:37:19Z",
+      "mergedBy": "mkovatsc",
+      "mergeCommit": {
+        "oid": "3bcce71f11c803c5c84fe6542d287701bbc4647d"
+      },
+      "comments": [
+        {
+          "author": "mkovatsc",
+          "authorAssociation": "COLLABORATOR",
+          "body": "No one awake... so let's have some progress and smooth out issues later ;)",
+          "createdAt": "2017-03-13T22:36:49Z",
+          "updatedAt": "2017-03-13T22:36:49Z"
+        }
+      ],
+      "reviews": [
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3MjY1MzE1MDE=",
+          "commit": {
+            "abbreviatedOid": "a5fd7cf"
+          },
+          "author": "akeranen",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2017-03-13T11:54:49Z",
+          "updatedAt": "2017-03-13T11:54:49Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 18,
+      "id": "MDExOlB1bGxSZXF1ZXN0MTM5NzkzODYx",
+      "title": "First stab at design pattern intro",
+      "url": "https://github.com/t2trg/t2trg-rest-iot/pull/18",
+      "state": "MERGED",
+      "author": "akeranen",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [
+        "ektrah"
+      ],
+      "labels": [],
+      "body": "",
+      "createdAt": "2017-09-07T12:36:36Z",
+      "updatedAt": "2017-09-07T12:40:11Z",
+      "baseRepository": "t2trg/t2trg-rest-iot",
+      "baseRefName": "master",
+      "baseRefOid": "7496bfab7e025496bc1057f02b8ac9d32dbf3e45",
+      "headRepository": "t2trg/t2trg-rest-iot",
+      "headRefName": "design-pattern-intro",
+      "headRefOid": "b4a15b601c8aca59c33170cfd04a1438e2038937",
+      "closedAt": "2017-09-07T12:40:06Z",
+      "mergedAt": "2017-09-07T12:40:06Z",
+      "mergedBy": "akeranen",
+      "mergeCommit": {
+        "oid": "c0fddb453b21034fc8381fa1f99a827f515d342f"
+      },
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 19,
+      "id": "MDExOlB1bGxSZXF1ZXN0MTM5ODA3OTI5",
+      "title": "First stab at the hypermedia intro",
+      "url": "https://github.com/t2trg/t2trg-rest-iot/pull/19",
+      "state": "MERGED",
+      "author": "akeranen",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2017-09-07T13:41:38Z",
+      "updatedAt": "2017-09-07T13:43:52Z",
+      "baseRepository": "t2trg/t2trg-rest-iot",
+      "baseRefName": "master",
+      "baseRefOid": "c0fddb453b21034fc8381fa1f99a827f515d342f",
+      "headRepository": "t2trg/t2trg-rest-iot",
+      "headRefName": "hypermedia-intro",
+      "headRefOid": "50623cbf8833e9f4a118f80c38e5955942a16adb",
+      "closedAt": "2017-09-07T13:43:48Z",
+      "mergedAt": "2017-09-07T13:43:48Z",
+      "mergedBy": "akeranen",
+      "mergeCommit": {
+        "oid": "77c2cdf33c17ed37c68c53b55cb598eaf883c212"
+      },
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 20,
+      "id": "MDExOlB1bGxSZXF1ZXN0MTM5ODA4MTE5",
+      "title": "New design pattern",
+      "url": "https://github.com/t2trg/t2trg-rest-iot/pull/20",
+      "state": "MERGED",
+      "author": "mkovatsc",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2017-09-07T13:42:29Z",
+      "updatedAt": "2022-06-13T11:38:42Z",
+      "baseRepository": "t2trg/t2trg-rest-iot",
+      "baseRefName": "master",
+      "baseRefOid": "c0fddb453b21034fc8381fa1f99a827f515d342f",
+      "headRepository": "t2trg/t2trg-rest-iot",
+      "headRefName": "mkovatsc-events-as-state",
+      "headRefOid": "42e05fe06979b70e6bbb5bda662dcfd014a9ccb6",
+      "closedAt": "2017-09-07T13:52:18Z",
+      "mergedAt": "2017-09-07T13:52:18Z",
+      "mergedBy": "mkovatsc",
+      "mergeCommit": {
+        "oid": "df5a5a2162adecaf50ddf7f71ca8d5fcb1dfced1"
+      },
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 21,
+      "id": "MDExOlB1bGxSZXF1ZXN0MTM5ODMwOTA4",
+      "title": "Add some text in the Hypermedia section",
+      "url": "https://github.com/t2trg/t2trg-rest-iot/pull/21",
+      "state": "MERGED",
+      "author": "ektrah",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "cc @mkovatsc @akeranen ",
+      "createdAt": "2017-09-07T15:07:57Z",
+      "updatedAt": "2017-09-08T12:50:29Z",
+      "baseRepository": "t2trg/t2trg-rest-iot",
+      "baseRefName": "master",
+      "baseRefOid": "df5a5a2162adecaf50ddf7f71ca8d5fcb1dfced1",
+      "headRepository": "t2trg/t2trg-rest-iot",
+      "headRefName": "hypermedia",
+      "headRefOid": "966c8206037e4b3fce5078df3fa098d5a3e0cd6d",
+      "closedAt": "2017-09-08T12:00:04Z",
+      "mergedAt": "2017-09-08T12:00:04Z",
+      "mergedBy": "mkovatsc",
+      "mergeCommit": {
+        "oid": "8cab820ef11f8f3c0144cbdca517e11e45c746b1"
+      },
+      "comments": [
+        {
+          "author": "mkovatsc",
+          "authorAssociation": "COLLABORATOR",
+          "body": "+1",
+          "createdAt": "2017-09-08T11:58:33Z",
+          "updatedAt": "2017-09-08T11:58:33Z"
+        }
+      ],
+      "reviews": [
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3NjEyNjM1Mzg=",
+          "commit": {
+            "abbreviatedOid": "8eb2e45"
+          },
+          "author": "akeranen",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2017-09-07T15:40:55Z",
+          "updatedAt": "2017-09-07T15:41:04Z",
+          "comments": [
+            {
+              "originalPosition": 49,
+              "body": "{{?RFC6763}} reference for DNS-SD",
+              "createdAt": "2017-09-07T15:40:55Z",
+              "updatedAt": "2017-09-08T11:58:15Z"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "number": 22,
+      "id": "MDExOlB1bGxSZXF1ZXN0MTM5ODM3Nzcz",
+      "title": "First stab at the collection design pattern",
+      "url": "https://github.com/t2trg/t2trg-rest-iot/pull/22",
+      "state": "MERGED",
+      "author": "akeranen",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2017-09-07T15:33:19Z",
+      "updatedAt": "2022-06-13T11:38:39Z",
+      "baseRepository": "t2trg/t2trg-rest-iot",
+      "baseRefName": "master",
+      "baseRefOid": "8cab820ef11f8f3c0144cbdca517e11e45c746b1",
+      "headRepository": "t2trg/t2trg-rest-iot",
+      "headRefName": "collections-dp",
+      "headRefOid": "483222a6c57b9d49a4093428e13ce5046aac6334",
+      "closedAt": "2017-09-08T12:01:21Z",
+      "mergedAt": "2017-09-08T12:01:21Z",
+      "mergedBy": "mkovatsc",
+      "mergeCommit": {
+        "oid": "61d50324dbc302ccb30996986059a942127d199c"
+      },
+      "comments": [
+        {
+          "author": "mkovatsc",
+          "authorAssociation": "COLLABORATOR",
+          "body": "+1",
+          "createdAt": "2017-09-08T11:41:58Z",
+          "updatedAt": "2017-09-08T11:41:58Z"
+        }
+      ],
+      "reviews": []
+    },
+    {
+      "number": 23,
+      "id": "MDExOlB1bGxSZXF1ZXN0MTM5ODQwMDEy",
+      "title": "Details on modifying state",
+      "url": "https://github.com/t2trg/t2trg-rest-iot/pull/23",
+      "state": "MERGED",
+      "author": "mkovatsc",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Changed Section System Design and started design pattern on Calling a Function.",
+      "createdAt": "2017-09-07T15:42:05Z",
+      "updatedAt": "2022-06-13T11:38:41Z",
+      "baseRepository": "t2trg/t2trg-rest-iot",
+      "baseRefName": "master",
+      "baseRefOid": "df5a5a2162adecaf50ddf7f71ca8d5fcb1dfced1",
+      "headRepository": "t2trg/t2trg-rest-iot",
+      "headRefName": "mkovatsc-modifying-state",
+      "headRefOid": "b668ca08e693db6217c44fbd4ddc2d5beb92bb25",
+      "closedAt": "2017-09-08T11:55:44Z",
+      "mergedAt": "2017-09-08T11:55:44Z",
+      "mergedBy": "akeranen",
+      "mergeCommit": {
+        "oid": "68656258d89d5a9ae64cdd9ed1b754e140756691"
+      },
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 24,
+      "id": "MDExOlB1bGxSZXF1ZXN0MTQwMDI0MTEx",
+      "title": "Text on state transfers vs. function calls",
+      "url": "https://github.com/t2trg/t2trg-rest-iot/pull/24",
+      "state": "MERGED",
+      "author": "akeranen",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2017-09-08T12:18:06Z",
+      "updatedAt": "2022-06-13T11:38:29Z",
+      "baseRepository": "t2trg/t2trg-rest-iot",
+      "baseRefName": "master",
+      "baseRefOid": "61d50324dbc302ccb30996986059a942127d199c",
+      "headRepository": "t2trg/t2trg-rest-iot",
+      "headRefName": "functions-and-rest",
+      "headRefOid": "ccab7ca53480b4c916c64b0e45b0e9646ca51dac",
+      "closedAt": "2017-09-08T13:12:49Z",
+      "mergedAt": "2017-09-08T13:12:49Z",
+      "mergedBy": "mkovatsc",
+      "mergeCommit": {
+        "oid": "42be484e9bae3d3bd71e53e4610fb38c743dd178"
+      },
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 25,
+      "id": "MDExOlB1bGxSZXF1ZXN0MTQwMDI3MjEy",
+      "title": "Calling a Function",
+      "url": "https://github.com/t2trg/t2trg-rest-iot/pull/25",
+      "state": "MERGED",
+      "author": "mkovatsc",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2017-09-08T12:35:38Z",
+      "updatedAt": "2022-06-13T11:38:27Z",
+      "baseRepository": "t2trg/t2trg-rest-iot",
+      "baseRefName": "master",
+      "baseRefOid": "2c2f6026d95f99e8e896feb9a9bce2fdf31052db",
+      "headRepository": "t2trg/t2trg-rest-iot",
+      "headRefName": "mkovatsc-function-call",
+      "headRefOid": "f9070373ff7be55e9364bb5e26f206f0551b7fc9",
+      "closedAt": "2017-09-08T13:25:29Z",
+      "mergedAt": "2017-09-08T13:25:29Z",
+      "mergedBy": "mkovatsc",
+      "mergeCommit": {
+        "oid": "af165e639739df90d111ef4cd0d6d0e4e6d55f37"
+      },
+      "comments": [
+        {
+          "author": "cabo",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "The term \"function\" might imply idempotence and/or freedom from side effects, depending on who you ask.\r\nRPC uses the term \"procedure\" in order to be more general.\r\n\r\n",
+          "createdAt": "2017-09-08T12:39:40Z",
+          "updatedAt": "2017-09-08T12:39:40Z"
+        },
+        {
+          "author": "akeranen",
+          "authorAssociation": "COLLABORATOR",
+          "body": "@cabo would you suggest s/function/procedure/g ?",
+          "createdAt": "2017-09-08T13:12:28Z",
+          "updatedAt": "2017-09-08T13:12:28Z"
+        },
+        {
+          "author": "mkovatsc",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Changed to \"procedure\"",
+          "createdAt": "2017-09-08T13:25:06Z",
+          "updatedAt": "2017-09-08T13:25:06Z"
+        }
+      ],
+      "reviews": [
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3NjE1MDEwNTA=",
+          "commit": {
+            "abbreviatedOid": "4f7f388"
+          },
+          "author": "akeranen",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2017-09-08T13:12:37Z",
+          "updatedAt": "2017-09-08T13:12:37Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 27,
+      "id": "MDExOlB1bGxSZXF1ZXN0MTQwMDQyODcx",
+      "title": "Reducing state modification redundancy",
+      "url": "https://github.com/t2trg/t2trg-rest-iot/pull/27",
+      "state": "CLOSED",
+      "author": "mkovatsc",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2017-09-08T13:53:28Z",
+      "updatedAt": "2017-09-08T13:55:39Z",
+      "baseRepository": "t2trg/t2trg-rest-iot",
+      "baseRefName": "master",
+      "baseRefOid": "f0ba9202ec48050375e86535996ce303524dba91",
+      "headRepository": "t2trg/t2trg-rest-iot",
+      "headRefName": "mkovatsc-state-mod",
+      "headRefOid": "fdbdbecd5bf4cefd4697a8b85b828e1444d436ef",
+      "closedAt": "2017-09-08T13:55:35Z",
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [
+        {
+          "author": "mkovatsc",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Obsolete",
+          "createdAt": "2017-09-08T13:55:35Z",
+          "updatedAt": "2017-09-08T13:55:35Z"
+        }
+      ],
+      "reviews": []
+    },
+    {
+      "number": 28,
+      "id": "MDExOlB1bGxSZXF1ZXN0MTQwMjIyMzQ3",
+      "title": "Terminology updates",
+      "url": "https://github.com/t2trg/t2trg-rest-iot/pull/28",
+      "state": "MERGED",
+      "author": "akeranen",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Note about client role and reference to architecture section for details.",
+      "createdAt": "2017-09-10T19:45:54Z",
+      "updatedAt": "2022-06-13T12:04:56Z",
+      "baseRepository": "t2trg/t2trg-rest-iot",
+      "baseRefName": "master",
+      "baseRefOid": "7881de383330a64e0edeb8b2d081165264da2c26",
+      "headRepository": "t2trg/t2trg-rest-iot",
+      "headRefName": "terminology-updates",
+      "headRefOid": "965b7c7b759a4cd9d260d53094dd1345f7e68f57",
+      "closedAt": "2017-09-12T17:05:15Z",
+      "mergedAt": "2017-09-12T17:05:15Z",
+      "mergedBy": "akeranen",
+      "mergeCommit": {
+        "oid": "ae95cc7567dd3af41163f3cf1f236baa471251b9"
+      },
+      "comments": [
+        {
+          "author": "mkovatsc",
+          "authorAssociation": "COLLABORATOR",
+          "body": "+1 (if the newline in the definitions (`: ...`) still does render correctly...",
+          "createdAt": "2017-09-12T12:43:41Z",
+          "updatedAt": "2017-09-12T12:43:41Z"
+        },
+        {
+          "author": "cabo",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "How do you like your newlines cooked?\r\n",
+          "createdAt": "2017-09-12T13:12:35Z",
+          "updatedAt": "2017-09-12T13:12:35Z"
+        },
+        {
+          "author": "akeranen",
+          "authorAssociation": "COLLABORATOR",
+          "body": "The definitions seem to render correctly. I'll merge this.",
+          "createdAt": "2017-09-12T17:03:57Z",
+          "updatedAt": "2017-09-12T17:03:57Z"
+        }
+      ],
+      "reviews": []
+    },
+    {
+      "number": 29,
+      "id": "MDExOlB1bGxSZXF1ZXN0MTQwNDA1MzEy",
+      "title": "Editorial tweaks",
+      "url": "https://github.com/t2trg/t2trg-rest-iot/pull/29",
+      "state": "MERGED",
+      "author": "akeranen",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Simple editorial clarifications and typo fixes; no real content changes",
+      "createdAt": "2017-09-11T18:35:50Z",
+      "updatedAt": "2022-06-13T12:04:57Z",
+      "baseRepository": "t2trg/t2trg-rest-iot",
+      "baseRefName": "master",
+      "baseRefOid": "5e17a1ceffbaaec11f283670bdd38c5d9dfaace2",
+      "headRepository": "t2trg/t2trg-rest-iot",
+      "headRefName": "editorial-tweaks2",
+      "headRefOid": "59295c5ca84461ddc3df525507d9f5803bb172ef",
+      "closedAt": "2017-09-12T12:44:28Z",
+      "mergedAt": "2017-09-12T12:44:28Z",
+      "mergedBy": "mkovatsc",
+      "mergeCommit": {
+        "oid": "e4951c77335dfaca66354eca9082ad6584297a11"
+      },
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 30,
+      "id": "MDExOlB1bGxSZXF1ZXN0MTQwNDE4MDA0",
+      "title": "Content tweaks",
+      "url": "https://github.com/t2trg/t2trg-rest-iot/pull/30",
+      "state": "MERGED",
+      "author": "akeranen",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2017-09-11T19:38:29Z",
+      "updatedAt": "2022-06-13T12:04:59Z",
+      "baseRepository": "t2trg/t2trg-rest-iot",
+      "baseRefName": "master",
+      "baseRefOid": "5e17a1ceffbaaec11f283670bdd38c5d9dfaace2",
+      "headRepository": "t2trg/t2trg-rest-iot",
+      "headRefName": "content-tweaks",
+      "headRefOid": "e2336c4f263289843823df5ebbeef2d45abf4089",
+      "closedAt": "2017-09-14T20:12:33Z",
+      "mergedAt": "2017-09-14T20:12:33Z",
+      "mergedBy": "mkovatsc",
+      "mergeCommit": {
+        "oid": "e5a9da3acc1a04bdcb5191f279b4fffc93b0e722"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3NjIxMTc0Mzk=",
+          "commit": {
+            "abbreviatedOid": "567e8e0"
+          },
+          "author": "mkovatsc",
+          "authorAssociation": "COLLABORATOR",
+          "state": "CHANGES_REQUESTED",
+          "body": "1 small content change\r\n1 small editorial change",
+          "createdAt": "2017-09-12T12:50:41Z",
+          "updatedAt": "2017-09-12T12:53:35Z",
+          "comments": [
+            {
+              "originalPosition": 35,
+              "body": "In this case, your entry point URI is the address of the device hosting the /.well-known/core resource... You have to know or discovery this first...",
+              "createdAt": "2017-09-12T12:50:41Z",
+              "updatedAt": "2017-09-12T17:52:56Z"
+            },
+            {
+              "originalPosition": 44,
+              "body": "... can be modeled with REST and ...",
+              "createdAt": "2017-09-12T12:51:21Z",
+              "updatedAt": "2017-09-12T17:52:56Z"
+            },
+            {
+              "originalPosition": 44,
+              "body": "or \"with a RESTful design and\", but it is unnecessarily longer :)",
+              "createdAt": "2017-09-12T12:51:56Z",
+              "updatedAt": "2017-09-12T17:52:56Z"
+            }
+          ]
+        },
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3NjIxOTgwNDM=",
+          "commit": {
+            "abbreviatedOid": "567e8e0"
+          },
+          "author": "akeranen",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2017-09-12T16:55:32Z",
+          "updatedAt": "2017-09-12T16:55:32Z",
+          "comments": [
+            {
+              "originalPosition": 44,
+              "body": "Fixed now",
+              "createdAt": "2017-09-12T16:55:32Z",
+              "updatedAt": "2017-09-12T17:52:56Z"
+            }
+          ]
+        },
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3NjIyMTg3NTM=",
+          "commit": {
+            "abbreviatedOid": "567e8e0"
+          },
+          "author": "akeranen",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2017-09-12T18:08:33Z",
+          "updatedAt": "2017-09-12T18:08:33Z",
+          "comments": [
+            {
+              "originalPosition": 35,
+              "body": "Clarified that knowledge of the address is needed for .w-k",
+              "createdAt": "2017-09-12T18:08:33Z",
+              "updatedAt": "2017-09-12T18:08:33Z"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "number": 31,
+      "id": "MDExOlB1bGxSZXF1ZXN0MTcyOTgwOTIy",
+      "title": "Hypermedia design guidance from issue #17",
+      "url": "https://github.com/t2trg/t2trg-rest-iot/pull/31",
+      "state": "MERGED",
+      "author": "akeranen",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2018-03-05T20:43:15Z",
+      "updatedAt": "2022-06-13T12:05:07Z",
+      "baseRepository": "t2trg/t2trg-rest-iot",
+      "baseRefName": "master",
+      "baseRefOid": "c2e27cab9ef08f8a3283c1b571b33518e23b414f",
+      "headRepository": "t2trg/t2trg-rest-iot",
+      "headRefName": "hypermedia-design-guidance",
+      "headRefOid": "eae7bd9a1ea0cdb51c15aed896098e6dca277193",
+      "closedAt": "2018-05-03T21:07:11Z",
+      "mergedAt": "2018-05-03T21:07:11Z",
+      "mergedBy": "akeranen",
+      "mergeCommit": {
+        "oid": "36ec8008a73dc18368c82a1a9630662ba6bb79e3"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3MTAxMzI0NTM3",
+          "commit": {
+            "abbreviatedOid": "eae7bd9"
+          },
+          "author": "ektrah",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "Looks good. There's just a small problem: Nobody is doing it.",
+          "createdAt": "2018-03-05T20:58:10Z",
+          "updatedAt": "2018-03-05T20:58:10Z",
+          "comments": []
+        },
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3MTAxMzMyMjU3",
+          "commit": {
+            "abbreviatedOid": "eae7bd9"
+          },
+          "author": "mkovatsc",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "At least one little update :)",
+          "createdAt": "2018-03-05T21:22:27Z",
+          "updatedAt": "2018-03-05T21:22:27Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 33,
+      "id": "MDExOlB1bGxSZXF1ZXN0MjAxNDcyNDAz",
+      "title": "examples of IoT clients and servers to architecture section",
+      "url": "https://github.com/t2trg/t2trg-rest-iot/pull/33",
+      "state": "MERGED",
+      "author": "akeranen",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "(this one is still WiP)",
+      "createdAt": "2018-07-14T22:51:15Z",
+      "updatedAt": "2018-07-16T18:37:48Z",
+      "baseRepository": "t2trg/t2trg-rest-iot",
+      "baseRefName": "master",
+      "baseRefOid": "2d2d751bbdfb45a3517d6b7cb1acb624baf61945",
+      "headRepository": "t2trg/t2trg-rest-iot",
+      "headRefName": "arch-iot-examples",
+      "headRefOid": "c05ac59173ff3cd2330edac50b6c063cebcbeb48",
+      "closedAt": "2018-07-16T18:37:44Z",
+      "mergedAt": "2018-07-16T18:37:44Z",
+      "mergedBy": "akeranen",
+      "mergeCommit": {
+        "oid": "f1f93729961877d4fc2806476707b937270540d6"
+      },
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 34,
+      "id": "MDExOlB1bGxSZXF1ZXN0MjAxNDcyNDEy",
+      "title": "Added note about URNs and dev-urn draft reference",
+      "url": "https://github.com/t2trg/t2trg-rest-iot/pull/34",
+      "state": "MERGED",
+      "author": "akeranen",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2018-07-14T22:51:36Z",
+      "updatedAt": "2018-07-16T18:36:13Z",
+      "baseRepository": "t2trg/t2trg-rest-iot",
+      "baseRefName": "master",
+      "baseRefOid": "2d2d751bbdfb45a3517d6b7cb1acb624baf61945",
+      "headRepository": "t2trg/t2trg-rest-iot",
+      "headRefName": "dev-urns",
+      "headRefOid": "5b3dfe1a0cd56146d15d678aedf043122b8ff2ae",
+      "closedAt": "2018-07-16T18:36:05Z",
+      "mergedAt": "2018-07-16T18:36:05Z",
+      "mergedBy": "akeranen",
+      "mergeCommit": {
+        "oid": "ae439c670d21850b868b43e8ef095afe6331d873"
+      },
+      "comments": [
+        {
+          "author": "mkovatsc",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Tweak a bit the message of this: non-resource identifiers are not really part of the REST style, but a system usually needs them and the IETF has good means with URIs, which include URNs, and can be used for such non-resource identifiers (e.g., for physical asset, device, etc.).",
+          "createdAt": "2018-07-15T20:39:35Z",
+          "updatedAt": "2018-07-16T17:57:22Z"
+        }
+      ],
+      "reviews": []
+    },
+    {
+      "number": 35,
+      "id": "MDExOlB1bGxSZXF1ZXN0MjAxNDcyNDk5",
+      "title": "added \"need for evolution without updates characteristic\"",
+      "url": "https://github.com/t2trg/t2trg-rest-iot/pull/35",
+      "state": "MERGED",
+      "author": "akeranen",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2018-07-14T22:54:46Z",
+      "updatedAt": "2022-06-13T12:05:08Z",
+      "baseRepository": "t2trg/t2trg-rest-iot",
+      "baseRefName": "master",
+      "baseRefOid": "2d2d751bbdfb45a3517d6b7cb1acb624baf61945",
+      "headRepository": "t2trg/t2trg-rest-iot",
+      "headRefName": "evolution-req",
+      "headRefOid": "e980a7234771adb0940c30baf052a9110f855f49",
+      "closedAt": "2018-07-16T17:51:51Z",
+      "mergedAt": "2018-07-16T17:51:51Z",
+      "mergedBy": "akeranen",
+      "mergeCommit": {
+        "oid": "0154a18e9f307ccec190770ad808a0b2c105f2b5"
+      },
+      "comments": [
+        {
+          "author": "mkovatsc",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Not updating endpoints at all will not allow for evolution at all.\r\nSomething like \"Allow clients and servers evolve independently to improve decoupling\"",
+          "createdAt": "2018-07-15T20:42:36Z",
+          "updatedAt": "2018-07-15T20:42:36Z"
+        }
+      ],
+      "reviews": []
+    },
+    {
+      "number": 38,
+      "id": "MDExOlB1bGxSZXF1ZXN0MjAxNzE4NTQ4",
+      "title": "Deference terms",
+      "url": "https://github.com/t2trg/t2trg-rest-iot/pull/38",
+      "state": "MERGED",
+      "author": "akeranen",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2018-07-16T18:21:25Z",
+      "updatedAt": "2022-06-13T12:05:08Z",
+      "baseRepository": "t2trg/t2trg-rest-iot",
+      "baseRefName": "master",
+      "baseRefOid": "0154a18e9f307ccec190770ad808a0b2c105f2b5",
+      "headRepository": "t2trg/t2trg-rest-iot",
+      "headRefName": "deref-term",
+      "headRefOid": "d2b9672420e35d582b7b94e30f9bc24027a4fcd6",
+      "closedAt": "2018-07-16T18:22:29Z",
+      "mergedAt": "2018-07-16T18:22:29Z",
+      "mergedBy": "akeranen",
+      "mergeCommit": {
+        "oid": "a56ccd593183c03063f304929a347f4ede1900b3"
+      },
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 41,
+      "id": "MDExOlB1bGxSZXF1ZXN0MjAyNDQ1OTE0",
+      "title": "Include feedback by Mike Amundsen",
+      "url": "https://github.com/t2trg/t2trg-rest-iot/pull/41",
+      "state": "MERGED",
+      "author": "mkovatsc",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "I extended the constraints sections (4.x) with a paragraph on the role for IoT.\r\nThis does not introduce the MAY/SHOULD/MUST levels by Mike, but starts a basis for reaching such as conclusion.",
+      "createdAt": "2018-07-19T05:03:37Z",
+      "updatedAt": "2022-06-13T11:38:26Z",
+      "baseRepository": "t2trg/t2trg-rest-iot",
+      "baseRefName": "master",
+      "baseRefOid": "dcf77d88e288fe661b533dde3bd96cc7c8307759",
+      "headRepository": "t2trg/t2trg-rest-iot",
+      "headRefName": "constraints-IoT-aspects",
+      "headRefOid": "29432725aee759c4c4e80c59d5c1976fdbc1e032",
+      "closedAt": "2018-10-23T05:50:13Z",
+      "mergedAt": "2018-10-23T05:50:13Z",
+      "mergedBy": "akeranen",
+      "mergeCommit": {
+        "oid": "e8dd0305e0524688804bbd36687408b1fc036c47"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3MTM4NzEyNzUz",
+          "commit": {
+            "abbreviatedOid": "1b08e4a"
+          },
+          "author": "akeranen",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2018-07-19T14:57:00Z",
+          "updatedAt": "2018-07-19T14:57:01Z",
+          "comments": [
+            {
+              "originalPosition": 90,
+              "body": "s/has/has seen/ ?\r\nWhile there's limited use as of today, I'm not sure we have explored these options to the fullest yet, so would consider toning this down a little.",
+              "createdAt": "2018-07-19T14:57:00Z",
+              "updatedAt": "2018-10-22T21:09:14Z"
+            }
+          ]
+        },
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3MTM4NzcwNzE3",
+          "commit": {
+            "abbreviatedOid": "1b08e4a"
+          },
+          "author": "mkovatsc",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2018-07-19T17:15:54Z",
+          "updatedAt": "2018-07-19T17:15:55Z",
+          "comments": [
+            {
+              "originalPosition": 90,
+              "body": "Yes, let's leave this open. Who knows what will be...",
+              "createdAt": "2018-07-19T17:15:54Z",
+              "updatedAt": "2018-10-22T21:09:14Z"
+            }
+          ]
+        },
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3MTM4ODE0NTA4",
+          "commit": {
+            "abbreviatedOid": "e9311e4"
+          },
+          "author": "akeranen",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2018-07-19T19:17:04Z",
+          "updatedAt": "2018-07-19T19:17:04Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 42,
+      "id": "MDExOlB1bGxSZXF1ZXN0MjAzNTIwNzA4",
+      "title": "T2TRG product boilerplate",
+      "url": "https://github.com/t2trg/t2trg-rest-iot/pull/42",
+      "state": "MERGED",
+      "author": "akeranen",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "See requirements in https://trac.ietf.org/trac/irtf/wiki/IRTF-RFCs#ResearchGroupPreparation\r\n\r\nBreadth of review comments to be added",
+      "createdAt": "2018-07-24T13:08:35Z",
+      "updatedAt": "2022-06-13T12:05:10Z",
+      "baseRepository": "t2trg/t2trg-rest-iot",
+      "baseRefName": "master",
+      "baseRefOid": "a2c3bf07c1712a1c29d0aa32e9864a28304b1964",
+      "headRepository": "t2trg/t2trg-rest-iot",
+      "headRefName": "rg-prod-text",
+      "headRefOid": "9c6b8c2e796a05d0d3e4973ebc55a7f254081faf",
+      "closedAt": "2018-10-22T20:23:42Z",
+      "mergedAt": "2018-10-22T20:23:42Z",
+      "mergedBy": "akeranen",
+      "mergeCommit": {
+        "oid": "d5158a84bb526a626f780fbd9bad5ebcc71c7fb3"
+      },
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 43,
+      "id": "MDExOlB1bGxSZXF1ZXN0MjI0NzcxODE4",
+      "title": "Add reference to I-D.hartke-core-apps",
+      "url": "https://github.com/t2trg/t2trg-rest-iot/pull/43",
+      "state": "MERGED",
+      "author": "ektrah",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [
+        "ektrah"
+      ],
+      "labels": [],
+      "body": "",
+      "createdAt": "2018-10-22T18:35:00Z",
+      "updatedAt": "2022-06-13T12:05:12Z",
+      "baseRepository": "t2trg/t2trg-rest-iot",
+      "baseRefName": "master",
+      "baseRefOid": "d77cfeb3b82e819649a421e05e4474e580449ed1",
+      "headRepository": "t2trg/t2trg-rest-iot",
+      "headRefName": "coreappsref",
+      "headRefOid": "1357fe68766e63bfc4571833934423a5026f915d",
+      "closedAt": "2018-10-22T20:20:07Z",
+      "mergedAt": "2018-10-22T20:20:07Z",
+      "mergedBy": "akeranen",
+      "mergeCommit": {
+        "oid": "4fa3c4d8da55422aa596bb34a86340c941a48135"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3MTY3MDU0MDUw",
+          "commit": {
+            "abbreviatedOid": "f2ed6ef"
+          },
+          "author": "akeranen",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2018-10-22T18:49:30Z",
+          "updatedAt": "2018-10-22T18:49:30Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 44,
+      "id": "MDExOlB1bGxSZXF1ZXN0MjI0Nzc2MTg5",
+      "title": "Summarize FETCH and PATCH",
+      "url": "https://github.com/t2trg/t2trg-rest-iot/pull/44",
+      "state": "MERGED",
+      "author": "ektrah",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [
+        "ektrah"
+      ],
+      "labels": [],
+      "body": "Fixes #32 ",
+      "createdAt": "2018-10-22T18:50:40Z",
+      "updatedAt": "2022-06-13T12:05:13Z",
+      "baseRepository": "t2trg/t2trg-rest-iot",
+      "baseRefName": "master",
+      "baseRefOid": "a2c3bf07c1712a1c29d0aa32e9864a28304b1964",
+      "headRepository": "t2trg/t2trg-rest-iot",
+      "headRefName": "fetchpatch",
+      "headRefOid": "10980b07164ec974c8301f5fe5dfd1a6dbf82f80",
+      "closedAt": "2018-10-22T20:38:02Z",
+      "mergedAt": "2018-10-22T20:38:02Z",
+      "mergedBy": "akeranen",
+      "mergeCommit": {
+        "oid": "1b0c0f47b5f28605791468389f83d3635c8c1609"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3MTY3MDk4NDc2",
+          "commit": {
+            "abbreviatedOid": "10980b0"
+          },
+          "author": "akeranen",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2018-10-22T20:37:37Z",
+          "updatedAt": "2018-10-22T20:37:37Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 45,
+      "id": "MDExOlB1bGxSZXF1ZXN0MjI0Nzk3NDU1",
+      "title": "Senml+cbor as typical mediatype",
+      "url": "https://github.com/t2trg/t2trg-rest-iot/pull/45",
+      "state": "MERGED",
+      "author": "akeranen",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2018-10-22T20:06:20Z",
+      "updatedAt": "2022-06-13T12:05:10Z",
+      "baseRepository": "t2trg/t2trg-rest-iot",
+      "baseRefName": "master",
+      "baseRefOid": "d77cfeb3b82e819649a421e05e4474e580449ed1",
+      "headRepository": "t2trg/t2trg-rest-iot",
+      "headRefName": "cbor-senml-mediatype",
+      "headRefOid": "e036c1390857229d7533706e56979aaa53edd8b8",
+      "closedAt": "2018-10-22T20:25:05Z",
+      "mergedAt": "2018-10-22T20:25:05Z",
+      "mergedBy": "akeranen",
+      "mergeCommit": {
+        "oid": "dcf77d88e288fe661b533dde3bd96cc7c8307759"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3MTY3MDg3Mzk0",
+          "commit": {
+            "abbreviatedOid": "fa56f1e"
+          },
+          "author": "ektrah",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2018-10-22T20:09:43Z",
+          "updatedAt": "2018-10-22T20:09:43Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 46,
+      "id": "MDExOlB1bGxSZXF1ZXN0MjI4NjExNzE1",
+      "title": "Clarified what protection with caching means",
+      "url": "https://github.com/t2trg/t2trg-rest-iot/pull/46",
+      "state": "MERGED",
+      "author": "akeranen",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2018-11-06T08:43:14Z",
+      "updatedAt": "2022-06-13T12:05:14Z",
+      "baseRepository": "t2trg/t2trg-rest-iot",
+      "baseRefName": "master",
+      "baseRefOid": "e8dd0305e0524688804bbd36687408b1fc036c47",
+      "headRepository": "t2trg/t2trg-rest-iot",
+      "headRefName": "cache-clarification",
+      "headRefOid": "9bfbb8da0d0bc3719bdb70eedbf4ef71676fc352",
+      "closedAt": "2019-04-10T12:50:12Z",
+      "mergedAt": "2019-04-10T12:50:12Z",
+      "mergedBy": "akeranen",
+      "mergeCommit": {
+        "oid": "b1d0632354eb3f80eae4a596079eaaf198ffb990"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3MjEwNzEzNjU5",
+          "commit": {
+            "abbreviatedOid": "9bfbb8d"
+          },
+          "author": "ektrah",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2019-03-05T14:38:24Z",
+          "updatedAt": "2019-03-05T14:38:24Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 47,
+      "id": "MDExOlB1bGxSZXF1ZXN0MjY5MTUyNTE0",
+      "title": "First stab at definitions for transfer {protocols,layer}",
+      "url": "https://github.com/t2trg/t2trg-rest-iot/pull/47",
+      "state": "MERGED",
+      "author": "akeranen",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "The two terms as presented at IETF 104 RG session",
+      "createdAt": "2019-04-10T13:00:18Z",
+      "updatedAt": "2022-06-13T12:05:16Z",
+      "baseRepository": "t2trg/t2trg-rest-iot",
+      "baseRefName": "master",
+      "baseRefOid": "b1d0632354eb3f80eae4a596079eaaf198ffb990",
+      "headRepository": "t2trg/t2trg-rest-iot",
+      "headRefName": "transfer-terms",
+      "headRefOid": "a63796705244121619a65a4c4fe0af199bbd31a3",
+      "closedAt": "2019-07-07T13:47:09Z",
+      "mergedAt": "2019-07-07T13:47:09Z",
+      "mergedBy": "akeranen",
+      "mergeCommit": {
+        "oid": "c195b77dcd9a8e983ccf8753a25dacc3c45ea0df"
+      },
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 49,
+      "id": "MDExOlB1bGxSZXF1ZXN0Mjk1MDYwNzY3",
+      "title": "Set of small updates",
+      "url": "https://github.com/t2trg/t2trg-rest-iot/pull/49",
+      "state": "MERGED",
+      "author": "akeranen",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2019-07-06T20:15:31Z",
+      "updatedAt": "2022-06-13T12:05:18Z",
+      "baseRepository": "t2trg/t2trg-rest-iot",
+      "baseRefName": "master",
+      "baseRefOid": "b1d0632354eb3f80eae4a596079eaaf198ffb990",
+      "headRepository": "t2trg/t2trg-rest-iot",
+      "headRefName": "ietf105-updates",
+      "headRefOid": "76e36d12c05e0a1eea53fa393274389df37e81a7",
+      "closedAt": "2019-07-08T19:44:15Z",
+      "mergedAt": "2019-07-08T19:44:15Z",
+      "mergedBy": "akeranen",
+      "mergeCommit": {
+        "oid": "8d56f1db1987796a13d03de4f888ee2df38277ff"
+      },
+      "comments": [
+        {
+          "author": "akeranen",
+          "authorAssociation": "COLLABORATOR",
+          "body": "> Not a big fan of the \"+\", but WFM\r\n\r\nFixed and tweaked.",
+          "createdAt": "2019-07-08T10:41:58Z",
+          "updatedAt": "2019-07-08T10:41:58Z"
+        }
+      ],
+      "reviews": [
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3MjU4NjQwMzc1",
+          "commit": {
+            "abbreviatedOid": "b58307c"
+          },
+          "author": "cabo",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2019-07-07T19:46:07Z",
+          "updatedAt": "2019-07-07T19:46:07Z",
+          "comments": [
+            {
+              "originalPosition": 36,
+              "body": "at least some of the server endpoints...",
+              "createdAt": "2019-07-07T19:46:07Z",
+              "updatedAt": "2019-07-08T19:40:44Z"
+            }
+          ]
+        },
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3MjU4NjQwNDI3",
+          "commit": {
+            "abbreviatedOid": "b58307c"
+          },
+          "author": "cabo",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2019-07-07T19:47:59Z",
+          "updatedAt": "2019-07-07T19:52:28Z",
+          "comments": [
+            {
+              "originalPosition": 83,
+              "body": "Is this a media-type or a content-type?\r\n",
+              "createdAt": "2019-07-07T19:47:59Z",
+              "updatedAt": "2019-07-08T19:40:44Z"
+            }
+          ]
+        },
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3MjU4NjQyMTM3",
+          "commit": {
+            "abbreviatedOid": "b58307c"
+          },
+          "author": "akeranen",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2019-07-07T20:38:35Z",
+          "updatedAt": "2019-07-07T20:38:35Z",
+          "comments": [
+            {
+              "originalPosition": 83,
+              "body": "I think both are OK/possible here, but I'd lean towards media-type for familiarity.",
+              "createdAt": "2019-07-07T20:38:35Z",
+              "updatedAt": "2019-07-08T19:40:44Z"
+            }
+          ]
+        },
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3MjU4NjQyMTgy",
+          "commit": {
+            "abbreviatedOid": "b58307c"
+          },
+          "author": "akeranen",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2019-07-07T20:39:50Z",
+          "updatedAt": "2019-07-07T20:39:50Z",
+          "comments": [
+            {
+              "originalPosition": 36,
+              "body": "Yes. Should the text be tweaked? \"some are often\" would sound a bit weird :)",
+              "createdAt": "2019-07-07T20:39:50Z",
+              "updatedAt": "2019-07-08T19:40:44Z"
+            }
+          ]
+        },
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3MjU4NjQzNzg5",
+          "commit": {
+            "abbreviatedOid": "b58307c"
+          },
+          "author": "cabo",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2019-07-07T21:23:38Z",
+          "updatedAt": "2019-07-07T21:23:38Z",
+          "comments": [
+            {
+              "originalPosition": 36,
+              "body": "\"Often, at least some of the servers...\" would also work.",
+              "createdAt": "2019-07-07T21:23:38Z",
+              "updatedAt": "2019-07-08T19:40:44Z"
+            }
+          ]
+        },
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3MjU4NjQzODE3",
+          "commit": {
+            "abbreviatedOid": "b58307c"
+          },
+          "author": "cabo",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2019-07-07T21:24:27Z",
+          "updatedAt": "2019-07-07T21:24:27Z",
+          "comments": [
+            {
+              "originalPosition": 83,
+              "body": "content-type (media-type + optionally parameters)\r\n\r\nmaybe?\r\n",
+              "createdAt": "2019-07-07T21:24:27Z",
+              "updatedAt": "2019-07-08T19:40:44Z"
+            }
+          ]
+        },
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3MjU4ODE4Nzg2",
+          "commit": {
+            "abbreviatedOid": "5f8d2e9"
+          },
+          "author": "akeranen",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2019-07-08T10:34:52Z",
+          "updatedAt": "2019-07-08T10:34:52Z",
+          "comments": [
+            {
+              "originalPosition": 83,
+              "body": "SGTM. Fixed.",
+              "createdAt": "2019-07-08T10:34:52Z",
+              "updatedAt": "2019-07-08T19:40:44Z"
+            }
+          ]
+        },
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3MjU4ODE5NDgz",
+          "commit": {
+            "abbreviatedOid": "5f8d2e9"
+          },
+          "author": "cabo",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "APPROVED",
+          "body": "Not a big fan of the \"+\", but WFM",
+          "createdAt": "2019-07-08T10:36:25Z",
+          "updatedAt": "2019-07-08T10:36:25Z",
+          "comments": []
+        },
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3MjU4ODE5ODIx",
+          "commit": {
+            "abbreviatedOid": "5f8d2e9"
+          },
+          "author": "akeranen",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2019-07-08T10:37:08Z",
+          "updatedAt": "2019-07-08T10:37:08Z",
+          "comments": [
+            {
+              "originalPosition": 36,
+              "body": "Maybe \"often some classes of server endpoints (e.g., simple sensor devices) are highly constrained\"?",
+              "createdAt": "2019-07-08T10:37:08Z",
+              "updatedAt": "2019-07-08T19:40:44Z"
+            }
+          ]
+        },
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3MjU4ODIyMTYx",
+          "commit": {
+            "abbreviatedOid": "8067dd3"
+          },
+          "author": "cabo",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2019-07-08T10:42:35Z",
+          "updatedAt": "2019-07-08T10:42:35Z",
+          "comments": []
+        },
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3MjU4ODI5NzEy",
+          "commit": {
+            "abbreviatedOid": "8067dd3"
+          },
+          "author": "akeranen",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2019-07-08T10:59:03Z",
+          "updatedAt": "2019-07-08T10:59:03Z",
+          "comments": [
+            {
+              "originalPosition": 36,
+              "body": "Latest incarnation:\r\n> for some classes {{RFC7228}} of server endpoints, significant constraints, e.g., in energy consumption, and thus implementation complexity, may apply.",
+              "createdAt": "2019-07-08T10:59:03Z",
+              "updatedAt": "2019-07-08T19:40:44Z"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "number": 50,
+      "id": "MDExOlB1bGxSZXF1ZXN0Mjk1MTA0NjY5",
+      "title": "Added a list of finalized IETF security specs to security considerations",
+      "url": "https://github.com/t2trg/t2trg-rest-iot/pull/50",
+      "state": "MERGED",
+      "author": "akeranen",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "\"Finalized\" as in published as RFC or publication requested.",
+      "createdAt": "2019-07-07T13:37:48Z",
+      "updatedAt": "2022-06-13T12:05:18Z",
+      "baseRepository": "t2trg/t2trg-rest-iot",
+      "baseRefName": "ietf105-updates",
+      "baseRefOid": "767d85f7c0cd16309ecb59d10602a76846466f82",
+      "headRepository": "t2trg/t2trg-rest-iot",
+      "headRefName": "new-sec-docs",
+      "headRefOid": "a1001ad7188e2723458f6b55472bf63801d52f1a",
+      "closedAt": "2019-07-08T19:40:43Z",
+      "mergedAt": "2019-07-08T19:40:43Z",
+      "mergedBy": "akeranen",
+      "mergeCommit": {
+        "oid": "76e36d12c05e0a1eea53fa393274389df37e81a7"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3MjU4NjQwMzI2",
+          "commit": {
+            "abbreviatedOid": "dab8a65"
+          },
+          "author": "cabo",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2019-07-07T19:44:38Z",
+          "updatedAt": "2019-07-07T19:44:39Z",
+          "comments": [
+            {
+              "originalPosition": 11,
+              "body": "When is a spec \"finalized\"?\r\nI would include the CWT PoP spec: draft-ietf-ace-cwt-proof-of-possession",
+              "createdAt": "2019-07-07T19:44:39Z",
+              "updatedAt": "2019-07-07T20:33:28Z"
+            }
+          ]
+        },
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3MjU4NjQxNzY2",
+          "commit": {
+            "abbreviatedOid": "dab8a65"
+          },
+          "author": "akeranen",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2019-07-07T20:27:58Z",
+          "updatedAt": "2019-07-07T20:27:59Z",
+          "comments": [
+            {
+              "originalPosition": 11,
+              "body": "\"Finalized\" as in published as RFC or publication requested. Assuming the latter will be RFCs by the time this is published as RFC.",
+              "createdAt": "2019-07-07T20:27:58Z",
+              "updatedAt": "2019-07-07T20:33:28Z"
+            }
+          ]
+        },
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3MjU4NjQxOTY4",
+          "commit": {
+            "abbreviatedOid": "a1001ad"
+          },
+          "author": "akeranen",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2019-07-07T20:33:44Z",
+          "updatedAt": "2019-07-07T20:33:45Z",
+          "comments": [
+            {
+              "originalPosition": 11,
+              "body": "Added CWT PoP reference",
+              "createdAt": "2019-07-07T20:33:45Z",
+              "updatedAt": "2019-07-07T20:33:45Z"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "number": 53,
+      "id": "MDExOlB1bGxSZXF1ZXN0MzM2NDYyNjA5",
+      "title": "CoRE dynlink as way to config server push",
+      "url": "https://github.com/t2trg/t2trg-rest-iot/pull/53",
+      "state": "MERGED",
+      "author": "akeranen",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2019-11-04T20:28:40Z",
+      "updatedAt": "2019-11-04T22:21:54Z",
+      "baseRepository": "t2trg/t2trg-rest-iot",
+      "baseRefName": "master",
+      "baseRefOid": "8d56f1db1987796a13d03de4f888ee2df38277ff",
+      "headRepository": "t2trg/t2trg-rest-iot",
+      "headRefName": "dynlink-ref",
+      "headRefOid": "51bff116d44f1f0b5e7eb9ef45532f5c29b0252c",
+      "closedAt": "2019-11-04T22:21:51Z",
+      "mergedAt": "2019-11-04T22:21:51Z",
+      "mergedBy": "akeranen",
+      "mergeCommit": {
+        "oid": "ae234d82c2f13bff4a784ee3d30c1b87f33051ad"
+      },
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 54,
+      "id": "MDExOlB1bGxSZXF1ZXN0MzM2NDc4MjA1",
+      "title": "More details on URI design and use for IoT",
+      "url": "https://github.com/t2trg/t2trg-rest-iot/pull/54",
+      "state": "MERGED",
+      "author": "akeranen",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2019-11-04T21:07:05Z",
+      "updatedAt": "2019-11-04T22:21:30Z",
+      "baseRepository": "t2trg/t2trg-rest-iot",
+      "baseRefName": "master",
+      "baseRefOid": "63d44d7fa28f62468accfce120540d24acf59ed2",
+      "headRepository": "t2trg/t2trg-rest-iot",
+      "headRefName": "uri-design",
+      "headRefOid": "46f4a710b349d06d5f01cba45f2610632e36ceb7",
+      "closedAt": "2019-11-04T22:21:27Z",
+      "mergedAt": "2019-11-04T22:21:27Z",
+      "mergedBy": "akeranen",
+      "mergeCommit": {
+        "oid": "e0e4b4178e8b49a8a066caebe133af918a247785"
+      },
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 55,
+      "id": "MDExOlB1bGxSZXF1ZXN0MzM2NDk2MDAy",
+      "title": "Added CoRAL note and ref",
+      "url": "https://github.com/t2trg/t2trg-rest-iot/pull/55",
+      "state": "MERGED",
+      "author": "akeranen",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2019-11-04T21:48:14Z",
+      "updatedAt": "2019-11-04T22:21:08Z",
+      "baseRepository": "t2trg/t2trg-rest-iot",
+      "baseRefName": "master",
+      "baseRefOid": "63d44d7fa28f62468accfce120540d24acf59ed2",
+      "headRepository": "t2trg/t2trg-rest-iot",
+      "headRefName": "coral",
+      "headRefOid": "8b913878bf845112f9372aad48133ec076ee6577",
+      "closedAt": "2019-11-04T22:21:04Z",
+      "mergedAt": "2019-11-04T22:21:04Z",
+      "mergedBy": "akeranen",
+      "mergeCommit": {
+        "oid": "91433fe4313a1f021805a1d601d54a3b6ecaa38d"
+      },
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 56,
+      "id": "MDExOlB1bGxSZXF1ZXN0NTMzNjE5NjA5",
+      "title": "Literature update, add definitions from SDF",
+      "url": "https://github.com/t2trg/t2trg-rest-iot/pull/56",
+      "state": "MERGED",
+      "author": "cabo",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2020-12-07T12:03:07Z",
+      "updatedAt": "2022-06-13T12:05:19Z",
+      "baseRepository": "t2trg/t2trg-rest-iot",
+      "baseRefName": "master",
+      "baseRefOid": "66b6f62cf943cc7760a55b92ac2407bb5b4ea6ec",
+      "headRepository": "t2trg/t2trg-rest-iot",
+      "headRefName": "lit-update",
+      "headRefOid": "c48f30bf432f83fd9905222456f175f86d5f6b6d",
+      "closedAt": "2021-02-22T18:51:00Z",
+      "mergedAt": "2021-02-22T18:51:00Z",
+      "mergedBy": "akeranen",
+      "mergeCommit": {
+        "oid": "19afbd93bcc897498e96965f241cc129fc9aaa64"
+      },
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 57,
+      "id": "MDExOlB1bGxSZXF1ZXN0Njc0NDU2NjY3",
+      "title": "WIP: Update draft-irtf-t2trg-rest-iot.md",
+      "url": "https://github.com/t2trg/t2trg-rest-iot/pull/57",
+      "state": "MERGED",
+      "author": "mkovatsc",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Currently work in progress",
+      "createdAt": "2021-06-21T11:10:18Z",
+      "updatedAt": "2022-06-13T11:38:25Z",
+      "baseRepository": "t2trg/t2trg-rest-iot",
+      "baseRefName": "master",
+      "baseRefOid": "2cc66f503c30a34b8a6f719670998f990db6adfb",
+      "headRepository": "t2trg/t2trg-rest-iot",
+      "headRefName": "mkovatsc-revision-2021",
+      "headRefOid": "1d82a65aee7420a4a8ec855daff655e1c00e56ac",
+      "closedAt": "2021-08-25T13:51:51Z",
+      "mergedAt": "2021-08-25T13:51:51Z",
+      "mergedBy": "akeranen",
+      "mergeCommit": {
+        "oid": "b2a05602e883520db38fed7d40021b92e603521d"
+      },
+      "comments": [
+        {
+          "author": "mkovatsc",
+          "authorAssociation": "COLLABORATOR",
+          "body": "> \r\n> \r\n> Hmm. Wasn't that useful information?\r\n\r\nCarsten's comment refers to the strong reduction of the \"Thing\" definition.\r\nI tried to get some useful information back, but kept the started discussion on \"Thingness\" out.",
+          "createdAt": "2021-08-24T20:37:25Z",
+          "updatedAt": "2021-08-24T20:37:25Z"
+        },
+        {
+          "author": "mkovatsc",
+          "authorAssociation": "COLLABORATOR",
+          "body": "The term \"affordance\" was actually never used in the text (only in terminology). I added more information that puts hypermedia controls in context to affordances.",
+          "createdAt": "2021-08-24T20:38:27Z",
+          "updatedAt": "2021-08-24T20:38:27Z"
+        },
+        {
+          "author": "mkovatsc",
+          "authorAssociation": "COLLABORATOR",
+          "body": "We might have a bit of a problem in Section 5, as the work on CoRAL stalled with Klaus not being active on it anymore...\r\n\r\n@ektrah Might this change now after the change on your side I heard about?",
+          "createdAt": "2021-08-24T20:43:24Z",
+          "updatedAt": "2021-08-24T20:45:04Z"
+        }
+      ],
+      "reviews": [
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3Njg4Mzg0MTgw",
+          "commit": {
+            "abbreviatedOid": "c379333"
+          },
+          "author": "akeranen",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2021-06-21T12:50:41Z",
+          "updatedAt": "2021-06-21T12:53:30Z",
+          "comments": [
+            {
+              "originalPosition": 123,
+              "body": "Should also \"cloud services\" be plural here?",
+              "createdAt": "2021-06-21T12:50:41Z",
+              "updatedAt": "2021-06-21T12:53:30Z"
+            }
+          ]
+        },
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3Njg4NTcyNDYw",
+          "commit": {
+            "abbreviatedOid": "ef94751"
+          },
+          "author": "mkovatsc",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2021-06-21T15:27:04Z",
+          "updatedAt": "2021-06-21T15:27:05Z",
+          "comments": [
+            {
+              "originalPosition": 263,
+              "body": "This statement is pretty vague considering that it took us a long time to cleanly separate these terms (cf. \"ct\"). I added the term \"Content Type\" to terminology.",
+              "createdAt": "2021-06-21T15:27:05Z",
+              "updatedAt": "2021-06-21T15:27:05Z"
+            }
+          ]
+        },
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3Njg4NTczNjQ3",
+          "commit": {
+            "abbreviatedOid": "ef94751"
+          },
+          "author": "mkovatsc",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2021-06-21T15:27:53Z",
+          "updatedAt": "2021-06-21T15:27:53Z",
+          "comments": [
+            {
+              "originalPosition": 249,
+              "body": "Wiggling around the media type vs content type vs content format topic here...",
+              "createdAt": "2021-06-21T15:27:53Z",
+              "updatedAt": "2021-06-21T15:27:53Z"
+            }
+          ]
+        },
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3NzM3NjcxMTIw",
+          "commit": {
+            "abbreviatedOid": "cfa87a5"
+          },
+          "author": "mkovatsc",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2021-08-24T20:44:18Z",
+          "updatedAt": "2021-08-24T20:44:18Z",
+          "comments": [
+            {
+              "originalPosition": 123,
+              "body": "I took the too easy fix... needed a change to \"A typical ...\" -- done now.",
+              "createdAt": "2021-08-24T20:44:18Z",
+              "updatedAt": "2021-08-24T20:44:18Z"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "number": 58,
+      "id": "PR_kwDOAvXAV84ruYiH",
+      "title": "Note on PUT side effects",
+      "url": "https://github.com/t2trg/t2trg-rest-iot/pull/58",
+      "state": "MERGED",
+      "author": "akeranen",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2021-09-14T11:24:38Z",
+      "updatedAt": "2022-06-13T12:05:20Z",
+      "baseRepository": "t2trg/t2trg-rest-iot",
+      "baseRefName": "master",
+      "baseRefOid": "5c8892b974aa16e2b4fb36db2b4d6233ddc185e5",
+      "headRepository": "t2trg/t2trg-rest-iot",
+      "headRefName": "put-side-effects",
+      "headRefOid": "400044e43bc4e304d47ee96287fd05f47affa09c",
+      "closedAt": "2022-02-26T20:37:42Z",
+      "mergedAt": "2022-02-26T20:37:42Z",
+      "mergedBy": "akeranen",
+      "mergeCommit": {
+        "oid": "84fa7e09dbe556455c6771c557dd10cc64804148"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOAvXAV84wsTKV",
+          "commit": {
+            "abbreviatedOid": "400044e"
+          },
+          "author": "cabo",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2021-11-26T15:42:27Z",
+          "updatedAt": "2021-11-26T15:42:27Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 59,
+      "id": "PR_kwDOAvXAV84vElbc",
+      "title": "Chair nits",
+      "url": "https://github.com/t2trg/t2trg-rest-iot/pull/59",
+      "state": "MERGED",
+      "author": "cabo",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2021-11-26T17:43:47Z",
+      "updatedAt": "2022-06-13T12:05:26Z",
+      "baseRepository": "t2trg/t2trg-rest-iot",
+      "baseRefName": "master",
+      "baseRefOid": "5c8892b974aa16e2b4fb36db2b4d6233ddc185e5",
+      "headRepository": "t2trg/t2trg-rest-iot",
+      "headRefName": "chair-nits",
+      "headRefOid": "86f31494bba67c9bf142e1b98676bc8e0ca656bc",
+      "closedAt": "2022-02-26T20:37:25Z",
+      "mergedAt": "2022-02-26T20:37:25Z",
+      "mergedBy": "akeranen",
+      "mergeCommit": {
+        "oid": "e6f6fdd32654708de950ea9344e74d585733771e"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOAvXAV84wsk84",
+          "commit": {
+            "abbreviatedOid": "86f3149"
+          },
+          "author": "akeranen",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2021-11-26T17:52:52Z",
+          "updatedAt": "2021-11-26T17:52:52Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 60,
+      "id": "PR_kwDOAvXAV843TvSH",
+      "title": "Chairrev editorial",
+      "url": "https://github.com/t2trg/t2trg-rest-iot/pull/60",
+      "state": "MERGED",
+      "author": "mkovatsc",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "I did a full pass to get some progress. I recommend to get consensus in this branch and then to a squash commit on merge, assuming that we open new branches for the major issues.",
+      "createdAt": "2022-05-04T18:22:25Z",
+      "updatedAt": "2022-06-30T08:12:48Z",
+      "baseRepository": "t2trg/t2trg-rest-iot",
+      "baseRefName": "master",
+      "baseRefOid": "84fa7e09dbe556455c6771c557dd10cc64804148",
+      "headRepository": "t2trg/t2trg-rest-iot",
+      "headRefName": "chairrev-editorial",
+      "headRefOid": "701b9c34911c99c468c991b6bdaf7bb564b01f4a",
+      "closedAt": "2022-06-30T08:12:48Z",
+      "mergedAt": "2022-06-30T08:12:48Z",
+      "mergedBy": "akeranen",
+      "mergeCommit": {
+        "oid": "f3b09ce3cdb28a9b313b6638db4498a8fffeaf5d"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOAvXAV845ZhmJ",
+          "commit": {
+            "abbreviatedOid": "a8431d2"
+          },
+          "author": "mkovatsc",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2022-05-05T08:12:03Z",
+          "updatedAt": "2022-05-05T08:12:03Z",
+          "comments": [
+            {
+              "originalPosition": 9,
+              "body": "Update to 5-3",
+              "createdAt": "2022-05-05T08:12:03Z",
+              "updatedAt": "2022-05-05T08:12:04Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOAvXAV845ZkPE",
+          "commit": {
+            "abbreviatedOid": "a8431d2"
+          },
+          "author": "mkovatsc",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2022-05-05T08:21:55Z",
+          "updatedAt": "2022-05-05T08:21:55Z",
+          "comments": [
+            {
+              "originalPosition": 50,
+              "body": "... by making its own request toward ...",
+              "createdAt": "2022-05-05T08:21:55Z",
+              "updatedAt": "2022-05-05T08:21:55Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOAvXAV845ZnMR",
+          "commit": {
+            "abbreviatedOid": "a8431d2"
+          },
+          "author": "mkovatsc",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2022-05-05T08:32:15Z",
+          "updatedAt": "2022-05-05T08:32:16Z",
+          "comments": [
+            {
+              "originalPosition": 50,
+              "body": "... and replying accordingly.",
+              "createdAt": "2022-05-05T08:32:15Z",
+              "updatedAt": "2022-05-05T08:32:16Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOAvXAV845ZoJf",
+          "commit": {
+            "abbreviatedOid": "a8431d2"
+          },
+          "author": "mkovatsc",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2022-05-05T08:35:09Z",
+          "updatedAt": "2022-05-05T08:35:09Z",
+          "comments": [
+            {
+              "originalPosition": 50,
+              "body": "Add \"Intermediary\" term further up.",
+              "createdAt": "2022-05-05T08:35:09Z",
+              "updatedAt": "2022-05-05T08:35:09Z"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "number": 73,
+      "id": "PR_kwDOAvXAV846n-a6",
+      "title": "Fix HTTP and CoAP references",
+      "url": "https://github.com/t2trg/t2trg-rest-iot/pull/73",
+      "state": "MERGED",
+      "author": "akeranen",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Updating HTTP references to RFC9110 and RFC9112. Moving CoAP reference to normative to be consistent with other references. Fixes #69 ",
+      "createdAt": "2022-06-30T08:54:51Z",
+      "updatedAt": "2022-06-30T09:15:56Z",
+      "baseRepository": "t2trg/t2trg-rest-iot",
+      "baseRefName": "master",
+      "baseRefOid": "f3b09ce3cdb28a9b313b6638db4498a8fffeaf5d",
+      "headRepository": "t2trg/t2trg-rest-iot",
+      "headRefName": "rfc723x-refs",
+      "headRefOid": "0c1e5653ad40bfe0b4abb91ac59f46068fd76576",
+      "closedAt": "2022-06-30T09:15:47Z",
+      "mergedAt": "2022-06-30T09:15:47Z",
+      "mergedBy": "mkovatsc",
+      "mergeCommit": {
+        "oid": "3abd931c5f9cde21ebfe2c426e0c4ee74ae7965c"
+      },
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 74,
+      "id": "PR_kwDOAvXAV846n-_x",
+      "title": "WiP: Minor: Reason(s) for different semantics in CoAP response codes",
+      "url": "https://github.com/t2trg/t2trg-rest-iot/pull/74",
+      "state": "OPEN",
+      "author": "mkovatsc",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Addresses #64",
+      "createdAt": "2022-06-30T08:57:01Z",
+      "updatedAt": "2024-10-21T20:38:27Z",
+      "baseRepository": "t2trg/t2trg-rest-iot",
+      "baseRefName": "master",
+      "baseRefOid": "f3b09ce3cdb28a9b313b6638db4498a8fffeaf5d",
+      "headRepository": "t2trg/t2trg-rest-iot",
+      "headRefName": "64-minor-reasons-for-different-semantics-in-coap-response-codes",
+      "headRefOid": "c47a7af63131345c679ed55c6e08255e62006808",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOAvXAV86ODbMn",
+          "commit": {
+            "abbreviatedOid": "c47a7af"
+          },
+          "author": "cabo",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-10-21T20:38:27Z",
+          "updatedAt": "2024-10-21T20:38:27Z",
+          "comments": [
+            {
+              "originalPosition": 7,
+              "body": "7231 is obsoleted by 9110/9112",
+              "createdAt": "2024-10-21T20:38:27Z",
+              "updatedAt": "2024-10-21T20:38:27Z"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "number": 75,
+      "id": "PR_kwDOAvXAV85kszyC",
+      "title": "Add Cacheable OSCORE ref",
+      "url": "https://github.com/t2trg/t2trg-rest-iot/pull/75",
+      "state": "MERGED",
+      "author": "akeranen",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Partially addressing #65 ",
+      "createdAt": "2024-01-22T09:50:17Z",
+      "updatedAt": "2024-01-25T19:01:28Z",
+      "baseRepository": "t2trg/t2trg-rest-iot",
+      "baseRefName": "master",
+      "baseRefOid": "9c3dd00d77270f9e5fdf9b089f7e4e0af8482b97",
+      "headRepository": "t2trg/t2trg-rest-iot",
+      "headRefName": "cacheable-oscore",
+      "headRefOid": "91e9260ece06486e4baca7540faebd022da1491c",
+      "closedAt": "2024-01-25T19:01:28Z",
+      "mergedAt": "2024-01-25T19:01:28Z",
+      "mergedBy": "akeranen",
+      "mergeCommit": {
+        "oid": "19dd3698c186d708b25754d0f4f44b8c17cd7697"
+      },
+      "comments": [
+        {
+          "author": "akeranen",
+          "authorAssociation": "COLLABORATOR",
+          "body": "OK, thanks! So let's do this minimal update for the next revision and see whether we can give more detailed guidance based on future learnings on the topic.",
+          "createdAt": "2024-01-25T12:22:00Z",
+          "updatedAt": "2024-01-25T12:22:00Z"
+        }
+      ],
+      "reviews": [
+        {
+          "id": "PRR_kwDOAvXAV85tzKg6",
+          "commit": {
+            "abbreviatedOid": "91e9260"
+          },
+          "author": "cabo",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "APPROVED",
+          "body": "Looks like a minimal way to handle the issue.\r\nClearly we want to have more experience with cacheable OSCORE before meting out guidance in much more detail.\r\n",
+          "createdAt": "2024-01-24T18:42:02Z",
+          "updatedAt": "2024-01-24T18:42:02Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 76,
+      "id": "PR_kwDOAvXAV85k-rrM",
+      "title": "Add note on CDDL for syntactic validation",
+      "url": "https://github.com/t2trg/t2trg-rest-iot/pull/76",
+      "state": "MERGED",
+      "author": "akeranen",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Also mention CBOR as generic format. Fixes #71 ",
+      "createdAt": "2024-01-24T17:38:29Z",
+      "updatedAt": "2024-01-25T19:00:28Z",
+      "baseRepository": "t2trg/t2trg-rest-iot",
+      "baseRefName": "master",
+      "baseRefOid": "9c3dd00d77270f9e5fdf9b089f7e4e0af8482b97",
+      "headRepository": "t2trg/t2trg-rest-iot",
+      "headRefName": "syntactic-validation",
+      "headRefOid": "49f2e462d01ccf00ad50abcf25c1152d844f8554",
+      "closedAt": "2024-01-25T19:00:27Z",
+      "mergedAt": "2024-01-25T19:00:27Z",
+      "mergedBy": "akeranen",
+      "mergeCommit": {
+        "oid": "2813fa8cf39754b2394d88438ab80c575c0efb5b"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOAvXAV85tzKw-",
+          "commit": {
+            "abbreviatedOid": "49f2e46"
+          },
+          "author": "cabo",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "APPROVED",
+          "body": "LGTM",
+          "createdAt": "2024-01-24T18:42:42Z",
+          "updatedAt": "2024-01-24T18:42:42Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 78,
+      "id": "PR_kwDOAvXAV852jsr0",
+      "title": "Update Thing definition",
+      "url": "https://github.com/t2trg/t2trg-rest-iot/pull/78",
+      "state": "MERGED",
+      "author": "akeranen",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Align Thing definition with the SDF spec. Fixes #77 ",
+      "createdAt": "2024-07-26T09:21:10Z",
+      "updatedAt": "2024-07-27T07:42:00Z",
+      "baseRepository": "t2trg/t2trg-rest-iot",
+      "baseRefName": "master",
+      "baseRefOid": "19dd3698c186d708b25754d0f4f44b8c17cd7697",
+      "headRepository": "t2trg/t2trg-rest-iot",
+      "headRefName": "77-thing-def",
+      "headRefOid": "c5185b8e03f90e2c17fe40241f8d4d25ec26576c",
+      "closedAt": "2024-07-27T07:42:00Z",
+      "mergedAt": "2024-07-27T07:42:00Z",
+      "mergedBy": "akeranen",
+      "mergeCommit": {
+        "oid": "055a6d48d5948ff8c9f923d29f8806e131d995af"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOAvXAV86DN9vU",
+          "commit": {
+            "abbreviatedOid": "c5185b8"
+          },
+          "author": "cabo",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2024-07-26T10:15:07Z",
+          "updatedAt": "2024-07-26T10:15:07Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 79,
+      "id": "PR_kwDOAvXAV85_XBsE",
+      "title": "Add note and reference to the HTTP QUERY method",
+      "url": "https://github.com/t2trg/t2trg-rest-iot/pull/79",
+      "state": "MERGED",
+      "author": "akeranen",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Fixes #67 ",
+      "createdAt": "2024-10-21T18:20:18Z",
+      "updatedAt": "2024-10-21T20:34:30Z",
+      "baseRepository": "t2trg/t2trg-rest-iot",
+      "baseRefName": "master",
+      "baseRefOid": "034882eacd7d5bef45230fc5e8a5a3f1de02ba08",
+      "headRepository": "t2trg/t2trg-rest-iot",
+      "headRefName": "http-query-method",
+      "headRefOid": "8cd0b2f461a34b4554073a3d0bb2dff4618a5c0f",
+      "closedAt": "2024-10-21T20:34:30Z",
+      "mergedAt": "2024-10-21T20:34:30Z",
+      "mergedBy": "akeranen",
+      "mergeCommit": {
+        "oid": "29155d3809c26ed208016283732918153ea8cf68"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOAvXAV86ODRjS",
+          "commit": {
+            "abbreviatedOid": "8cd0b2f"
+          },
+          "author": "mkovatsc",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "Adds HTTP variant with link to working group I-D.",
+          "createdAt": "2024-10-21T20:15:47Z",
+          "updatedAt": "2024-10-21T20:15:47Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 80,
+      "id": "PR_kwDOAvXAV85_XHG1",
+      "title": "Add cross-ref to uniform interface sec",
+      "url": "https://github.com/t2trg/t2trg-rest-iot/pull/80",
+      "state": "MERGED",
+      "author": "akeranen",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Fixes #63 ",
+      "createdAt": "2024-10-21T18:32:01Z",
+      "updatedAt": "2024-10-21T20:34:03Z",
+      "baseRepository": "t2trg/t2trg-rest-iot",
+      "baseRefName": "master",
+      "baseRefOid": "034882eacd7d5bef45230fc5e8a5a3f1de02ba08",
+      "headRepository": "t2trg/t2trg-rest-iot",
+      "headRefName": "63-uniform-if-xref",
+      "headRefOid": "91c7cec2d58239683582b4cd741777845f64935a",
+      "closedAt": "2024-10-21T20:34:03Z",
+      "mergedAt": "2024-10-21T20:34:03Z",
+      "mergedBy": "akeranen",
+      "mergeCommit": {
+        "oid": "60b310de323f8b4cc8a49420dbbd6c376a9ef9fe"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOAvXAV86ODR3R",
+          "commit": {
+            "abbreviatedOid": "7ebdd76"
+          },
+          "author": "mkovatsc",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "Only its intra-document reference.\r\nAdding \"see\" might be preferred, similar to #81.",
+          "createdAt": "2024-10-21T20:16:29Z",
+          "updatedAt": "2024-10-21T20:17:28Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 81,
+      "id": "PR_kwDOAvXAV85_Xb51",
+      "title": "Add xref to details on actions",
+      "url": "https://github.com/t2trg/t2trg-rest-iot/pull/81",
+      "state": "MERGED",
+      "author": "akeranen",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Fixes #62 ",
+      "createdAt": "2024-10-21T19:21:36Z",
+      "updatedAt": "2024-10-21T20:34:57Z",
+      "baseRepository": "t2trg/t2trg-rest-iot",
+      "baseRefName": "master",
+      "baseRefOid": "034882eacd7d5bef45230fc5e8a5a3f1de02ba08",
+      "headRepository": "t2trg/t2trg-rest-iot",
+      "headRefName": "62-actions-in-iot",
+      "headRefOid": "77bc5eb57d3d28dc7f261eade6a6d09f40c18b56",
+      "closedAt": "2024-10-21T20:34:57Z",
+      "mergedAt": "2024-10-21T20:34:57Z",
+      "mergedBy": "akeranen",
+      "mergeCommit": {
+        "oid": "7dce1dba11defb87849e29bebb0587b1dd65f5e0"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOAvXAV86ODSna",
+          "commit": {
+            "abbreviatedOid": "77bc5eb"
+          },
+          "author": "mkovatsc",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "Adds helpful intra-document reference.",
+          "createdAt": "2024-10-21T20:18:24Z",
+          "updatedAt": "2024-10-21T20:18:24Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 82,
+      "id": "PR_kwDOAvXAV85_XsOu",
+      "title": "Update affordance terminology",
+      "url": "https://github.com/t2trg/t2trg-rest-iot/pull/82",
+      "state": "MERGED",
+      "author": "akeranen",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2024-10-21T20:03:05Z",
+      "updatedAt": "2024-10-21T20:35:19Z",
+      "baseRepository": "t2trg/t2trg-rest-iot",
+      "baseRefName": "master",
+      "baseRefOid": "034882eacd7d5bef45230fc5e8a5a3f1de02ba08",
+      "headRepository": "t2trg/t2trg-rest-iot",
+      "headRefName": "affordance-term-tweak",
+      "headRefOid": "d206223d85d212348fdbc0e859dc3128ae4cdfb0",
+      "closedAt": "2024-10-21T20:35:19Z",
+      "mergedAt": "2024-10-21T20:35:19Z",
+      "mergedBy": "akeranen",
+      "mergeCommit": {
+        "oid": "f1a700b9d68bb6ad30d7c16c526b1657fa54a170"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOAvXAV86ODOnL",
+          "commit": {
+            "abbreviatedOid": "d206223"
+          },
+          "author": "cabo",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2024-10-21T20:08:54Z",
+          "updatedAt": "2024-10-21T20:08:54Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOAvXAV86ODTdD",
+          "commit": {
+            "abbreviatedOid": "d206223"
+          },
+          "author": "mkovatsc",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "Emphasizes restrictive clause already at the beginning, probably easier to follow.",
+          "createdAt": "2024-10-21T20:20:26Z",
+          "updatedAt": "2024-10-21T20:20:26Z",
+          "comments": []
+        }
+      ]
+    }
+  ]
+}
