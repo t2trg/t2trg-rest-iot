@@ -547,7 +547,7 @@ The PATCH method is not safe nor idempotent.
 
 The CoAP-specific iPATCH method is a variant of the PATCH method that is not safe, but is idempotent.
 
-## HTTP/CoAP Status/Response Codes
+## HTTP/CoAP Response Codes
 
 {{Section 15 of RFC9110}} defines a set of Status Codes in HTTP that are assigned by the server to indicate whether a request was understood and satisfied, and how to interpret the answer.
 Similarly, {{Section 5.9 of RFC7252}} defines the set of Response Codes in CoAP.
@@ -560,11 +560,9 @@ Codes starting with 3 indicate redirection; further action is needed to complete
 Codes stating with 4 and 5 indicate errors.
 The codes starting with 4 mean client error (e.g., bad syntax in the request) whereas codes starting with 5 mean server error; there was no apparent problem with the request, but the server was not able to fulfill the request.
 
-Responses may be stored in a cache to satisfy future, equivalent requests.
-HTTP and CoAP use two different patterns to decide what responses are cacheable.
-In HTTP, the cacheability of a response depends on the request method (e.g., responses returned in reply to a GET request are cacheable).
-In CoAP, the cacheability of a response depends on the response code (e.g., responses with code 2.04 are cacheable).
-This difference also leads to slightly different codes starting with 2; for example, CoAP does not have a 2.00 response code whereas 200 ("OK") is commonly used with HTTP.
+For CoAP, the response code alone decides whether a response is cacheable, while HTTP uses explicit cache-control headers or rules over method and code.
+CoAP responses with code 2.05, 4.xx, and 5.xx are cacheable.
+This difference to HTTP also leads to slightly different codes starting with 2; for example, CoAP does not have a 2.00 response code whereas 200 ("OK") is commonly used with HTTP.
 
 # REST Constraints
 
