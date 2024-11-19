@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-11-17T01:27:29.761803+00:00",
+  "timestamp": "2024-11-19T01:25:23.338112+00:00",
   "repo": "t2trg/t2trg-rest-iot",
   "labels": [
     {
@@ -3126,7 +3126,7 @@
       "labels": [],
       "body": "Addresses #64",
       "createdAt": "2022-06-30T08:57:01Z",
-      "updatedAt": "2024-10-21T20:38:27Z",
+      "updatedAt": "2024-11-18T10:41:57Z",
       "baseRepository": "t2trg/t2trg-rest-iot",
       "baseRefName": "master",
       "baseRefOid": "f3b09ce3cdb28a9b313b6638db4498a8fffeaf5d",
@@ -3156,6 +3156,66 @@
               "body": "7231 is obsoleted by 9110/9112",
               "createdAt": "2024-10-21T20:38:27Z",
               "updatedAt": "2024-10-21T20:38:27Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOAvXAV86RkEjb",
+          "commit": {
+            "abbreviatedOid": "c47a7af"
+          },
+          "author": "akeranen",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-11-18T10:17:17Z",
+          "updatedAt": "2024-11-18T10:17:17Z",
+          "comments": [
+            {
+              "originalPosition": 7,
+              "body": "Seems [Section 15 of RFC9110](https://datatracker.ietf.org/doc/html/rfc9110#name-status-codes) is then the right reference here.",
+              "createdAt": "2024-11-18T10:17:17Z",
+              "updatedAt": "2024-11-18T10:17:17Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOAvXAV86RkZHf",
+          "commit": {
+            "abbreviatedOid": "c47a7af"
+          },
+          "author": "akeranen",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-11-18T10:38:50Z",
+          "updatedAt": "2024-11-18T10:38:50Z",
+          "comments": [
+            {
+              "originalPosition": 5,
+              "body": "[RFC 7231](https://datatracker.ietf.org/doc/html/rfc7231#section-6) seems to prefer term \"Response Status Codes\" and simply \"Status Codes\" (\"Response Codes\" not used at all)\r\nRFC 7252 [refers](https://datatracker.ietf.org/doc/html/rfc7252#section-2.2) to the ones from 7231 as \"HTTP status codes\" and for [CoAP](https://datatracker.ietf.org/doc/html/rfc7252#section-5.9) \"Response Codes\"\r\nRFC 9110 uses [\"Status Codes\"](https://datatracker.ietf.org/doc/html/rfc9110#name-status-codes) and [\"response status codes\"](https://datatracker.ietf.org/doc/html/rfc9110#section-6.4.2)\r\n\r\nMaybe the original title, even if awkward, is closer to reality across RFCs? Or maybe \"Response Status Codes\"?",
+              "createdAt": "2024-11-18T10:38:50Z",
+              "updatedAt": "2024-11-18T10:38:51Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOAvXAV86Rka3I",
+          "commit": {
+            "abbreviatedOid": "c47a7af"
+          },
+          "author": "akeranen",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-11-18T10:41:57Z",
+          "updatedAt": "2024-11-18T10:41:57Z",
+          "comments": [
+            {
+              "originalPosition": 7,
+              "body": "Actually this was already fixed in the [main branch](https://github.com/t2trg/t2trg-rest-iot/blob/master/draft-irtf-t2trg-rest-iot.md?plain=1#L552).",
+              "createdAt": "2024-11-18T10:41:57Z",
+              "updatedAt": "2024-11-18T10:41:58Z"
             }
           ]
         }
