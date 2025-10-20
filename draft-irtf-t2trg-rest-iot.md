@@ -541,7 +541,7 @@ The PATCH method is not safe nor idempotent.
 
 The CoAP-specific iPATCH method is a variant of the PATCH method that is not safe, but is idempotent.
 
-## HTTP/CoAP Response Codes
+## CoAP Response Codes and HTTP Status Codes
 
 {{Section 6 of RFC7231}} defines a set of Status Codes in HTTP that are assigned by the server to indicate whether a request was understood and satisfied, and how to interpret the answer.
 Similarly, {{Section 5.9 of RFC7252}} defines the set of Response Codes in CoAP.
