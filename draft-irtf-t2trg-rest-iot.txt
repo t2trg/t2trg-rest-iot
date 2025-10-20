@@ -5,9 +5,9 @@
 Network Working Group                                         A. Keränen
 Internet-Draft                                                  Ericsson
 Intended status: Informational                               M. Kovatsch
-Expires: 19 May 2025                                             Siemens
+Expires: 23 April 2026                                           Siemens
                                                                K. Hartke
-                                                        15 November 2024
+                                                         20 October 2025
 
 
        Guidance on RESTful Design for Internet of Things Systems
@@ -50,11 +50,11 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 19 May 2025.
+   This Internet-Draft will expire on 23 April 2026.
 
 Copyright Notice
 
-   Copyright (c) 2024 IETF Trust and the persons identified as the
+   Copyright (c) 2025 IETF Trust and the persons identified as the
    document authors.  All rights reserved.
 
    This document is subject to BCP 78 and the IETF Trust's Legal
@@ -79,7 +79,7 @@ Table of Contents
        3.5.4.  DELETE
        3.5.5.  FETCH / QUERY
        3.5.6.  PATCH
-     3.6.  HTTP/CoAP Status/Response Codes
+     3.6.  CoAP Response Codes and HTTP Status Codes
    4.  REST Constraints
      4.1.  Client-Server
      4.2.  Stateless
@@ -735,7 +735,7 @@ Table of Contents
    The CoAP-specific iPATCH method is a variant of the PATCH method that
    is not safe, but is idempotent.
 
-3.6.  HTTP/CoAP Status/Response Codes
+3.6.  CoAP Response Codes and HTTP Status Codes
 
    Section 15 of [RFC9110] defines a set of Status Codes in HTTP that
    are assigned by the server to indicate whether a request was
@@ -756,15 +756,12 @@ Table of Contents
    with 5 mean server error; there was no apparent problem with the
    request, but the server was not able to fulfill the request.
 
-   Responses may be stored in a cache to satisfy future, equivalent
-   requests.  HTTP and CoAP use two different patterns to decide what
-   responses are cacheable.  In HTTP, the cacheability of a response
-   depends on the request method (e.g., responses returned in reply to a
-   GET request are cacheable).  In CoAP, the cacheability of a response
-   depends on the response code (e.g., responses with code 2.04 are
-   cacheable).  This difference also leads to slightly different codes
-   starting with 2; for example, CoAP does not have a 2.00 response code
-   whereas 200 ("OK") is commonly used with HTTP.
+   For CoAP, the response code alone decides whether a response is
+   cacheable, while HTTP uses explicit cache-control headers or rules
+   over method and code.  CoAP responses with code 2.05, 4.xx, and 5.xx
+   are cacheable.  This difference to HTTP also leads to slightly
+   different codes starting with 2; for example, CoAP does not have a
+   2.00 response code whereas 200 ("OK") is commonly used with HTTP.
 
 4.  REST Constraints
 
@@ -1354,9 +1351,9 @@ Table of Contents
    [I-D.ietf-core-href]
               Bormann, C. and H. Birkholz, "Constrained Resource
               Identifiers", Work in Progress, Internet-Draft, draft-
-              ietf-core-href-16, 24 July 2024,
+              ietf-core-href-27, 20 October 2025,
               <https://datatracker.ietf.org/doc/html/draft-ietf-core-
-              href-16>.
+              href-27>.
 
    [REST]     Fielding, R., "Architectural Styles and the Design of
               Network-based Software Architectures", Ph.D. Dissertation,
@@ -1487,9 +1484,9 @@ Table of Contents
    [I-D.amsuess-core-cachable-oscore]
               Amsüss, C. and M. Tiloca, "Cacheable OSCORE", Work in
               Progress, Internet-Draft, draft-amsuess-core-cachable-
-              oscore-09, 8 July 2024,
+              oscore-11, 6 July 2025,
               <https://datatracker.ietf.org/doc/html/draft-amsuess-core-
-              cachable-oscore-09>.
+              cachable-oscore-11>.
 
    [I-D.bormann-t2trg-stp]
               Bormann, C. and K. Hartke, "The Series Transfer Pattern
@@ -1516,24 +1513,24 @@ Table of Contents
               Koster, M., Bormann, C., and A. Keränen, "Semantic
               Definition Format (SDF) for Data and Interactions of
               Things", Work in Progress, Internet-Draft, draft-ietf-
-              asdf-sdf-18, 28 February 2024,
+              asdf-sdf-25, 13 October 2025,
               <https://datatracker.ietf.org/doc/html/draft-ietf-asdf-
-              sdf-18>.
+              sdf-25>.
 
    [I-D.ietf-core-coap-pubsub]
               Jimenez, J., Koster, M., and A. Keränen, "A publish-
               subscribe architecture for the Constrained Application
               Protocol (CoAP)", Work in Progress, Internet-Draft, draft-
-              ietf-core-coap-pubsub-15, 21 October 2024,
+              ietf-core-coap-pubsub-18, 28 February 2025,
               <https://datatracker.ietf.org/doc/html/draft-ietf-core-
-              coap-pubsub-15>.
+              coap-pubsub-18>.
 
    [I-D.ietf-httpbis-safe-method-w-body]
-              Reschke, J., Malhotra, A., Snell, J. M., and M. Bishop,
-              "The HTTP QUERY Method", Work in Progress, Internet-Draft,
-              draft-ietf-httpbis-safe-method-w-body-06, 21 October 2024,
+              Reschke, J., Snell, J. M., and M. Bishop, "The HTTP QUERY
+              Method", Work in Progress, Internet-Draft, draft-ietf-
+              httpbis-safe-method-w-body-12, 29 September 2025,
               <https://datatracker.ietf.org/doc/html/draft-ietf-httpbis-
-              safe-method-w-body-06>.
+              safe-method-w-body-12>.
 
    [IANA-CoAP-media]
               "CoAP Content-Formats", n.d.,
