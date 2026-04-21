@@ -83,7 +83,9 @@ informative:
   RFC8428:
   RFC8259:
   RFC8610:
+  RFC6901:
   I-D.bormann-t2trg-stp:
+  I-D.ietf-asdf-nipc:
   I-D.handrews-json-schema-validation:
   I-D.hartke-core-apps:
   I-D.amsuess-core-cachable-oscore:
@@ -449,6 +451,11 @@ For example, a GET request may use query parameters to request the server to sen
 Query parameters in PUT and POST requests do not have such established semantics and are not used consistently.
 Whether the order of the query parameters matters in URIs is up to the server implementation; they might even be re-ordered, for instance by intermediaries.
 Therefore, applications should not rely on their order; see {{Section 3.3.4 of ?RFC6943}} for more details.
+
+When using HTTP, care must be taken with values that contain characters with special meaning in URI paths, such as "/" in JSON Pointers {{RFC6901}}.
+Such characters require percent-encoding when used in path segments (e.g., "/" as "%2F"), but many HTTP servers and intermediaries handle these inconsistently, which can cause interoperability issues and security vulnerabilities.
+Placing such values in query parameters instead of path segments may help avoid these problems; see {{Section 2.6.3 of I-D.ietf-asdf-nipc}} for further discussion.
+Note that this issue does not affect CoAP, as its wire format carries path segments as separate options without percent-encoding.
 
 Due to the relatively complex processing rules and text representation format, URI handling can be difficult to implement correctly in constrained devices.
 Constrained Resource Identifiers {{!I-D.ietf-core-href}} provide a CBOR-based format of URIs that is better suited for resource constrained devices.
