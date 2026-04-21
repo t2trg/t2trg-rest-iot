@@ -51,7 +51,6 @@ normative:
     - ins: R. Fielding
     date: 2000
     seriesinfo: Ph.D. Dissertation, University of California, Irvine
-  RFC6347:
   RFC9176:
   RFC9039:
   RFC8949:
@@ -160,7 +159,7 @@ Compared to others, the key characteristics of many RESTful IoT systems include:
 * accommodating for constrained devices {{RFC7228}}, so with IoT, REST is not only used for scaling out (large number of clients on a Web server), but also for scaling down (efficient server on constrained node, e.g., in energy consumption or implementation complexity)
 * facilitating efficient transfer over (often) constrained networks and lightweight processing in constrained nodes through compact and simple data formats
 * avoiding (or at least minimizing) the need for human interaction through machine-understandable data formats and interaction patterns
-* enabling the system to evolve gradually in the field, as the usually large number of endpoints can not be updated simultaneously
+* enabling the system to evolve gradually in the field, as the usually large number of endpoints cannot be updated simultaneously
 * having endpoints that are both clients and servers
 
 # Terminology {#sec-terms}
@@ -412,7 +411,7 @@ That is, there is no establishment of shared information about past and future i
 On the one hand, this makes requests a bit more verbose since every request must contain all the information necessary to process it.
 On the other hand, this makes servers efficient and scalable, since they do not have to keep any state about their clients.
 Requests can easily be distributed over multiple worker threads or server instances (cf. load balancing).
-For IoT systems, this constraint lowers the memory requirements for server implementations, which is particularly important for constrained servers (e.g., sensor nodes) and servers serving large amount of clients (e.g., Resource Directory).
+For IoT systems, this constraint lowers the memory requirements for server implementations, which is particularly important for constrained servers (e.g., sensor nodes) and servers serving a large number of clients (e.g., Resource Directory).
 
 ## Uniform Resource Identifiers (URIs) {#sec-uris}
 
@@ -445,7 +444,7 @@ Some schemes are for URIs with the main purpose as identifiers, and hence are no
 In particular the "urn:dev" URI {{RFC9039}} details multiple ways for generating and representing endpoint identifiers of IoT devices.
 
 The query parameters can be used to parameterize the resource.
-For example, a GET request may use query parameters to request the server to send only certain kind data of the resource (i.e., filtering the response).
+For example, a GET request may use query parameters to request the server to send only certain kind of data of the resource (i.e., filtering the response).
 Query parameters in PUT and POST requests do not have such established semantics and are not used consistently.
 Whether the order of the query parameters matters in URIs is up to the server implementation; they might even be re-ordered, for instance by intermediaries.
 Therefore, applications should not rely on their order; see {{Section 3.3.4 of ?RFC6943}} for more details.
@@ -557,7 +556,7 @@ Implementations do not need to understand all codes, but the class of the code m
 Codes starting with 1 are informational; the request was received and being processed (not available in CoAP).
 Codes starting with 2 indicate a successful request.
 Codes starting with 3 indicate redirection; further action is needed to complete the request (not available in CoAP).
-Codes stating with 4 and 5 indicate errors.
+Codes starting with 4 and 5 indicate errors.
 The codes starting with 4 mean client error (e.g., bad syntax in the request) whereas codes starting with 5 mean server error; there was no apparent problem with the request, but the server was not able to fulfill the request.
 
 For CoAP, the response code alone decides whether a response is cacheable, while HTTP uses explicit cache-control headers or rules over method and code.
@@ -629,7 +628,7 @@ This small set can apply to many different applications.
 In contrast, in a service-oriented RPC approach, state is modified remotely, directly by the server, and only the instruction what to modify is exchanged.
 Also retrieving state for local use is usually solved through specific instructions depending on the individual information.
 This requires to model all the necessary instructions beforehand and assign them to named procedures.
-This results in a application-specific interface with a large set of methods/procedures.
+This results in an application-specific interface with a large set of methods/procedures.
 Moreover, it is also likely that different parties come up with different ways how to modify state, including the naming of the procedures.
 Hence, even very similar applications are likely not interoperable.
 
@@ -761,7 +760,7 @@ The following sections describe how common design problems such as different int
 ## Collections
 
 A common pattern in RESTful systems across different domains is the collection.
-A collection can be used to combine multiple resources together by providing resources that consist of set of (often partial) representations of resources, called items, and links to resources.
+A collection can be used to combine multiple resources together by providing resources that consist of a set of (often partial) representations of resources, called items, and links to resources.
 The collection resource also defines hypermedia controls for managing and searching the items in the collection.
 
 Examples of the collection pattern in RESTful IoT systems include the CoRE Resource Directory {{RFC9176}}, CoAP pub/sub broker {{?I-D.ietf-core-coap-pubsub}}, and resource discovery via ".well-known/core".
@@ -815,7 +814,7 @@ In event-centric paradigms such as Publish-Subscribe (pub/sub), events are usual
 Since the messages are queued, the receiver is aware of each occurrence of the event and can react accordingly.
 For instance, in an event-centric system, ringing a doorbell would result in a message being sent that represents the event that it was rung.
 
-In resource-oriented paradigms such as REST, messages usually carry the current state of the remote resource, independent from the changes (i.e., events) that have lead to that state.
+In resource-oriented paradigms such as REST, messages usually carry the current state of the remote resource, independent from the changes (i.e., events) that have led to that state.
 In a naive yet natural design, a doorbell could be modeled as a resource that can have the states unpressed and pressed.
 There are, however, a few issues with this approach.
 Polling (i.e., periodically retrieving) the doorbell resource state is not a good option, as the client is highly unlikely to be able to observe all the changes in the pressed state with any realistic polling interval.
@@ -889,7 +888,7 @@ First finalized specifications include:
 
 Further IoT security considerations are available in {{?RFC8576}}.
 
-# Acknowledgement
+# Acknowledgements
 
 The authors would like to thank Mike Amundsen, Heidi-Maria Back, Carsten Bormann, Tero Kauppinen, Michael Koster, Mert Ocak, Robby Simpson, Ravi Subramaniam, Dave Thaler, Niklas Widell, and Erik Wilde for the reviews and feedback.
 
