@@ -1856,7 +1856,7 @@ Hence, the intent of PUT is idempotent and visible to intermediaries, even thoug
 <p id="section-3.6-1"><span><a href="https://rfc-editor.org/rfc/rfc9110#section-15" class="relref">Section 15</a> of [<a href="#RFC9110" class="cite xref">RFC9110</a>]</span> defines a set of Status Codes in HTTP that are assigned by the server to indicate whether a request was understood and satisfied, and how to interpret the answer.
 Similarly, <span><a href="https://rfc-editor.org/rfc/rfc7252#section-5.9" class="relref">Section 5.9</a> of [<a href="#RFC7252" class="cite xref">RFC7252</a>]</span> defines the set of Response Codes in CoAP.<a href="#section-3.6-1" class="pilcrow">¶</a></p>
 <p id="section-3.6-2">The codes consist of three digits (e.g., "404" with HTTP or "4.04" with CoAP) where the first digit expresses the class of the code.
-CoAP response codes are encoded as a single byte split into a 3-bit class and a 5-bit detail (e.g., 4.04), giving them a similar structure to HTTP codes with a more compact on-wire representation.
+CoAP response codes are encoded as a single byte split into a 3-bit class and a 5-bit detail (e.g., 4.04), giving them a similar structure to HTTP codes with a more compact on-wire representation, but a limited range (e.g., only 4.00 to 4.31 are available).
 Implementations do not need to understand all codes, but the class of the code must be understood.
 Codes starting with 1 are informational; the request was received and being processed (not available in CoAP).
 Codes starting with 2 indicate a successful request.

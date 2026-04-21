@@ -747,7 +747,8 @@ Table of Contents
    with CoAP) where the first digit expresses the class of the code.
    CoAP response codes are encoded as a single byte split into a 3-bit
    class and a 5-bit detail (e.g., 4.04), giving them a similar
-   structure to HTTP codes with a more compact on-wire representation.
+   structure to HTTP codes with a more compact on-wire representation,
+   but a limited range (e.g., only 4.00 to 4.31 are available).
    Implementations do not need to understand all codes, but the class of
    the code must be understood.  Codes starting with 1 are
    informational; the request was received and being processed (not
