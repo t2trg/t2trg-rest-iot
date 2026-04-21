@@ -561,7 +561,7 @@ Codes stating with 4 and 5 indicate errors.
 The codes starting with 4 mean client error (e.g., bad syntax in the request) whereas codes starting with 5 mean server error; there was no apparent problem with the request, but the server was not able to fulfill the request.
 
 For CoAP, the response code alone decides whether a response is cacheable, while HTTP uses explicit cache-control headers or rules over method and code.
-CoAP responses with code 2.05, 4.xx, and 5.xx are cacheable.
+CoAP responses with code 2.03, 2.05, 4.xx, and 5.xx are cacheable.
 This difference to HTTP also leads to slightly different codes starting with 2; for example, CoAP does not have a 2.00 response code whereas 200 ("OK") is commonly used with HTTP.
 
 # REST Constraints
