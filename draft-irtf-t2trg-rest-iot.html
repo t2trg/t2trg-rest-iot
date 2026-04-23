@@ -14,21 +14,21 @@ that follow the principles of the Representational State Transfer (REST)
 architectural style. This document is a product of the IRTF Thing-to-Thing
 Research Group (T2TRG). 
     " name="description">
-<meta content="xml2rfc 3.31.0" name="generator">
+<meta content="xml2rfc 3.33.0" name="generator">
 <meta content="draft-irtf-t2trg-rest-iot-latest" name="ietf.draft">
 <!-- Generator version information:
-  xml2rfc 3.31.0
-    Python 3.12.12
+  xml2rfc 3.33.0
+    Python 3.12.13
     ConfigArgParse 1.7
     google-i18n-address 3.1.1
-    intervaltree 3.1.0
+    intervaltree 3.2.1
     Jinja2 3.1.6
-    lxml 5.3.1
-    platformdirs 4.5.0
+    lxml 6.0.2
+    platformdirs 4.9.6
     pycountry 24.6.1
-    PyYAML 6.0.2
+    PyYAML 6.0.3
     requests 2.32.5
-    wcwidth 0.2.14
+    wcwidth 0.6.0
 -->
 <link href="draft-irtf-t2trg-rest-iot.xml" rel="alternate" type="application/rfc+xml">
 <link href="#copyright" rel="license">
@@ -169,7 +169,7 @@ Research Group (T2TRG).
   font-weight: 400;
   font-display: swap;
   src: local('Oxygen Mono'), local('OxygenMono-Regular'), url('https://martinthomson.github.io/rfc-css/fonts/oxygenmono-regular-latin-ext.woff2') format('woff2');
-  unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
 }
 @font-face {
   font-family: 'Oxygen Mono';
@@ -177,7 +177,8 @@ Research Group (T2TRG).
   font-weight: 400;
   font-display: swap;
   src: local('Oxygen Mono'), local('OxygenMono-Regular'), url('https://martinthomson.github.io/rfc-css/fonts/oxygenmono-regular-latin.woff2') format('woff2');
-  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
 }
 
 @font-face {
@@ -569,6 +570,7 @@ aside, blockquote {
 }
 blockquote {
   margin: 1em 0;
+  border-left: 2px var(--pilcrow-strong) solid;
 }
 cite {
   display: block;
@@ -639,7 +641,7 @@ a.pilcrow {
   }
 }
 @media not print {
-  :hover > a.pilcrow {
+  :hover > a.pilcrow, a.pilcrow:focus {
     opacity: 1;
   }
   a.pilcrow[href]:hover {
@@ -1047,11 +1049,11 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <thead><tr>
 <td class="left">Internet-Draft</td>
 <td class="center">RESTful Design for IoT Systems</td>
-<td class="right">October 2025</td>
+<td class="right">April 2026</td>
 </tr></thead>
 <tfoot><tr>
 <td class="left">Keränen, et al.</td>
-<td class="center">Expires 23 April 2026</td>
+<td class="center">Expires 25 October 2026</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1064,12 +1066,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <dd class="internet-draft">draft-irtf-t2trg-rest-iot-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2025-10-20" class="published">20 October 2025</time>
+<time datetime="2026-04-23" class="published">23 April 2026</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Informational</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2026-04-23">23 April 2026</time></dd>
+<dd class="expires"><time datetime="2026-10-25">25 October 2026</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1128,7 +1130,7 @@ Research Group (T2TRG).<a href="#section-abstract-1" class="pilcrow">¶</a></p>
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 23 April 2026.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 25 October 2026.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1137,7 +1139,7 @@ Research Group (T2TRG).<a href="#section-abstract-1" class="pilcrow">¶</a></p>
 <a href="#name-copyright-notice" class="section-name selfRef">Copyright Notice</a>
         </h2>
 <p id="section-boilerplate.2-1">
-            Copyright (c) 2025 IETF Trust and the persons identified as the
+            Copyright (c) 2026 IETF Trust and the persons identified as the
             document authors. All rights reserved.<a href="#section-boilerplate.2-1" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.2-2">
             This document is subject to BCP 78 and the IETF Trust's Legal
@@ -1275,7 +1277,7 @@ Research Group (T2TRG).<a href="#section-abstract-1" class="pilcrow">¶</a></p>
             <p id="section-toc.1-1.7.1"><a href="#section-7" class="auto internal xref">7</a>.  <a href="#name-security-considerations" class="internal xref">Security Considerations</a></p>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.8">
-            <p id="section-toc.1-1.8.1"><a href="#section-8" class="auto internal xref">8</a>.  <a href="#name-acknowledgement" class="internal xref">Acknowledgement</a></p>
+            <p id="section-toc.1-1.8.1"><a href="#section-8" class="auto internal xref">8</a>.  <a href="#name-acknowledgements" class="internal xref">Acknowledgements</a></p>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.9">
             <p id="section-toc.1-1.9.1"><a href="#section-9" class="auto internal xref">9</a>.  <a href="#name-references" class="internal xref">References</a></p>
@@ -1319,7 +1321,7 @@ Compared to others, the key characteristics of many RESTful IoT systems include:
           <p id="section-1-4.3.1">avoiding (or at least minimizing) the need for human interaction through machine-understandable data formats and interaction patterns<a href="#section-1-4.3.1" class="pilcrow">¶</a></p>
 </li>
         <li class="normal" id="section-1-4.4">
-          <p id="section-1-4.4.1">enabling the system to evolve gradually in the field, as the usually large number of endpoints can not be updated simultaneously<a href="#section-1-4.4.1" class="pilcrow">¶</a></p>
+          <p id="section-1-4.4.1">enabling the system to evolve gradually in the field, as the usually large number of endpoints cannot be updated simultaneously<a href="#section-1-4.4.1" class="pilcrow">¶</a></p>
 </li>
         <li class="normal" id="section-1-4.5">
           <p id="section-1-4.5.1">having endpoints that are both clients and servers<a href="#section-1-4.5.1" class="pilcrow">¶</a></p>
@@ -1680,7 +1682,7 @@ That is, there is no establishment of shared information about past and future i
 On the one hand, this makes requests a bit more verbose since every request must contain all the information necessary to process it.
 On the other hand, this makes servers efficient and scalable, since they do not have to keep any state about their clients.
 Requests can easily be distributed over multiple worker threads or server instances (cf. load balancing).
-For IoT systems, this constraint lowers the memory requirements for server implementations, which is particularly important for constrained servers (e.g., sensor nodes) and servers serving large amount of clients (e.g., Resource Directory).<a href="#section-3.2-7" class="pilcrow">¶</a></p>
+For IoT systems, this constraint lowers the memory requirements for server implementations, which is particularly important for constrained servers (e.g., sensor nodes) and servers serving a large number of clients (e.g., Resource Directory).<a href="#section-3.2-7" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="sec-uris">
@@ -1715,7 +1717,7 @@ If the scheme is different for two URIs (e.g., "coap" vs. "coaps"), it is import
 <p id="section-3.3-6">Some schemes are for URIs with the main purpose as identifiers, and hence are not dereferenceable, e.g., the "urn" scheme can be used to construct unique names in registered namespaces.
 In particular the "urn:dev" URI <span>[<a href="#RFC9039" class="cite xref">RFC9039</a>]</span> details multiple ways for generating and representing endpoint identifiers of IoT devices.<a href="#section-3.3-6" class="pilcrow">¶</a></p>
 <p id="section-3.3-7">The query parameters can be used to parameterize the resource.
-For example, a GET request may use query parameters to request the server to send only certain kind data of the resource (i.e., filtering the response).
+For example, a GET request may use query parameters to request the server to send only certain kind of data of the resource (i.e., filtering the response).
 Query parameters in PUT and POST requests do not have such established semantics and are not used consistently.
 Whether the order of the query parameters matters in URIs is up to the server implementation; they might even be re-ordered, for instance by intermediaries.
 Therefore, applications should not rely on their order; see <span><a href="https://rfc-editor.org/rfc/rfc6943#section-3.3.4" class="relref">Section 3.3.4</a> of [<a href="#RFC6943" class="cite xref">RFC6943</a>]</span> for more details.<a href="#section-3.3-7" class="pilcrow">¶</a></p>
@@ -1858,7 +1860,7 @@ Implementations do not need to understand all codes, but the class of the code m
 Codes starting with 1 are informational; the request was received and being processed (not available in CoAP).
 Codes starting with 2 indicate a successful request.
 Codes starting with 3 indicate redirection; further action is needed to complete the request (not available in CoAP).
-Codes stating with 4 and 5 indicate errors.
+Codes starting with 4 and 5 indicate errors.
 The codes starting with 4 mean client error (e.g., bad syntax in the request) whereas codes starting with 5 mean server error; there was no apparent problem with the request, but the server was not able to fulfill the request.<a href="#section-3.6-2" class="pilcrow">¶</a></p>
 <p id="section-3.6-3">For CoAP, the response code alone decides whether a response is cacheable, while HTTP uses explicit cache-control headers or rules over method and code.
 CoAP responses with code 2.05, 4.xx, and 5.xx are cacheable.
@@ -1956,7 +1958,7 @@ This small set can apply to many different applications.<a href="#section-4.4-1"
 <p id="section-4.4-2">In contrast, in a service-oriented RPC approach, state is modified remotely, directly by the server, and only the instruction what to modify is exchanged.
 Also retrieving state for local use is usually solved through specific instructions depending on the individual information.
 This requires to model all the necessary instructions beforehand and assign them to named procedures.
-This results in a application-specific interface with a large set of methods/procedures.
+This results in an application-specific interface with a large set of methods/procedures.
 Moreover, it is also likely that different parties come up with different ways how to modify state, including the naming of the procedures.
 Hence, even very similar applications are likely not interoperable.<a href="#section-4.4-2" class="pilcrow">¶</a></p>
 <p id="section-4.4-3">A REST interface is fully defined by:<a href="#section-4.4-3" class="pilcrow">¶</a></p>
@@ -2138,7 +2140,7 @@ However, certain interactions, for example data conversions or event handling, d
 <a href="#section-6.1" class="section-number selfRef">6.1. </a><a href="#name-collections" class="section-name selfRef">Collections</a>
         </h3>
 <p id="section-6.1-1">A common pattern in RESTful systems across different domains is the collection.
-A collection can be used to combine multiple resources together by providing resources that consist of set of (often partial) representations of resources, called items, and links to resources.
+A collection can be used to combine multiple resources together by providing resources that consist of a set of (often partial) representations of resources, called items, and links to resources.
 The collection resource also defines hypermedia controls for managing and searching the items in the collection.<a href="#section-6.1-1" class="pilcrow">¶</a></p>
 <p id="section-6.1-2">Examples of the collection pattern in RESTful IoT systems include the CoRE Resource Directory <span>[<a href="#RFC9176" class="cite xref">RFC9176</a>]</span>, CoAP pub/sub broker <span>[<a href="#I-D.ietf-core-coap-pubsub" class="cite xref">I-D.ietf-core-coap-pubsub</a>]</span>, and resource discovery via ".well-known/core".
 Collection+JSON <span>[<a href="#CollectionJSON" class="cite xref">CollectionJSON</a>]</span> is an example of a generic collection Media Type.<a href="#section-6.1-2" class="pilcrow">¶</a></p>
@@ -2205,7 +2207,7 @@ A POST request is also more suitable, when the result is time-dependent and the 
 <p id="section-6.2.4-1">In event-centric paradigms such as Publish-Subscribe (pub/sub), events are usually represented by an incoming message that might even be identical for each occurrence.
 Since the messages are queued, the receiver is aware of each occurrence of the event and can react accordingly.
 For instance, in an event-centric system, ringing a doorbell would result in a message being sent that represents the event that it was rung.<a href="#section-6.2.4-1" class="pilcrow">¶</a></p>
-<p id="section-6.2.4-2">In resource-oriented paradigms such as REST, messages usually carry the current state of the remote resource, independent from the changes (i.e., events) that have lead to that state.
+<p id="section-6.2.4-2">In resource-oriented paradigms such as REST, messages usually carry the current state of the remote resource, independent from the changes (i.e., events) that have led to that state.
 In a naive yet natural design, a doorbell could be modeled as a resource that can have the states unpressed and pressed.
 There are, however, a few issues with this approach.
 Polling (i.e., periodically retrieving) the doorbell resource state is not a good option, as the client is highly unlikely to be able to observe all the changes in the pressed state with any realistic polling interval.
@@ -2310,10 +2312,10 @@ First finalized specifications include:<a href="#section-7-3" class="pilcrow">¶
 <p id="section-7-5">Further IoT security considerations are available in <span>[<a href="#RFC8576" class="cite xref">RFC8576</a>]</span>.<a href="#section-7-5" class="pilcrow">¶</a></p>
 </section>
 </div>
-<div id="acknowledgement">
+<div id="acknowledgements">
 <section id="section-8">
-      <h2 id="name-acknowledgement">
-<a href="#section-8" class="section-number selfRef">8. </a><a href="#name-acknowledgement" class="section-name selfRef">Acknowledgement</a>
+      <h2 id="name-acknowledgements">
+<a href="#section-8" class="section-number selfRef">8. </a><a href="#name-acknowledgements" class="section-name selfRef">Acknowledgements</a>
       </h2>
 <p id="section-8-1">The authors would like to thank Mike Amundsen, Heidi-Maria Back, Carsten Bormann, Tero Kauppinen, Michael Koster, Mert Ocak, Robby Simpson, Ravi Subramaniam, Dave Thaler, Niklas Widell, and Erik Wilde for the reviews and feedback.<a href="#section-8-1" class="pilcrow">¶</a></p>
 </section>
@@ -2339,7 +2341,7 @@ First finalized specifications include:<a href="#section-7-3" class="pilcrow">¶
 <dd class="break"></dd>
 <dt id="I-D.ietf-core-href">[I-D.ietf-core-href]</dt>
         <dd>
-<span class="refAuthor">Bormann, C.</span> and <span class="refAuthor">H. Birkholz</span>, <span class="refTitle">"Constrained Resource Identifiers"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-core-href-27</span>, <time datetime="2025-10-20" class="refDate">20 October 2025</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-core-href-27">https://datatracker.ietf.org/doc/html/draft-ietf-core-href-27</a>&gt;</span>. </dd>
+<span class="refAuthor">Bormann, C.</span> and <span class="refAuthor">H. Birkholz</span>, <span class="refTitle">"Constrained Resource Identifiers"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-core-href-30</span>, <time datetime="2025-11-21" class="refDate">21 November 2025</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-core-href-30">https://datatracker.ietf.org/doc/html/draft-ietf-core-href-30</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="REST">[REST]</dt>
         <dd>
@@ -2472,11 +2474,11 @@ First finalized specifications include:<a href="#section-7-3" class="pilcrow">¶
 <dd class="break"></dd>
 <dt id="I-D.ietf-core-coap-pubsub">[I-D.ietf-core-coap-pubsub]</dt>
         <dd>
-<span class="refAuthor">Jimenez, J.</span>, <span class="refAuthor">Koster, M.</span>, and <span class="refAuthor">A. Keränen</span>, <span class="refTitle">"A publish-subscribe architecture for the Constrained Application Protocol (CoAP)"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-core-coap-pubsub-18</span>, <time datetime="2025-02-28" class="refDate">28 February 2025</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-core-coap-pubsub-18">https://datatracker.ietf.org/doc/html/draft-ietf-core-coap-pubsub-18</a>&gt;</span>. </dd>
+<span class="refAuthor">Jimenez, J.</span>, <span class="refAuthor">Koster, M.</span>, and <span class="refAuthor">A. Keränen</span>, <span class="refTitle">"A publish-subscribe architecture for the Constrained Application Protocol (CoAP)"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-core-coap-pubsub-19</span>, <time datetime="2026-03-02" class="refDate">2 March 2026</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-core-coap-pubsub-19">https://datatracker.ietf.org/doc/html/draft-ietf-core-coap-pubsub-19</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="I-D.ietf-httpbis-safe-method-w-body">[I-D.ietf-httpbis-safe-method-w-body]</dt>
         <dd>
-<span class="refAuthor">Reschke, J.</span>, <span class="refAuthor">Snell, J. M.</span>, and <span class="refAuthor">M. Bishop</span>, <span class="refTitle">"The HTTP QUERY Method"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-httpbis-safe-method-w-body-12</span>, <time datetime="2025-09-29" class="refDate">29 September 2025</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-httpbis-safe-method-w-body-12">https://datatracker.ietf.org/doc/html/draft-ietf-httpbis-safe-method-w-body-12</a>&gt;</span>. </dd>
+<span class="refAuthor">Reschke, J.</span>, <span class="refAuthor">Snell, J. M.</span>, and <span class="refAuthor">M. Bishop</span>, <span class="refTitle">"The HTTP QUERY Method"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-httpbis-safe-method-w-body-14</span>, <time datetime="2025-11-18" class="refDate">18 November 2025</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-httpbis-safe-method-w-body-14">https://datatracker.ietf.org/doc/html/draft-ietf-httpbis-safe-method-w-body-14</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="IANA-CoAP-media">[IANA-CoAP-media]</dt>
         <dd>

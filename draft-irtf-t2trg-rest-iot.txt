@@ -5,9 +5,9 @@
 Network Working Group                                         A. Keränen
 Internet-Draft                                                  Ericsson
 Intended status: Informational                               M. Kovatsch
-Expires: 23 April 2026                                           Siemens
+Expires: 25 October 2026                                         Siemens
                                                                K. Hartke
-                                                         20 October 2025
+                                                           23 April 2026
 
 
        Guidance on RESTful Design for Internet of Things Systems
@@ -50,11 +50,11 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 23 April 2026.
+   This Internet-Draft will expire on 25 October 2026.
 
 Copyright Notice
 
-   Copyright (c) 2025 IETF Trust and the persons identified as the
+   Copyright (c) 2026 IETF Trust and the persons identified as the
    document authors.  All rights reserved.
 
    This document is subject to BCP 78 and the IETF Trust's Legal
@@ -101,7 +101,7 @@ Table of Contents
        6.2.4.  Events as State
      6.3.  Server Push
    7.  Security Considerations
-   8.  Acknowledgement
+   8.  Acknowledgements
    9.  References
      9.1.  Normative References
      9.2.  Informative References
@@ -147,8 +147,7 @@ Table of Contents
       patterns
 
    *  enabling the system to evolve gradually in the field, as the
-      usually large number of endpoints can not be updated
-      simultaneously
+      usually large number of endpoints cannot be updated simultaneously
 
    *  having endpoints that are both clients and servers
 
@@ -504,7 +503,7 @@ Table of Contents
    threads or server instances (cf. load balancing).  For IoT systems,
    this constraint lowers the memory requirements for server
    implementations, which is particularly important for constrained
-   servers (e.g., sensor nodes) and servers serving large amount of
+   servers (e.g., sensor nodes) and servers serving a large number of
    clients (e.g., Resource Directory).
 
 3.3.  Uniform Resource Identifiers (URIs)
@@ -564,8 +563,8 @@ Table of Contents
 
    The query parameters can be used to parameterize the resource.  For
    example, a GET request may use query parameters to request the server
-   to send only certain kind data of the resource (i.e., filtering the
-   response).  Query parameters in PUT and POST requests do not have
+   to send only certain kind of data of the resource (i.e., filtering
+   the response).  Query parameters in PUT and POST requests do not have
    such established semantics and are not used consistently.  Whether
    the order of the query parameters matters in URIs is up to the server
    implementation; they might even be re-ordered, for instance by
@@ -751,10 +750,10 @@ Table of Contents
    available in CoAP).  Codes starting with 2 indicate a successful
    request.  Codes starting with 3 indicate redirection; further action
    is needed to complete the request (not available in CoAP).  Codes
-   stating with 4 and 5 indicate errors.  The codes starting with 4 mean
-   client error (e.g., bad syntax in the request) whereas codes starting
-   with 5 mean server error; there was no apparent problem with the
-   request, but the server was not able to fulfill the request.
+   starting with 4 and 5 indicate errors.  The codes starting with 4
+   mean client error (e.g., bad syntax in the request) whereas codes
+   starting with 5 mean server error; there was no apparent problem with
+   the request, but the server was not able to fulfill the request.
 
    For CoAP, the response code alone decides whether a response is
    cacheable, while HTTP uses explicit cache-control headers or rules
@@ -864,7 +863,7 @@ Table of Contents
    modify is exchanged.  Also retrieving state for local use is usually
    solved through specific instructions depending on the individual
    information.  This requires to model all the necessary instructions
-   beforehand and assign them to named procedures.  This results in a
+   beforehand and assign them to named procedures.  This results in an
    application-specific interface with a large set of methods/
    procedures.  Moreover, it is also likely that different parties come
    up with different ways how to modify state, including the naming of
@@ -1090,7 +1089,7 @@ Table of Contents
 
    A common pattern in RESTful systems across different domains is the
    collection.  A collection can be used to combine multiple resources
-   together by providing resources that consist of set of (often
+   together by providing resources that consist of a set of (often
    partial) representations of resources, called items, and links to
    resources.  The collection resource also defines hypermedia controls
    for managing and searching the items in the collection.
@@ -1186,7 +1185,7 @@ Table of Contents
 
    In resource-oriented paradigms such as REST, messages usually carry
    the current state of the remote resource, independent from the
-   changes (i.e., events) that have lead to that state.  In a naive yet
+   changes (i.e., events) that have led to that state.  In a naive yet
    natural design, a doorbell could be modeled as a resource that can
    have the states unpressed and pressed.  There are, however, a few
    issues with this approach.  Polling (i.e., periodically retrieving)
@@ -1323,7 +1322,7 @@ Table of Contents
 
    Further IoT security considerations are available in [RFC8576].
 
-8.  Acknowledgement
+8.  Acknowledgements
 
    The authors would like to thank Mike Amundsen, Heidi-Maria Back,
    Carsten Bormann, Tero Kauppinen, Michael Koster, Mert Ocak, Robby
@@ -1351,9 +1350,9 @@ Table of Contents
    [I-D.ietf-core-href]
               Bormann, C. and H. Birkholz, "Constrained Resource
               Identifiers", Work in Progress, Internet-Draft, draft-
-              ietf-core-href-27, 20 October 2025,
+              ietf-core-href-30, 21 November 2025,
               <https://datatracker.ietf.org/doc/html/draft-ietf-core-
-              href-27>.
+              href-30>.
 
    [REST]     Fielding, R., "Architectural Styles and the Design of
               Network-based Software Architectures", Ph.D. Dissertation,
@@ -1521,16 +1520,16 @@ Table of Contents
               Jimenez, J., Koster, M., and A. Keränen, "A publish-
               subscribe architecture for the Constrained Application
               Protocol (CoAP)", Work in Progress, Internet-Draft, draft-
-              ietf-core-coap-pubsub-18, 28 February 2025,
+              ietf-core-coap-pubsub-19, 2 March 2026,
               <https://datatracker.ietf.org/doc/html/draft-ietf-core-
-              coap-pubsub-18>.
+              coap-pubsub-19>.
 
    [I-D.ietf-httpbis-safe-method-w-body]
               Reschke, J., Snell, J. M., and M. Bishop, "The HTTP QUERY
               Method", Work in Progress, Internet-Draft, draft-ietf-
-              httpbis-safe-method-w-body-12, 29 September 2025,
+              httpbis-safe-method-w-body-14, 18 November 2025,
               <https://datatracker.ietf.org/doc/html/draft-ietf-httpbis-
-              safe-method-w-body-12>.
+              safe-method-w-body-14>.
 
    [IANA-CoAP-media]
               "CoAP Content-Formats", n.d.,
