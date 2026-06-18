@@ -5,9 +5,9 @@
 Network Working Group                                         A. Keränen
 Internet-Draft                                                  Ericsson
 Intended status: Informational                               M. Kovatsch
-Expires: 23 October 2026                                         Siemens
+Expires: 20 December 2026                                        Siemens
                                                                K. Hartke
-                                                           21 April 2026
+                                                            18 June 2026
 
 
        Guidance on RESTful Design for Internet of Things Systems
@@ -50,7 +50,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 23 October 2026.
+   This Internet-Draft will expire on 20 December 2026.
 
 Copyright Notice
 
@@ -758,10 +758,12 @@ Table of Contents
 
    For CoAP, the response code alone decides whether a response is
    cacheable, while HTTP uses explicit cache-control headers or rules
-   over method and code.  CoAP responses with code 2.03, 2.05, 4.xx, and
-   5.xx are cacheable.  This difference to HTTP also leads to slightly
-   different codes starting with 2; for example, CoAP does not have a
-   2.00 response code whereas 200 ("OK") is commonly used with HTTP.
+   over method and code.  CoAP responses with code 2.05, 4.xx, and 5.xx
+   are cacheable, and responses with code 2.03 update the cache lifetime
+   (MaxAge option) of an existing cached response.  This difference to
+   HTTP also leads to slightly different codes starting with 2; for
+   example, CoAP does not have a 2.00 response code whereas 200 ("OK")
+   is commonly used with HTTP.
 
 4.  REST Constraints
 
@@ -1521,9 +1523,9 @@ Table of Contents
               Jimenez, J., Koster, M., and A. Keränen, "A publish-
               subscribe architecture for the Constrained Application
               Protocol (CoAP)", Work in Progress, Internet-Draft, draft-
-              ietf-core-coap-pubsub-19, 2 March 2026,
+              ietf-core-coap-pubsub-20, 3 June 2026,
               <https://datatracker.ietf.org/doc/html/draft-ietf-core-
-              coap-pubsub-19>.
+              coap-pubsub-20>.
 
    [I-D.ietf-httpbis-safe-method-w-body]
               Reschke, J., Snell, J. M., and M. Bishop, "The HTTP QUERY
