@@ -560,7 +560,8 @@ Codes starting with 4 and 5 indicate errors.
 The codes starting with 4 mean client error (e.g., bad syntax in the request) whereas codes starting with 5 mean server error; there was no apparent problem with the request, but the server was not able to fulfill the request.
 
 For CoAP, the response code alone decides whether a response is cacheable, while HTTP uses explicit cache-control headers or rules over method and code.
-CoAP responses with code 2.05, 4.xx, and 5.xx are cacheable.
+CoAP responses with code 2.05, 4.xx, and 5.xx are cacheable, whereas responses with code 2.03 update the cache lifetime of an existing cached response (see {{Section 5.9.1.3 of RFC 7252}}).
+Note that the Max-Age Option defaults to 60 seconds when absent. Applications should set Max-Age according to their detailed knowledge of application state and potential errors, for example, based on resource stability for 2.05 (Content) responses and volatility of error responses (e.g., if a certain query is invalid only temporarily or forever). See also {{Section 5.9.3.4 of RFC7252}} and {{RFC8516}}.
 This difference to HTTP also leads to slightly different codes starting with 2; for example, CoAP does not have a 2.00 response code whereas 200 ("OK") is commonly used with HTTP.
 
 # REST Constraints
