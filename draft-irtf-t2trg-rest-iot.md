@@ -458,7 +458,7 @@ Placing such values in query parameters instead of path segments may help avoid 
 Note that this issue does not affect CoAP, as its wire format carries path segments as separate options without percent-encoding.
 
 Due to the relatively complex processing rules and text representation format, URI handling can be difficult to implement correctly in constrained devices.
-Constrained Resource Identifiers {{!I-D.ietf-core-href}} provide a CBOR-based format of URIs that is better suited for resource constrained devices.
+Constrained Resource Identifiers {{?I-D.ietf-core-href}} provide a CBOR-based format of URIs that is better suited for resource constrained devices.
 
 ## Representations
 
@@ -698,7 +698,7 @@ A hypermedia client is a client that is capable of processing these hypermedia c
 Hypermedia links can be used to give additional information about a resource representation (e.g., the source URI of the representation) or pointing to other resources.
 The forms can be used to describe the structure of the data that can be sent (e.g., with a POST or PUT method) to a server, or how a data retrieval (e.g., GET) request for a resource should be formed.
 In a hypermedia-driven application the client interacts with the server using only the hypermedia controls, instead of selecting methods and/or constructing URIs based on out-of-band information, such as API documentation.
-The Constrained RESTful Application Language (CoRAL) {{!I-D.ietf-core-coral}} provides a hypermedia-format that is suitable for constrained IoT environments.
+The Constrained RESTful Application Language (CoRAL) {{?I-D.ietf-core-coral}} provides a hypermedia-format that is suitable for constrained IoT environments.
 
 ## Motivation
 
@@ -863,7 +863,7 @@ This goes beyond retransmissions of messages;
 the origin server is usually supposed to queue all undelivered events and to retry until successful delivery or explicit cancellation.
 In HTTP, this pattern is known as REST Hooks.
 
-Methods for configuring server push and notification conditions with CoAP are provided by the CoRE Dynamic Resource Linking specification {{!I-D.ietf-core-dynlink}}.
+Methods for configuring server push and notification conditions with CoAP are provided by the CoRE Dynamic Resource Linking specification {{?I-D.ietf-core-dynlink}}.
 
 In HTTP, there exist a number of workarounds to enable server push, e.g., long polling and streaming {{RFC6202}} or server-sent events {{W3C.REC-html5-20141028}}.
 In IoT systems, long polling can introduce a considerable overhead, as the request has to be repeated for each notification.
@@ -871,6 +871,10 @@ Streaming and server-sent events (the latter is actually an evolution of the for
 However, there is only one response header and subsequent notifications can only have content.
 Individual status and metadata needs to be included in the content message.
 This reduces HTTP again to a pure transport, as its status signaling and metadata capabilities cannot be used.
+
+# IANA Considerations
+
+This document has no IANA actions.
 
 # Security Considerations {#sec-sec}
 
