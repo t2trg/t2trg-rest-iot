@@ -86,7 +86,7 @@ informative:
   RFC8516:
   I-D.bormann-t2trg-stp:
   I-D.ietf-asdf-nipc:
-  I-D.handrews-json-schema-validation:
+  I-D.ietf-jsonschema-json-schema:
   I-D.hartke-core-apps:
   I-D.ietf-core-cacheable-oscore:
   RFC10008:
@@ -666,7 +666,7 @@ For IoT, the critical parts of the Uniform Interface constraint are the descript
 Simply using, for instance, "application/json" does not help machine clients to understand the semantics of the representation.
 Yet defining very precise media types limits the re-usability and interoperability.
 Representation formats such as SenML {{RFC8428}} try to find a good trade-off between precision and re-usability.
-Another approach is to combine a generic format such as JSON or CBOR with syntactic (see {{I-D.handrews-json-schema-validation}} and {{RFC8610}}) as well as semantic annotations (e.g., {{W3C-TD}}).
+Another approach is to combine a generic format such as JSON or CBOR with syntactic (see {{I-D.ietf-jsonschema-json-schema}} and {{RFC8610}}) as well as semantic annotations (e.g., {{W3C-TD}}).
 
 ## Layered System
 
