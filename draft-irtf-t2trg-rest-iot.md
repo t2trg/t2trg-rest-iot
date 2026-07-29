@@ -89,7 +89,7 @@ informative:
   I-D.handrews-json-schema-validation:
   I-D.hartke-core-apps:
   I-D.amsuess-core-cachable-oscore:
-  I-D.ietf-httpbis-safe-method-w-body:
+  RFC10008:
   W3C-TD:
     title: Web of Things (WoT) Thing Description
     author:
@@ -544,7 +544,7 @@ The fundamental difference between the GET and FETCH methods is that the request
 
 The FETCH method is safe and idempotent.
 
-For HTTP a new QUERY method is being specified {{I-D.ietf-httpbis-safe-method-w-body}} for making a safe, idempotent request that contains content.
+For HTTP a QUERY method is specified {{RFC10008}} for making a safe, idempotent request that contains content.
 
 ### PATCH
 
