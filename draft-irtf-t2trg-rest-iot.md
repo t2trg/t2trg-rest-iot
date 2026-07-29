@@ -169,7 +169,7 @@ Compared to others, the key characteristics of many RESTful IoT systems include:
 
 This section explains selected terminology that is commonly used in the context of RESTful design for IoT systems.
 For terminology of constrained nodes and networks, see {{RFC7228}}.
-Terminology on modeling of Things and their affordances (Properties, Actions, and Events) was taken from {{?I-D.ietf-asdf-sdf}}.
+Terminology on modeling of Things and their affordances (Properties, Actions, and Events) was taken from {{?RFC9880}}.
 
 Action:
 : A kind of affordance that can potentially be used to perform a named operation on a Thing.
