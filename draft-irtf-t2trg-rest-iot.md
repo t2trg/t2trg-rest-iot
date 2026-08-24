@@ -86,10 +86,10 @@ informative:
   RFC8516:
   I-D.bormann-t2trg-stp:
   I-D.ietf-asdf-nipc:
-  I-D.handrews-json-schema-validation:
+  I-D.ietf-jsonschema-json-schema:
   I-D.hartke-core-apps:
-  I-D.amsuess-core-cachable-oscore:
-  I-D.ietf-httpbis-safe-method-w-body:
+  I-D.ietf-core-cacheable-oscore:
+  RFC10008:
   W3C-TD:
     title: Web of Things (WoT) Thing Description
     author:
@@ -169,7 +169,7 @@ Compared to others, the key characteristics of many RESTful IoT systems include:
 
 This section explains selected terminology that is commonly used in the context of RESTful design for IoT systems.
 For terminology of constrained nodes and networks, see {{RFC7228}}.
-Terminology on modeling of Things and their affordances (Properties, Actions, and Events) was taken from {{?I-D.ietf-asdf-sdf}}.
+Terminology on modeling of Things and their affordances (Properties, Actions, and Events) was taken from {{?RFC9880}}.
 
 Action:
 : A kind of affordance that can potentially be used to perform a named operation on a Thing.
@@ -458,7 +458,7 @@ Placing such values in query parameters instead of path segments may help avoid 
 Note that this issue does not affect CoAP, as its wire format carries path segments as separate options without percent-encoding.
 
 Due to the relatively complex processing rules and text representation format, URI handling can be difficult to implement correctly in constrained devices.
-Constrained Resource Identifiers {{!I-D.ietf-core-href}} provide a CBOR-based format of URIs that is better suited for resource constrained devices.
+Constrained Resource Identifiers {{?I-D.ietf-core-href}} provide a CBOR-based format of URIs that is better suited for resource constrained devices.
 
 ## Representations
 
@@ -544,7 +544,7 @@ The fundamental difference between the GET and FETCH methods is that the request
 
 The FETCH method is safe and idempotent.
 
-For HTTP a new QUERY method is being specified {{I-D.ietf-httpbis-safe-method-w-body}} for making a safe, idempotent request that contains content.
+For HTTP a QUERY method is specified {{RFC10008}} for making a safe, idempotent request that contains content.
 
 ### PATCH
 
@@ -627,7 +627,7 @@ Local caches furthermore improve reliability, since requests can be answered eve
 Introducing additional components to perform caching only makes sense when the data is used by multiple participants (otherwise client-side caching would be enough).
 In IoT systems, however, it might make sense to cache also individual data to protect constrained devices and networks from frequent requests of data that does not change often.
 Security often hinders the ability to cache responses.
-For IoT systems, object security {{RFC8613}} may be preferable over transport layer security, as it enables intermediaries to cache responses while preserving security {{I-D.amsuess-core-cachable-oscore}}.
+For IoT systems, object security {{RFC8613}} may be preferable over transport layer security, as it enables intermediaries to cache responses while preserving security {{I-D.ietf-core-cacheable-oscore}}.
 
 ## Uniform Interface {#sec-uniform-interface}
 
@@ -666,7 +666,7 @@ For IoT, the critical parts of the Uniform Interface constraint are the descript
 Simply using, for instance, "application/json" does not help machine clients to understand the semantics of the representation.
 Yet defining very precise media types limits the re-usability and interoperability.
 Representation formats such as SenML {{RFC8428}} try to find a good trade-off between precision and re-usability.
-Another approach is to combine a generic format such as JSON or CBOR with syntactic (see {{I-D.handrews-json-schema-validation}} and {{RFC8610}}) as well as semantic annotations (e.g., {{W3C-TD}}).
+Another approach is to combine a generic format such as JSON or CBOR with syntactic (see {{I-D.ietf-jsonschema-json-schema}} and {{RFC8610}}) as well as semantic annotations (e.g., {{W3C-TD}}).
 
 ## Layered System
 
@@ -698,7 +698,7 @@ A hypermedia client is a client that is capable of processing these hypermedia c
 Hypermedia links can be used to give additional information about a resource representation (e.g., the source URI of the representation) or pointing to other resources.
 The forms can be used to describe the structure of the data that can be sent (e.g., with a POST or PUT method) to a server, or how a data retrieval (e.g., GET) request for a resource should be formed.
 In a hypermedia-driven application the client interacts with the server using only the hypermedia controls, instead of selecting methods and/or constructing URIs based on out-of-band information, such as API documentation.
-The Constrained RESTful Application Language (CoRAL) {{!I-D.ietf-core-coral}} provides a hypermedia-format that is suitable for constrained IoT environments.
+The Constrained RESTful Application Language (CoRAL) {{?I-D.ietf-core-coral}} provides a hypermedia-format that is suitable for constrained IoT environments.
 
 ## Motivation
 
@@ -863,7 +863,7 @@ This goes beyond retransmissions of messages;
 the origin server is usually supposed to queue all undelivered events and to retry until successful delivery or explicit cancellation.
 In HTTP, this pattern is known as REST Hooks.
 
-Methods for configuring server push and notification conditions with CoAP are provided by the CoRE Dynamic Resource Linking specification {{!I-D.ietf-core-dynlink}}.
+Methods for configuring server push and notification conditions with CoAP are provided by the CoRE Dynamic Resource Linking specification {{?I-D.ietf-core-dynlink}}.
 
 In HTTP, there exist a number of workarounds to enable server push, e.g., long polling and streaming {{RFC6202}} or server-sent events {{W3C.REC-html5-20141028}}.
 In IoT systems, long polling can introduce a considerable overhead, as the request has to be repeated for each notification.
@@ -871,6 +871,10 @@ Streaming and server-sent events (the latter is actually an evolution of the for
 However, there is only one response header and subsequent notifications can only have content.
 Individual status and metadata needs to be included in the content message.
 This reduces HTTP again to a pure transport, as its status signaling and metadata capabilities cannot be used.
+
+# IANA Considerations
+
+This document has no IANA actions.
 
 # Security Considerations {#sec-sec}
 
