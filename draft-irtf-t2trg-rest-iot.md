@@ -150,7 +150,10 @@ Research Group (T2TRG).
 
 The Representational State Transfer (REST) architectural style {{REST}} is a set of guidelines and best practices for building distributed hypermedia systems.
 At its core is a set of constraints, which when fulfilled enable desirable properties for distributed software systems such as scalability and modifiability.
-When REST principles are applied to the design of a system, the result is often called RESTful and in particular an API following these principles is called a RESTful API.
+When REST principles are applied to the design of a system, the result is often called RESTful.
+This document uses "RESTful" for systems that aim to fulfill all of the REST constraints, including the hypermedia constraint (see {{sec-uniform-interface}}).
+Many systems that are colloquially called RESTful do not fully apply the hypermedia constraint, and instead expect clients to be built against a separately published interface description.
+Where this document says "RESTful API", it refers to the uniform interface that a server exposes through its resources and hypermedia controls, rather than to a separately specified set of operations.
 
 Different protocols can be used with RESTful systems, but at the time of writing the most common protocols are HTTP {{RFC9110}} and CoAP {{RFC7252}}.
 Since RESTful APIs are often lightweight and enable loose coupling of system components, they are a good fit for various Internet of Things (IoT) applications, which in general aim at interconnecting the physical world with the virtual world.
@@ -223,7 +226,7 @@ Gateway:
 See also "Reverse Proxy".
 
 Hypermedia Control:
-: Information provided by a server on how to use its RESTful API; usually a URI and instructions on how to dereference it for a specific interaction. Hypermedia Controls are the serialized/encoded affordances of hypermedia systems.
+: Information provided by a server on how to interact with its resources; usually a URI and instructions on how to dereference it for a specific interaction. Hypermedia Controls are the serialized/encoded affordances of hypermedia systems.
 
 Idempotent Method:
 : A method where multiple identical requests with that method lead to the same visible resource state as a single such request.
@@ -418,7 +421,7 @@ For IoT systems, this constraint lowers the memory requirements for server imple
 
 ## Uniform Resource Identifiers (URIs) {#sec-uris}
 
-An important aspect of RESTful API design is to model the system as a set of resources, which potentially can be created and/or deleted dynamically and whose state can be retrieved and/or modified.
+An important aspect of RESTful system design is to model the system as a set of resources, which potentially can be created and/or deleted dynamically and whose state can be retrieved and/or modified.
 
 Uniform Resource Identifiers (URIs) are used to indicate resources for interaction, to reference a resource from another resource, to advertise or bookmark a resource, or to index a resource by search engines.
 
@@ -631,7 +634,7 @@ For IoT systems, object security {{RFC8613}} may be preferable over transport la
 
 ## Uniform Interface {#sec-uniform-interface}
 
-All RESTful APIs use the same, uniform interface independent of the application.
+All RESTful systems use the same, uniform interface independent of the application.
 This simple interaction model is enabled by exchanging representations and modifying state locally, which simplifies the interface between clients and servers to a small set of methods to retrieve, update, and delete state.
 This small set can apply to many different applications.
 
