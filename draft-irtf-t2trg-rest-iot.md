@@ -873,6 +873,7 @@ Streaming and server-sent events (the latter is actually an evolution of the for
 However, there is only one response header and subsequent notifications can only have content.
 Individual status and metadata needs to be included in the content message.
 This reduces HTTP again to a pure transport, as its status signaling and metadata capabilities cannot be used.
+Consequently, the notifications that follow the initial response are not self-describing representations, and hence not RESTful.
 
 # IANA Considerations
 
