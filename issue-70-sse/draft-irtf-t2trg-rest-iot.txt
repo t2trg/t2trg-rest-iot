@@ -1305,9 +1305,8 @@ Table of Contents
    notifications can only have content.  Individual status and metadata
    needs to be included in the content message.  This reduces HTTP again
    to a pure transport, as its status signaling and metadata
-   capabilities cannot be used.  Consequently, the notifications that
-   follow the initial response are not self-describing representations,
-   and hence not RESTful.
+   capabilities cannot be used.  Consequently, the notifications are not
+   self-describing representations, and hence not RESTful.
 
 7.  IANA Considerations
 
