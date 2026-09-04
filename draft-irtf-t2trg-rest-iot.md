@@ -366,7 +366,7 @@ Because of the Layered System constraint of REST, which says that a client canno
 {: artwork-align="center" #basic-arch-b title="Communication with Reverse Proxy"}
 
 Components in IoT systems often implement both roles.
-Unlike intermediaries, however, they can take the initiative as a client (e.g., to register with a directory, such as CoRE Resource Directory {{RFC9176}}, or to interact with another IoT device) and act as origin server at the same time (e.g., to serve sensor values or provide an actuator interface).
+Unlike intermediaries, however, they can take the initiative as a client (e.g., to register with a directory, such as the Constrained RESTful Environments (CoRE) Resource Directory {{RFC9176}}, or to interact with another IoT device) and act as origin server at the same time (e.g., to serve sensor values or provide an actuator interface).
 
 ~~~~~~~~~~~~~~~~~~~
  ________                                         _________
@@ -383,6 +383,12 @@ Unlike intermediaries, however, they can take the initiative as a client (e.g., 
              (e.g., Controller)            (e.g., Configuration Tool)
 ~~~~~~~~~~~~~~~~~~~
 {: artwork-align="center" #basic-arch-c title="Communication with Things"}
+
+That components can hold both roles at once is a large part of why REST suits constrained environments, and it is the background for the work on Constrained RESTful Environments in the IETF.
+Every Thing exposes its capabilities as resources with their own URIs, and it hands out the URIs of related resources itself, as hypermedia controls.
+A Thing can therefore be added to a system without any party having agreed in advance on a shared namespace, and two Things that were deployed independently can be linked together afterwards.
+In broker-centric designs, the participants instead agree out of band on a topic structure and on the format of the messages published under each topic, and that agreement has to be maintained as the system grows and as participants are replaced.
+The REST approach accepts somewhat higher per-message overhead in exchange for being able to grow a system incrementally without central coordination.
 
 ## System Design
 
@@ -407,6 +413,9 @@ Furthermore, clients can have part of the state of the distributed application i
 
 Resource state includes the more persistent data of an application (i.e., data that exists independent of individual clients).
 This can be static data such as device descriptions, persistent data such as system configurations, but also dynamic data such as the current value of a sensor on a Thing.
+
+The discussion here assumes that a server can have many clients, and that by default those clients affect each other through the resource state on the server rather than by interacting with each other directly.
+The split between client state and resource state therefore also decides what is visible to other clients: anything that a second client needs to observe has to be part of some resource state.
 
 In the design, it is important to distinguish between "client state" and "resource state", and keep them separate.
 Following the Stateless constraint, the client state must be kept only on clients.
