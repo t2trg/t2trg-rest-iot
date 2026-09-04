@@ -5,9 +5,9 @@
 Network Working Group                                         A. Keränen
 Internet-Draft                                                  Ericsson
 Intended status: Informational                               M. Kovatsch
-Expires: 25 February 2027                                        Siemens
+Expires: 8 March 2027                                            Siemens
                                                                K. Hartke
-                                                          24 August 2026
+                                                        4 September 2026
 
 
        Guidance on RESTful Design for Internet of Things Systems
@@ -50,7 +50,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 25 February 2027.
+   This Internet-Draft will expire on 8 March 2027.
 
 Copyright Notice
 
@@ -867,10 +867,15 @@ Table of Contents
    caching would be enough).  In IoT systems, however, it might make
    sense to cache also individual data to protect constrained devices
    and networks from frequent requests of data that does not change
-   often.  Security often hinders the ability to cache responses.  For
-   IoT systems, object security [RFC8613] may be preferable over
-   transport layer security, as it enables intermediaries to cache
-   responses while preserving security [I-D.ietf-core-cacheable-oscore].
+   often.  Security often hinders the ability to cache responses.  With
+   transport layer security, the security association terminates at
+   every intermediary, so an intermediary that is not trusted with the
+   content cannot be part of the path at all.  For IoT systems, object
+   security [RFC8613] may therefore be preferable, as it protects the
+   message end-to-end and lets an untrusted intermediary forward the
+   response.  Such a response can also be cached at the intermediary and
+   served to several clients, using the mechanism specified in
+   [I-D.ietf-core-cacheable-oscore].
 
 4.4.  Uniform Interface
 
@@ -1545,11 +1550,11 @@ Table of Contents
               href-30>.
 
    [I-D.ietf-jsonschema-json-schema]
-              Dusseault, L. M., Wright, A., and H. Andrews, "JSON
+              Dusseault, L. M., Wright, A., and H. H. Andrews, "JSON
               Schema", Work in Progress, Internet-Draft, draft-ietf-
-              jsonschema-json-schema-02, 1 July 2026,
+              jsonschema-json-schema-03, 26 August 2026,
               <https://datatracker.ietf.org/doc/html/draft-ietf-
-              jsonschema-json-schema-02>.
+              jsonschema-json-schema-03>.
 
    [IANA-CoAP-media]
               "CoAP Content-Formats", n.d.,
