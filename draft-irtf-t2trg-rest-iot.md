@@ -324,6 +324,7 @@ Origin servers govern over the resources they host and always have the server ro
 Simple IoT devices, such as connected sensors and actuators, are commonly acting as servers to expose their physical world interaction capabilities (e.g., temperature measurement or door lock control capability) as resources.
 A typical example of an IoT system client is a cloud service that retrieves data from the sensors and commands the actuators based on the sensor information.
 Alternatively an IoT data storage system could work as a server where IoT sensor devices send their data in client role.
+Multiplicity in either direction is normal: a server usually has more than one client, and a client usually uses more than one server.
 
 ~~~~~~~~~~~~~~~~~~~
    ________                       _________
@@ -369,7 +370,7 @@ Because of the Layered System constraint of REST, which says that a client canno
 {: artwork-align="center" #basic-arch-b title="Communication with Reverse Proxy"}
 
 Components in IoT systems often implement both roles.
-Unlike intermediaries, however, they can take the initiative as a client (e.g., to register with a directory, such as CoRE Resource Directory {{RFC9176}}, or to interact with another IoT device) and act as origin server at the same time (e.g., to serve sensor values or provide an actuator interface).
+Unlike intermediaries, however, they can take the initiative as a client (e.g., to register with a directory, such as the Constrained RESTful Environments (CoRE) Resource Directory {{RFC9176}}, or to interact with another IoT device) and act as origin server at the same time (e.g., to serve sensor values or provide an actuator interface).
 
 ~~~~~~~~~~~~~~~~~~~
  ________                                         _________
@@ -386,6 +387,11 @@ Unlike intermediaries, however, they can take the initiative as a client (e.g., 
              (e.g., Controller)            (e.g., Configuration Tool)
 ~~~~~~~~~~~~~~~~~~~
 {: artwork-align="center" #basic-arch-c title="Communication with Things"}
+
+That components can hold both roles at once is a large part of why REST suits constrained environments, and it is the background for the work on Constrained RESTful Environments in the IETF.
+Every Thing exposes its capabilities as resources with their own URIs, and it hands out the URIs of related resources itself, as hypermedia controls.
+A Thing can therefore be added to a system without any party having agreed in advance on a shared namespace, and two Things that were deployed independently can be linked together afterwards.
+The REST approach accepts somewhat higher per-message overhead in exchange for being able to grow a system incrementally, without the central coordination that, e.g., a broker-centric design requires.
 
 ## System Design
 
@@ -410,6 +416,7 @@ Furthermore, clients can have part of the state of the distributed application i
 
 Resource state includes the more persistent data of an application (i.e., data that exists independent of individual clients).
 This can be static data such as device descriptions, persistent data such as system configurations, but also dynamic data such as the current value of a sensor on a Thing.
+
 
 In the design, it is important to distinguish between "client state" and "resource state", and keep them separate.
 Following the Stateless constraint, the client state must be kept only on clients.
