@@ -688,6 +688,12 @@ A layered system is easier to modify, as topology changes become transparent (i.
 This in turn helps scalability, as reverse proxies such as load balancers can be introduced without changing the client side.
 The clean separation of concerns in layers helps with simplicity.
 
+What makes this possible is that the addressed resource and the requested operation are visible in the URI and the method, ahead of any content, so an intermediary can act on a request without parsing it.
+In an RPC style interaction (see {{sec-uniform-interface}}) the target is carried in the content instead, for example as a procedure name in an envelope sent to a single endpoint, which makes requests for different targets indistinguishable to an intermediary.
+Dispatching them then requires parsing application content, and a generic cache cannot serve the responses.
+This is worse for long-lived connections carrying many operations, where one routing decision has to serve the whole connection.
+How much this costs depends on the deployment, but it becomes a design constraint as soon as there are several layers of intermediaries.
+
 IoT systems greatly benefit from this constraint, as it allows to effectively shield constrained devices behind intermediaries.
 It is also the basis for gateways, which are used to integrate other (IoT) ecosystems.
 
