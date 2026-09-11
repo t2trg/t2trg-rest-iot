@@ -361,7 +361,9 @@ Table of Contents
    is a cloud service that retrieves data from the sensors and commands
    the actuators based on the sensor information.  Alternatively an IoT
    data storage system could work as a server where IoT sensor devices
-   send their data in client role.
+   send their data in client role.  Multiplicity in either direction is
+   normal: a server usually has more than one client, and a client
+   usually uses more than one server.
 
                 ________                       _________
                |        |                     |         |
@@ -448,8 +450,8 @@ Table of Contents
    party having agreed in advance on a shared namespace, and two Things
    that were deployed independently can be linked together afterwards.
    The REST approach accepts somewhat higher per-message overhead in
-   exchange for being able to grow a system incrementally without
-   central coordination (e.g., like in a broker-centric design).
+   exchange for being able to grow a system incrementally, without the
+   central coordination that, e.g., a broker-centric design requires.
 
 3.2.  System Design
 

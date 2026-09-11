@@ -1569,7 +1569,8 @@ Classic user agents (e.g., Web browsers) are always in the client role and have 
 Origin servers govern over the resources they host and always have the server role, in which they wait for requests.<a href="#section-3.1-1" class="pilcrow">¶</a></p>
 <p id="section-3.1-2">Simple IoT devices, such as connected sensors and actuators, are commonly acting as servers to expose their physical world interaction capabilities (e.g., temperature measurement or door lock control capability) as resources.
 A typical example of an IoT system client is a cloud service that retrieves data from the sensors and commands the actuators based on the sensor information.
-Alternatively an IoT data storage system could work as a server where IoT sensor devices send their data in client role.<a href="#section-3.1-2" class="pilcrow">¶</a></p>
+Alternatively an IoT data storage system could work as a server where IoT sensor devices send their data in client role.
+Multiplicity in either direction is normal: a server usually has more than one client, and a client usually uses more than one server.<a href="#section-3.1-2" class="pilcrow">¶</a></p>
 <span id="name-client-server-communication"></span><div id="basic-arch-x">
 <figure id="figure-1">
           <div class="alignCenter art-text artwork" id="section-3.1-3.1">
@@ -1655,7 +1656,7 @@ Unlike intermediaries, however, they can take the initiative as a client (e.g., 
 <p id="section-3.1-11">That components can hold both roles at once is a large part of why REST suits constrained environments, and it is the background for the work on Constrained RESTful Environments in the IETF.
 Every Thing exposes its capabilities as resources with their own URIs, and it hands out the URIs of related resources itself, as hypermedia controls.
 A Thing can therefore be added to a system without any party having agreed in advance on a shared namespace, and two Things that were deployed independently can be linked together afterwards.
-The REST approach accepts somewhat higher per-message overhead in exchange for being able to grow a system incrementally without central coordination (e.g., like in a broker-centric design).<a href="#section-3.1-11" class="pilcrow">¶</a></p>
+The REST approach accepts somewhat higher per-message overhead in exchange for being able to grow a system incrementally, without the central coordination that, e.g., a broker-centric design requires.<a href="#section-3.1-11" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="system-design">
