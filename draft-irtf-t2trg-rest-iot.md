@@ -414,8 +414,6 @@ Furthermore, clients can have part of the state of the distributed application i
 Resource state includes the more persistent data of an application (i.e., data that exists independent of individual clients).
 This can be static data such as device descriptions, persistent data such as system configurations, but also dynamic data such as the current value of a sensor on a Thing.
 
-The discussion here assumes that a server can have many clients, and that by default those clients affect each other through the resource state on the server rather than by interacting with each other directly.
-The split between client state and resource state therefore also decides what is visible to other clients: anything that a second client needs to observe has to be part of some resource state.
 
 In the design, it is important to distinguish between "client state" and "resource state", and keep them separate.
 Following the Stateless constraint, the client state must be kept only on clients.
