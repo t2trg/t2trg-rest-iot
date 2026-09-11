@@ -5,9 +5,9 @@
 Network Working Group                                         A. Keränen
 Internet-Draft                                                  Ericsson
 Intended status: Informational                               M. Kovatsch
-Expires: 8 March 2027                                            Siemens
+Expires: 15 March 2027                                           Siemens
                                                                K. Hartke
-                                                        4 September 2026
+                                                       11 September 2026
 
 
        Guidance on RESTful Design for Internet of Things Systems
@@ -50,7 +50,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 8 March 2027.
+   This Internet-Draft will expire on 15 March 2027.
 
 Copyright Notice
 
@@ -505,14 +505,6 @@ Table of Contents
    be static data such as device descriptions, persistent data such as
    system configurations, but also dynamic data such as the current
    value of a sensor on a Thing.
-
-   The discussion here assumes that a server can have many clients, and
-   that by default those clients affect each other through the resource
-   state on the server rather than by interacting with each other
-   directly.  The split between client state and resource state
-   therefore also decides what is visible to other clients: anything
-   that a second client needs to observe has to be part of some resource
-   state.
 
    In the design, it is important to distinguish between "client state"
    and "resource state", and keep them separate.  Following the
