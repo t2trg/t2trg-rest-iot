@@ -387,8 +387,7 @@ Unlike intermediaries, however, they can take the initiative as a client (e.g., 
 That components can hold both roles at once is a large part of why REST suits constrained environments, and it is the background for the work on Constrained RESTful Environments in the IETF.
 Every Thing exposes its capabilities as resources with their own URIs, and it hands out the URIs of related resources itself, as hypermedia controls.
 A Thing can therefore be added to a system without any party having agreed in advance on a shared namespace, and two Things that were deployed independently can be linked together afterwards.
-In broker-centric designs, the participants instead agree out of band on a topic structure and on the format of the messages published under each topic, and that agreement has to be maintained as the system grows and as participants are replaced.
-The REST approach accepts somewhat higher per-message overhead in exchange for being able to grow a system incrementally without central coordination.
+The REST approach accepts somewhat higher per-message overhead in exchange for being able to grow a system incrementally without central coordination (e.g., like in a broker-centric design).
 
 ## System Design
 
