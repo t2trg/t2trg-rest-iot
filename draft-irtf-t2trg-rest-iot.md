@@ -321,6 +321,7 @@ Origin servers govern over the resources they host and always have the server ro
 Simple IoT devices, such as connected sensors and actuators, are commonly acting as servers to expose their physical world interaction capabilities (e.g., temperature measurement or door lock control capability) as resources.
 A typical example of an IoT system client is a cloud service that retrieves data from the sensors and commands the actuators based on the sensor information.
 Alternatively an IoT data storage system could work as a server where IoT sensor devices send their data in client role.
+Multiplicity in either direction is normal: a server usually has more than one client, and a client usually uses more than one server.
 
 ~~~~~~~~~~~~~~~~~~~
    ________                       _________
