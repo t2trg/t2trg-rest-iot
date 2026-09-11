@@ -5,9 +5,9 @@
 Network Working Group                                         A. Keränen
 Internet-Draft                                                  Ericsson
 Intended status: Informational                               M. Kovatsch
-Expires: 8 March 2027                                            Siemens
+Expires: 15 March 2027                                           Siemens
                                                                K. Hartke
-                                                        4 September 2026
+                                                       11 September 2026
 
 
        Guidance on RESTful Design for Internet of Things Systems
@@ -50,7 +50,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 8 March 2027.
+   This Internet-Draft will expire on 15 March 2027.
 
 Copyright Notice
 
@@ -368,7 +368,9 @@ Table of Contents
    is a cloud service that retrieves data from the sensors and commands
    the actuators based on the sensor information.  Alternatively an IoT
    data storage system could work as a server where IoT sensor devices
-   send their data in client role.
+   send their data in client role.  Multiplicity in either direction is
+   normal: a server usually has more than one client, and a client
+   usually uses more than one server.
 
                 ________                       _________
                |        |                     |         |
@@ -426,10 +428,10 @@ Table of Contents
 
    Components in IoT systems often implement both roles.  Unlike
    intermediaries, however, they can take the initiative as a client
-   (e.g., to register with a directory, such as CoRE Resource Directory
-   [RFC9176], or to interact with another IoT device) and act as origin
-   server at the same time (e.g., to serve sensor values or provide an
-   actuator interface).
+   (e.g., to register with a directory, such as the Constrained RESTful
+   Environments (CoRE) Resource Directory [RFC9176], or to interact with
+   another IoT device) and act as origin server at the same time (e.g.,
+   to serve sensor values or provide an actuator interface).
 
     ________                                         _________
    |        |                                       |         |
@@ -445,6 +447,18 @@ Table of Contents
                 (e.g., Controller)            (e.g., Configuration Tool)
 
                     Figure 4: Communication with Things
+
+   That components can hold both roles at once is a large part of why
+   REST suits constrained environments, and it is the background for the
+   work on Constrained RESTful Environments in the IETF.  Every Thing
+   exposes its capabilities as resources with their own URIs, and it
+   hands out the URIs of related resources itself, as hypermedia
+   controls.  A Thing can therefore be added to a system without any
+   party having agreed in advance on a shared namespace, and two Things
+   that were deployed independently can be linked together afterwards.
+   The REST approach accepts somewhat higher per-message overhead in
+   exchange for being able to grow a system incrementally, without the
+   central coordination that, e.g., a broker-centric design requires.
 
 3.2.  System Design
 
