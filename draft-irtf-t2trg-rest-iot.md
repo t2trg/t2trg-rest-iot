@@ -618,6 +618,8 @@ This allows to strictly separate the client state from the resource state.
 
 This improves scalability and reliability, since servers or worker threads can be replicated.
 It also improves visibility because message traces contain all the information to understand the logged interactions.
+Requests can also be routed individually, as an intermediary finds everything it needs in the request itself.
+In contrast, with sessions, a routing decision is either made once at the start and then serves every request that follows, or it has to evaluate the history of requests.
 Furthermore, the Stateless constraint enables caching.
 
 For IoT, the scaling properties of REST become particularly important.
@@ -687,6 +689,11 @@ This constraint enforces that a client cannot see beyond the server with which i
 A layered system is easier to modify, as topology changes become transparent (i.e., remain unnoticed by previous layers).
 This in turn helps scalability, as reverse proxies such as load balancers can be introduced without changing the client side.
 The clean separation of concerns in layers helps with simplicity.
+
+What makes this possible is that the addressed resource and the requested operation are visible in the URI and the method, ahead of any content, so an intermediary can act on a request without parsing it.
+In an RPC style interaction (see {{sec-uniform-interface}}) the target is carried in the content instead, for example as a procedure name in an envelope sent to a single endpoint, which makes requests for different targets indistinguishable to an intermediary.
+Dispatching them then requires parsing application content, and a generic cache cannot serve the responses.
+How much this costs depends on the deployment, but it becomes a design constraint as soon as there are several layers of intermediaries.
 
 IoT systems greatly benefit from this constraint, as it allows to effectively shield constrained devices behind intermediaries.
 It is also the basis for gateways, which are used to integrate other (IoT) ecosystems.
