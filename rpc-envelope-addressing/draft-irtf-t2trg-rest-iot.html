@@ -1937,9 +1937,9 @@ They must contain all the information to process it, independent from previous m
 This allows to strictly separate the client state from the resource state.<a href="#section-4.2-1" class="pilcrow">¶</a></p>
 <p id="section-4.2-2">This improves scalability and reliability, since servers or worker threads can be replicated.
 It also improves visibility because message traces contain all the information to understand the logged interactions.
-Furthermore, the Stateless constraint enables caching.
-Self-contained requests can also be routed individually, unlike operations multiplexed over one long-lived connection, where a single routing decision serves them all.
-In such a case, interpreting an individual message requires knowing all the session history.<a href="#section-4.2-2" class="pilcrow">¶</a></p>
+Requests can also be routed individually, as an intermediary finds everything it needs in the request itself.
+In contrast, with sessions, a routing decision is either made once at the start and then serves every request that follows, or it has to evaluate the history of requests.
+Furthermore, the Stateless constraint enables caching.<a href="#section-4.2-2" class="pilcrow">¶</a></p>
 <p id="section-4.2-3">For IoT, the scaling properties of REST become particularly important.
 Note that being self-contained does not necessarily mean that all information has to be inlined.
 Constrained IoT devices may choose to externalize metadata and hypermedia controls using Web linking, so that only the dynamic content needs to be sent and the static content such as schemas or controls can be cached.<a href="#section-4.2-3" class="pilcrow">¶</a></p>
