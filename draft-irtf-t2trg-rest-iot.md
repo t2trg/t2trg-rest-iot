@@ -619,7 +619,8 @@ This allows to strictly separate the client state from the resource state.
 This improves scalability and reliability, since servers or worker threads can be replicated.
 It also improves visibility because message traces contain all the information to understand the logged interactions.
 Furthermore, the Stateless constraint enables caching.
-Where many operations are carried over one long-lived connection instead, requests are no longer independent, and a single routing decision has to serve the whole connection.
+Self-contained requests can also be routed individually, unlike operations multiplexed over one long-lived connection, where a single routing decision serves them all.
+In such a case, interpreting an individual message requires knowing all the session history.
 
 For IoT, the scaling properties of REST become particularly important.
 Note that being self-contained does not necessarily mean that all information has to be inlined.
