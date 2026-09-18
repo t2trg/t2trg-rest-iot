@@ -619,6 +619,7 @@ This allows to strictly separate the client state from the resource state.
 This improves scalability and reliability, since servers or worker threads can be replicated.
 It also improves visibility because message traces contain all the information to understand the logged interactions.
 Furthermore, the Stateless constraint enables caching.
+Where many operations are carried over one long-lived connection instead, requests are no longer independent, and a single routing decision has to serve the whole connection.
 
 For IoT, the scaling properties of REST become particularly important.
 Note that being self-contained does not necessarily mean that all information has to be inlined.
@@ -691,7 +692,6 @@ The clean separation of concerns in layers helps with simplicity.
 What makes this possible is that the addressed resource and the requested operation are visible in the URI and the method, ahead of any content, so an intermediary can act on a request without parsing it.
 In an RPC style interaction (see {{sec-uniform-interface}}) the target is carried in the content instead, for example as a procedure name in an envelope sent to a single endpoint, which makes requests for different targets indistinguishable to an intermediary.
 Dispatching them then requires parsing application content, and a generic cache cannot serve the responses.
-This is worse for long-lived connections carrying many operations, where one routing decision has to serve the whole connection.
 How much this costs depends on the deployment, but it becomes a design constraint as soon as there are several layers of intermediaries.
 
 IoT systems greatly benefit from this constraint, as it allows to effectively shield constrained devices behind intermediaries.
