@@ -506,6 +506,10 @@ For example, the PUT method replaces the state of a resource with a new state; r
 However, responses from the server can be different when the same idempotent method is used multiple times.
 For example when DELETE is used twice on an existing resource, the first request would remove the association and return a success acknowledgement, whereas the second request would likely result in an error response due to non-existing resource (note that neither response is a representation of the resource).
 
+These properties are the main criteria for choosing a method.
+Choosing a method that is neither safe nor idempotent, for example POST, gives up all of the guarantees: its responses cannot be served from a cache, an intermediary has to assume that resource state changed, and a client whose response was lost cannot tell whether its request was applied.
+Idempotency matters most in constrained deployments, where a client on a lossy network can repeat a request rather than either side keeping per-request state to recognize the duplicate.
+
 The following lists the most relevant methods and gives a short explanation of their semantics.
 
 ### GET
