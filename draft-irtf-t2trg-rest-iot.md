@@ -757,13 +757,19 @@ A hypermedia-driven application typically uses the following identifiers:
 
 The knowledge about these identifiers as well as matching implementations have to be shared a priori in a RESTful system.
 
+Whether a particular interaction is supported, for example whether a resource accepts FETCH or iPATCH with a given representation format, is learned in one of three ways: agreed out of band as a property of the system or of a profile it follows, attempted and inferred from the error such as CoAP 4.05 (Method Not Allowed) or 4.15 (Unsupported Content-Format), or advertised by the server through resource and interface descriptions {{RFC6690}} or through forms.
+Only the last lets clients and servers evolve independently, which is why forms matter alongside links.
+
 ## Interaction
 
 A client begins interacting with an application through a GET request on an entry point URI.
 The entry point URI is the only URI a client is expected to know before interacting with an application.
 From there, the client is expected to make all requests by following links and submitting forms that are provided in previous responses.
+Where a human finds an entry point through a search engine or a memorable domain name, neither works well for a machine client: generic search engines are not usable by constrained devices, and a domain name a person recognizes carries no semantics a client can act on.
+Discovery for IoT therefore relies on directories with machine-readable metadata rather than on search.
 The entry point URI can be obtained, for example, by manual configuration or some discovery process (e.g., DNS-SD {{RFC6763}} or Resource Directory {{RFC9176}}).
 For Constrained RESTful environments "/.well-known/core", a relative URI is defined as a default entry point for requesting the links hosted by servers with known or discovered addresses {{RFC6690}}.
+Where the addresses are not known in advance, a client on a network that supports IP multicast can send the same request to a multicast address to find servers within that scope ({{Section 1.2.1 of RFC6690}}).
 
 ## Hypermedia-driven Design Guidance
 
