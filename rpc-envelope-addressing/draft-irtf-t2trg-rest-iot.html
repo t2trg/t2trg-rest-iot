@@ -14,22 +14,22 @@ that follow the principles of the Representational State Transfer (REST)
 architectural style. This document is a product of the IRTF Thing-to-Thing
 Research Group (T2TRG). 
     " name="description">
-<meta content="xml2rfc 3.34.0" name="generator">
+<meta content="xml2rfc 3.34.1" name="generator">
 <meta content="draft-irtf-t2trg-rest-iot-latest" name="ietf.draft">
 <!-- Generator version information:
-  xml2rfc 3.34.0
+  xml2rfc 3.34.1
     Python 3.14.7
-    ConfigArgParse 1.7.5
+    ConfigArgParse 1.7.7
     google-i18n-address 3.1.1
     intervaltree 3.2.1
     Jinja2 3.1.6
     lxml 6.1.1
     natsort 8.4.0
-    platformdirs 4.11.7
+    platformdirs 4.11.10
     pycountry 24.6.1
     PyYAML 6.0.3
     requests 2.33.1
-    wcwidth 0.8.3
+    wcwidth 0.8.4
 -->
 <link href="draft-irtf-t2trg-rest-iot.xml" rel="alternate" type="application/rfc+xml">
 <link href="#copyright" rel="license">
@@ -1049,7 +1049,7 @@ svg {
 </tr></thead>
 <tfoot><tr>
 <td class="left">Keränen, et al.</td>
-<td class="center">Expires 15 March 2027</td>
+<td class="center">Expires 22 March 2027</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1062,12 +1062,12 @@ svg {
 <dd class="internet-draft">draft-irtf-t2trg-rest-iot-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2026-09-11" class="published">11 September 2026</time>
+<time datetime="2026-09-18" class="published">18 September 2026</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Informational</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2027-03-15">15 March 2027</time></dd>
+<dd class="expires"><time datetime="2027-03-22">22 March 2027</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1126,7 +1126,7 @@ Research Group (T2TRG).<a href="#section-abstract-1" class="pilcrow">¶</a></p>
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 15 March 2027.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 22 March 2027.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1730,7 +1730,7 @@ Whether the order of the query parameters matters in URIs is up to the server im
 Therefore, applications should not rely on their order; see <span><a href="https://rfc-editor.org/rfc/rfc6943#section-3.3.4" class="relref">Section 3.3.4</a> of [<a href="#RFC6943" class="cite xref">RFC6943</a>]</span> for more details.<a href="#section-3.3-7" class="pilcrow">¶</a></p>
 <p id="section-3.3-8">When using HTTP, care must be taken with values that contain characters with special meaning in URI paths, such as "/" in JSON Pointers <span>[<a href="#RFC6901" class="cite xref">RFC6901</a>]</span>.
 Such characters require percent-encoding when used in path segments (e.g., "/" as "%2F"), but many HTTP servers and intermediaries handle these inconsistently, which can cause interoperability issues and security vulnerabilities.
-Placing such values in query parameters instead of path segments may help avoid these problems; see <span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-asdf-nipc-21#section-2.6.3" class="relref">Section 2.6.3</a> of [<a href="#I-D.ietf-asdf-nipc" class="cite xref">I-D.ietf-asdf-nipc</a>]</span> for further discussion.
+Placing such values in query parameters instead of path segments may help avoid these problems; see <span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-asdf-nipc-22#section-2.6.3" class="relref">Section 2.6.3</a> of [<a href="#I-D.ietf-asdf-nipc" class="cite xref">I-D.ietf-asdf-nipc</a>]</span> for further discussion.
 Note that this issue does not affect CoAP, as its wire format carries path segments as separate options without percent-encoding.<a href="#section-3.3-8" class="pilcrow">¶</a></p>
 <p id="section-3.3-9">Due to the relatively complex processing rules and text representation format, URI handling can be difficult to implement correctly in constrained devices.
 Constrained Resource Identifiers <span>[<a href="#I-D.ietf-core-href" class="cite xref">I-D.ietf-core-href</a>]</span> provide a CBOR-based format of URIs that is better suited for resource constrained devices.<a href="#section-3.3-9" class="pilcrow">¶</a></p>
@@ -1937,7 +1937,8 @@ They must contain all the information to process it, independent from previous m
 This allows to strictly separate the client state from the resource state.<a href="#section-4.2-1" class="pilcrow">¶</a></p>
 <p id="section-4.2-2">This improves scalability and reliability, since servers or worker threads can be replicated.
 It also improves visibility because message traces contain all the information to understand the logged interactions.
-Furthermore, the Stateless constraint enables caching.<a href="#section-4.2-2" class="pilcrow">¶</a></p>
+Furthermore, the Stateless constraint enables caching.
+Where many operations are carried over one long-lived connection instead, requests are no longer independent, and a single routing decision has to serve the whole connection.<a href="#section-4.2-2" class="pilcrow">¶</a></p>
 <p id="section-4.2-3">For IoT, the scaling properties of REST become particularly important.
 Note that being self-contained does not necessarily mean that all information has to be inlined.
 Constrained IoT devices may choose to externalize metadata and hypermedia controls using Web linking, so that only the dynamic content needs to be sent and the static content such as schemas or controls can be cached.<a href="#section-4.2-3" class="pilcrow">¶</a></p>
@@ -2021,7 +2022,6 @@ The clean separation of concerns in layers helps with simplicity.<a href="#secti
 <p id="section-4.5-3">What makes this possible is that the addressed resource and the requested operation are visible in the URI and the method, ahead of any content, so an intermediary can act on a request without parsing it.
 In an RPC style interaction (see <a href="#sec-uniform-interface" class="auto internal xref">Section 4.4</a>) the target is carried in the content instead, for example as a procedure name in an envelope sent to a single endpoint, which makes requests for different targets indistinguishable to an intermediary.
 Dispatching them then requires parsing application content, and a generic cache cannot serve the responses.
-This is worse for long-lived connections carrying many operations, where one routing decision has to serve the whole connection.
 How much this costs depends on the deployment, but it becomes a design constraint as soon as there are several layers of intermediaries.<a href="#section-4.5-3" class="pilcrow">¶</a></p>
 <p id="section-4.5-4">IoT systems greatly benefit from this constraint, as it allows to effectively shield constrained devices behind intermediaries.
 It is also the basis for gateways, which are used to integrate other (IoT) ecosystems.<a href="#section-4.5-4" class="pilcrow">¶</a></p>
@@ -2479,7 +2479,7 @@ First finalized specifications include:<a href="#section-8-3" class="pilcrow">¶
 <dd class="break"></dd>
 <dt id="I-D.ietf-asdf-nipc">[I-D.ietf-asdf-nipc]</dt>
         <dd>
-<span class="refAuthor">Brinckman, B.</span>, <span class="refAuthor">Mohan, R.</span>, and <span class="refAuthor">B. Sanford</span>, <span class="refTitle">"An Application Layer Interface for Non-Internet-connected Physical Components (NIPC)"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-asdf-nipc-21</span>, <time datetime="2026-08-11" class="refDate">11 August 2026</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-asdf-nipc-21">https://datatracker.ietf.org/doc/html/draft-ietf-asdf-nipc-21</a>&gt;</span>. </dd>
+<span class="refAuthor">Brinckman, B.</span>, <span class="refAuthor">Mohan, R.</span>, and <span class="refAuthor">B. Sanford</span>, <span class="refTitle">"An Application Layer Interface for Non-Internet-connected Physical Components (NIPC)"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-asdf-nipc-22</span>, <time datetime="2026-09-15" class="refDate">15 September 2026</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-asdf-nipc-22">https://datatracker.ietf.org/doc/html/draft-ietf-asdf-nipc-22</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="I-D.ietf-core-cacheable-oscore">[I-D.ietf-core-cacheable-oscore]</dt>
         <dd>
