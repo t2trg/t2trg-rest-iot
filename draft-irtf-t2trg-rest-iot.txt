@@ -5,9 +5,9 @@
 Network Working Group                                         A. Keränen
 Internet-Draft                                                  Ericsson
 Intended status: Informational                               M. Kovatsch
-Expires: 15 March 2027                                           Siemens
+Expires: 22 March 2027                                           Siemens
                                                                K. Hartke
-                                                       11 September 2026
+                                                       18 September 2026
 
 
        Guidance on RESTful Design for Internet of Things Systems
@@ -50,7 +50,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 15 March 2027.
+   This Internet-Draft will expire on 22 March 2027.
 
 Copyright Notice
 
@@ -858,7 +858,12 @@ Table of Contents
    This improves scalability and reliability, since servers or worker
    threads can be replicated.  It also improves visibility because
    message traces contain all the information to understand the logged
-   interactions.  Furthermore, the Stateless constraint enables caching.
+   interactions.  Requests can also be routed individually, as an
+   intermediary finds everything it needs in the request itself.  In
+   contrast, with sessions, a routing decision is either made once at
+   the start and then serves every request that follows, or it has to
+   evaluate the history of requests.  Furthermore, the Stateless
+   constraint enables caching.
 
    For IoT, the scaling properties of REST become particularly
    important.  Note that being self-contained does not necessarily mean
@@ -973,6 +978,18 @@ Table of Contents
    turn helps scalability, as reverse proxies such as load balancers can
    be introduced without changing the client side.  The clean separation
    of concerns in layers helps with simplicity.
+
+   What makes this possible is that the addressed resource and the
+   requested operation are visible in the URI and the method, ahead of
+   any content, so an intermediary can act on a request without parsing
+   it.  In an RPC style interaction (see Section 4.4) the target is
+   carried in the content instead, for example as a procedure name in an
+   envelope sent to a single endpoint, which makes requests for
+   different targets indistinguishable to an intermediary.  Dispatching
+   them then requires parsing application content, and a generic cache
+   cannot serve the responses.  How much this costs depends on the
+   deployment, but it becomes a design constraint as soon as there are
+   several layers of intermediaries.
 
    IoT systems greatly benefit from this constraint, as it allows to
    effectively shield constrained devices behind intermediaries.  It is
@@ -1529,9 +1546,9 @@ Table of Contents
               Brinckman, B., Mohan, R., and B. Sanford, "An Application
               Layer Interface for Non-Internet-connected Physical
               Components (NIPC)", Work in Progress, Internet-Draft,
-              draft-ietf-asdf-nipc-21, 11 August 2026,
+              draft-ietf-asdf-nipc-22, 15 September 2026,
               <https://datatracker.ietf.org/doc/html/draft-ietf-asdf-
-              nipc-21>.
+              nipc-22>.
 
    [I-D.ietf-core-cacheable-oscore]
               Amsüss, C. and M. Tiloca, "End-to-End Protected and
