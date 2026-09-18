@@ -461,6 +461,10 @@ For example, a GET request may use query parameters to request the server to sen
 Query parameters in PUT and POST requests do not have such established semantics and are not used consistently.
 Whether the order of the query parameters matters in URIs is up to the server implementation; they might even be re-ordered, for instance by intermediaries.
 Therefore, applications should not rely on their order; see {{Section 3.3.4 of ?RFC6943}} for more details.
+Beyond the syntax in {{RFC3986}}, there is no generic specification for how the query component is structured: the "name=value" convention comes from HTML form submission and is not uniformly implemented, for instance for a name that occurs more than once, so a server has to specify the format it accepts.
+CoAP carries each query parameter as a separate Uri-Query Option, which avoids the splitting ambiguity ({{Section 6.4 of RFC7252}}).
+
+For large, binary, or structured parameters, carrying them in the request content with FETCH or QUERY (see {{sec-methods}}) is usually a better fit, at the cost of addressability, since a URI with a query component can be stored and passed on as a reference to the parameterized result.
 
 When using HTTP, care must be taken with values that contain characters with special meaning in URI paths, such as "/" in JSON Pointers {{RFC6901}}.
 Such characters require percent-encoding when used in path segments (e.g., "/" as "%2F"), but many HTTP servers and intermediaries handle these inconsistently, which can cause interoperability issues and security vulnerabilities.
